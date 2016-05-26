@@ -1,34 +1,34 @@
 0 info it worked if it ends with ok
 1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'start' ]
-2 info using npm@3.9.0
-3 info using node@v6.0.0
+2 info using npm@3.6.0
+3 info using node@v5.7.0
 4 verbose run-script [ 'prestart', 'start', 'poststart' ]
 5 info lifecycle auctionapp@1.0.0~prestart: auctionapp@1.0.0
 6 silly lifecycle auctionapp@1.0.0~prestart: no script for prestart, continuing
 7 info lifecycle auctionapp@1.0.0~start: auctionapp@1.0.0
 8 verbose lifecycle auctionapp@1.0.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle auctionapp@1.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/chrisng/coding/hackreactor/auctionapp/node_modules/.bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
-10 verbose lifecycle auctionapp@1.0.0~start: CWD: /Users/chrisng/coding/hackreactor/auctionapp
+9 verbose lifecycle auctionapp@1.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/willtang/Desktop/HackReactor/auctionapp/node_modules/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+10 verbose lifecycle auctionapp@1.0.0~start: CWD: /Users/willtang/Desktop/HackReactor/auctionapp
 11 silly lifecycle auctionapp@1.0.0~start: Args: [ '-c',
 11 silly lifecycle   'babel --watch client --out-dir public --presets=es2015,react --ignore=node_modules, compiled,server --source-maps inline' ]
 12 silly lifecycle auctionapp@1.0.0~start: Returned: code: 2  signal: null
 13 info lifecycle auctionapp@1.0.0~start: Failed to exec start script
 14 verbose stack Error: auctionapp@1.0.0 start: `babel --watch client --out-dir public --presets=es2015,react --ignore=node_modules, compiled,server --source-maps inline`
 14 verbose stack Exit status 2
-14 verbose stack     at EventEmitter.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/lifecycle.js:245:16)
-14 verbose stack     at emitTwo (events.js:106:13)
-14 verbose stack     at EventEmitter.emit (events.js:191:7)
+14 verbose stack     at EventEmitter.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/lifecycle.js:232:16)
+14 verbose stack     at emitTwo (events.js:100:13)
+14 verbose stack     at EventEmitter.emit (events.js:185:7)
 14 verbose stack     at ChildProcess.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/spawn.js:24:14)
-14 verbose stack     at emitTwo (events.js:106:13)
-14 verbose stack     at ChildProcess.emit (events.js:191:7)
-14 verbose stack     at maybeClose (internal/child_process.js:850:16)
-14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:215:5)
+14 verbose stack     at emitTwo (events.js:100:13)
+14 verbose stack     at ChildProcess.emit (events.js:185:7)
+14 verbose stack     at maybeClose (internal/child_process.js:827:16)
+14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
 15 verbose pkgid auctionapp@1.0.0
-16 verbose cwd /Users/chrisng/coding/hackreactor/auctionapp
-17 error Darwin 15.0.0
+16 verbose cwd /Users/willtang/Desktop/HackReactor/auctionapp
+17 error Darwin 15.3.0
 18 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "start"
-19 error node v6.0.0
-20 error npm  v3.9.0
+19 error node v5.7.0
+20 error npm  v3.6.0
 21 error code ELIFECYCLE
 22 error auctionapp@1.0.0 start: `babel --watch client --out-dir public --presets=es2015,react --ignore=node_modules, compiled,server --source-maps inline`
 22 error Exit status 2
