@@ -4,7 +4,7 @@
   "description": "a simple auction app",
   "main": "index.html",
   "scripts": {
-    "start": "babel --watch client --out-dir public --presets=es2015,react --ignore=node_modules,compiled,server --source-maps inline",
+    "start": "babel --watch client --out-dir public --presets=es2015,react --ignore=node_modules, --source-maps inline",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -49,6 +49,7 @@
   },
   "devDependencies": {
     "redux-devtools": "^3.3.1",
-    "webpack": "^1.13.1"
+    "webpack": "^1.13.1",
+    "babel-preset-react": "^6.5.0"
   }
 }

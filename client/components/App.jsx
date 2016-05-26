@@ -4,7 +4,7 @@ import FacebookButton from './FacebookButton.jsx';
 import Signin from './Signin.jsx';
 import SellItem from './SellItem.jsx'
 
-class App extends Component {
+export default class App extends Component {
   componentDidMount() {
   }
   render() {
@@ -19,4 +19,3 @@ class App extends Component {
   }
 }
 
-module.exports = App;

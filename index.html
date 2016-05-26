@@ -3,7 +3,7 @@
 <head>
   <meta charset='utf-8'>
   <title>(insert title here)</title>
-  <link rel='stylesheet' href='node_modules/bootstrap/dist/css/bootstrap.min.css'>
+  <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
   <link rel='stylesheet' href='styles/style.css'>
   <script src='node_modules/jquery/dist/jquery.js'></script>
   <script src='node_modules/react/dist/react.js'></script>
@@ -11,10 +11,12 @@
   <script src='node_modules/lodash/lodash.js'></script>
 </head>
 <body>
+  <div id="fb-root"></div>
+  <div id='facebook-login'></div>
   <div id='app'></div>
-  <script>
   <!--insert compiled components here-->
-  <script src='compiled/client/components/App.js'></script>
-  <script src='compiled/client/index.js'></script>
+  <script type="text/javascript" src="http://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=986622341380400"></script>
+  <script type="text/javascript" src='public/components/FacebookButton.js'></script>
+  <script type="text/javascript" src='public/index.js'></script>
 </body>
 </html>
