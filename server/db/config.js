@@ -34,6 +34,7 @@ db.knex.schema.hasTable('items').then(function(exists) {
       item.integer('seller_id');
       item.string('description', 255);
       item.integer('currentBid');
+      // visits?
       item.string('picture', 255);
       item.string('created_at', 255);
       item.string('end_at', 255);
