@@ -1,8 +1,8 @@
 var webpack = require('webpack');
 
 var config = {
-  context: __dirname + '/client/components',
-  entry: "./MessageBox.jsx",
+  context: __dirname + '/client',
+  entry: "./index.js",
 
   output: {
     filename: "bundle.js",
@@ -11,7 +11,7 @@ var config = {
   module: {
     loaders: [
       {
-        test: /.jsx$/,
+        test: /.js$|.jsx$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
@@ -20,5 +20,8 @@ var config = {
       }
     ],
   },
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  }
 };
 module.exports = config;
