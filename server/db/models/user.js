@@ -1,9 +1,10 @@
 var db = require('../config');
-var Bid = require('/bid');
-var Item = require('/item');
-var Message = require('/message');
-var Feedback = require('/feedback');
-var Watchlist = require('/watchList');
+var Bid = require('./bid');
+var Item = require('./item');
+var Message = require('./message');
+var Feedback = require('./feedback');
+var Watchlist = require('./watchList');
+var _ = require('underscore');
 
 var User = db.Model.extend({
 

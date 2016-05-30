@@ -1,5 +1,5 @@
 var db = require('../config');
-var Bid = require('/bid');
+var Bid = require('./bid');
 
 var Item = db.Model.extend({
 

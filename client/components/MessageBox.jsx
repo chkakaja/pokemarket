@@ -21,7 +21,6 @@ class MessageBox extends Component {
     this.getMessagesAjax = setInterval( () => { 
       $.post('/getMessages', { user: window.userId, chatter: this.props.chatter }, 
         messages => {
-          console.log(this.props.messages)
           this.props.updateMessages(messages, this.props.userId)
         });
     }, 1000);
