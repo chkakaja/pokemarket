@@ -8,23 +8,24 @@ var User = require('./db/models/user');
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 
+app.use(express.static(__dirname + '/../public'));
+app.use(bodyParser());
 app.use(session({
   secret: 'auction',
   maxAge: 60000
 }));
-app.use(express.static(__dirname + '/../public'));
-app.use(bodyParser());
 app.use(passport.initialize());
 app.use(passport.session());
 
 // passport FB OAuth
 passport.serializeUser(function(user, done) {
-  console.log('serializeUser: ' + user.get('id'));
-  done(null, user.get('id'));
+  console.log('serializeUser: ' + user.get('facebookId'));
+  done(null, user.get('facebookId'));
 });
 
-passport.deserializeUser(function(id, done) {
-  User.where({ facebookId: profile.id }).fetch()
+passport.deserializeUser(function(facebookId, done) {
+  console.log('deserialize', facebookId);
+  User.where({ facebookId: facebookId }).fetch()
     .then(function(user) {
       done(null, user);
     })
@@ -40,27 +41,31 @@ passport.use(new FacebookStrategy({
     enableProof: true
   },
   function(accessToken, refreshToken, profile, done) {
-    User.where({ facebookId: profile.id }).fetch()
-      .then(function(user) {
-        if (!user) {
-          user = new User({
-            username: profile.username,
-            facebookId: profile.id
-          }).save();
-        }
-        return user;
-      })
-      .then(function(user) {
-        done(null, user);
-      })
-      .catch(function(err) {
-        console.error('Error:', err);
-      });
+    process.nextTick(function() {
+      User.where({ facebookId: profile.id }).fetch()
+        .then(function(user) {
+          if (!user) {
+            user = new User({
+              username: profile.username,
+              name: profile.displayName,
+              facebookId: profile.id,
+              picture: "https://graph.facebook.com/" + profile.username + "/picture" + "?width=200&height=200" + "&access_token=" + accessToken
+            }).save();
+          }
+          return user;
+        })
+        .then(function(user) {
+          done(null, user);
+        })
+        .catch(function(err) {
+          done(err, null);
+        });
+    })
   }
 ));
 
 
-// should put all of the routing in routes.js**
+// ***** should put all of the routing in routes.js
 app.post('/getMessages', (req, res) => {
   new Message().fetchAll().then(messages => res.status(200).send(messages));
 });
@@ -74,9 +79,14 @@ app.post('/sendMessage', (req, res) => {
 app.get('/auth/facebook',
   passport.authenticate('facebook'));
  
+// ***** why isn't this getting redirected to /?
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { successRedirect: '/',
                                       failureRedirect: '/login' }));
 
+app.get('/signout' , (req, res) => {
+  req.logout();
+  res.redirect('/');
+});
 
 app.listen(3000);

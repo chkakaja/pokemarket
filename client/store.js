@@ -9,4 +9,3 @@ var reducers = combineReducers({
 });
 
 module.exports = createStore(reducers, initialState(), applyMiddleware(Thunk));
-console.log('##################', module.exports.getState());

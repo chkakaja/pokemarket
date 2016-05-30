@@ -3,6 +3,12 @@
 <head>
   <meta charset='utf-8'>
   <title>(insert title here)</title>
+  <!--script tag below is for FB OAuth (it oddly adds _=_ to url, which causes redirect to fail)-->
+  <script type="text/javascript">
+    if (window.location.hash && window.location.hash == '#_=_') {
+        window.location.hash = '';
+    }
+  </script>
 </head>
 <body>
   <div id='app'></div>

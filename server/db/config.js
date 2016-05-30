@@ -15,6 +15,7 @@ db.knex.schema.hasTable('users').then(function(exists) {
       user.increments('id').primary();
       user.string('username', 255);
       user.string('password', 255);
+      user.string('name', 255);
       user.string('email', 255);
       user.string('facebookId', 255);
       user.integer('rating');
