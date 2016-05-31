@@ -1,4 +1,6 @@
-import React from 'react';
+
+
+// ReactDOM.render(<App />, document.getElementById('app'));
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {Router} from 'react-router';
@@ -11,4 +13,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("app")
 );
-

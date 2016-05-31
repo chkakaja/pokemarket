@@ -46,10 +46,6 @@
 
 	'use strict';
 
-	var _react = __webpack_require__(164);
-
-	var _react2 = _interopRequireDefault(_react);
-
 	var _reactDom = __webpack_require__(1);
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
@@ -58,7 +54,7 @@
 
 	var _reactRouter = __webpack_require__(190);
 
-	var _store = __webpack_require__(249);
+	var _store = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./store.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
 	var _store2 = _interopRequireDefault(_store);
 
@@ -68,11 +64,13 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	_reactDom2.default.render(_react2.default.createElement(
+	_reactDom2.default.render(React.createElement(
 	  _reactRedux.Provider,
 	  { store: _store2.default },
-	  _react2.default.createElement(_reactRouter.Router, { routes: _routes2.default })
+	  React.createElement(_reactRouter.Router, { routes: _routes2.default })
 	), document.getElementById("app"));
+
+	// ReactDOM.render(<App />, document.getElementById('app'));
 
 /***/ },
 /* 1 */
@@ -27292,103 +27290,10 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 249 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _redux = __webpack_require__(175);
-
-	var _reduxThunk = __webpack_require__(250);
-
-	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
-
-	var _reduxForm = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"redux-form\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-
-	var _messenger = __webpack_require__(251);
-
-	var _messenger2 = _interopRequireDefault(_messenger);
-
-	var _initialState = __webpack_require__(252);
-
-	var _initialState2 = _interopRequireDefault(_initialState);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var reducers = (0, _redux.combineReducers)({
-	  messages: _messenger2.default,
-	  form: _reduxForm.reducer
-	});
-
-	module.exports = (0, _redux.createStore)(reducers, (0, _initialState2.default)(), (0, _redux.applyMiddleware)(_reduxThunk2.default));
-
-/***/ },
-/* 250 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	function createThunkMiddleware(extraArgument) {
-	  return function (_ref) {
-	    var dispatch = _ref.dispatch;
-	    var getState = _ref.getState;
-	    return function (next) {
-	      return function (action) {
-	        if (typeof action === 'function') {
-	          return action(dispatch, getState, extraArgument);
-	        }
-
-	        return next(action);
-	      };
-	    };
-	  };
-	}
-
-	var thunk = createThunkMiddleware();
-	thunk.withExtraArgument = createThunkMiddleware;
-
-	exports['default'] = thunk;
-
-/***/ },
-/* 251 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _initialState = __webpack_require__(252);
-
-	var _initialState2 = _interopRequireDefault(_initialState);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	module.exports = function () {
-	  var state = arguments.length <= 0 || arguments[0] === undefined ? (0, _initialState2.default)() : arguments[0];
-	  var action = arguments[1];
-
-	  var newState = Object.assign({}, state);
-	  switch (action.type) {
-	    case 'UPDATE_MESSAGES':
-	      newState.messages[action.userId] = action.messages;
-	      return newState;
-	    default:
-	      return state;
-	  }
-	};
-
-/***/ },
-/* 252 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	module.exports = function () {
-	  return {
-	    messages: {}
-	  };
-	};
-
-/***/ },
+/* 249 */,
+/* 250 */,
+/* 251 */,
+/* 252 */,
 /* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -27506,6 +27411,9 @@
 	}(_react.Component);
 
 	exports.default = App;
+
+
+	module.exports = App;
 
 /***/ },
 /* 255 */

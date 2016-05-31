@@ -2,6 +2,7 @@ var session = require('express-session');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+<<<<<<< 9bf3860b5a970d904cd7de35a47e2b7190801d56
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var db = require('./db/config');
@@ -67,11 +68,22 @@ passport.use(new FacebookStrategy({
 
 
 // ***** should put all of the routing in routes.js
+=======
+app.use(bodyParser());
+var db = require('./db/config');
+// var route = require('/routes');
+console.log(__dirname);
+app.use(express.static(__dirname + '/../public'));
+var Message = require('./db/models/message.js');
+
+
+>>>>>>> Got rid of DS_Store
 app.post('/getMessages', (req, res) => {
   new Message().fetchAll().then(messages => res.status(200).send(messages));
 });
 
 app.post('/sendMessage', (req, res) => {
+<<<<<<< 9bf3860b5a970d904cd7de35a47e2b7190801d56
   new Message(req.body).save().then(() => res.status(200));
 });
 
@@ -95,3 +107,9 @@ app.post('/sellItem', (req, res) => {
 });
 
 app.listen(3000);
+=======
+  console.log(req.body);
+  new Message(req.body).save().then(() => res.status(200));
+})
+app.listen(3000);
+>>>>>>> Got rid of DS_Store
