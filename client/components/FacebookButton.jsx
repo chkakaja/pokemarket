@@ -7,7 +7,7 @@ class FacebookButton extends Component {
     return (
       <div>
         <a href='/auth/facebook'>
-          <img src="https://www.westsiderentals.com/images/fbconnect.png" width="300" height="60" />
+          <img src="https://www.westsiderentals.com/images/fbconnect.png" width="200" height="40" />
         </a>
       </div>
     );

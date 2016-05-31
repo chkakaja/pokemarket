@@ -30452,14 +30452,19 @@
 
 	var _Signin2 = _interopRequireDefault(_Signin);
 
+	var _SellItem = __webpack_require__(305);
+
+	var _SellItem2 = _interopRequireDefault(_SellItem);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = _react2.default.createElement(
 	  _reactRouter.Route,
 	  { path: '/', component: _App2.default },
-	  _react2.default.createElement(_reactRouter.Route, { path: 'landing', component: _Landing2.default }),
 	  _react2.default.createElement(_reactRouter.Route, { path: 'message', component: _MessageBox2.default }),
-	  _react2.default.createElement(_reactRouter.Route, { path: 'signin', component: _Signin2.default })
+	  _react2.default.createElement(_reactRouter.Route, { path: 'signin', component: _Signin2.default }),
+	  _react2.default.createElement(_reactRouter.Route, { path: 'landing', component: _Landing2.default }),
+	  _react2.default.createElement(_reactRouter.Route, { path: 'sellitem', component: _SellItem2.default })
 	);
 
 /***/ },
@@ -30490,6 +30495,10 @@
 
 	var _SellItem2 = _interopRequireDefault(_SellItem);
 
+	var _reactRouter = __webpack_require__(190);
+
+	var _reactRouter2 = _interopRequireDefault(_reactRouter);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -30519,11 +30528,34 @@
 	        _react2.default.createElement(
 	          'h2',
 	          null,
-	          'TEST PAGE'
+	          'TITLE'
 	        ),
-	        _react2.default.createElement(_SellItem2.default, null),
-	        _react2.default.createElement(_Signin2.default, null),
-	        _react2.default.createElement(_MessageBox2.default, null)
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          'NAV BAR GOES HERE'
+	        ),
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: 'landing' },
+	          'Landing'
+	        ),
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: 'sellitem' },
+	          'Sell an Item'
+	        ),
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: 'message' },
+	          'Messages'
+	        ),
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: 'signin' },
+	          'Sign in'
+	        ),
+	        this.props.children
 	      );
 	    }
 	  }]);
@@ -40594,7 +40626,7 @@
 	        _react2.default.createElement(
 	          'a',
 	          { href: '/auth/facebook' },
-	          _react2.default.createElement('img', { src: 'https://www.westsiderentals.com/images/fbconnect.png', width: '300', height: '60' })
+	          _react2.default.createElement('img', { src: 'https://www.westsiderentals.com/images/fbconnect.png', width: '200', height: '40' })
 	        )
 	      );
 	    }
