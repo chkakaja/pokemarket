@@ -40594,7 +40594,7 @@
 	        _react2.default.createElement(
 	          'a',
 	          { href: '/auth/facebook' },
-	          _react2.default.createElement('img', { src: 'http://kannadasanpathippagam.com/UAT/image/login-with-facebook.png', width: '300', height: '60' })
+	          _react2.default.createElement('img', { src: 'https://www.westsiderentals.com/images/fbconnect.png', width: '300', height: '60' })
 	        )
 	      );
 	    }
