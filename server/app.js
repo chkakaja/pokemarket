@@ -39,7 +39,8 @@ passport.use(new FacebookStrategy({
     clientID: '523442607845905',
     clientSecret: '68d549f6999e92b32818e0993b737563',
     callbackURL: "http://localhost:3000/auth/facebook/callback",
-    enableProof: true
+    enableProof: true,
+    profileFields: ['id', 'displayName', 'gender', 'picture.type(large)']
   },
   function(accessToken, refreshToken, profile, done) {
     process.nextTick(function() {
@@ -50,7 +51,7 @@ passport.use(new FacebookStrategy({
               username: profile.username,
               name: profile.displayName,
               facebookId: profile.id,
-              picture: "https://graph.facebook.com/" + profile.username + "/picture" + "?width=200&height=200" + "&access_token=" + accessToken
+              picture: profile.photos[0].value
             }).save();
           }
           return user;
