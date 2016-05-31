@@ -18,6 +18,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// check out passport-facebook documentation for info on how the FB OAuth works
 // passport FB OAuth
 passport.serializeUser(function(user, done) {
   console.log('serializeUser: ' + user.get('facebookId'));
@@ -36,6 +37,7 @@ passport.deserializeUser(function(facebookId, done) {
 });
 
 passport.use(new FacebookStrategy({
+    // **you will need to create your own fb developer account and input your own clientID and clientSecret
     clientID: '523442607845905',
     clientSecret: '68d549f6999e92b32818e0993b737563',
     callbackURL: "http://localhost:3000/auth/facebook/callback",
@@ -46,6 +48,7 @@ passport.use(new FacebookStrategy({
     process.nextTick(function() {
       User.where({ facebookId: profile.id }).fetch()
         .then(function(user) {
+          // creates user if not found
           if (!user) {
             user = new User({
               username: profile.username,
