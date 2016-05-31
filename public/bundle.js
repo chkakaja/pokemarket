@@ -40586,11 +40586,6 @@
 	  }
 
 	  _createClass(FacebookButton, [{
-	    key: 'createButton',
-	    value: function createButton() {
-	      return { __html: '<div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="true"></div>' };
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -40599,7 +40594,7 @@
 	        _react2.default.createElement(
 	          'a',
 	          { href: '/auth/facebook' },
-	          _react2.default.createElement('div', { dangerouslySetInnerHTML: this.createButton() })
+	          _react2.default.createElement('img', { src: 'http://kannadasanpathippagam.com/UAT/image/login-with-facebook.png', width: '300', height: '60' })
 	        )
 	      );
 	    }
