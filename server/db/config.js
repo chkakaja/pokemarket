@@ -3,7 +3,7 @@ var knex = require('knex')({
   connection: {
     host     : '127.0.0.1',
     user     : 'root',
-    password : 'abc',
+    password : '123',
     database : 'auction'
   }
 });
@@ -13,8 +13,6 @@ db.knex.schema.hasTable('users').then(function(exists) {
   if (!exists) {
     db.knex.schema.createTable('users', function (user) {
       user.increments('id').primary();
-      user.string('username', 255);
-      user.string('password', 255);
       user.string('name', 255);
       user.string('email', 255);
       user.string('facebookId', 255);

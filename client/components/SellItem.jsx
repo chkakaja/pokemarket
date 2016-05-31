@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 import {reduxForm} from 'redux-form';
 import $ from 'jquery';
 
+// look up documentation for redux-form for more insight on how this works
 class SellItem extends Component {
   render() {
     const {fields: {itemTitle, itemDescription, itemDuration, itemPicture}, handleSubmit, resetForm} = this.props;
     const postItem = () => {
+      // sending post request with all of the necessary fields
       $.post('/sellItem', {
         title: this.props.fields.itemTitle.value,
         description: this.props.fields.itemDescription.value,
@@ -39,9 +41,12 @@ class SellItem extends Component {
   }
 }
 
-SellItem = reduxForm({ // <----- THIS IS THE IMPORTANT PART!
-  form: 'sellItem',                           // a unique name for this form
-  fields: ['itemTitle', 'itemDescription', 'itemDuration', 'itemPicture'] // all the fields in your form
+// essentially a reducer for the form
+SellItem = reduxForm({
+  // a unique name for this form
+  form: 'sellItem',
+  // all the fields in your form
+  fields: ['itemTitle', 'itemDescription', 'itemDuration', 'itemPicture']
 })(SellItem);
 
 module.exports = SellItem;
