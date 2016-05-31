@@ -32,31 +32,12 @@ http.listen(3000, function(){
 require('./socket.js');
 
 // ######################### END SOCKET.IO CODE #########################
-<<<<<<< a947c31bfdff46c3ea05752f720ac2078580e4e2
-
-
-=======
-var User = require('./db/models/user');
-var Message = require('./db/models/message.js');
-var db = require('./db/config');
-var session = require('express-session');
-
-var bodyParser = require('body-parser');
-
-app.use(bodyParser());
->>>>>>> Started working on feedback pages
 
 app.post('/getMessages', (req, res) => {
   new Message().fetchAll().then(messages => {
     res.status(200).send(messages);
   });
 });
-<<<<<<< a947c31bfdff46c3ea05752f720ac2078580e4e2
-=======
-
-var passport = require('passport');
-var FacebookStrategy = require('passport-facebook').Strategy;
->>>>>>> Started working on feedback pages
 
 app.post('/sendMessage', (req, res) => {
   new Message(req.body).save().then(() => res.status(200));
@@ -81,6 +62,7 @@ app.post('/sellItem', (req, res) => {
   new Item(req.body).save().then(() => res.status(200));
 });
 
+// check out passport-facebook documentation for info on how the FB OAuth works
 // passport FB OAuth
 passport.serializeUser(function(user, done) {
   console.log('serializeUser: ' + user.get('facebookId'));
@@ -99,21 +81,24 @@ passport.deserializeUser(function(facebookId, done) {
 });
 
 passport.use(new FacebookStrategy({
+    // **you will need to create your own fb developer account and input your own clientID and clientSecret
     clientID: '523442607845905',
     clientSecret: '68d549f6999e92b32818e0993b737563',
     callbackURL: "http://localhost:3000/auth/facebook/callback",
     enableProof: true,
-    profileFields: ['id', 'displayName', 'gender', 'picture.type(large)']
+    profileFields: ['id', 'displayName', 'gender', 'picture.type(large)', 'emails']
   },
   function(accessToken, refreshToken, profile, done) {
     process.nextTick(function() {
       User.where({ facebookId: profile.id }).fetch()
         .then(function(user) {
+          // creates user if not found
           if (!user) {
             user = new User({
               username: profile.username,
               name: profile.displayName,
               facebookId: profile.id,
+              email: profile.emails[0].value,
               picture: profile.photos[0].value
             }).save();
           }
@@ -151,8 +136,3 @@ passport.use(new FacebookStrategy({
 //   , http = require('http')
 //   , server = http.createServer(app)
 //   , io = require('socket.io').listen(server);
-
-<<<<<<< a947c31bfdff46c3ea05752f720ac2078580e4e2
-// server.listen(3000);
-=======
->>>>>>> Started working on feedback pages
