@@ -1,6 +1,8 @@
 
 var express = require('express');
+var db = require('./db/config');
 var app = express();
+var session = require('express-session');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
@@ -32,31 +34,23 @@ http.listen(3000, function(){
 require('./socket.js');
 
 // ######################### END SOCKET.IO CODE #########################
-<<<<<<< a947c31bfdff46c3ea05752f720ac2078580e4e2
 
-
-=======
 var User = require('./db/models/user');
 var Message = require('./db/models/message.js');
-var db = require('./db/config');
 var session = require('express-session');
 
 var bodyParser = require('body-parser');
 
 app.use(bodyParser());
->>>>>>> Started working on feedback pages
 
 app.post('/getMessages', (req, res) => {
   new Message().fetchAll().then(messages => {
     res.status(200).send(messages);
   });
 });
-<<<<<<< a947c31bfdff46c3ea05752f720ac2078580e4e2
-=======
 
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
->>>>>>> Started working on feedback pages
 
 app.post('/sendMessage', (req, res) => {
   new Message(req.body).save().then(() => res.status(200));
@@ -130,28 +124,3 @@ passport.use(new FacebookStrategy({
 
 // ######################## END FACEBOOK OAUTH ###########################
 
-// app.post('/sendMessage', (req, res) => {
-//   console.log(req.body);
-//   new Message(req.body).save().then(() => res.status(200));
-// });
-
-
-// var session = require('express-session');
-// var express = require('express');
-// var app = express();
-
-// console.log(__dirname);
-
-// require('./socket.js');
-
-// module.exports = app.listen(3000);
-
-// var app = express()
-//   , http = require('http')
-//   , server = http.createServer(app)
-//   , io = require('socket.io').listen(server);
-
-<<<<<<< a947c31bfdff46c3ea05752f720ac2078580e4e2
-// server.listen(3000);
-=======
->>>>>>> Started working on feedback pages
