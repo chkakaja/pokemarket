@@ -6,16 +6,17 @@ import { dispatch } from 'redux';
 import Message from './Message.jsx';
 import MessageInput from './MessageInput.jsx';
 import $ from 'jquery';
+import { socket, join, sendMessage } from '../socket.js';
 
 class MessageBox extends Component {
 
   static defaultProps = {
-    userId: 1,
     messages: []
   }
 
   componentDidMount() {
     this.getMessages();
+    join(this.props.userId);
   }
   getMessages() {
     this.getMessagesAjax = setInterval( () => { 
@@ -24,6 +25,14 @@ class MessageBox extends Component {
           this.props.updateMessages(messages, this.props.userId)
         });
     }, 1000);
+    $.post('/getMessages', { user: this.props.userId, chatter: this.props.receiver }, messages => {
+      this.props.updateMessages(messages, this.props.receiver);
+    });
+  }
+
+  sendMessages (text) {
+    sendMessage(this.props.userId, this.props.receiver, text);
+    this.props.updateMessage(text, this.props.userId, this.props.receiver);
   }
 
   render() {
@@ -33,24 +42,36 @@ class MessageBox extends Component {
           {this.props.messages.map((message, index) => <Message msg={message} key={index} />)}
         </div>
         <div className='new-message'>
-          <MessageInput />
+          <MessageInput submit={this.sendMessages.bind(this)}/>
         </div>
       </div>
     );
   }
 }
 
-var mapStateToProps = function(state) {
+var mapStateToProps = function(state, ownProps) {
   return {
-    messages: state.messages[1]
+    messages: state.messages[ownProps.receiver]
   };
 };
 
 var mapDispatchToProps = function(dispatch){
   return {
-    updateMessages: function(messages, userId) {
-      dispatch({ type: 'UPDATE_MESSAGES', messages: messages, userId: userId});
+    updateMessages: (messages, receiver) => {
+      dispatch({ 
+        type: 'UPDATE_MESSAGES', 
+        messages, 
+        receiver
+      });
+    },
+    updateMessage: (message, sender, receiver) => {
+      dispatch({
+        type: 'UPDATE_MESSAGE',
+        message: {
+          sender, message, receiver
+        }
+      });
     }
-  }
+  };
 };
 module.exports = connect(mapStateToProps,mapDispatchToProps)(MessageBox);

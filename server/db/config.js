@@ -79,10 +79,10 @@ db.knex.schema.hasTable('messages').then(function(exists) {
   if (!exists) {
     db.knex.schema.createTable('messages', function (message) {
       message.increments('id').primary();
-      message.integer('user_from');
-      message.integer('user_to');
+      message.integer('sender');
+      message.integer('receiver');
       message.string('message', 255);
-      //message.timestamps();
+      message.timestamps();
     }).then(function (table) {
       console.log('Created Table messages:', table);
     });

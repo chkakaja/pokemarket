@@ -2,12 +2,18 @@ import initialState from '../initialState.js';
 
 module.exports = function(state = initialState(), action) {
   var newState = Object.assign({}, state);
+  // console.log('state =', state, action, 'NEW =', newState);
   switch (action.type) {
     case 'UPDATE_MESSAGES': 
-      newState.messages[action.userId] = action.messages;
+      newState[action.receiver] = action.messages;
+      return newState;
+    case 'UPDATE_MESSAGE':
+      newState[action.message.receiver] = (newState[action.message.receiver] || []);
+      action.message.id = newState[action.message.receiver].length;
+      newState[action.message.receiver] = newState[action.message.receiver].concat(action.message);
       return newState;
     default: 
       return state;
   }
-}   
+};   
 

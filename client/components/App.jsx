@@ -13,7 +13,7 @@ export default class App extends Component {
         <h2>TEST PAGE</h2>
         <SellItem />
         <Signin />
-        <MessageBox />
+        <MessageBox userId={1} receiver={2} />
       </div>
     );
   }

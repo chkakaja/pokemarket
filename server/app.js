@@ -1,8 +1,7 @@
-var session = require('express-session');
+
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-<<<<<<< 9bf3860b5a970d904cd7de35a47e2b7190801d56
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var db = require('./db/config');
@@ -18,6 +17,52 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+// ########################### SOCKET.IO CODE ###########################
+// ########### DO NOT EDIT UNLESS YOU KNOW WHAT YOU'RE DOING ############
+var http = require('http').Server(app);
+exports.io = require('socket.io')(http);
+
+app.use(express.static(__dirname + '/../public'));
+
+http.listen(3000, function(){
+  console.log('listening on *:3000');
+});
+
+require('./socket.js');
+
+// ######################### END SOCKET.IO CODE #########################
+
+
+
+app.post('/getMessages', (req, res) => {
+  new Message().fetchAll().then(messages => {
+    res.status(200).send(messages);
+  });
+});
+
+app.post('/sendMessage', (req, res) => {
+  new Message(req.body).save().then(() => res.status(200));
+});
+
+
+// ########################### FACEBOOK OAUTH ###########################
+app.get('/auth/facebook',
+  passport.authenticate('facebook'));
+ 
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { successRedirect: '/',
+                                      failureRedirect: '/login' }));
+
+app.get('/signout' , (req, res) => {
+  req.logout();
+  res.redirect('/');
+});
+
+// item selling form routes
+app.post('/sellItem', (req, res) => {
+  new Item(req.body).save().then(() => res.status(200));
+});
 
 // passport FB OAuth
 passport.serializeUser(function(user, done) {
@@ -66,50 +111,27 @@ passport.use(new FacebookStrategy({
   }
 ));
 
+// ######################## END FACEBOOK OAUTH ###########################
 
-// ***** should put all of the routing in routes.js
-=======
-app.use(bodyParser());
-var db = require('./db/config');
-// var route = require('/routes');
-console.log(__dirname);
-app.use(express.static(__dirname + '/../public'));
-var Message = require('./db/models/message.js');
+// app.post('/sendMessage', (req, res) => {
+//   console.log(req.body);
+//   new Message(req.body).save().then(() => res.status(200));
+// });
 
 
->>>>>>> Got rid of DS_Store
-app.post('/getMessages', (req, res) => {
-  new Message().fetchAll().then(messages => res.status(200).send(messages));
-});
+// var session = require('express-session');
+// var express = require('express');
+// var app = express();
 
-app.post('/sendMessage', (req, res) => {
-<<<<<<< 9bf3860b5a970d904cd7de35a47e2b7190801d56
-  new Message(req.body).save().then(() => res.status(200));
-});
+// console.log(__dirname);
 
+// require('./socket.js');
 
-// FB OAuth routes
-app.get('/auth/facebook',
-  passport.authenticate('facebook'));
- 
-app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { successRedirect: '/',
-                                      failureRedirect: '/login' }));
+// module.exports = app.listen(3000);
 
-app.get('/signout' , (req, res) => {
-  req.logout();
-  res.redirect('/');
-});
+// var app = express()
+//   , http = require('http')
+//   , server = http.createServer(app)
+//   , io = require('socket.io').listen(server);
 
-// item selling form routes
-app.post('/sellItem', (req, res) => {
-  new Item(req.body).save().then(() => res.status(200));
-});
-
-app.listen(3000);
-=======
-  console.log(req.body);
-  new Message(req.body).save().then(() => res.status(200));
-})
-app.listen(3000);
->>>>>>> Got rid of DS_Store
+// server.listen(3000);

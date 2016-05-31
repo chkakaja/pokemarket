@@ -1,20 +1,21 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 
-class MessageInput extends Component { 
+export default class MessageInput extends Component { 
 
-  clearInput(event) {
-    event.target.value = '';
+  inputField(text) {
+    console.log('here');
+    this.setState({
+      input: text
+    });
   }
-
   render() {
+    console.log(this.props);
     return (
       <div className='message-input'>
-        <form onSubmit={this.clearInput} action='sendMessage' method='post'>
-          <input type='text' name='message' />
-        </form>
+        <input onChange={e => this.inputField(e.target.value)} type='text' name="messages" />
+        <button onClick={event => this.props.submit(this.state.input)}>Post</button>
       </div>
     );
   }
 }
-module.exports = MessageInput;
