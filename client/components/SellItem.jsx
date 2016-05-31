@@ -4,17 +4,16 @@ import {reduxForm} from 'redux-form';
 import $ from 'jquery';
 
 class SellItem extends Component {
-  // when send request, add duration to created at time to get end at time
-  // find out way to get pictures
   render() {
-    const {fields: {itemTitle, itemDescription, itemDuration, itemPicture}, handleSubmit} = this.props;
+    const {fields: {itemTitle, itemDescription, itemDuration, itemPicture}, handleSubmit, resetForm} = this.props;
     const postItem = () => {
       $.post('/sellItem', {
-        title: this.props.itemTitle,
-        descrption: this.props.itemDescription,
-        duration: this.props.itemDuration,
-        picture: this.props.itemPicture
+        title: this.props.fields.itemTitle.value,
+        description: this.props.fields.itemDescription.value,
+        duration: this.props.fields.itemDuration.value,
+        picture: this.props.fields.itemPicture.value
       });
+      resetForm();
     };
     return (
       <form onSubmit={handleSubmit(postItem)}>

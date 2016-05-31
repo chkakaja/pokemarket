@@ -2,11 +2,12 @@ var session = require('express-session');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var passport = require('passport');
+var FacebookStrategy = require('passport-facebook').Strategy;
 var db = require('./db/config');
 var Message = require('./db/models/message.js');
 var User = require('./db/models/user');
-var passport = require('passport');
-var FacebookStrategy = require('passport-facebook').Strategy;
+var Item = require('./db/models/item');
 
 app.use(express.static(__dirname + '/../public'));
 app.use(bodyParser());
@@ -72,14 +73,13 @@ app.post('/getMessages', (req, res) => {
 
 app.post('/sendMessage', (req, res) => {
   new Message(req.body).save().then(() => res.status(200));
-})
+});
 
 
 // FB OAuth routes
 app.get('/auth/facebook',
   passport.authenticate('facebook'));
  
-// ***** why isn't this getting redirected to /?
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { successRedirect: '/',
                                       failureRedirect: '/login' }));
@@ -87,6 +87,11 @@ app.get('/auth/facebook/callback',
 app.get('/signout' , (req, res) => {
   req.logout();
   res.redirect('/');
+});
+
+// item selling form routes
+app.post('/sellItem', (req, res) => {
+  new Item(req.body).save().then(() => res.status(200));
 });
 
 app.listen(3000);

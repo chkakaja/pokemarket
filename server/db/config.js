@@ -39,6 +39,7 @@ db.knex.schema.hasTable('items').then(function(exists) {
       item.integer('currentBid');
       item.integer('visits');
       item.string('picture', 255);
+      item.integer('duration');
       item.string('end_at', 255);
       item.timestamps();
     }).then(function (table) {
