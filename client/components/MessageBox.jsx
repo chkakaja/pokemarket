@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { dispatch } from 'redux';
 
 import Message from './Message.jsx';
 import MessageInput from './MessageInput.jsx';
@@ -19,12 +18,6 @@ class MessageBox extends Component {
     join(this.props.userId);
   }
   getMessages() {
-    this.getMessagesAjax = setInterval( () => { 
-      $.post('/getMessages', { user: window.userId, chatter: this.props.chatter }, 
-        messages => {
-          this.props.updateMessages(messages, this.props.userId)
-        });
-    }, 1000);
     $.post('/getMessages', { user: this.props.userId, chatter: this.props.receiver }, messages => {
       this.props.updateMessages(messages, this.props.receiver);
     });

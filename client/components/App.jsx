@@ -10,15 +10,12 @@ export default class App extends Component {
   render() {
     return (
       <div className='app'>
-        <h2>TEST PAGE</h2>
-        <SellItem />
+        <h2>TEST PAGE</h2>        
         <Signin />
         <MessageBox userId={1} receiver={2} />
       </div>
     );
   }
 }
-
-
 
 module.exports = App;

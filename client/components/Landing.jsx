@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import FacebookButton from './FacebookButton';
+import FacebookButton from './FacebookButton.jsx';
 
 class Landing extends Component {
   constructor(props) {

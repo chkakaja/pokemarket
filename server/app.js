@@ -32,14 +32,31 @@ http.listen(3000, function(){
 require('./socket.js');
 
 // ######################### END SOCKET.IO CODE #########################
+<<<<<<< a947c31bfdff46c3ea05752f720ac2078580e4e2
 
 
+=======
+var User = require('./db/models/user');
+var Message = require('./db/models/message.js');
+var db = require('./db/config');
+var session = require('express-session');
+
+var bodyParser = require('body-parser');
+
+app.use(bodyParser());
+>>>>>>> Started working on feedback pages
 
 app.post('/getMessages', (req, res) => {
   new Message().fetchAll().then(messages => {
     res.status(200).send(messages);
   });
 });
+<<<<<<< a947c31bfdff46c3ea05752f720ac2078580e4e2
+=======
+
+var passport = require('passport');
+var FacebookStrategy = require('passport-facebook').Strategy;
+>>>>>>> Started working on feedback pages
 
 app.post('/sendMessage', (req, res) => {
   new Message(req.body).save().then(() => res.status(200));
@@ -134,4 +151,7 @@ passport.use(new FacebookStrategy({
 //   , server = http.createServer(app)
 //   , io = require('socket.io').listen(server);
 
+<<<<<<< a947c31bfdff46c3ea05752f720ac2078580e4e2
 // server.listen(3000);
+=======
+>>>>>>> Started working on feedback pages

@@ -89,13 +89,14 @@ db.knex.schema.hasTable('messages').then(function(exists) {
   }
 });
 
-db.knex.schema.hasTable('feedbacks').then(function(exists) {
+db.knex.schema.hasTable('feedback').then(function(exists) {
   if (!exists) {
-    db.knex.schema.createTable('feedbacks', function (feedback) {
+    db.knex.schema.createTable('feedback', function (feedback) {
       feedback.increments('id').primary();
       feedback.integer('author_id');
       feedback.integer('receiver_id');
       feedback.integer('rating');
+      feedback.integer('item_id');
       feedback.string('comment', 255);
       feedback.timestamps();
     }).then(function (table) {

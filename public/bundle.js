@@ -27501,7 +27501,6 @@
 	          null,
 	          'TEST PAGE'
 	        ),
-	        _react2.default.createElement(_SellItem2.default, null),
 	        _react2.default.createElement(_Signin2.default, null),
 	        _react2.default.createElement(_MessageBox2.default, { userId: 1, receiver: 2 })
 	      );
@@ -27533,8 +27532,6 @@
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
 	var _reactRedux = __webpack_require__(162);
-
-	var _redux = __webpack_require__(175);
 
 	var _Message = __webpack_require__(256);
 
@@ -27578,11 +27575,6 @@
 	    value: function getMessages() {
 	      var _this2 = this;
 
-	      this.getMessagesAjax = setInterval(function () {
-	        _jquery2.default.post('/getMessages', { user: window.userId, chatter: _this2.props.chatter }, function (messages) {
-	          _this2.props.updateMessages(messages, _this2.props.userId);
-	        });
-	      }, 1000);
 	      _jquery2.default.post('/getMessages', { user: this.props.userId, chatter: this.props.receiver }, function (messages) {
 	        _this2.props.updateMessages(messages, _this2.props.receiver);
 	      });
@@ -45242,7 +45234,7 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _FacebookButton = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./FacebookButton\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _FacebookButton = __webpack_require__(429);
 
 	var _FacebookButton2 = _interopRequireDefault(_FacebookButton);
 
@@ -45295,7 +45287,7 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _FacebookButton = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./FacebookButton\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _FacebookButton = __webpack_require__(429);
 
 	var _FacebookButton2 = _interopRequireDefault(_FacebookButton);
 

@@ -31,11 +31,11 @@ var User = db.Model.extend({
     return this.hasMany(WatchList, 'user_id');
   },
 
-  feedbacksGiven: function() {
+  feedbackGiven: function() {
     return this.hasMany(Feedback, 'author_id');
   },
 
-  feedbacksReceived: function() {
+  feedbackReceived: function() {
     return this.hasMany(Feedback, 'receiver_id');
   }
 
