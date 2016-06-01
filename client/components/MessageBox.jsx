@@ -9,7 +9,12 @@ import { socket, join, sendMessage } from '../socket.js';
 class MessageBox extends Component {
 
   static defaultProps = {
-    messages: []
+    messages: [],
+    test: {
+      test: {
+        test: []
+      }
+    }
   }
 
   componentDidMount() {
@@ -19,7 +24,6 @@ class MessageBox extends Component {
   }
   getMessages() {
     $.post('/getMessages', { sender: this.props.userId, receiver: this.props.receiver }, messages => {
-      console.log(messages);
       this.props.updateMessages(messages, this.props.receiver);
     });
   }

@@ -9,8 +9,7 @@ import SellItem from './components/SellItem.jsx'
 import Navbar from './components/Navbar.jsx'
 
 module.exports = (
-  <Route path="/" component={App}>
-    <IndexRoute component={Navbar}>
+  <Route path="/" component={Navbar}>
     <Route path="message" component={MessageBoxes} />
     <Route path="signin" component={Signin} />
     <Route path="landing" component={Landing} />

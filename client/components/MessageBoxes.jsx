@@ -15,11 +15,10 @@ class MessageBoxes extends Component {
   }
 
   render() {
-    console.log(this.props.userId);
-    if (this.props.userId) {
+    if (this.props.user) {
       return (
         <div>
-          {this.props.activeMessages.map(receiver => <MessageBox userId={this.props.userId} receiver={receiver} />)}
+          {this.props.activeMessages.map(receiver => <MessageBox userId={this.props.user.id} name={this.props.user.name} receiver={receiver} />)}
         </div>
       );
     }
@@ -32,7 +31,7 @@ var mapStateToProps = function(state, ownProps) {
   console.log(state);
   return {
     activeMessages: state.messages.active,
-    userId: state.userId
+    user: state.user
   };
 };
 

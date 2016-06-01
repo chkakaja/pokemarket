@@ -1,8 +1,8 @@
 module.exports = function() {
   return {
     messages: {
-      active: [2, 3]
+      active: [1, 2]
     },
-    userId: null
+    user: null
   };
 };

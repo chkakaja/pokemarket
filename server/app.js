@@ -41,8 +41,7 @@ require('./socket.js');
 app.get('/getuserid', (req, res) => {
   if (req.session.hasOwnProperty('passport')) {
     User.where({ facebookId: req.session.passport.user }).fetch().then(user => {
-      console.log(user.id);
-      res.status(200).send(String(user.id));
+      res.status(200).send(user);
     });
     return;
   }     
@@ -126,9 +125,10 @@ passport.use(new FacebookStrategy({
             user = new User({
               username: profile.username,
               name: profile.displayName,
-              facebookId: profile.id,
-              email: profile.emails[0].value,
-              picture: profile.photos[0].value
+              facebookId: profile.id
+              // TEMPORARY, SO TEST USERS CAN GET THROUGH -- WILL
+              // email: profile.emails[0].value,
+              // picture: profile.photos[0].value
             }).save();
           }
           return user;
@@ -151,7 +151,7 @@ passport.use(new FacebookStrategy({
 
 app.get('/searchItem', (req, res) => {
   
-}
+});
 
 
 

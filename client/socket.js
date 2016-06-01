@@ -1,9 +1,11 @@
 import io from 'socket.io-client';
+import store from './store';
 
 var socket = io();
 
 socket.on('message', msg => {
-
+  store.dispatch({  type: 'GOT_MESSAGE', 
+                    message: msg });
 });
 
 var join = function(userId) {

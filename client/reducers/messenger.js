@@ -12,8 +12,13 @@ export default function(state = initialState(), action) {
       action.message.id = newState[action.message.receiver].length;
       newState[action.message.receiver] = newState[action.message.receiver].concat(action.message);
       return newState;
-    case 'GOT_MESSAGE': 
-      newState[action.message.sender] = (newState[action.message.sender] || []).concat(action.message);
+    case 'GOT_MESSAGE':
+      if (newState.active.indexOf(action.message.sender) !== -1 ) {
+        newState[action.message.sender] = newState[action.message.sender].concat(action.message);
+      } else {
+        newState.active = newState.active.concat(action.message.sender);
+      }
+      return newState;
     default: 
       return state;
   }

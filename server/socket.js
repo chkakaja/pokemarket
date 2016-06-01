@@ -12,7 +12,7 @@ io.on('connection', socket => {
 
   socket.on('message', msg => {
     console.log('message received');
-    io.sockets.in(msg.receiver).emit('new_msg', msg);
+    io.sockets.in(msg.receiver).emit('message', msg);
     new Message(msg).save();
   });
 });
