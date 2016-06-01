@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 
 import Message from './Message.jsx';
@@ -14,11 +13,13 @@ class MessageBox extends Component {
   }
 
   componentDidMount() {
+    console.log('props', this.props);
     this.getMessages();
     join(this.props.userId);
   }
   getMessages() {
-    $.post('/getMessages', { user: this.props.userId, chatter: this.props.receiver }, messages => {
+    $.post('/getMessages', { sender: this.props.userId, receiver: this.props.receiver }, messages => {
+      console.log(messages);
       this.props.updateMessages(messages, this.props.receiver);
     });
   }
@@ -43,6 +44,7 @@ class MessageBox extends Component {
 }
 
 var mapStateToProps = function(state, ownProps) {
+  console.log('state', state);
   return {
     messages: state.messages[ownProps.receiver]
   };

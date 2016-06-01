@@ -2,6 +2,10 @@ import io from 'socket.io-client';
 
 var socket = io();
 
+socket.on('message', msg => {
+
+});
+
 var join = function(userId) {
   socket.emit('join', {userId: userId});
 };
