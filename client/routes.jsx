@@ -6,9 +6,10 @@ import FacebookButton from './components/FacebookButton.jsx'
 import Landing from './components/Landing.jsx'
 import Signin from './components/Signin.jsx'
 import SellItem from './components/SellItem.jsx'
+import Navbar from './components/Navbar.jsx'
 
 module.exports = (
-  <Route path="/" component={App}>
+  <Route path="/" component={Navbar}>
     <Route path="message" component={MessageBox} />
     <Route path="signin" component={Signin} />
     <Route path="landing" component={Landing} />

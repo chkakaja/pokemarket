@@ -116,6 +116,25 @@ passport.use(new FacebookStrategy({
 
 // ######################## END FACEBOOK OAUTH ###########################
 
+
+
+//######################### SearchBar Requests ##########################
+
+app.get('/searchItem', (req, res) => {
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
 // app.post('/sendMessage', (req, res) => {
 //   console.log(req.body);
 //   new Message(req.body).save().then(() => res.status(200));
