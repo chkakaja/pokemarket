@@ -98,7 +98,7 @@ app.post('/updateBid', (req, res) => {
   Item.where({ id: req.body.id }).fetch()
     .then(function(item) {
       if (req.body.newBid > item.attributes.currentBid) {
-        item.set({ currentBid: req.body.newBid });
+        item.set({ currentBid: req.body.newBid }).save();
       }
       res.send(item.attributes);
     })
