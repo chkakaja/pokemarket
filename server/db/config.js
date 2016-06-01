@@ -3,7 +3,7 @@ var knex = require('knex')({
   connection: {
     host     : '127.0.0.1',
     user     : 'root',
-    password : '',
+    password : '123',
     database : 'auction'
   }
 });
@@ -35,6 +35,7 @@ db.knex.schema.hasTable('items').then(function(exists) {
       item.string('title', 255);
       item.string('description', 255);
       item.integer('currentBid');
+      item.string('current_bidder', 255);
       item.integer('visits');
       item.string('picture', 255);
       item.integer('duration');

@@ -44,7 +44,6 @@ app.post('/sendMessage', (req, res) => {
 });
 
 app.get('/getuserid', (req, res) => {
-  console.log(req.session.passport);
   if (req.session.passport) {
     res.send(req.session.passport.user);
   } else {
@@ -65,6 +64,19 @@ app.get('/getItemData', (req, res) => {
       res.send('Error:', err);
     })
 });
+
+app.post('/updateBid', (req, res) => {
+  Item.where({ id: req.body.id }).fetch()
+    .then(function(item) {
+      if (req.body.newBid > item.attributes.currentBid) {
+        item.set({ currentBid: req.body.newBid });
+      }
+      res.send(item.attributes);
+    })
+    .catch(function(err) {
+      res.send('Error:', err);
+    })
+})
 
 // ########################### FACEBOOK OAUTH ###########################
 app.get('/auth/facebook',
@@ -142,9 +154,9 @@ passport.use(new FacebookStrategy({
 
 //######################### SearchBar Requests ##########################
 
-app.get('/searchItem', (req, res) => {
+// app.get('/searchItem', (req, res) => {
   
-}
+// }
 
 
 
