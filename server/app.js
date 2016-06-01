@@ -43,6 +43,28 @@ app.post('/sendMessage', (req, res) => {
   new Message(req.body).save().then(() => res.status(200));
 });
 
+app.get('/getuserid', (req, res) => {
+  console.log(req.session.passport);
+  if (req.session.passport) {
+    res.send(req.session.passport.user);
+  } else {
+    res.send();
+  }
+})
+
+app.get('/getItemData', (req, res) => {
+  Item.where({ id: req.query.id }).fetch()
+    .then(function(item) {
+      User.where({ facebookId: item.attributes.seller_id }).fetch()
+        .then(function(seller) {
+          item.attributes.seller = seller.attributes;
+          res.status(200).send(item.attributes);
+        })
+    })
+    .catch(function(err) {
+      res.send('Error:', err);
+    })
+});
 
 // ########################### FACEBOOK OAUTH ###########################
 app.get('/auth/facebook',
@@ -50,9 +72,10 @@ app.get('/auth/facebook',
  
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { successRedirect: '/',
-                                      failureRedirect: '/login' }));
+                                      failureRedirect: '/signin' }));
 
 app.get('/signout' , (req, res) => {
+  // check to see if this actually works
   req.logout();
   res.redirect('/');
 });
@@ -77,7 +100,7 @@ passport.deserializeUser(function(facebookId, done) {
     })
     .catch(function(err) {
       done(err, null);
-    })
+    });
 });
 
 passport.use(new FacebookStrategy({
@@ -95,7 +118,6 @@ passport.use(new FacebookStrategy({
           // creates user if not found
           if (!user) {
             user = new User({
-              username: profile.username,
               name: profile.displayName,
               facebookId: profile.id,
               email: profile.emails[0].value,

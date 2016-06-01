@@ -5,6 +5,20 @@ import $ from 'jquery';
 
 // look up documentation for redux-form for more insight on how this works
 class SellItem extends Component {
+  componentDidMount() {
+    this.getCurrentUser();
+  }
+
+  getCurrentUser() {
+    $.ajax({
+      method: 'GET',
+      url: '/getuserid',
+      success: function(data) {
+        this.seller_id = data;
+      }.bind(this)
+    });
+  }
+
   render() {
     const {fields: {itemTitle, itemDescription, itemDuration, itemPicture}, handleSubmit, resetForm} = this.props;
     const postItem = () => {
@@ -13,7 +27,8 @@ class SellItem extends Component {
         title: this.props.fields.itemTitle.value,
         description: this.props.fields.itemDescription.value,
         duration: this.props.fields.itemDuration.value,
-        picture: this.props.fields.itemPicture.value
+        picture: this.props.fields.itemPicture.value,
+        seller_id: this.seller_id
       });
       resetForm();
     };

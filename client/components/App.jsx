@@ -7,9 +7,7 @@ import Router from 'react-router';
 import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
 
 export default class App extends Component {
-  componentDidMount() {
-  }
-  render() {
+   render() {
     return (
       <div className='app'>
         <h2>TITLE</h2>
@@ -17,6 +15,7 @@ export default class App extends Component {
         <Link to="landing">Landing</Link>
         <Link to="sellitem">Sell an Item</Link>
         <Link to="message">Messages</Link>
+        <Link to="item">Item</Link>
         <Link to="signin">Sign in</Link>
         {this.props.children}
       </div>
