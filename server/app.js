@@ -49,7 +49,7 @@ app.get('/getuserid', (req, res) => {
   } else {
     res.send();
   }
-})
+});
 
 app.get('/getItemData', (req, res) => {
   Item.where({ id: req.query.id }).fetch()
@@ -76,6 +76,17 @@ app.post('/updateBid', (req, res) => {
     .catch(function(err) {
       res.send('Error:', err);
     })
+});
+
+app.get('/search', (req, res) => {
+  // Item.query("MATCH (title) AGAINST(" + req.query.search + ")").fetch()
+  Item.where({ title: req.query.search }).fetchAll()
+    .then(function(items) {
+      res.send(items);
+    })
+    .catch(function(err) {
+      res.send('Error:', err);
+    });
 })
 
 // ########################### FACEBOOK OAUTH ###########################

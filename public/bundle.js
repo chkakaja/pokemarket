@@ -27313,6 +27313,10 @@
 
 	var _getItemData2 = _interopRequireDefault(_getItemData);
 
+	var _searchItems = __webpack_require__(363);
+
+	var _searchItems2 = _interopRequireDefault(_searchItems);
+
 	var _initialState = __webpack_require__(296);
 
 	var _initialState2 = _interopRequireDefault(_initialState);
@@ -27322,7 +27326,8 @@
 	var reducers = (0, _redux.combineReducers)({
 	  messages: _messenger2.default,
 	  form: _reduxForm.reducer,
-	  item: _getItemData2.default
+	  item: _getItemData2.default,
+	  filteredItems: _searchItems2.default
 	});
 
 	module.exports = (0, _redux.createStore)(reducers, (0, _initialState2.default)(), (0, _redux.applyMiddleware)(_reduxThunk2.default));
@@ -48306,10 +48311,6 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
@@ -48333,27 +48334,32 @@
 	var SearchBar = function (_React$Component) {
 	  _inherits(SearchBar, _React$Component);
 
-	  function SearchBar(prop) {
+	  function SearchBar() {
 	    _classCallCheck(this, SearchBar);
 
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SearchBar).call(this, prop));
-
-	    _this.state = {
-	      term: ''
-	    };
-	    _this.onInputChange = _this.onInputChange.bind(_this);
-	    return _this;
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(SearchBar).apply(this, arguments));
 	  }
 
 	  _createClass(SearchBar, [{
 	    key: 'onInputChange',
 	    value: function onInputChange(e) {
-	      this.setState({ term: e.target.value });
+	      this.search = e.target.value;
 	    }
 	  }, {
 	    key: 'onFormSubmit',
-	    value: function onFormSubmit() {
-	      event.preventDefault();
+	    value: function onFormSubmit(e) {
+	      e.preventDefault();
+	      _jquery2.default.ajax({
+	        method: 'GET',
+	        url: '/search',
+	        data: { search: this.search },
+	        dataType: 'json',
+	        success: function (data) {
+	          console.log('data', data);
+	          this.props.updateSearchResults(data);
+	        }.bind(this)
+	      });
+	      document.getElementsByClassName('search-input')[0].value = '';
 	    }
 	  }, {
 	    key: 'render',
@@ -48361,16 +48367,13 @@
 	      return _react2.default.createElement(
 	        'form',
 	        null,
-	        _react2.default.createElement('input', {
-	          type: 'text',
-	          value: this.state.term,
-	          onChange: this.onInputChange }),
+	        _react2.default.createElement('input', { type: 'text', onChange: this.onInputChange.bind(this), className: 'search-input' }),
 	        _react2.default.createElement(
 	          'span',
 	          null,
 	          _react2.default.createElement(
 	            'button',
-	            { onClick: this.onFormSubmit, type: 'submit' },
+	            { onClick: this.onFormSubmit.bind(this), type: 'submit' },
 	            'Search'
 	          )
 	        )
@@ -48381,11 +48384,28 @@
 	  return SearchBar;
 	}(_react2.default.Component);
 
-	function mapDispatchToProps(dispatch) {
-	  return;
-	}
+	SearchBar.defaultProps = {
+	  search: ''
+	};
 
-	exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(SearchBar);
+
+	var mapStateToProps = function mapStateToProps(state, ownProps) {
+	  return {};
+	};
+
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    // use this information to populate search results page
+	    updateSearchResults: function updateSearchResults(results) {
+	      dispatch({
+	        type: 'UPDATE_SEARCH_RESULTS',
+	        results: results
+	      });
+	    }
+	  };
+	};
+
+	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SearchBar);
 
 /***/ },
 /* 358 */
@@ -48710,7 +48730,7 @@
 	  }, {
 	    key: 'createMessageBox',
 	    value: function createMessageBox() {
-	      // RENDER MESSAGE BOX
+	      // ################## RENDER MESSAGE BOX HERE
 	    }
 	  }, {
 	    key: 'render',
@@ -49079,6 +49099,28 @@
 	}(_react.Component);
 
 	module.exports = Landing;
+
+/***/ },
+/* 363 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	module.exports = function () {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+	  var action = arguments[1];
+
+	  var newState = state.slice();
+	  switch (action.type) {
+	    case 'UPDATE_SEARCH_RESULTS':
+	      action.results.forEach(function (item) {
+	        newState.push(item);
+	      });
+	      return newState;
+	    default:
+	      return state;
+	  }
+	};
 
 /***/ }
 /******/ ]);
