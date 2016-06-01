@@ -97,4 +97,4 @@ var mapDispatchToProps = function(dispatch){
   }
 };
 
-module.exports = connect(mapStateToProps, mapDispatchToProps)(SearchResultItemEntry);
+module.exports = connect(mapStateToProps, mapDispatchToProps)(ItemEntry);
