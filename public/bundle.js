@@ -48596,7 +48596,7 @@
 	    value: function getCurrentUser() {
 	      _jquery2.default.ajax({
 	        method: 'GET',
-	        url: '/getuserid',
+	        url: '/getuserfacebookid',
 	        success: function (data) {
 	          this.seller_id = data;
 	        }.bind(this)
@@ -48779,7 +48779,7 @@
 	        method: 'GET',
 	        url: '/getuserid',
 	        success: function (data) {
-	          this.seller_id = data;
+	          this.current_user = data;
 	        }.bind(this)
 	      });
 	    }
@@ -48810,6 +48810,23 @@
 	      });
 	    }
 	  }, {
+	    key: 'watchItem',
+	    value: function watchItem(e) {
+	      e.preventDefault();
+	      return _jquery2.default.ajax({
+	        method: 'GET',
+	        url: '/watchitem',
+	        data: {
+	          item_id: this.props.id,
+	          user_id: this.current_user
+	        },
+	        dataType: 'json',
+	        success: function success(data) {
+	          console.log('Watching item', data);
+	        }
+	      });
+	    }
+	  }, {
 	    key: 'createMessageBox',
 	    value: function createMessageBox() {
 	      // ################## RENDER MESSAGE BOX HERE
@@ -48837,7 +48854,7 @@
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'bid' },
+	          { className: 'purchase' },
 	          _react2.default.createElement(
 	            'form',
 	            { onSubmit: this.setBid.bind(this) },
@@ -48852,6 +48869,11 @@
 	            'div',
 	            { className: 'end-time' },
 	            (0, _dateformat2.default)(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { className: 'watch', type: 'submit', onClick: this.watchItem.bind(this) },
+	            'Watch Item'
 	          )
 	        ),
 	        _react2.default.createElement(
@@ -49367,9 +49389,7 @@
 	};
 
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {
-	    // send dispatch to clear out items
-	  };
+	  return {};
 	};
 
 	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SearchResults);
@@ -49421,6 +49441,18 @@
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      this.grabItemData();
+	      this.getCurrentUser();
+	    }
+	  }, {
+	    key: 'getCurrentUser',
+	    value: function getCurrentUser() {
+	      _jquery2.default.ajax({
+	        method: 'GET',
+	        url: '/getuserid',
+	        success: function (data) {
+	          this.current_user = data;
+	        }.bind(this)
+	      });
 	    }
 	  }, {
 	    key: 'grabItemData',
@@ -49433,6 +49465,23 @@
 	        success: function (data) {
 	          console.log('Successfully populated item', data);
 	        }.bind(this)
+	      });
+	    }
+	  }, {
+	    key: 'watchItem',
+	    value: function watchItem(e) {
+	      e.preventDefault();
+	      return _jquery2.default.ajax({
+	        method: 'GET',
+	        url: '/watchitem',
+	        data: {
+	          item_id: this.props.id,
+	          user_id: this.current_user
+	        },
+	        dataType: 'json',
+	        success: function success(data) {
+	          console.log('Watching item', data);
+	        }
 	      });
 	    }
 	  }, {
@@ -49461,7 +49510,7 @@
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'serach-item-bid' },
+	          { className: 'search-item-purchase' },
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'search-item-current-bid' },
@@ -49471,6 +49520,11 @@
 	            'div',
 	            { className: 'search-item-end-time' },
 	            (0, _dateformat2.default)(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { className: 'watch', type: 'submit', onClick: this.watchItem.bind(this) },
+	            'Watch Item'
 	          )
 	        )
 	      );
@@ -49497,7 +49551,6 @@
 	      selectedItem = item;
 	    }
 	  });
-	  console.log(selectedItem);
 	  return {
 	    item: selectedItem
 	  };

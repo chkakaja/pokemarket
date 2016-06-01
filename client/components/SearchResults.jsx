@@ -26,7 +26,6 @@ var mapStateToProps = function(state, ownProps) {
 
 var mapDispatchToProps = function(dispatch) {
   return {
-    // send dispatch to clear out items
   }
 };
 

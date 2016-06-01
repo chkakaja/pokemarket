@@ -12,7 +12,7 @@ class SellItem extends Component {
   getCurrentUser() {
     $.ajax({
       method: 'GET',
-      url: '/getuserid',
+      url: '/getuserfacebookid',
       success: function(data) {
         this.seller_id = data;
       }.bind(this)
