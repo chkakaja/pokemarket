@@ -48836,10 +48836,10 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'item-page' },
+	        { className: 'item' },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'item' },
+	          { className: 'item-info' },
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'item-title' },
@@ -49340,9 +49340,9 @@
 
 	var _reactRedux = __webpack_require__(168);
 
-	var _SearchResultItemEntry = __webpack_require__(368);
+	var _ItemEntry = __webpack_require__(368);
 
-	var _SearchResultItemEntry2 = _interopRequireDefault(_SearchResultItemEntry);
+	var _ItemEntry2 = _interopRequireDefault(_ItemEntry);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49368,7 +49368,7 @@
 	        'div',
 	        { className: 'search-results' },
 	        this.props.results.map(function (item) {
-	          return _react2.default.createElement(_SearchResultItemEntry2.default, { id: item.id, key: item.id });
+	          return _react2.default.createElement(_ItemEntry2.default, { id: item.id, key: item.id });
 	        })
 	      );
 	    }
@@ -49428,16 +49428,16 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var SearchResultItemEntry = function (_Component) {
-	  _inherits(SearchResultItemEntry, _Component);
+	var ItemEntry = function (_Component) {
+	  _inherits(ItemEntry, _Component);
 
-	  function SearchResultItemEntry() {
-	    _classCallCheck(this, SearchResultItemEntry);
+	  function ItemEntry() {
+	    _classCallCheck(this, ItemEntry);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(SearchResultItemEntry).apply(this, arguments));
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(ItemEntry).apply(this, arguments));
 	  }
 
-	  _createClass(SearchResultItemEntry, [{
+	  _createClass(ItemEntry, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      this.grabItemData();
@@ -49492,33 +49492,33 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'search-item-page', onClick: this.goToItem },
+	        { className: 'item-entry', onClick: this.goToItem },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'search-item' },
+	          { className: 'item-entry-info' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'search-item-title' },
+	            { className: 'item-entry-title' },
 	            this.props.item.title
 	          ),
-	          _react2.default.createElement('img', { src: this.props.item.picture, height: '300px', className: 'search-item-picture' }),
+	          _react2.default.createElement('img', { src: this.props.item.picture, height: '300px', className: 'item-entry-picture' }),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'search-item-description' },
+	            { className: 'item-entry-description' },
 	            this.props.item.description
 	          )
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'search-item-purchase' },
+	          { className: 'item-entry-purchase' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'search-item-current-bid' },
+	            { className: 'item-entry-current-bid' },
 	            this.props.item.currentBid
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'search-item-end-time' },
+	            { className: 'item-entry-end-time' },
 	            (0, _dateformat2.default)(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')
 	          ),
 	          _react2.default.createElement(
@@ -49531,10 +49531,10 @@
 	    }
 	  }]);
 
-	  return SearchResultItemEntry;
+	  return ItemEntry;
 	}(_react.Component);
 
-	SearchResultItemEntry.defaultProps = {
+	ItemEntry.defaultProps = {
 	  item: {
 	    seller: {
 	      name: '',

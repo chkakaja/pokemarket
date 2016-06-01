@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import $ from 'jquery';
 import prettyDate from 'dateformat';
 
-class SearchResultItemEntry extends Component {
+class ItemEntry extends Component {
 
   static defaultProps = {
     item: {
@@ -64,15 +64,15 @@ class SearchResultItemEntry extends Component {
 
   render () {
     return (
-      <div className='search-item-page' onClick={this.goToItem}>
-        <div className='search-item'>
-          <div className='search-item-title'>{this.props.item.title}</div>
-          <img src={this.props.item.picture} height='300px' className='search-item-picture' />
-          <div className='search-item-description'>{this.props.item.description}</div>
+      <div className='item-entry' onClick={this.goToItem}>
+        <div className='item-entry-info'>
+          <div className='item-entry-title'>{this.props.item.title}</div>
+          <img src={this.props.item.picture} height='300px' className='item-entry-picture' />
+          <div className='item-entry-description'>{this.props.item.description}</div>
         </div>
-        <div className='search-item-purchase'>
-          <div className='search-item-current-bid'>{this.props.item.currentBid}</div>
-          <div className='search-item-end-time'>{prettyDate(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</div>
+        <div className='item-entry-purchase'>
+          <div className='item-entry-current-bid'>{this.props.item.currentBid}</div>
+          <div className='item-entry-end-time'>{prettyDate(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</div>
           <button className='watch' type='submit' onClick={this.watchItem.bind(this)}>Watch Item</button>
         </div>
       </div>

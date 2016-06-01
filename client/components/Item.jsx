@@ -90,8 +90,8 @@ class Item extends Component {
 
   render () {
     return (
-      <div className='item-page'>
-        <div className='item'>
+      <div className='item'>
+        <div className='item-info'>
           <div className='item-title'>{this.props.item.title}</div>
           <img src={this.props.item.picture} height='300px' className='item-picture' />
           <div className='item-description'>{this.props.item.description}</div>
