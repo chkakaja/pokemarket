@@ -1,6 +1,8 @@
 var session = require('express-session');
 var express = require('express');
+var db = require('./db/config');
 var app = express();
+var session = require('express-session');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
@@ -33,11 +35,37 @@ require('./socket.js');
 
 // ######################### END SOCKET.IO CODE #########################
 
+// ##################### GETS USERID FOR MESSAGES #######################
+
+
+app.get('/getuserid', (req, res) => {
+  if (req.session.hasOwnProperty('passport')) {
+    User.where({ facebookId: req.session.passport.user }).fetch().then(user => {
+      console.log(user.id);
+      res.status(200).send(String(user.id));
+    });
+    return;
+  }     
+  res.sendStatus(404);
+}); 
+
+// 
+var User = require('./db/models/user');
+var Message = require('./db/models/message.js');
+var session = require('express-session');
+
+var bodyParser = require('body-parser');
+
+app.use(bodyParser());
+
 app.post('/getMessages', (req, res) => {
-  new Message().fetchAll().then(messages => {
+  Message.where({ sender: req.body.sender, receiver: req.body.receiver }).fetchAll().then(messages => {
     res.status(200).send(messages);
   });
 });
+
+var passport = require('passport');
+var FacebookStrategy = require('passport-facebook').Strategy;
 
 app.post('/sendMessage', (req, res) => {
   new Message(req.body).save().then(() => res.status(200));

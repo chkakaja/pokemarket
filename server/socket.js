@@ -17,8 +17,3 @@ io.on('connection', socket => {
   });
 });
 
-// io.on('message', msg => {
-//   console.log('message received');
-//   io.sockets.in(msg.receiver).emit('new_msg', msg);
-//   new Message(msg).save();
-// });
