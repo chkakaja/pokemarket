@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router'
 import $ from 'jquery';
 
 class SearchBar extends React.Component {
@@ -20,7 +21,6 @@ class SearchBar extends React.Component {
       data: { search: this.search },
       dataType: 'json',
       success: function(data) {
-        console.log('data', data);
         this.props.updateSearchResults(data);
       }.bind(this)
     })
@@ -31,9 +31,9 @@ class SearchBar extends React.Component {
   render() {
     return (
        <form>
-         <input type="text" onChange={this.onInputChange.bind(this)} className='search-input' />
+         <input type='text' onChange={this.onInputChange.bind(this)} className='search-input' />
             <span>
-              <button onClick={this.onFormSubmit.bind(this)} type="submit">Search</button>
+              <button onClick={this.onFormSubmit.bind(this)} type='submit' className='submit-search'><Link to='/searchresults'>Search</Link></button>
             </span>
        </form>
     ) 
@@ -51,6 +51,9 @@ var mapDispatchToProps = function(dispatch){
   return {
     // use this information to populate search results page
     updateSearchResults: (results) => {
+      dispatch({
+        type: 'CLEAR_SEARCH_RESULTS'
+      })
       dispatch({
         type: 'UPDATE_SEARCH_RESULTS',
         results
