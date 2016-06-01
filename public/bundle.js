@@ -27309,9 +27309,17 @@
 
 	var _messenger2 = _interopRequireDefault(_messenger);
 
-	var _authentication = __webpack_require__(361);
+	var _authentication = __webpack_require__(364);
 
 	var _authentication2 = _interopRequireDefault(_authentication);
+
+	var _getItemData = __webpack_require__(297);
+
+	var _getItemData2 = _interopRequireDefault(_getItemData);
+
+	var _searchItems = __webpack_require__(363);
+
+	var _searchItems2 = _interopRequireDefault(_searchItems);
 
 	var _initialState = __webpack_require__(296);
 
@@ -27322,7 +27330,9 @@
 	var reducers = (0, _redux.combineReducers)({
 	  messages: _messenger2.default,
 	  form: _reduxForm.reducer,
-	  userId: _authentication2.default
+	  userId: _authentication2.default,
+	  item: _getItemData2.default,
+	  filteredItems: _searchItems2.default
 	});
 
 	module.exports = (0, _redux.createStore)(reducers, (0, _initialState2.default)(), (0, _redux.applyMiddleware)(_reduxThunk2.default));
@@ -30439,7 +30449,28 @@
 	};
 
 /***/ },
-/* 297 */,
+/* 297 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	module.exports = function () {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? { seller: { name: '', picture: '' } } : arguments[0];
+	  var action = arguments[1];
+
+	  var newState = Object.assign({}, state);
+	  switch (action.type) {
+	    case 'UPDATE_ITEM_DATA':
+	      for (var key in action.item) {
+	        newState[key] = action.item[key];
+	      }
+	      return newState;
+	    default:
+	      return state;
+	  }
+	};
+
+/***/ },
 /* 298 */,
 /* 299 */,
 /* 300 */,
@@ -30503,7 +30534,31 @@
 /* 358 */,
 /* 359 */,
 /* 360 */,
-/* 361 */
+/* 361 */,
+/* 362 */,
+/* 363 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	module.exports = function () {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+	  var action = arguments[1];
+
+	  var newState = state.slice();
+	  switch (action.type) {
+	    case 'UPDATE_SEARCH_RESULTS':
+	      action.results.forEach(function (item) {
+	        newState.push(item);
+	      });
+	      return newState;
+	    default:
+	      return state;
+	  }
+	};
+
+/***/ },
+/* 364 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

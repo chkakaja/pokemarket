@@ -7,6 +7,7 @@ import Landing from './components/Landing.jsx'
 import Signin from './components/Signin.jsx'
 import SellItem from './components/SellItem.jsx'
 import Navbar from './components/Navbar.jsx'
+import Item from './components/Item.jsx'
 
 module.exports = (
   <Route path="/" component={App}>
@@ -15,5 +16,6 @@ module.exports = (
     <Route path="signin" component={Signin} />
     <Route path="landing" component={Landing} />
     <Route path="sellitem" component={SellItem} />
+    <Route path="item" component={Item} />
   </Route>
 );

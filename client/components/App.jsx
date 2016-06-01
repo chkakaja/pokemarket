@@ -5,9 +5,7 @@ import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
 import Navbar from './Navbar.jsx';
 
 export default class App extends Component {
-  componentDidMount() {
-  }
-  render() {
+   render() {
     return (
       <div className='app'>
          <Navbar />
