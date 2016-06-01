@@ -31,7 +31,7 @@ db.knex.schema.hasTable('items').then(function(exists) {
   if (!exists) {
     db.knex.schema.createTable('items', function (item) {
       item.increments('id').primary();
-      item.integer('seller_id');
+      item.string('seller_id', 255);
       item.string('title', 255);
       item.string('description', 255);
       item.integer('currentBid');
