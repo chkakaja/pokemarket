@@ -5,6 +5,7 @@ import Signin from './Signin.jsx';
 import SellItem from './SellItem.jsx'
 import Router from 'react-router';
 import MessageBox from './MessageBox.jsx';
+import Item from './Item.jsx'
 import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
 
 
@@ -18,6 +19,7 @@ export default class Navbar extends React.Component {
             <ul>
               <li><Link to="landing">Home</Link></li>
               <li><Link to="sellitem">Sell an Item</Link></li>
+              <li><Link to="item">Item</Link></li>
               <li><Link to="message">Messages</Link></li>
               <li><SearchBar /></li>
               <li><Link to="signin">Signin</Link></li>

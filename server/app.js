@@ -10,6 +10,7 @@ var db = require('./db/config');
 var Message = require('./db/models/message.js');
 var User = require('./db/models/user');
 var Item = require('./db/models/item');
+var WatchList = require('./db/models/watchlist');
 
 app.use(express.static(__dirname + '/../public'));
 app.use(bodyParser());
@@ -38,6 +39,7 @@ require('./socket.js');
 // ##################### GETS USERID FOR MESSAGES #######################
 
 
+<<<<<<< HEAD
 app.get('/getuserid', (req, res) => {
   if (req.session.hasOwnProperty('passport')) {
     User.where({ facebookId: req.session.passport.user }).fetch().then(user => {
@@ -49,6 +51,8 @@ app.get('/getuserid', (req, res) => {
 }); 
 
 // 
+=======
+>>>>>>> 4be2b1de844384331377c0a35e0f327015d3c9a8
 
 var User = require('./db/models/user');
 var Message = require('./db/models/message.js');
@@ -71,6 +75,80 @@ app.post('/sendMessage', (req, res) => {
   new Message(req.body).save().then(() => res.status(200));
 });
 
+app.get('/getuserid', (req, res) => {
+  if (req.session.hasOwnProperty('passport')) {
+    User.where({ facebookId: req.session.passport.user }).fetch().then(user => {
+      res.status(200).send(String(user.id));
+    });
+    return;
+  }     
+  res.sendStatus(404);
+});
+
+app.get('/getuserfacebookid', (req, res) => {
+  if (req.session.passport) {
+    res.send(req.session.passport.user);
+  } else {
+    res.send();
+  }
+});
+
+app.get('/getItemData', (req, res) => {
+  Item.where({ id: req.query.id }).fetch()
+    .then(function(item) {
+      User.where({ facebookId: item.attributes.seller_id }).fetch()
+        .then(function(seller) {
+          item.attributes.seller = seller.attributes;
+          res.status(200).send(item.attributes);
+        })
+    })
+    .catch(function(err) {
+      res.send('Error:', err);
+    })
+});
+
+app.post('/updateBid', (req, res) => {
+  Item.where({ id: req.body.id }).fetch()
+    .then(function(item) {
+      if (req.body.newBid > item.attributes.currentBid) {
+        item.set({ currentBid: req.body.newBid }).save();
+      }
+      res.send(item.attributes);
+    })
+    .catch(function(err) {
+      res.send('Error:', err);
+    })
+});
+
+app.get('/watchitem', (req, res) => {
+  if (req.query.user_id === undefined) {
+    res.send("nothing - you're not signed in!");
+  } else {
+    WatchList.where({ user_id: req.query.user_id, item_id: req.query.item_id }).fetch()
+      .then(function(results) {
+        if (results === null) {
+          console.log(results);
+          new WatchList(req.query).save().then(() => res.send(req.query.item_id));
+        } else {
+          res.send("already watched!");
+        }
+      })
+      .catch(function(err) {
+        res.send('Error:', err);
+      })
+  }
+});
+
+app.get('/search', (req, res) => {
+  // Item.query("MATCH (title) AGAINST(" + req.query.search + ")").fetch()
+  Item.where({ title: req.query.search }).fetchAll()
+    .then(function(items) {
+      res.send(items);
+    })
+    .catch(function(err) {
+      res.send('Error:', err);
+    });
+});
 
 // ########################### FACEBOOK OAUTH ###########################
 app.get('/auth/facebook',
@@ -78,9 +156,10 @@ app.get('/auth/facebook',
  
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { successRedirect: '/',
-                                      failureRedirect: '/login' }));
+                                      failureRedirect: '/signin' }));
 
 app.get('/signout' , (req, res) => {
+  // check to see if this actually works
   req.logout();
   res.redirect('/');
 });
@@ -105,7 +184,7 @@ passport.deserializeUser(function(facebookId, done) {
     })
     .catch(function(err) {
       done(err, null);
-    })
+    });
 });
 
 passport.use(new FacebookStrategy({
@@ -123,7 +202,6 @@ passport.use(new FacebookStrategy({
           // creates user if not found
           if (!user) {
             user = new User({
-              username: profile.username,
               name: profile.displayName,
               facebookId: profile.id
               // TEMPORARY, SO TEST USERS CAN GET THROUGH -- WILL
@@ -149,9 +227,13 @@ passport.use(new FacebookStrategy({
 
 //######################### SearchBar Requests ##########################
 
-app.get('/searchItem', (req, res) => {
+// app.get('/searchItem', (req, res) => {
   
+<<<<<<< HEAD
 });
+=======
+// }
+>>>>>>> 4be2b1de844384331377c0a35e0f327015d3c9a8
 
 
 

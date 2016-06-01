@@ -1,35 +1,39 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router'
 import $ from 'jquery';
 
 class SearchBar extends React.Component {
-  
-  constructor(prop){
-  	super(prop);
-  	this.state = {
-  		term: ''
-    };
-  	this.onInputChange = this.onInputChange.bind(this);
-  }	
-  
-  onInputChange(e){
-  	this.setState({term: e.target.value})
+
+  static defaultProps = {
+    search: ''
+  }
+
+  onInputChange(e) {
+    this.search = e.target.value;
   };
 
-  onFormSubmit(){
-    event.preventDefault();
+  onFormSubmit(e) {
+    e.preventDefault();
+    $.ajax({
+      method: 'GET',
+      url: '/search',
+      data: { search: this.search },
+      dataType: 'json',
+      success: function(data) {
+        this.props.updateSearchResults(data);
+      }.bind(this)
+    })
+    document.getElementsByClassName('search-input')[0].value = '';
   }
 
 
   render() {
     return (
        <form>
-         <input
-            type="text"
-            value={this.state.term}
-            onChange={this.onInputChange} /> 
+         <input type='text' onChange={this.onInputChange.bind(this)} className='search-input' />
             <span>
-              <button onClick={this.onFormSubmit} type="submit" >Search</button>
+              <button onClick={this.onFormSubmit.bind(this)} type='submit' className='submit-search'><Link to='/searchresults'>Search</Link></button>
             </span>
        </form>
     ) 
@@ -38,11 +42,24 @@ class SearchBar extends React.Component {
 }
 
 
-function mapDispatchToProps(dispatch) {
-  return 
-}
+var mapStateToProps = function(state, ownProps) {
+  return {
+  }
+};
 
+var mapDispatchToProps = function(dispatch){
+  return {
+    // use this information to populate search results page
+    updateSearchResults: (results) => {
+      dispatch({
+        type: 'CLEAR_SEARCH_RESULTS'
+      })
+      dispatch({
+        type: 'UPDATE_SEARCH_RESULTS',
+        results
+      })
+    }
+  }
+};
 
-
-
-export default connect  (null, mapDispatchToProps)(SearchBar);
+module.exports = connect(mapStateToProps, mapDispatchToProps)(SearchBar);

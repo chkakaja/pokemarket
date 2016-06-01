@@ -3,7 +3,7 @@ import MessageBox from './MessageBox.jsx'
 import { connect } from 'react-redux';
 import { checkAuthentication } from '../actions.js';
 
-console.log('checkAuthentication', checkAuthentication);
+// console.log('checkAuthentication', checkAuthentication);
 
 class MessageBoxes extends Component {
   static defaultProps = {
@@ -28,7 +28,6 @@ class MessageBoxes extends Component {
 }
 
 var mapStateToProps = function(state, ownProps) {
-  console.log(state);
   return {
     activeMessages: state.messages.active,
     user: state.user
