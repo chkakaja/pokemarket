@@ -48596,7 +48596,7 @@
 	    value: function getCurrentUser() {
 	      _jquery2.default.ajax({
 	        method: 'GET',
-	        url: '/getuserid',
+	        url: '/getuserfacebookid',
 	        success: function (data) {
 	          this.seller_id = data;
 	        }.bind(this)
@@ -48779,7 +48779,7 @@
 	        method: 'GET',
 	        url: '/getuserid',
 	        success: function (data) {
-	          this.seller_id = data;
+	          this.current_user = data;
 	        }.bind(this)
 	      });
 	    }
@@ -48810,6 +48810,23 @@
 	      });
 	    }
 	  }, {
+	    key: 'watchItem',
+	    value: function watchItem(e) {
+	      e.preventDefault();
+	      return _jquery2.default.ajax({
+	        method: 'GET',
+	        url: '/watchitem',
+	        data: {
+	          item_id: this.props.id,
+	          user_id: this.current_user
+	        },
+	        dataType: 'json',
+	        success: function success(data) {
+	          console.log('Watching item', data);
+	        }
+	      });
+	    }
+	  }, {
 	    key: 'createMessageBox',
 	    value: function createMessageBox() {
 	      // ################## RENDER MESSAGE BOX HERE
@@ -48819,10 +48836,10 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'item-page' },
+	        { className: 'item' },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'item' },
+	          { className: 'item-info' },
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'item-title' },
@@ -48837,7 +48854,7 @@
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'bid' },
+	          { className: 'purchase' },
 	          _react2.default.createElement(
 	            'form',
 	            { onSubmit: this.setBid.bind(this) },
@@ -48852,6 +48869,11 @@
 	            'div',
 	            { className: 'end-time' },
 	            (0, _dateformat2.default)(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { className: 'watch', type: 'submit', onClick: this.watchItem.bind(this) },
+	            'Watch Item'
 	          )
 	        ),
 	        _react2.default.createElement(
@@ -49318,9 +49340,9 @@
 
 	var _reactRedux = __webpack_require__(168);
 
-	var _SearchResultItemEntry = __webpack_require__(368);
+	var _ItemEntry = __webpack_require__(368);
 
-	var _SearchResultItemEntry2 = _interopRequireDefault(_SearchResultItemEntry);
+	var _ItemEntry2 = _interopRequireDefault(_ItemEntry);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49346,7 +49368,7 @@
 	        'div',
 	        { className: 'search-results' },
 	        this.props.results.map(function (item) {
-	          return _react2.default.createElement(_SearchResultItemEntry2.default, { id: item.id, key: item.id });
+	          return _react2.default.createElement(_ItemEntry2.default, { id: item.id, key: item.id });
 	        })
 	      );
 	    }
@@ -49367,9 +49389,7 @@
 	};
 
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {
-	    // send dispatch to clear out items
-	  };
+	  return {};
 	};
 
 	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SearchResults);
@@ -49408,19 +49428,31 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var SearchResultItemEntry = function (_Component) {
-	  _inherits(SearchResultItemEntry, _Component);
+	var ItemEntry = function (_Component) {
+	  _inherits(ItemEntry, _Component);
 
-	  function SearchResultItemEntry() {
-	    _classCallCheck(this, SearchResultItemEntry);
+	  function ItemEntry() {
+	    _classCallCheck(this, ItemEntry);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(SearchResultItemEntry).apply(this, arguments));
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(ItemEntry).apply(this, arguments));
 	  }
 
-	  _createClass(SearchResultItemEntry, [{
+	  _createClass(ItemEntry, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      this.grabItemData();
+	      this.getCurrentUser();
+	    }
+	  }, {
+	    key: 'getCurrentUser',
+	    value: function getCurrentUser() {
+	      _jquery2.default.ajax({
+	        method: 'GET',
+	        url: '/getuserid',
+	        success: function (data) {
+	          this.current_user = data;
+	        }.bind(this)
+	      });
 	    }
 	  }, {
 	    key: 'grabItemData',
@@ -49436,6 +49468,23 @@
 	      });
 	    }
 	  }, {
+	    key: 'watchItem',
+	    value: function watchItem(e) {
+	      e.preventDefault();
+	      return _jquery2.default.ajax({
+	        method: 'GET',
+	        url: '/watchitem',
+	        data: {
+	          item_id: this.props.id,
+	          user_id: this.current_user
+	        },
+	        dataType: 'json',
+	        success: function success(data) {
+	          console.log('Watching item', data);
+	        }
+	      });
+	    }
+	  }, {
 	    key: 'goToItem',
 	    value: function goToItem() {}
 	  }, {
@@ -49443,44 +49492,49 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'search-item-page', onClick: this.goToItem },
+	        { className: 'item-entry', onClick: this.goToItem },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'search-item' },
+	          { className: 'item-entry-info' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'search-item-title' },
+	            { className: 'item-entry-title' },
 	            this.props.item.title
 	          ),
-	          _react2.default.createElement('img', { src: this.props.item.picture, height: '300px', className: 'search-item-picture' }),
+	          _react2.default.createElement('img', { src: this.props.item.picture, height: '300px', className: 'item-entry-picture' }),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'search-item-description' },
+	            { className: 'item-entry-description' },
 	            this.props.item.description
 	          )
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'serach-item-bid' },
+	          { className: 'item-entry-purchase' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'search-item-current-bid' },
+	            { className: 'item-entry-current-bid' },
 	            this.props.item.currentBid
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'search-item-end-time' },
+	            { className: 'item-entry-end-time' },
 	            (0, _dateformat2.default)(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { className: 'watch', type: 'submit', onClick: this.watchItem.bind(this) },
+	            'Watch Item'
 	          )
 	        )
 	      );
 	    }
 	  }]);
 
-	  return SearchResultItemEntry;
+	  return ItemEntry;
 	}(_react.Component);
 
-	SearchResultItemEntry.defaultProps = {
+	ItemEntry.defaultProps = {
 	  item: {
 	    seller: {
 	      name: '',
@@ -49497,7 +49551,6 @@
 	      selectedItem = item;
 	    }
 	  });
-	  console.log(selectedItem);
 	  return {
 	    item: selectedItem
 	  };

@@ -10,6 +10,7 @@ var db = require('./db/config');
 var Message = require('./db/models/message.js');
 var User = require('./db/models/user');
 var Item = require('./db/models/item');
+var WatchList = require('./db/models/watchlist');
 
 app.use(express.static(__dirname + '/../public'));
 app.use(bodyParser());
@@ -38,18 +39,6 @@ require('./socket.js');
 // ##################### GETS USERID FOR MESSAGES #######################
 
 
-app.get('/getuserid', (req, res) => {
-  if (req.session.hasOwnProperty('passport')) {
-    User.where({ facebookId: req.session.passport.user }).fetch().then(user => {
-      console.log(user.id);
-      res.status(200).send(String(user.id));
-    });
-    return;
-  }     
-  res.sendStatus(404);
-}); 
-
-// 
 
 var User = require('./db/models/user');
 var Message = require('./db/models/message.js');
@@ -73,6 +62,16 @@ app.post('/sendMessage', (req, res) => {
 });
 
 app.get('/getuserid', (req, res) => {
+  if (req.session.hasOwnProperty('passport')) {
+    User.where({ facebookId: req.session.passport.user }).fetch().then(user => {
+      res.status(200).send(String(user.id));
+    });
+    return;
+  }     
+  res.sendStatus(404);
+});
+
+app.get('/getuserfacebookid', (req, res) => {
   if (req.session.passport) {
     res.send(req.session.passport.user);
   } else {
@@ -107,6 +106,25 @@ app.post('/updateBid', (req, res) => {
     })
 });
 
+app.get('/watchitem', (req, res) => {
+  if (req.query.user_id === undefined) {
+    res.send("nothing - you're not signed in!");
+  } else {
+    WatchList.where({ user_id: req.query.user_id, item_id: req.query.item_id }).fetch()
+      .then(function(results) {
+        if (results === null) {
+          console.log(results);
+          new WatchList(req.query).save().then(() => res.send(req.query.item_id));
+        } else {
+          res.send("already watched!");
+        }
+      })
+      .catch(function(err) {
+        res.send('Error:', err);
+      })
+  }
+});
+
 app.get('/search', (req, res) => {
   // Item.query("MATCH (title) AGAINST(" + req.query.search + ")").fetch()
   Item.where({ title: req.query.search }).fetchAll()
@@ -116,7 +134,7 @@ app.get('/search', (req, res) => {
     .catch(function(err) {
       res.send('Error:', err);
     });
-})
+});
 
 // ########################### FACEBOOK OAUTH ###########################
 app.get('/auth/facebook',

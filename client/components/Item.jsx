@@ -39,7 +39,7 @@ class Item extends Component {
       method: 'GET',
       url: '/getuserid',
       success: function(data) {
-        this.seller_id = data;
+        this.current_user = data;
       }.bind(this)
     });
   }
@@ -68,24 +68,41 @@ class Item extends Component {
     })
   }
 
+  watchItem(e) {
+    e.preventDefault();
+    return $.ajax({
+      method: 'GET',
+      url: '/watchitem',
+      data: {
+        item_id: this.props.id,
+        user_id: this.current_user
+      },
+      dataType: 'json',
+      success: function(data) {
+        console.log('Watching item', data);
+      }
+    })
+  }
+
   createMessageBox() {
     // ################## RENDER MESSAGE BOX HERE
   }
 
   render () {
     return (
-      <div className='item-page'>
-        <div className='item'>
+      <div className='item'>
+        <div className='item-info'>
           <div className='item-title'>{this.props.item.title}</div>
           <img src={this.props.item.picture} height='300px' className='item-picture' />
           <div className='item-description'>{this.props.item.description}</div>
         </div>
-        <div className='bid'>
+        <div className='purchase'>
           <form onSubmit={this.setBid.bind(this)}>
             <input className='set-bid' onChange={this.changeBid.bind(this)} type='number' placeholder='Set your bid here' />
           </form>
           <div className='current-bid'>{this.props.item.currentBid}</div>
           <div className='end-time'>{prettyDate(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</div>
+          <button className='watch' type='submit' onClick={this.watchItem.bind(this)}>Watch Item</button>
         </div>
         <div className='item-seller'>
           <div className='seller-name'>{this.props.item.seller.name}</div>

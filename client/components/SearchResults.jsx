@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import SearchResultItemEntry from './SearchResultItemEntry.jsx'
+import ItemEntry from './ItemEntry.jsx'
 
 class SearchResults extends Component {
   static defaultProps = {
@@ -11,7 +11,7 @@ class SearchResults extends Component {
   render() {
     return (
       <div className='search-results'>
-        {this.props.results.map(item => <SearchResultItemEntry id={item.id} key={item.id} />)}
+        {this.props.results.map(item => <ItemEntry id={item.id} key={item.id} />)}
       </div>
     );
   }
@@ -26,7 +26,6 @@ var mapStateToProps = function(state, ownProps) {
 
 var mapDispatchToProps = function(dispatch) {
   return {
-    // send dispatch to clear out items
   }
 };
 
