@@ -12,19 +12,6 @@ class SellItem extends Component {
     this.props.getUser();
   }
 
-  // getCurrentUser() {
-  //   $.ajax({
-  //     method: 'GET',
-  //     url: '/getuserid',
-  //     success: function(data) {
-  //       this.seller_id = data;
-  //     }.bind(this)
-  //   });
-  //   $.get('/getuserid', data => {
-
-  //   })
-  // }
-
   render() {
     const {fields: {itemTitle, itemDescription, itemDuration, itemPicture, itemStartingBid}, handleSubmit, resetForm} = this.props;
     const postItem = () => {
