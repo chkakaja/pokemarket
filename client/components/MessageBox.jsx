@@ -13,7 +13,6 @@ class MessageBox extends Component {
   }
 
   componentDidMount() {
-    console.log('props', this.props);
     this.getMessages();
     join(this.props.userId);
   }

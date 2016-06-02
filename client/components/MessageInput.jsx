@@ -3,7 +3,6 @@ import React, { Component, PropTypes } from 'react';
 export default class MessageInput extends Component { 
 
   inputField(text) {
-    console.log('here');
     this.setState({
       input: text
     });

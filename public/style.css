@@ -1,6 +1,273 @@
-/*.message-box-messages {
-  width: 250px;
-  height: 250px;
+
+/***************** GENERAL *****************/
+
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,300italic,500);
+html, button, input, select, textarea,
+.pure-g [class *= "pure-u"] {
+    /* Set your content font stack here: */
+    font-family: 'Raleway';
+    font-weight: 300;
+}
+
+.bold {
+  font-weight:500;
+}
+
+.pure-button {
+  background-color: #939393;
+  color: white;
+}
+
+.pure-button:hover {
+  background-color: #b9b9b9;
+  transition:all 0.3s ease;
+}
+
+.pure-button-primary {
+  background-color: #ff6961;
+}
+
+.pure-button-primary:hover {
+  background-color: #ff9a95;
+  transition:all 0.3s ease;
+}
+
+/***************** NAVBAR / SEARCHBAR *****************/
+
+.nav {
+  font-weight: 500;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.nav .search {
+  width: 100%;
+  text-align: center;
+}
+
+.nav .links {
+  line-height: 60px;
+}
+
+.nav .links .navlink {
+  height: 60px;
+  margin: 10px 0 10px 0;
+  padding: auto 0;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #939393;
+}
+
+.nav .links .navlink:hover {
+  background-color: #a0a0a0;
+  transition:all 0.3s ease;
+}
+
+.nav .links a {
+  text-decoration: none;
+  color: black;
+}
+
+.searchbar .search-input {
+  margin-right: 5px;
+  height: 50px;
+}
+
+.searchbar .search-icon {
+  height: 30px;
+  width: 30px;
+}
+
+
+/***************** ITEM SALE FORM *****************/
+
+.sell-item .sell-item-title {
+  text-align: center;
+}
+
+
+/***************** ITEM PAGE *****************/
+
+.item {
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  width: 90%;
+}
+
+.item .item-title {
+  font-size: 40px;
+  margin: 20px;
+}
+
+.item .item-info {
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  padding: 10px;
+  height: 400px;
+}
+
+.item .item-info .item-picture {
+  display: block;
+  margin: auto;
+  height: auto;
+  width: auto;
+  max-height: 300px;
+  max-width: 500px;
+  margin: 0px 0px 10px 20px;
+}
+
+.item .item-info .item-description {
+  position: absolute;
+  bottom: 3%;
+  margin: 10px 0px 0px 20px;
+  max-width: 500px;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.item .purchase {
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  padding: 10px;
+  height: 400px;
+}
+
+.item .purchase .current-bid {
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.item .purchase .set-bid {
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.item .purchase .end-time {
+
+}
+
+.item .purchase .watch {
+
+}
+
+.item .item-seller {
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  padding: 10px;
+  height: 400px;
+}
+
+.item .item-seller .seller-info {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.item .item-seller .seller-name {
+  margin-bottom: 10px;
+}
+
+.item .item-seller .hover-image {
+  height: 200px;
+  width: 200px;
+  position: relative;
+}
+
+.item .item-seller .hover-image .seller-picture {
+  height: 200px;
+  transition: opacity 0.25s ease-in-out;
+  -moz-transition: opacity 0.25s ease-in-out;
+  -webkit-transition: opacity 0.25s ease-in-out;
+}
+
+.item .item-seller .hover-image:hover .seller-picture {
+  opacity: 0.3;
+}
+
+.item .item-seller .hover-image .text {
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  display: none;
+  opacity: 0;
+  font-weight: bold;
+  transition:all 0.3s ease;
+}
+
+.item .item-seller .hover-image:hover .text {
+  display: block;
+  opacity: 1;
+}
+
+
+/***************** SEARCH RESULTS *****************/
+
+.search-results {
+  position: absolute;
+  right: 10%;
+  left: 10%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.search-results .item-entry {
+  position: relative;
+  display: inline-block;
+  width: 500px;
+  height: 500px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  margin: 20px 20px;
+  padding: 20px;
+}
+
+.search-results .item-entry .item-entry-picture {
+  display: block;
+  margin: auto;
+  height: auto;
+  width: auto;
+  max-height: 300px;
+  max-width: 500px;
+}
+
+.search-results .item-entry .all-info {
+  position: absolute;
+  bottom: 3%;
+}
+
+.search-results .item-entry .all-info .item-entry-info .item-entry-title {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.search-results .item-entry .all-info .item-entry-info .item-entry-description {
+  margin-bottom: 5px;
+  width: 500px;
+  max-height: 40px;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.search-results .item-entry .all-info .item-entry-purchase .item-entry-current-bid {
+  margin-bottom: 5px;
+}
+
+.search-results .item-entry .all-info .item-entry-purchase .item-entry-end-time {
+  margin-bottom: 5px;
+}
+
+/***************** MESSAGES *****************/
+
+.messages {
+  width: 200px;
+  height: 300px;
+>>>>>>> complete basic styling, re-arrange some of component arrangements
   overflow: scroll;
   padding: 8px;
 

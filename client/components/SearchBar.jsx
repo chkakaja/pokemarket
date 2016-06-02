@@ -30,12 +30,10 @@ class SearchBar extends React.Component {
 
   render() {
     return (
-       <form>
-         <input type='text' onChange={e => this.onInputChange(e)} className='search-input' />
-            <span>
-              <button onClick={this.onFormSubmit.bind(this)} type='submit' className='submit-search'><Link to='/searchresults'>Search</Link></button>
-            </span>
-       </form>
+      <form className='searchbar pure-form'>
+        <input type='text' onChange={this.onInputChange.bind(this)} className='search-input pure-input-2-3' />
+        <button onClick={this.onFormSubmit.bind(this)} type='submit' className='submit-search pure-button pure-button-primary'><Link to='/searchresults'><img src='http://www.clker.com/cliparts/9/T/2/h/X/7/search-icon-hi.png' className='search-icon' /></Link></button>
+      </form>
     ) 
   }
 

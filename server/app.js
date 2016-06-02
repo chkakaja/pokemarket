@@ -47,16 +47,6 @@ app.get('/getuserid', (req, res) => {
   res.sendStatus(404);
 }); 
 
-// 
-
-var User = require('./db/models/user');
-var Message = require('./db/models/message.js');
-var session = require('express-session');
-
-var bodyParser = require('body-parser');
-
-app.use(bodyParser());
-
 app.post('/getMessages', (req, res) => {
   console.log(req.body.sender, req.body.receiver);
   Message
@@ -68,9 +58,6 @@ app.post('/getMessages', (req, res) => {
     res.status(200).send(messages);
   });
 });
-
-var passport = require('passport');
-var FacebookStrategy = require('passport-facebook').Strategy;
 
 app.post('/sendMessage', (req, res) => {
   new Message(req.body).save().then(() => res.status(200));
@@ -134,7 +121,7 @@ app.get('/watchitem', (req, res) => {
   if (!req.query.user_id) {
     res.send("nothing - you're not signed in!");
   } else {
-    WatchList.where({ user_id: req.query.user_id, item_id: req.query.item_id }).fetch()
+    WatchList.where({ user_id: req.query.user_id, item_id: req.query.item_id }).fetchAll()
       .then(function(results) {
         if (results === null) {
           new WatchList(req.query).save().then(() => res.send(req.query.item_id));
@@ -148,31 +135,47 @@ app.get('/watchitem', (req, res) => {
   }
 });
 
-app.post('/search', (req, res) => {
-  // Item.query("MATCH (title) AGAINST(" + req.query.search + ")").fetch()
+app.post('/addvisit', (req, res) => {
+  Item.where(req.body).fetch()
+    .then(function(item) {
+      if (item.attributes.visits === null) {
+        item.set({ visits: 0 }).save();
+      }
+      item.set({ visits: item.attributes.visits + 1}).save();
+      res.send(item);
+    })
+    .catch(function(err) {
+      res.send('Error:', err);
+    });
+});
+
+app.get('/getWatchedItems', (req, res) => {
+  WatchList.where(req.query).fetchAll()
+    .then(function(items) {
+      res.send(items);
+    })
+    .catch(function(err) {
+      res.send('Error:', err);
+    });
+});
+
+app.get('/search', (req, res) => {
   db.knex('items')
     .where('title', 'like', '%' + req.body.search + ' %')
     .orWhere('title', 'like', '% ' + req.body.search + '%')
     .orWhere('title', 'like', '% ' + req.body.search + ' %')
     .orWhere('title', '=', req.body.search)
     .then(items => {
-      console.log(items);
       res.send(items);
     })
     .catch(err => {
       res.send('Error:', err)
     });
+});
 
-
-  // Item.where({ title: req.query.search }).fetchAll()
-  //   .then(function(items) {
-  //     res.send(items);
-  //   })
-  //   .catch(function(err) {
-  //     res.send('Error:', err);
-  //   });
-
-
+// item selling form routes
+app.post('/sellItem', (req, res) => {
+  new Item(req.body).save().then(() => res.status(200));
 });
 
 // ########################### FACEBOOK OAUTH ###########################
@@ -185,13 +188,8 @@ app.get('/auth/facebook/callback',
 
 app.get('/signout' , (req, res) => {
   // check to see if this actually works
-  req.logout();
+  req.session.destroy();
   res.redirect('/');
-});
-
-// item selling form routes
-app.post('/sellItem', (req, res) => {
-  new Item(req.body).save().then(() => res.status(200));
 });
 
 // check out passport-facebook documentation for info on how the FB OAuth works
@@ -247,43 +245,3 @@ passport.use(new FacebookStrategy({
 ));
 
 // ######################## END FACEBOOK OAUTH ###########################
-
-
-
-//######################### SearchBar Requests ##########################
-
-// app.get('/searchItem', (req, res) => {
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-// app.post('/sendMessage', (req, res) => {
-//   console.log(req.body);
-//   new Message(req.body).save().then(() => res.status(200));
-// });
-
-
-// var session = require('express-session');
-// var express = require('express');
-// var app = express();
-
-// console.log(__dirname);
-
-// require('./socket.js');
-
-// module.exports = app.listen(3000);
-
-// var app = express()
-//   , http = require('http')
-//   , server = http.createServer(app)
-//   , io = require('socket.io').listen(server);

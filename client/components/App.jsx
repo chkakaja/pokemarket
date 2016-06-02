@@ -8,9 +8,9 @@ export default class App extends Component {
    render() {
     return (
       <div className='app'>
-         <Navbar />
-         {this.props.children}
-         <MessageBoxes />
+       <Navbar />
+       {this.props.children}
+       <MessageBoxes />
       </div>
     );
   }
