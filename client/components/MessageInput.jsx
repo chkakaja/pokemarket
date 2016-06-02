@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 export default class MessageInput extends Component { 
 
   inputField(text) {
-    console.log('here');
     this.setState({
       input: text
     });

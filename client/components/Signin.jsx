@@ -3,10 +3,6 @@ import ReactDOM from 'react-dom';
 import FacebookButton from './FacebookButton.jsx';
 
 class Signin extends Component {
-  constructor(props) {
-    super(props);
-  }
-  
   render () {
     return (
       <div className='signin'>

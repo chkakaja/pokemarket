@@ -34,29 +34,36 @@ class SellItem extends Component {
       resetForm();
     };
     return (
-      <form onSubmit={handleSubmit(postItem)}>
-        <div>
-          <label>Title: </label>
-          <input type="text" placeholder="What would you like the title to be?" {...itemTitle}/>
-        </div>
-        <div>
-          <label>Description: </label>
-          <input type="text" placeholder="How would you describe your item?" {...itemDescription}/>
-        </div>
-        <div>
-          <label>Duration (in days): </label>
-          <input type="number" placeholder="How long would you like your item to be on the market?" {...itemDuration}/>
-        </div>
-        <div>
-          <label>Starting Bid: </label>
-          <input type="number" placeholder="What would you like your starting bid to be?" {...itemStartingBid}/>
-        </div>
-        <div>
-          <label>Picture: </label>
-          <input type="url" placeholder="Place a picture URL here" {...itemPicture}/>
-        </div>
-        <button type="submit">Submit</button>
-      </form>
+      <div className='sell-item'>
+        <h2 className='sell-item-title'>Sell Your Item Below</h2>
+        <form onSubmit={handleSubmit(postItem)} className='pure-form pure-form-aligned'>
+          <fieldset>
+            <div className='pure-control-group'>
+              <label>Title: </label>
+              <input type="text" className='pure-input-2-3' placeholder="What would you like the title to be?" {...itemTitle}/>
+            </div>
+            <div className='pure-control-group'>
+              <label>Duration (in days): </label>
+              <input type="number" className='pure-input-2-3' placeholder="How long would you like your item to be on the market?" {...itemDuration}/>
+            </div>
+            <div className='pure-control-group'>
+              <label>Starting Bid: </label>
+              <input type="number" className='pure-input-2-3' placeholder="What would you like your starting bid to be?" {...itemStartingBid}/>
+            </div>
+            <div className='pure-control-group'>
+              <label>Picture: </label>
+              <input type="url" className='pure-input-2-3' placeholder="Place a picture URL here" {...itemPicture}/>
+            </div>
+            <div className='pure-control-group'>
+              <label>Description: </label>
+              <textarea type="text" className='pure-input-2-3' placeholder="How would you describe your item?" {...itemDescription}/>
+            </div>
+            <div className='pure-controls'>
+              <button type="submit" className='pure-button'>Submit</button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
     );
   }
 }

@@ -38,24 +38,11 @@ require('./socket.js');
 
 // ##################### GETS USERID FOR MESSAGES #######################
 
-
-
-var User = require('./db/models/user');
-var Message = require('./db/models/message.js');
-var session = require('express-session');
-
-var bodyParser = require('body-parser');
-
-app.use(bodyParser());
-
 app.post('/getMessages', (req, res) => {
   Message.where({ sender: req.body.sender, receiver: req.body.receiver }).fetchAll().then(messages => {
     res.status(200).send(messages);
   });
 });
-
-var passport = require('passport');
-var FacebookStrategy = require('passport-facebook').Strategy;
 
 app.post('/sendMessage', (req, res) => {
   new Message(req.body).save().then(() => res.status(200));
@@ -110,7 +97,7 @@ app.get('/watchitem', (req, res) => {
   if (req.query.user_id === undefined) {
     res.send("nothing - you're not signed in!");
   } else {
-    WatchList.where({ user_id: req.query.user_id, item_id: req.query.item_id }).fetch()
+    WatchList.where({ user_id: req.query.user_id, item_id: req.query.item_id }).fetchAll()
       .then(function(results) {
         if (results === null) {
           console.log(results);
@@ -125,6 +112,30 @@ app.get('/watchitem', (req, res) => {
   }
 });
 
+app.post('/addvisit', (req, res) => {
+  Item.where(req.body).fetch()
+    .then(function(item) {
+      if (item.attributes.visits === null) {
+        item.set({ visits: 0 }).save();
+      }
+      item.set({ visits: item.attributes.visits + 1}).save();
+      res.send(item);
+    })
+    .catch(function(err) {
+      res.send('Error:', err);
+    });
+});
+
+app.get('/getWatchedItems', (req, res) => {
+  WatchList.where(req.query).fetchAll()
+    .then(function(items) {
+      res.send(items);
+    })
+    .catch(function(err) {
+      res.send('Error:', err);
+    });
+});
+
 app.get('/search', (req, res) => {
   // Item.query("MATCH (title) AGAINST(" + req.query.search + ")").fetch()
   Item.where({ title: req.query.search }).fetchAll()
@@ -134,6 +145,11 @@ app.get('/search', (req, res) => {
     .catch(function(err) {
       res.send('Error:', err);
     });
+});
+
+// item selling form routes
+app.post('/sellItem', (req, res) => {
+  new Item(req.body).save().then(() => res.status(200));
 });
 
 // ########################### FACEBOOK OAUTH ###########################
@@ -146,13 +162,8 @@ app.get('/auth/facebook/callback',
 
 app.get('/signout' , (req, res) => {
   // check to see if this actually works
-  req.logout();
+  req.session.destroy();
   res.redirect('/');
-});
-
-// item selling form routes
-app.post('/sellItem', (req, res) => {
-  new Item(req.body).save().then(() => res.status(200));
 });
 
 // check out passport-facebook documentation for info on how the FB OAuth works

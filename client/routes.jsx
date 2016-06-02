@@ -9,14 +9,16 @@ import SellItem from './components/SellItem.jsx';
 import Navbar from './components/Navbar.jsx';
 import Item from './components/Item.jsx';
 import SearchResults from './components/SearchResults.jsx';
+import WatchedItems from './components/WatchedItems.jsx';
 
 module.exports = (
-  <Route path="/" component={Navbar}>
+  <Route path="/" component={App}>
     <Route path="message" component={MessageBoxes} />
     <Route path="signin" component={Signin} />
     <Route path="landing" component={Landing} />
     <Route path="sellitem" component={SellItem} />
     <Route path="item" component={Item} />
     <Route path="searchresults" component={SearchResults} />
+    <Route path="watcheditems" component={WatchedItems} />
   </Route>
 );

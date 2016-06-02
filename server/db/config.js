@@ -16,7 +16,8 @@ db.knex.schema.hasTable('users').then(function(exists) {
       user.string('name', 255);
       user.string('email', 255);
       user.string('facebookId', 255);
-      user.integer('rating');
+      user.integer('total_rating');
+      user.integer('num_ratings');
       user.string('address', 255);
       user.string('bio', 255);
       user.string('picture', 255);
@@ -33,7 +34,7 @@ db.knex.schema.hasTable('items').then(function(exists) {
       item.increments('id').primary();
       item.string('seller_id', 255);
       item.string('title', 255);
-      item.string('description', 255);
+      item.string('description', 2000);
       item.integer('currentBid');
       item.string('current_bidder', 255);
       item.integer('visits');

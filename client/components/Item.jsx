@@ -8,7 +8,7 @@ import MessageBox from './MessageBox.jsx';
 class Item extends Component {
 
   static defaultProps = {
-    id: 3,
+    id: 1,
     item: {
       seller: {
         name: '',
@@ -20,6 +20,7 @@ class Item extends Component {
   componentDidMount() {
     this.grabItemData();
     this.getCurrentUser();
+    this.addVisit();
   }
 
   grabItemData() {
@@ -38,10 +39,22 @@ class Item extends Component {
     $.ajax({
       method: 'GET',
       url: '/getuserid',
+      data: { id: this.props.id },
+      dataType: 'json',
       success: function(data) {
         this.current_user = data;
       }.bind(this)
     });
+  }
+
+  addVisit() {
+    $.ajax({
+      method: 'POST',
+      url: '/addvisit',
+      success: function(data) {
+        console.log('Visit added. Now at', data.visits, 'visits');
+      }
+    })
   }
 
   changeBid(e) {
@@ -89,33 +102,77 @@ class Item extends Component {
   }
 
   render () {
-    return (
-      <div className='item'>
-        <div className='item-info'>
+    if (this.props.userId) {
+      return (
+        <div className='item'>
           <div className='item-title'>{this.props.item.title}</div>
-          <img src={this.props.item.picture} height='300px' className='item-picture' />
-          <div className='item-description'>{this.props.item.description}</div>
+          <div className='item-info pure-u-10-24'>
+            <img src={this.props.item.picture} className='item-picture' />
+            <div className='item-description'>{this.props.item.description}</div>
+          </div>
+          <div className='pure-u-1-24'></div>
+          <div className='purchase pure-u-6-24'>
+            <div className='current-bid'>
+              <span className='bold'>Current Highest Bid: </span>
+              ${this.props.item.currentBid}
+            </div>
+            <form onSubmit={this.setBid.bind(this)}>
+              <div className='set-bid pure-form'>
+                <span className='bold'>Set Your Bid: </span>
+                <input className='pure-input-1-2' onChange={this.changeBid.bind(this)} type='number' placeholder='Set your bid' />
+              </div>
+            </form>
+            <div className='end-time'>{prettyDate(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</div>
+            <button className='watch pure-button' type='submit' onClick={this.watchItem.bind(this)}>Watch Item</button>
+          </div>
+          <div className='pure-u-1-24'></div>
+          <div className='item-seller pure-u-4-24'>
+            <div className='seller-info'>Seller:</div>
+            <div className='seller-name'>{this.props.item.seller.name}</div>
+            <div className='hover-image'>
+              <img src={this.props.item.seller.picture} className='seller-picture' />
+              <p className='text'>Message seller</p>
+            </div>
+          </div>
         </div>
-        <div className='purchase'>
-          <form onSubmit={this.setBid.bind(this)}>
-            <input className='set-bid' onChange={this.changeBid.bind(this)} type='number' placeholder='Set your bid here' />
-          </form>
-          <div className='current-bid'>{this.props.item.currentBid}</div>
-          <div className='end-time'>{prettyDate(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</div>
-          <button className='watch' type='submit' onClick={this.watchItem.bind(this)}>Watch Item</button>
+      )
+    } else {
+      return (
+        <div className='item'>
+          <div className='item-title'>{this.props.item.title}</div>
+          <div className='item-info pure-u-10-24'>
+            <img src={this.props.item.picture} className='item-picture' />
+            <div className='item-description'>{this.props.item.description}</div>
+          </div>
+          <div className='pure-u-1-24'></div>
+          <div className='purchase pure-u-6-24'>
+            <div className='current-bid'>
+              <span className='bold'>Current Highest Bid: </span>
+              ${this.props.item.currentBid}
+            </div>
+            <form onSubmit={this.setBid.bind(this)}>
+            </form>
+            <div className='end-time'>{prettyDate(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</div>
+          </div>
+          <div className='pure-u-1-24'></div>
+          <div className='item-seller pure-u-4-24'>
+            <div className='seller-info'>Seller:</div>
+            <div className='seller-name'>{this.props.item.seller.name}</div>
+            <div className='hover-image'>
+              <img src={this.props.item.seller.picture} className='seller-picture' />
+              <p className='text'>Message seller</p>
+            </div>
+          </div>
         </div>
-        <div className='item-seller'>
-          <div className='seller-name'>{this.props.item.seller.name}</div>
-          <img src={this.props.item.seller.picture} height='100px' className='seller-picture' />
-        </div>
-      </div>
-    );
+      )
+    }
   }
 }
 
 var mapStateToProps = function(state, ownProps) {
   return {
-    item: state.item
+    item: state.item,
+    userId: state.userId
   }
 };
 

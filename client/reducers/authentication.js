@@ -5,6 +5,9 @@ export default function(state = initialState(), action) {
   switch(action.type) {
     case 'SET_USER_ID':
       return action.userId;
+    case 'LOGOUT_USER':
+      newState = null;
+      return newState;
     default: 
       return state;
   }
