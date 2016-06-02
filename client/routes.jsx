@@ -11,7 +11,7 @@ import Item from './components/Item.jsx';
 import SearchResults from './components/SearchResults.jsx';
 
 module.exports = (
-  <Route path="/" component={Navbar}>
+  <Route path="/" component={App}>
     <Route path="message" component={MessageBoxes} />
     <Route path="signin" component={Signin} />
     <Route path="landing" component={Landing} />

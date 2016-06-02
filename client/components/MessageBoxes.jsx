@@ -11,14 +11,21 @@ class MessageBoxes extends Component {
   }
 
   componentDidMount() {
-    this.props.getUserId();
+    // this.props.getUser();
   }
 
   render() {
     if (this.props.user) {
       return (
-        <div>
-          {this.props.activeMessages.map(receiver => <MessageBox userId={this.props.user.id} name={this.props.user.name} receiver={receiver} />)}
+        <div className="message-boxes"
+             style={{
+                'display': 'inline-block',
+                'position': 'absolute',
+                'bottom': '0px',
+                'width': '90%',
+                'zIndex': '50'
+             }}>
+          {this.props.activeMessages.map(receiver => <MessageBox userId={this.props.user.id} name={this.props.user.name} receiver={receiver.id} receiverName={receiver.name} />)}
         </div>
       );
     }
@@ -36,7 +43,7 @@ var mapStateToProps = function(state, ownProps) {
 
 var mapDispatchToProps = function(dispatch) {
   return {
-    getUserId: checkAuthentication(dispatch)
+    getUser: checkAuthentication(dispatch)
   }
 };
 

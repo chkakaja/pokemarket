@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 
-var Message = props => {
+export default props => {
   return (
-    <div>{props.msg.message}</div>
+    <div> 
+      <span style={{'fontWeight': 'bold'}}>{ (props.userId === props.msg.sender ? 'You' : props.receiverName) + ': '}</span>{props.msg.message}
+    </div>
   );
 };
 
-module.exports = Message;

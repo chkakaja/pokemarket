@@ -1,6 +1,7 @@
 import initialState from '../initialState.js';
 
 export default function(state = initialState(), action) {
+  var i;
   var newState = Object.assign({}, state);
   // console.log('state =', state, action, 'NEW =', newState);
   switch (action.type) {
@@ -13,10 +14,23 @@ export default function(state = initialState(), action) {
       newState[action.message.receiver] = newState[action.message.receiver].concat(action.message);
       return newState;
     case 'GOT_MESSAGE':
-      if (newState.active.indexOf(action.message.sender) !== -1 ) {
-        newState[action.message.sender] = newState[action.message.sender].concat(action.message);
-      } else {
-        newState.active = newState.active.concat(action.message.sender);
+      for (i = 0; i < newState.active.length; i++) {
+        if (action.message.sender === newState.active[i].id) {
+          newState[action.message.sender] = newState[action.message.sender].concat(action.message);  
+          return newState;
+        }
+      }
+
+      newState.active = newState.active.concat({ id: action.message.sender,
+                                                 name: action.name });
+
+      return newState;
+    case 'MINIMIZE':
+      for (i = 0; i < newState.active.length; i++) {
+        if (action.receiverId === newState.active[i].id) {
+          newState.active = newState.active.slice(0, i).concat(newState.active.slice(i+1));
+          break;
+        }
       }
       return newState;
     default: 

@@ -37,9 +37,6 @@ require('./socket.js');
 // ######################### END SOCKET.IO CODE #########################
 
 // ##################### GETS USERID FOR MESSAGES #######################
-
-
-<<<<<<< HEAD
 app.get('/getuserid', (req, res) => {
   if (req.session.hasOwnProperty('passport')) {
     User.where({ facebookId: req.session.passport.user }).fetch().then(user => {
@@ -51,8 +48,6 @@ app.get('/getuserid', (req, res) => {
 }); 
 
 // 
-=======
->>>>>>> 4be2b1de844384331377c0a35e0f327015d3c9a8
 
 var User = require('./db/models/user');
 var Message = require('./db/models/message.js');
@@ -63,7 +58,13 @@ var bodyParser = require('body-parser');
 app.use(bodyParser());
 
 app.post('/getMessages', (req, res) => {
-  Message.where({ sender: req.body.sender, receiver: req.body.receiver }).fetchAll().then(messages => {
+  console.log(req.body.sender, req.body.receiver);
+  Message
+  .query({ where: { sender: req.body.sender, receiver: req.body.receiver },
+           orWhere: { sender: req.body.receiver, receiver: req.body.sender }})
+  .orderBy('created_at', 'ASC')
+  .fetchAll()
+  .then(messages => {
     res.status(200).send(messages);
   });
 });
@@ -84,6 +85,15 @@ app.get('/getuserid', (req, res) => {
   }     
   res.sendStatus(404);
 });
+
+// app.get('/getname', (req, res) => {
+//   User
+//     .where({ id: req.query.id })
+//     .fetch()
+//     .then(user => {
+//       res.status(200).send(user.name);
+//     });
+// });
 
 app.get('/getuserfacebookid', (req, res) => {
   if (req.session.passport) {
@@ -121,13 +131,12 @@ app.post('/updateBid', (req, res) => {
 });
 
 app.get('/watchitem', (req, res) => {
-  if (req.query.user_id === undefined) {
+  if (!req.query.user_id) {
     res.send("nothing - you're not signed in!");
   } else {
     WatchList.where({ user_id: req.query.user_id, item_id: req.query.item_id }).fetch()
       .then(function(results) {
         if (results === null) {
-          console.log(results);
           new WatchList(req.query).save().then(() => res.send(req.query.item_id));
         } else {
           res.send("already watched!");
@@ -139,15 +148,31 @@ app.get('/watchitem', (req, res) => {
   }
 });
 
-app.get('/search', (req, res) => {
+app.post('/search', (req, res) => {
   // Item.query("MATCH (title) AGAINST(" + req.query.search + ")").fetch()
-  Item.where({ title: req.query.search }).fetchAll()
-    .then(function(items) {
+  db.knex('items')
+    .where('title', 'like', '%' + req.body.search + ' %')
+    .orWhere('title', 'like', '% ' + req.body.search + '%')
+    .orWhere('title', 'like', '% ' + req.body.search + ' %')
+    .orWhere('title', '=', req.body.search)
+    .then(items => {
+      console.log(items);
       res.send(items);
     })
-    .catch(function(err) {
-      res.send('Error:', err);
+    .catch(err => {
+      res.send('Error:', err)
     });
+
+
+  // Item.where({ title: req.query.search }).fetchAll()
+  //   .then(function(items) {
+  //     res.send(items);
+  //   })
+  //   .catch(function(err) {
+  //     res.send('Error:', err);
+  //   });
+
+
 });
 
 // ########################### FACEBOOK OAUTH ###########################
@@ -229,11 +254,7 @@ passport.use(new FacebookStrategy({
 
 // app.get('/searchItem', (req, res) => {
   
-<<<<<<< HEAD
-});
-=======
-// }
->>>>>>> 4be2b1de844384331377c0a35e0f327015d3c9a8
+
 
 
 

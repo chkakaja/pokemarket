@@ -9,9 +9,10 @@ class SearchResults extends Component {
   }
 
   render() {
+    console.log('#########', this.props.results);
     return (
       <div className='search-results'>
-        {this.props.results.map(item => <ItemEntry id={item.id} key={item.id} />)}
+        {this.props.results.map(item => <ItemEntry item={item} key={item.id} />)}
       </div>
     );
   }

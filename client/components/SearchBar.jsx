@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router'
 import $ from 'jquery';
+import { checkAuthentication } from '../actions.js';
 
 class SearchBar extends React.Component {
 
@@ -15,23 +16,22 @@ class SearchBar extends React.Component {
 
   onFormSubmit(e) {
     e.preventDefault();
-    $.ajax({
-      method: 'GET',
-      url: '/search',
-      data: { search: this.search },
-      dataType: 'json',
-      success: function(data) {
+
+    // ###################### SEARCH STRING MUST NOT BE EMPTY OR SEARCH WILL BE WRONG ###################
+    if (this.search) {
+      $.post('/search', { search: this.search }, data => {
         this.props.updateSearchResults(data);
-      }.bind(this)
-    })
-    document.getElementsByClassName('search-input')[0].value = '';
+        this.search = '';
+      });
+      document.getElementsByClassName('search-input')[0].value = '';
+    }
   }
 
 
   render() {
     return (
        <form>
-         <input type='text' onChange={this.onInputChange.bind(this)} className='search-input' />
+         <input type='text' onChange={e => this.onInputChange(e)} className='search-input' />
             <span>
               <button onClick={this.onFormSubmit.bind(this)} type='submit' className='submit-search'><Link to='/searchresults'>Search</Link></button>
             </span>
