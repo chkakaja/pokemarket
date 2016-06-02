@@ -4,10 +4,12 @@ export default function(state = initialState(), action) {
   switch(action.type) {
     case 'SET_USER':
       if (action.user.id !== state.id) {
-        // join(action.user.id);
         return action.user;
       }
       return state;
+    case 'LOGOUT_USER':
+      newState = null;
+      return newState;
     default: 
       return state;
   }

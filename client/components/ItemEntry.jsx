@@ -48,15 +48,17 @@ export default class ItemEntry extends Component {
   render () {
     return (
       <div className='item-entry' onClick={this.goToItem}>
-        <div className='item-entry-info'>
-          <div className='item-entry-title'>{this.props.item.title}</div>
-          <img src={this.props.item.picture} height='300px' className='item-entry-picture' />
-          <div className='item-entry-description'>{this.props.item.description}</div>
-        </div>
-        <div className='item-entry-purchase'>
-          <div className='item-entry-current-bid'>{this.props.item.currentBid}</div>
-          <div className='item-entry-end-time'>DATE HERE</div>
-          <button className='watch' type='submit' onClick={this.watchItem.bind(this)}>Watch Item</button>
+        <img src={this.props.item.picture} height='300px' className='item-entry-picture' />
+        <div className='all-info'>
+          <div className='item-entry-info'>
+            <div className='item-entry-title'>{this.props.item.title}</div>
+            <div className='item-entry-description'>{this.props.item.description}</div>
+          </div>
+          <div className='item-entry-purchase'>
+            <div className='item-entry-current-bid'><b>Current Bid:</b> ${this.props.item.currentBid}</div>
+            <div className='item-entry-end-time'>{prettyDate(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</div>
+            <button className='watch' type='submit' onClick={this.watchItem.bind(this)}>Watch Item</button>
+          </div>
         </div>
       </div>
     );
@@ -76,7 +78,3 @@ var mapStateToProps = function(state, ownProps) {
 };
 
 module.exports = connect(mapStateToProps, mapDispatchToProps)(ItemEntry);
-
-// PUT THE FOLLOWING LINE BACK IN LINE 66
-// prettyDate(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')
-
