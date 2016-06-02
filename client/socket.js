@@ -1,11 +1,13 @@
+import React, { Component } from 'react';
+import store from './store.js';
 import io from 'socket.io-client';
-import store from './store';
 
 var socket = io();
 
-socket.on('message', msg => {
+socket.on('message', json => {
   store.dispatch({  type: 'GOT_MESSAGE', 
-                    message: msg });
+                    message: json.message, 
+                    name: json.name });
 });
 
 var join = function(userId) {

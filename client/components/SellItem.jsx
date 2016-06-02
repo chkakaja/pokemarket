@@ -2,21 +2,14 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import {reduxForm} from 'redux-form';
 import $ from 'jquery';
+import { checkAuthentication } from '../actions.js';
+import { connect } from 'react-redux';
+import FacebookButton from './FacebookButton.jsx';
 
 // look up documentation for redux-form for more insight on how this works
 class SellItem extends Component {
   componentDidMount() {
-    this.getCurrentUser();
-  }
-
-  getCurrentUser() {
-    $.ajax({
-      method: 'GET',
-      url: '/getuserfacebookid',
-      success: function(data) {
-        this.seller_id = data;
-      }.bind(this)
-    });
+    this.props.getUser();
   }
 
   render() {
@@ -33,6 +26,9 @@ class SellItem extends Component {
       });
       resetForm();
     };
+    if (!this.props.user) {
+      return <FacebookButton />
+    }
     return (
       <form onSubmit={handleSubmit(postItem)}>
         <div>
@@ -61,6 +57,17 @@ class SellItem extends Component {
   }
 }
 
+var mapDispatchToProps = function(dispatch) {
+  return {
+    getUser: checkAuthentication(dispatch)
+  }
+};
+
+var mapStateToProps = function(state, ownProps) {
+  return {
+    user: state.user
+  };
+};
 // essentially a reducer for the form
 SellItem = reduxForm({
   // a unique name for this form
@@ -69,4 +76,5 @@ SellItem = reduxForm({
   fields: ['itemTitle', 'itemDescription', 'itemDuration', 'itemPicture', 'itemStartingBid']
 })(SellItem);
 
-module.exports = SellItem;
+module.exports = connect(mapStateToProps, mapDispatchToProps)(SellItem);
+

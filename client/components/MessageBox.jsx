@@ -4,17 +4,12 @@ import { connect } from 'react-redux';
 import Message from './Message.jsx';
 import MessageInput from './MessageInput.jsx';
 import $ from 'jquery';
-import { socket, join, sendMessage } from '../socket.js';
+import { join, sendMessage } from '../socket.js';
 
 class MessageBox extends Component {
 
   static defaultProps = {
-    messages: [],
-    test: {
-      test: {
-        test: []
-      }
-    }
+    messages: []
   }
 
   componentDidMount() {
@@ -33,13 +28,44 @@ class MessageBox extends Component {
     this.props.updateMessage(text, this.props.userId, this.props.receiver);
   }
 
+
   render() {
     return (
-      <div className='message-box'>
-        <div className='messages'>
-          {this.props.messages.map((message, index) => <Message msg={message} key={index} />)}
+      <div className='message-box'
+           style={{
+              'borderTopLeftRadius': '5px',
+              'borderTopRightRadius': '5px',
+              'display': 'inline-block',
+              'float': 'right',
+              'background': 'white',
+              'marginLeft': '5px',
+              'boxShadow': '0 0 5px'
+            }}>
+        <div className='message-box-name' onClick={() => this.props.minimize(this.props.receiver)}
+             style={{
+                'top': '0px',
+                'borderTopLeftRadius': '5px',
+                'borderTopRightRadius': '5px',
+                'background': '#3b5998',
+                'color': 'white',
+                'fontWeight': 'bold',
+                'height': '30px',
+                'textAlign': 'center',
+                'paddingTop': '7px',
+                'paddingBottom': '2px'
+             }}>
+          {this.props.receiverName}
         </div>
-        <div className='new-message'>
+        <div className='message-box-messages'
+             style={{
+                width: '250px',
+                height: '250px',
+                overflow: 'scroll',
+                padding: '8px'
+             }}>
+          {this.props.messages.map((message, index) => <Message userId={this.props.userId} receiverName={this.props.receiverName} msg={message} key={index} />)}
+        </div>
+        <div className='message-box-new'>
           <MessageInput submit={this.sendMessages.bind(this)}/>
         </div>
       </div>
@@ -54,7 +80,7 @@ var mapStateToProps = function(state, ownProps) {
   };
 };
 
-var mapDispatchToProps = function(dispatch){
+var mapDispatchToProps = function(dispatch) {
   return {
     updateMessages: (messages, receiver) => {
       dispatch({ 
@@ -70,6 +96,12 @@ var mapDispatchToProps = function(dispatch){
           sender, message, receiver
         }
       });
+    },
+    minimize: (receiverId) => {
+      dispatch({
+        type: 'MINIMIZE',
+        receiverId
+      })
     }
   };
 };

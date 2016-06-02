@@ -12,13 +12,10 @@ import initialState from './initialState.js'
 var reducers = combineReducers({
   messages: messengerReducer,
   form: formReducer,
-<<<<<<< HEAD
-  user: authenticationReducer
-=======
-  userId: authenticationReducer,
+  user: authenticationReducer,
   item: getItemDataReducer,
   filteredItems: searchItemsReducer
->>>>>>> 4be2b1de844384331377c0a35e0f327015d3c9a8
 });
 
 module.exports = createStore(reducers, initialState(), applyMiddleware(Thunk));
+
