@@ -1,8 +1,12 @@
 module.exports = function() {
   return {
     messages: {
-      active: [2, 3]
+      active: [ { id: 1, name: "Will Tang" }]
     },
-    userId: null
+    user: {
+      id: null
+    }
   };
 };
+
+// { id: 2, name: "Carol Lynn" }

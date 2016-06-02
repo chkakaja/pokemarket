@@ -66,8 +66,13 @@
 
 	var _routes2 = _interopRequireDefault(_routes);
 
+	var _MessageBoxes = __webpack_require__(364);
+
+	var _MessageBoxes2 = _interopRequireDefault(_MessageBoxes);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	console.log('index.js loaded');
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRedux.Provider,
 	  { store: _store2.default },
@@ -27330,7 +27335,7 @@
 	var reducers = (0, _redux.combineReducers)({
 	  messages: _messenger2.default,
 	  form: _reduxForm.reducer,
-	  userId: _authentication2.default,
+	  user: _authentication2.default,
 	  item: _getItemData2.default,
 	  filteredItems: _searchItems2.default
 	});
@@ -30409,6 +30414,7 @@
 	  var state = arguments.length <= 0 || arguments[0] === undefined ? (0, _initialState2.default)() : arguments[0];
 	  var action = arguments[1];
 
+	  var i;
 	  var newState = Object.assign({}, state);
 	  // console.log('state =', state, action, 'NEW =', newState);
 	  switch (action.type) {
@@ -30421,7 +30427,25 @@
 	      newState[action.message.receiver] = newState[action.message.receiver].concat(action.message);
 	      return newState;
 	    case 'GOT_MESSAGE':
-	      newState[action.message.sender] = (newState[action.message.sender] || []).concat(action.message);
+	      for (i = 0; i < newState.active.length; i++) {
+	        if (action.message.sender === newState.active[i].id) {
+	          newState[action.message.sender] = newState[action.message.sender].concat(action.message);
+	          return newState;
+	        }
+	      }
+
+	      newState.active = newState.active.concat({ id: action.message.sender,
+	        name: action.name });
+
+	      return newState;
+	    case 'MINIMIZE':
+	      for (i = 0; i < newState.active.length; i++) {
+	        if (action.receiverId === newState.active[i].id) {
+	          newState.active = newState.active.slice(0, i).concat(newState.active.slice(i + 1));
+	          break;
+	        }
+	      }
+	      return newState;
 	    default:
 	      return state;
 	  }
@@ -30442,11 +30466,15 @@
 	module.exports = function () {
 	  return {
 	    messages: {
-	      active: [2, 3]
+	      active: [{ id: 1, name: "Will Tang" }]
 	    },
-	    userId: null
+	    user: {
+	      id: null
+	    }
 	  };
 	};
+
+	// { id: 2, name: "Carol Lynn" }
 
 /***/ },
 /* 297 */
@@ -30462,10 +30490,12 @@
 	  var state = arguments.length <= 0 || arguments[0] === undefined ? (0, _initialState2.default)() : arguments[0];
 	  var action = arguments[1];
 
-	  var newState = Object.assign({}, state);
 	  switch (action.type) {
-	    case 'SET_USER_ID':
-	      return action.userId;
+	    case 'SET_USER':
+	      if (action.user.id !== state.id) {
+	        return action.user;
+	      }
+	      return state;
 	    case 'LOGOUT_USER':
 	      newState = null;
 	      return newState;
@@ -30513,6 +30543,7 @@
 	  var action = arguments[1];
 
 	  var newState = state.slice();
+	  console.log(action);
 	  switch (action.type) {
 	    case 'CLEAR_SEARCH_RESULTS':
 	      newState = [];
@@ -30611,9 +30642,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _MessageBox = __webpack_require__(302);
+	var _MessageBoxes = __webpack_require__(364);
 
-	var _MessageBox2 = _interopRequireDefault(_MessageBox);
+	var _MessageBoxes2 = _interopRequireDefault(_MessageBoxes);
 
 	var _reactRouter = __webpack_require__(190);
 
@@ -30647,7 +30678,8 @@
 	        'div',
 	        { className: 'app' },
 	        _react2.default.createElement(_Navbar2.default, null),
-	        this.props.children
+	        this.props.children,
+	        _react2.default.createElement(_MessageBoxes2.default, null)
 	      );
 	    }
 	  }]);
@@ -30656,9 +30688,6 @@
 	}(_react.Component);
 
 	exports.default = App;
-
-
-	module.exports = App;
 
 /***/ },
 /* 302 */
@@ -30717,7 +30746,6 @@
 	      var _this2 = this;
 
 	      _jquery2.default.post('/getMessages', { sender: this.props.userId, receiver: this.props.receiver }, function (messages) {
-	        console.log(messages);
 	        _this2.props.updateMessages(messages, _this2.props.receiver);
 	      });
 	    }
@@ -30730,19 +30758,55 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this3 = this;
+
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'message-box' },
+	        { className: 'message-box',
+	          style: {
+	            'borderTopLeftRadius': '5px',
+	            'borderTopRightRadius': '5px',
+	            'display': 'inline-block',
+	            'float': 'right',
+	            'background': 'white',
+	            'marginLeft': '5px',
+	            'boxShadow': '0 0 5px'
+	          } },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'messages' },
+	          { className: 'message-box-name', onClick: function onClick() {
+	              return _this3.props.minimize(_this3.props.receiver);
+	            },
+	            style: {
+	              'top': '0px',
+	              'borderTopLeftRadius': '5px',
+	              'borderTopRightRadius': '5px',
+	              'background': '#3b5998',
+	              'color': 'white',
+	              'fontWeight': 'bold',
+	              'height': '30px',
+	              'textAlign': 'center',
+	              'paddingTop': '7px',
+	              'paddingBottom': '2px'
+	            } },
+	          this.props.receiverName
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'message-box-messages',
+	            style: {
+	              width: '250px',
+	              height: '250px',
+	              overflow: 'scroll',
+	              padding: '8px'
+	            } },
 	          this.props.messages.map(function (message, index) {
-	            return _react2.default.createElement(_Message2.default, { msg: message, key: index });
+	            return _react2.default.createElement(_Message2.default, { userId: _this3.props.userId, receiverName: _this3.props.receiverName, msg: message, key: index });
 	          })
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'new-message' },
+	          { className: 'message-box-new' },
 	          _react2.default.createElement(_MessageInput2.default, { submit: this.sendMessages.bind(this) })
 	        )
 	      );
@@ -30780,6 +30844,12 @@
 	          sender: sender, message: message, receiver: receiver
 	        }
 	      });
+	    },
+	    minimize: function minimize(receiverId) {
+	      dispatch({
+	        type: 'MINIMIZE',
+	        receiverId: receiverId
+	      });
 	    }
 	  };
 	};
@@ -30791,6 +30861,10 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -30801,15 +30875,18 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var Message = function Message(props) {
+	exports.default = function (props) {
 	  return _react2.default.createElement(
 	    'div',
 	    null,
+	    _react2.default.createElement(
+	      'span',
+	      { style: { 'fontWeight': 'bold' } },
+	      (props.userId === props.msg.sender ? 'You' : props.receiverName) + ': '
+	    ),
 	    props.msg.message
 	  );
 	};
-
-	module.exports = Message;
 
 /***/ },
 /* 304 */
@@ -30826,10 +30903,6 @@
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(38);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30864,7 +30937,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'message-input' },
-	        _react2.default.createElement('input', { onChange: function onChange(e) {
+	        _react2.default.createElement('input', { className: 'message-input-box', style: { width: '220px' }, onChange: function onChange(e) {
 	            return _this2.inputField(e.target.value);
 	          }, type: 'text', name: 'messages' }),
 	        _react2.default.createElement(
@@ -40714,6 +40787,14 @@
 	});
 	exports.sendMessage = exports.join = exports.socket = undefined;
 
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _store = __webpack_require__(249);
+
+	var _store2 = _interopRequireDefault(_store);
+
 	var _socket = __webpack_require__(307);
 
 	var _socket2 = _interopRequireDefault(_socket);
@@ -40722,7 +40803,11 @@
 
 	var socket = (0, _socket2.default)();
 
-	socket.on('message', function (msg) {});
+	socket.on('message', function (json) {
+	  _store2.default.dispatch({ type: 'GOT_MESSAGE',
+	    message: json.message,
+	    name: json.name });
+	});
 
 	var join = function join(userId) {
 	  socket.emit('join', { userId: userId });
@@ -48254,6 +48339,12 @@
 	  }
 
 	  _createClass(Navbar, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.getUser();
+	      console.log('navbar rendered');
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -48343,14 +48434,18 @@
 	}(_react2.default.Component);
 
 	exports.default = Navbar;
-
+	;
 
 	var mapStateToProps = function mapStateToProps(state, ownProps) {
-	  return {};
+	  return {
+	    activeMessages: state.messages.active,
+	    user: state.user
+	  };
 	};
 
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
+	    getUser: (0, _actions.checkAuthentication)(dispatch),
 	    logoutUser: (0, _actions.checkAuthentication)({ type: 'LOGOUT_USER' })
 	  };
 	};
@@ -48440,6 +48535,8 @@
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
+	var _actions = __webpack_require__(365);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -48465,17 +48562,18 @@
 	  }, {
 	    key: 'onFormSubmit',
 	    value: function onFormSubmit(e) {
+	      var _this2 = this;
+
 	      e.preventDefault();
-	      _jquery2.default.ajax({
-	        method: 'GET',
-	        url: '/search',
-	        data: { search: this.search },
-	        dataType: 'json',
-	        success: function (data) {
-	          this.props.updateSearchResults(data);
-	        }.bind(this)
-	      });
-	      document.getElementsByClassName('search-input')[0].value = '';
+
+	      // ###################### SEARCH STRING MUST NOT BE EMPTY OR SEARCH WILL BE WRONG ###################
+	      if (this.search) {
+	        _jquery2.default.post('/search', { search: this.search }, function (data) {
+	          _this2.props.updateSearchResults(data);
+	          _this2.search = '';
+	        });
+	        document.getElementsByClassName('search-input')[0].value = '';
+	      }
 	    }
 	  }, {
 	    key: 'render',
@@ -48604,6 +48702,14 @@
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
+	var _actions = __webpack_require__(365);
+
+	var _reactRedux = __webpack_require__(168);
+
+	var _FacebookButton = __webpack_require__(357);
+
+	var _FacebookButton2 = _interopRequireDefault(_FacebookButton);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -48626,18 +48732,7 @@
 	  _createClass(SellItem, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      this.getCurrentUser();
-	    }
-	  }, {
-	    key: 'getCurrentUser',
-	    value: function getCurrentUser() {
-	      _jquery2.default.ajax({
-	        method: 'GET',
-	        url: '/getuserfacebookid',
-	        success: function (data) {
-	          this.seller_id = data;
-	        }.bind(this)
-	      });
+	      this.props.getUser();
 	    }
 	  }, {
 	    key: 'render',
@@ -48666,6 +48761,9 @@
 	        });
 	        resetForm();
 	      };
+	      if (!this.props.user) {
+	        return _react2.default.createElement(_FacebookButton2.default, null);
+	      }
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'sell-item' },
@@ -48748,9 +48846,18 @@
 	  return SellItem;
 	}(_react.Component);
 
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    getUser: (0, _actions.checkAuthentication)(dispatch)
+	  };
+	};
+
+	var mapStateToProps = function mapStateToProps(state, ownProps) {
+	  return {
+	    user: state.user
+	  };
+	};
 	// essentially a reducer for the form
-
-
 	SellItem = (0, _reduxForm.reduxForm)({
 	  // a unique name for this form
 	  form: 'sellItem',
@@ -48758,7 +48865,7 @@
 	  fields: ['itemTitle', 'itemDescription', 'itemDuration', 'itemPicture', 'itemStartingBid']
 	})(SellItem);
 
-	module.exports = SellItem;
+	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SellItem);
 
 /***/ },
 /* 362 */
@@ -48898,6 +49005,7 @@
 	    key: 'createMessageBox',
 	    value: function createMessageBox() {
 	      // ################## RENDER MESSAGE BOX HERE
+
 	    }
 	  }, {
 	    key: 'render',
@@ -49366,20 +49474,26 @@
 	  _createClass(MessageBoxes, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      this.props.getUserId();
+	      // this.props.getUser();
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
 
-	      // console.log(this.props.userId);
-	      if (this.props.userId) {
+	      if (this.props.user) {
 	        return _react2.default.createElement(
 	          'div',
-	          null,
+	          { className: 'message-boxes',
+	            style: {
+	              'display': 'inline-block',
+	              'position': 'absolute',
+	              'bottom': '0px',
+	              'width': '90%',
+	              'zIndex': '50'
+	            } },
 	          this.props.activeMessages.map(function (receiver) {
-	            return _react2.default.createElement(_MessageBox2.default, { userId: _this2.props.userId, receiver: receiver });
+	            return _react2.default.createElement(_MessageBox2.default, { userId: _this2.props.user.id, name: _this2.props.user.name, receiver: receiver.id, receiverName: receiver.name });
 	          })
 	        );
 	      }
@@ -49398,13 +49512,13 @@
 	var mapStateToProps = function mapStateToProps(state, ownProps) {
 	  return {
 	    activeMessages: state.messages.active,
-	    userId: state.userId
+	    user: state.user
 	  };
 	};
 
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
-	    getUserId: (0, _actions.checkAuthentication)(dispatch)
+	    getUser: (0, _actions.checkAuthentication)(dispatch)
 	  };
 	};
 
@@ -49416,27 +49530,28 @@
 
 	'use strict';
 
-	var _redux = __webpack_require__(175);
-
 	var _jquery = __webpack_require__(305);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _socket = __webpack_require__(306);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.checkAuthentication = function (dispatch) {
 
 	  return function () {
-	    _jquery2.default.get('/getuserid', function (userId) {
-	      if (!isNaN(+userId)) {
+	    _jquery2.default.get('/getuserid', function (user) {
+	      if (user) {
+	        (0, _socket.join)(user.id);
 	        return dispatch({
-	          type: 'SET_USER_ID',
-	          userId: userId
+	          type: 'SET_USER',
+	          user: user
 	        });
 	      }
 	      dispatch({
-	        type: 'SET_USER_ID',
-	        userId: null
+	        type: 'SET_USER',
+	        user: null
 	      });
 	    });
 	  };
@@ -49533,11 +49648,12 @@
 	  _createClass(SearchResults, [{
 	    key: 'render',
 	    value: function render() {
+	      console.log('#########', this.props.results);
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'search-results' },
 	        this.props.results.map(function (item) {
-	          return _react2.default.createElement(_ItemEntry2.default, { id: item.id, key: item.id });
+	          return _react2.default.createElement(_ItemEntry2.default, { item: item, key: item.id });
 	        })
 	      );
 	    }
@@ -49569,6 +49685,10 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
@@ -49588,6 +49708,8 @@
 	var _dateformat = __webpack_require__(363);
 
 	var _dateformat2 = _interopRequireDefault(_dateformat);
+
+	var _actions = __webpack_require__(365);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49610,18 +49732,7 @@
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      this.grabItemData();
-	      this.getCurrentUser();
-	    }
-	  }, {
-	    key: 'getCurrentUser',
-	    value: function getCurrentUser() {
-	      _jquery2.default.ajax({
-	        method: 'GET',
-	        url: '/getuserid',
-	        success: function (data) {
-	          this.current_user = data;
-	        }.bind(this)
-	      });
+	      this.props.getUser();
 	    }
 	  }, {
 	    key: 'grabItemData',
@@ -49639,13 +49750,13 @@
 	  }, {
 	    key: 'watchItem',
 	    value: function watchItem(e) {
-	      e.preventDefault();
-	      return _jquery2.default.ajax({
+	      this.props.user;
+	      _jquery2.default.ajax({
 	        method: 'GET',
 	        url: '/watchitem',
 	        data: {
-	          item_id: this.props.id,
-	          user_id: this.current_user
+	          item_id: this.props.item.id,
+	          user_id: this.props.user.id
 	        },
 	        dataType: 'json',
 	        success: function success(data) {
@@ -49713,30 +49824,19 @@
 	  return ItemEntry;
 	}(_react.Component);
 
-	ItemEntry.defaultProps = {
-	  item: {
-	    seller: {
-	      name: '',
-	      picture: ''
-	    }
-	  }
-	};
+	exports.default = ItemEntry;
 
 
-	var mapStateToProps = function mapStateToProps(state, ownProps) {
-	  var selectedItem = {};
-	  state.filteredItems.forEach(function (item) {
-	    if (item.id === ownProps.id) {
-	      selectedItem = item;
-	    }
-	  });
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
-	    item: selectedItem
+	    getUser: (0, _actions.checkAuthentication)(dispatch)
 	  };
 	};
 
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {};
+	var mapStateToProps = function mapStateToProps(state, ownProps) {
+	  return {
+	    user: state.user
+	  };
 	};
 
 	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ItemEntry);

@@ -39,7 +39,13 @@ require('./socket.js');
 // ##################### GETS USERID FOR MESSAGES #######################
 
 app.post('/getMessages', (req, res) => {
-  Message.where({ sender: req.body.sender, receiver: req.body.receiver }).fetchAll().then(messages => {
+  console.log(req.body.sender, req.body.receiver);
+  Message
+  .query({ where: { sender: req.body.sender, receiver: req.body.receiver },
+           orWhere: { sender: req.body.receiver, receiver: req.body.sender }})
+  .orderBy('created_at', 'ASC')
+  .fetchAll()
+  .then(messages => {
     res.status(200).send(messages);
   });
 });
@@ -57,6 +63,15 @@ app.get('/getuserid', (req, res) => {
   }     
   res.sendStatus(404);
 });
+
+// app.get('/getname', (req, res) => {
+//   User
+//     .where({ id: req.query.id })
+//     .fetch()
+//     .then(user => {
+//       res.status(200).send(user.name);
+//     });
+// });
 
 app.get('/getuserfacebookid', (req, res) => {
   if (req.session.passport) {
@@ -94,13 +109,12 @@ app.post('/updateBid', (req, res) => {
 });
 
 app.get('/watchitem', (req, res) => {
-  if (req.query.user_id === undefined) {
+  if (!req.query.user_id) {
     res.send("nothing - you're not signed in!");
   } else {
     WatchList.where({ user_id: req.query.user_id, item_id: req.query.item_id }).fetchAll()
       .then(function(results) {
         if (results === null) {
-          console.log(results);
           new WatchList(req.query).save().then(() => res.send(req.query.item_id));
         } else {
           res.send("already watched!");
@@ -137,13 +151,16 @@ app.get('/getWatchedItems', (req, res) => {
 });
 
 app.get('/search', (req, res) => {
-  // Item.query("MATCH (title) AGAINST(" + req.query.search + ")").fetch()
-  Item.where({ title: req.query.search }).fetchAll()
-    .then(function(items) {
+  db.knex('items')
+    .where('title', 'like', '%' + req.body.search + ' %')
+    .orWhere('title', 'like', '% ' + req.body.search + '%')
+    .orWhere('title', 'like', '% ' + req.body.search + ' %')
+    .orWhere('title', '=', req.body.search)
+    .then(items => {
       res.send(items);
     })
-    .catch(function(err) {
-      res.send('Error:', err);
+    .catch(err => {
+      res.send('Error:', err)
     });
 });
 
@@ -200,9 +217,10 @@ passport.use(new FacebookStrategy({
           if (!user) {
             user = new User({
               name: profile.displayName,
-              facebookId: profile.id,
-              email: profile.emails[0].value,
-              picture: profile.photos[0].value
+              facebookId: profile.id
+              // TEMPORARY, SO TEST USERS CAN GET THROUGH -- WILL
+              // email: profile.emails[0].value,
+              // picture: profile.photos[0].value
             }).save();
           }
           return user;
@@ -218,43 +236,3 @@ passport.use(new FacebookStrategy({
 ));
 
 // ######################## END FACEBOOK OAUTH ###########################
-
-
-
-//######################### SearchBar Requests ##########################
-
-// app.get('/searchItem', (req, res) => {
-  
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-// app.post('/sendMessage', (req, res) => {
-//   console.log(req.body);
-//   new Message(req.body).save().then(() => res.status(200));
-// });
-
-
-// var session = require('express-session');
-// var express = require('express');
-// var app = express();
-
-// console.log(__dirname);
-
-// require('./socket.js');
-
-// module.exports = app.listen(3000);
-
-// var app = express()
-//   , http = require('http')
-//   , server = http.createServer(app)
-//   , io = require('socket.io').listen(server);

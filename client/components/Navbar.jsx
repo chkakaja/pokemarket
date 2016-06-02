@@ -13,6 +13,12 @@ import { checkAuthentication } from '../actions.js';
 
 
 export default class Navbar extends React.Component {
+  
+  componentDidMount() {
+    this.props.getUser();
+    console.log('navbar rendered');
+  }
+
   render() {
   	return (
       <div className='nav'>
@@ -29,19 +35,20 @@ export default class Navbar extends React.Component {
           <a href='signout'><div className='pure-u-1-8 navlink' onClick={this.props.logoutUser}>Sign Out</div></a>
         </div>
       </div>
-	   )
-  };
-}
-
-
-
-var mapStateToProps = function(state, ownProps) {
-  return {
+    )
   }
 };
 
-var mapDispatchToProps = function(dispatch){
+var mapStateToProps = function(state, ownProps) {
   return {
+    activeMessages: state.messages.active,
+    user: state.user
+  };
+};
+
+var mapDispatchToProps = function(dispatch) {
+  return {
+    getUser: checkAuthentication(dispatch),
     logoutUser: checkAuthentication({ type: 'LOGOUT_USER' })
   }
 };

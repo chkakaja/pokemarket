@@ -11,15 +11,21 @@ class MessageBoxes extends Component {
   }
 
   componentDidMount() {
-    this.props.getUserId();
+    // this.props.getUser();
   }
 
   render() {
-    // console.log(this.props.userId);
-    if (this.props.userId) {
+    if (this.props.user) {
       return (
-        <div>
-          {this.props.activeMessages.map(receiver => <MessageBox userId={this.props.userId} receiver={receiver} />)}
+        <div className="message-boxes"
+             style={{
+                'display': 'inline-block',
+                'position': 'absolute',
+                'bottom': '0px',
+                'width': '90%',
+                'zIndex': '50'
+             }}>
+          {this.props.activeMessages.map(receiver => <MessageBox userId={this.props.user.id} name={this.props.user.name} receiver={receiver.id} receiverName={receiver.name} />)}
         </div>
       );
     }
@@ -31,13 +37,13 @@ class MessageBoxes extends Component {
 var mapStateToProps = function(state, ownProps) {
   return {
     activeMessages: state.messages.active,
-    userId: state.userId
+    user: state.user
   };
 };
 
 var mapDispatchToProps = function(dispatch) {
   return {
-    getUserId: checkAuthentication(dispatch)
+    getUser: checkAuthentication(dispatch)
   }
 };
 

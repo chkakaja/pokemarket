@@ -1,3 +1,4 @@
+
 /***************** GENERAL *****************/
 
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,300italic,500);
@@ -266,6 +267,44 @@ html, button, input, select, textarea,
 .messages {
   width: 200px;
   height: 300px;
+>>>>>>> complete basic styling, re-arrange some of component arrangements
   overflow: scroll;
-  font-color: green;
+  padding: 8px;
+
 }
+
+.message-boxes {
+  display: inline-block;
+  position: absolute;
+  bottom: 0px;
+  width: 90%; 
+  z-index: 50;
+}*/
+
+/*.message-box-name {
+  top: 0px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background: #3b5998;
+  color: white;
+  font-weight: bold;
+  height: 30px;
+  text-align: center;
+  padding-top: 7px;
+  padding-bottom: 2px;
+}
+
+.message-box {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  display: inline-block;
+  float: right;
+  background: white;
+  margin-left: 5px;
+  box-shadow: 0 0 5px;
+
+}*/
+
+/*.message-input-box {
+  width: 220px;
+}*/

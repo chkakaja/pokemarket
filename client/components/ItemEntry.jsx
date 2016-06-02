@@ -3,32 +3,15 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import $ from 'jquery';
 import prettyDate from 'dateformat';
+import { checkAuthentication } from '../actions.js';
 
-class ItemEntry extends Component {
-
-  static defaultProps = {
-    item: {
-      seller: {
-        name: '',
-        picture: ''
-      }
-    }
-  }
+export default class ItemEntry extends Component {
 
   componentDidMount() {
     this.grabItemData();
-    this.getCurrentUser();
+    this.props.getUser();
   }
 
-  getCurrentUser() {
-    $.ajax({
-      method: 'GET',
-      url: '/getuserid',
-      success: function(data) {
-        this.current_user = data;
-      }.bind(this)
-    });
-  }
 
   grabItemData() {
     $.ajax({
@@ -43,13 +26,13 @@ class ItemEntry extends Component {
   }
 
   watchItem(e) {
-    e.preventDefault();
-    return $.ajax({
+    this.props.user
+    $.ajax({
       method: 'GET',
       url: '/watchitem',
       data: {
-        item_id: this.props.id,
-        user_id: this.current_user
+        item_id: this.props.item.id,
+        user_id: this.props.user.id
       },
       dataType: 'json',
       success: function(data) {
@@ -82,21 +65,16 @@ class ItemEntry extends Component {
   }
 }
 
-var mapStateToProps = function(state, ownProps) {
-  var selectedItem = {};
-  state.filteredItems.forEach(function(item) {
-    if (item.id === ownProps.id) {
-      selectedItem = item;
-    }
-  })
-    return {
-      item: selectedItem
-    }
+var mapDispatchToProps = function(dispatch) {
+  return {
+    getUser: checkAuthentication(dispatch)
+  }
 };
 
-var mapDispatchToProps = function(dispatch){
+var mapStateToProps = function(state, ownProps) {
   return {
-  }
+    user: state.user
+  };
 };
 
 module.exports = connect(mapStateToProps, mapDispatchToProps)(ItemEntry);

@@ -99,6 +99,7 @@ class Item extends Component {
 
   createMessageBox() {
     // ################## RENDER MESSAGE BOX HERE
+    
   }
 
   render () {

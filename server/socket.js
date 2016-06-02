@@ -2,18 +2,27 @@ var http = require('./app.js')
 var db = require('./db/config');
 var Message = require('./db/models/message.js');
 var io = require('./app.js').io;
+var User = require('./db/models/user.js');
 
 io.on('connection', socket => {
-  console.log('socket connected');
   socket.on('join', data => {
     socket.join(data.userId);
-    console.log('user joined room', data.userId);
+    console.log('joined', data.userId);
   });
 
   socket.on('message', msg => {
-    console.log('message received');
-    io.sockets.in(msg.receiver).emit('new_msg', msg);
-    new Message(msg).save();
+    console.log('message sent', msg);
+    User
+      .where({ id: msg.sender })
+      .fetch()
+      .then(user => {
+        var json = {
+          message: msg,
+          name: user.attributes.name
+        };
+        io.sockets.in(msg.receiver).emit('message', json);
+        new Message(msg).save();
+      });
   });
 });
 
