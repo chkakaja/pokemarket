@@ -37,6 +37,11 @@ a {
   color: black;
 }
 
+.item-entry:hover {
+  background-color: #eef3f5;
+  transition: all 0.3s ease;
+}
+
 
 /***************** NAVBAR / SEARCHBAR *****************/
 
@@ -210,7 +215,7 @@ a {
   display: none;
   opacity: 0;
   font-weight: bold;
-  transition:all 0.3s ease;
+  transition: opacity 3s ease;
 }
 
 .item .item-seller .hover-image:hover .text {
@@ -280,6 +285,10 @@ a {
 
 
 /***************** POPULAR / WATCHED / LISTED ITEMS *****************/
+
+.landing {
+  margin-top: 20px;
+}
 
 .landing .popular-items {
   text-align: center;
@@ -378,14 +387,6 @@ a {
   margin: auto 0px;
   top: 9px;
   left: 12px;
-}
-
-.message-box-name .minimize {
-  position: absolute;
-  max-height: 20px;
-  max-width: 20px;
-  top: 9px;
-  left: 40px;
 }
 
 .message-box-messages {

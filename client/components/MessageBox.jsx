@@ -44,9 +44,8 @@ class MessageBox extends Component {
   render() {
     return (
       <div className='message-box'>
-        <div className='message-box-name'>
+        <div className='message-box-name' onClick={this.min}>
           <img src='https://cdn3.iconfinder.com/data/icons/virtual-notebook/16/button_close-128.png' className='remove' onClick={() => this.props.minimize(this.props.receiver)} />
-          <img src='http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/rounded-glossy-black-icons-symbols-shapes/020739-rounded-glossy-black-icon-symbols-shapes-minimize.png' className='minimize' onClick={this.min} />
           {this.props.receiverName}
         </div>
         <div className='message-box-messages'>

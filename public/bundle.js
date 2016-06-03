@@ -30855,11 +30855,10 @@
 	        { className: 'message-box' },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'message-box-name' },
+	          { className: 'message-box-name', onClick: this.min },
 	          _react2.default.createElement('img', { src: 'https://cdn3.iconfinder.com/data/icons/virtual-notebook/16/button_close-128.png', className: 'remove', onClick: function onClick() {
 	              return _this3.props.minimize(_this3.props.receiver);
 	            } }),
-	          _react2.default.createElement('img', { src: 'http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/rounded-glossy-black-icons-symbols-shapes/020739-rounded-glossy-black-icon-symbols-shapes-minimize.png', className: 'minimize', onClick: this.min }),
 	          this.props.receiverName
 	        ),
 	        _react2.default.createElement(
@@ -49039,15 +49038,17 @@
 	  }, {
 	    key: 'grabItemSeller',
 	    value: function grabItemSeller() {
-	      _jquery2.default.ajax({
-	        method: 'GET',
-	        url: '/getItemSeller',
-	        data: { id: this.props.item.id },
-	        dataType: 'json',
-	        success: function (data) {
-	          this.props.setCurrentItem(data);
-	        }.bind(this)
-	      });
+	      if (this.props.item.id !== 0) {
+	        _jquery2.default.ajax({
+	          method: 'GET',
+	          url: '/getItemSeller',
+	          data: { id: this.props.item.id },
+	          dataType: 'json',
+	          success: function (data) {
+	            this.props.setCurrentItem(data);
+	          }.bind(this)
+	        });
+	      }
 	    }
 	  }, {
 	    key: 'getCurrentUser',

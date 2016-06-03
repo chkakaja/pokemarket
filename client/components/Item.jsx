@@ -24,15 +24,17 @@ class Item extends Component {
   }
 
   grabItemSeller() {
-    $.ajax({
-      method: 'GET',
-      url: '/getItemSeller',
-      data: { id: this.props.item.id },
-      dataType: 'json',
-      success: function(data) {
-        this.props.setCurrentItem(data);
-      }.bind(this)
-    });
+    if (this.props.item.id !== 0) {
+      $.ajax({
+        method: 'GET',
+        url: '/getItemSeller',
+        data: { id: this.props.item.id },
+        dataType: 'json',
+        success: function(data) {
+          this.props.setCurrentItem(data);
+        }.bind(this)
+      });
+    }
   }
 
   getCurrentUser() {
