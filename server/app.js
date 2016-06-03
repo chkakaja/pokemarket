@@ -132,10 +132,10 @@ app.get('/getuserfacebookid', (req, res) => {
   }
 });
 
-app.get('/getItemData', (req, res) => {
+app.get('/getItemSeller', (req, res) => {
   Item.where({ id: req.query.id }).fetch()
     .then(function(item) {
-      User.where({ facebookId: item.attributes.seller_id }).fetch()
+      User.where({ id: item.attributes.seller_id }).fetch()
         .then(function(seller) {
           item.attributes.seller = seller.attributes;
           res.status(200).send(item.attributes);
@@ -160,24 +160,22 @@ app.post('/updateBid', (req, res) => {
 });
 
 app.get('/watchitem', (req, res) => {
-  if (!req.query.user_id) {
-    res.send("nothing - you're not signed in!");
-  } else {
-    WatchList.where({ user_id: req.query.user_id, item_id: req.query.item_id }).fetchAll()
-      .then(function(results) {
-        if (results === null) {
-          new WatchList(req.query).save().then(() => res.send(req.query.item_id));
-        } else {
-          res.send("already watched!");
-        }
-      })
-      .catch(function(err) {
-        res.send('Error:', err);
-      })
-  }
+  WatchList.where({ user_id: req.query.user_id, item_id: req.query.item_id }).fetch()
+    .then(function(result) {
+      if (result === null) {
+        new WatchList(req.query).save().then(() => res.send(req.query.item_id));
+      } else {
+        result.destroy();
+        res.send("Unwatched item");
+      }
+    })
+    .catch(function(err) {
+      res.send('Error:', err);
+    });
 });
 
 app.post('/addvisit', (req, res) => {
+  console.log(req.body);
   Item.where(req.body).fetch()
     .then(function(item) {
       if (item.attributes.visits === null) {
@@ -192,16 +190,37 @@ app.post('/addvisit', (req, res) => {
 });
 
 app.get('/getWatchedItems', (req, res) => {
-  WatchList.where(req.query).fetchAll()
-    .then(function(items) {
+  db.knex('watchlists')
+    .where({ user_id: req.query.user_id })
+    .innerJoin('items', 'items.id', '=', 'watchlists.item_id')
+    .then(items => {
       res.send(items);
     })
-    .catch(function(err) {
+    .catch(err => {
       res.send('Error:', err);
     });
 });
 
+app.get('/getListedItems', (req, res) => {
+  Item.where({ seller_id: req.query.user_id }).fetchAll()
+    .then(items => {
+      res.send(items);
+    })
+    .catch(err => {
+      res.send('Error:', err);
+    });
+});
 
+app.get('/getPopularItems', (req, res) => {
+  Item.forge().orderBy('visits', 'desc').fetchAll()
+    .then(items => {
+      console.log(items);
+      res.send(items);
+    })
+    .catch(err => {
+      res.send('Error:', err);
+    });
+});
 
 // item selling form routes
 app.post('/sellItem', (req, res) => {
@@ -214,7 +233,7 @@ app.get('/auth/facebook',
  
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { successRedirect: '/',
-                                      failureRedirect: '/signin' }));
+                                      failureRedirect: '/' }));
 
 app.get('/signout' , (req, res) => {
   // check to see if this actually works
