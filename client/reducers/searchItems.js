@@ -1,6 +1,5 @@
 module.exports = function(state = [], action) {
   var newState = state.slice();
-  console.log(action);
   switch (action.type) {
     case 'CLEAR_SEARCH_RESULTS':
       newState = [];

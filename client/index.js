@@ -6,7 +6,6 @@ import store from './store.js';
 import routes from './routes.jsx';
 import MessageBoxes from './components/MessageBoxes.jsx';
 
-console.log('index.js loaded');
 ReactDOM.render(
   <Provider store={store}>
     <Router routes={routes}/>

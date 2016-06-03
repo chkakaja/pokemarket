@@ -24,18 +24,30 @@ html, button, input, select, textarea,
 }
 
 .pure-button-primary {
-  background-color: #ff6961;
+  background-color: #aec6cf;
 }
 
 .pure-button-primary:hover {
-  background-color: #ff9a95;
+  background-color: #cedde2;
   transition:all 0.3s ease;
 }
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.item-entry:hover {
+  background-color: #eef3f5;
+  transition: all 0.3s ease;
+}
+
 
 /***************** NAVBAR / SEARCHBAR *****************/
 
 .nav {
   font-weight: 500;
+  font-size: 18px;
   margin-top: 20px;
   width: 100%;
 }
@@ -49,17 +61,26 @@ html, button, input, select, textarea,
   line-height: 60px;
 }
 
+.nav .links .empty-navlink {
+  height: 60px;
+  margin: 10px 0 10px 0;
+  padding: auto 0;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #ff9e14;
+}
+
 .nav .links .navlink {
   height: 60px;
   margin: 10px 0 10px 0;
   padding: auto 0;
   text-align: center;
   vertical-align: middle;
-  background-color: #939393;
+  background-color: #ff9e14;
 }
 
 .nav .links .navlink:hover {
-  background-color: #a0a0a0;
+  background-color: #ffb347;
   transition:all 0.3s ease;
 }
 
@@ -194,7 +215,7 @@ html, button, input, select, textarea,
   display: none;
   opacity: 0;
   font-weight: bold;
-  transition:all 0.3s ease;
+  transition: opacity 3s ease;
 }
 
 .item .item-seller .hover-image:hover .text {
@@ -262,49 +283,132 @@ html, button, input, select, textarea,
   margin-bottom: 5px;
 }
 
-/***************** MESSAGES *****************/
 
-.messages {
-  width: 200px;
-  height: 300px;
->>>>>>> complete basic styling, re-arrange some of component arrangements
-  overflow: scroll;
-  padding: 8px;
+/***************** POPULAR / WATCHED / LISTED ITEMS *****************/
 
+.landing {
+  margin-top: 20px;
 }
+
+.landing .popular-items {
+  text-align: center;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.landing .watched-items {
+  text-align: center;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.landing .listed-items {
+  text-align: center;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.landing .item-entry {
+  font-weight: 300;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  padding: 10px;
+  margin: 20px auto;
+  width: 300px;
+}
+
+.landing .item-entry .item-entry-picture {
+  display: block;
+  margin: auto;
+  height: auto;
+  width: auto;
+  max-height: 200px;
+  max-width: 300px;
+}
+
+.landing .item-entry .all-info .item-entry-info .item-entry-title {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.landing .item-entry .all-info .item-entry-info .item-entry-description {
+  margin-bottom: 5px;
+  width: 300px;
+  max-height: 40px;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.landing .item-entry .all-info .item-entry-purchase .item-entry-current-bid {
+  margin-bottom: 5px;
+}
+
+.landing .item-entry .all-info .item-entry-purchase .item-entry-end-time {
+  margin-bottom: 5px;
+}
+
+
+/***************** MESSAGES *****************/
 
 .message-boxes {
   display: inline-block;
-  position: absolute;
+  position: fixed;
   bottom: 0px;
-  width: 90%; 
   z-index: 50;
-}*/
+  overflow-y: scroll;
+}
 
-/*.message-box-name {
+.message-box {
+  border-style: solid;
+  border-width: 1px;
+  display: inline-block;
+  float: right;
+  background: white;
+  margin-left: 5px;
+  overflow-y: scroll;
+}
+
+.message-box-name {
   top: 0px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  background: #3b5998;
-  color: white;
+  background-color: #aec6cf;
   font-weight: bold;
   height: 30px;
+  width: 275px;
   text-align: center;
   padding-top: 7px;
   padding-bottom: 2px;
 }
 
-.message-box {
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  display: inline-block;
-  float: right;
-  background: white;
-  margin-left: 5px;
-  box-shadow: 0 0 5px;
+.message-box-name .remove {
+  position: absolute;
+  max-height: 20px;
+  max-width: 20px;
+  margin: auto 0px;
+  top: 9px;
+  left: 12px;
+}
 
-}*/
+.message-box-messages {
+  height: 280px;
+}
 
-/*.message-input-box {
+.messages {
+  width: 200px;
+  height: 300px;
+  overflow: scroll;
+  padding: 8px;
+}
+
+.message-input-box {
+  position: absolute;
+  bottom: 0%;
+  height: 20px;
   width: 220px;
-}*/
+}
+
+.message-input-submit {
+  position: absolute;
+  bottom: 0%;
+  right: 0%;
+}

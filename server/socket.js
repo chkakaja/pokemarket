@@ -16,6 +16,7 @@ io.on('connection', socket => {
       .where({ id: msg.sender })
       .fetch()
       .then(user => {
+        console.log(user);
         var json = {
           message: msg,
           name: user.attributes.name
@@ -25,4 +26,3 @@ io.on('connection', socket => {
       });
   });
 });
-
