@@ -5,24 +5,24 @@ import $ from 'jquery';
 import { checkAuthentication } from '../actions.js';
 import ItemEntry from './ItemEntry.jsx';
 
-class WatchedItems extends Component {
+class ListedItems extends Component {
   static defaultProps = {
-    watchedItems: []
+    listedItems: []
   }
 
   componentDidMount() {
     this.props.getUserId();
-    this.getWatchedItems();
+    this.getListedItems();
   }
 
-  getWatchedItems() {
+  getListedItems() {
     $.ajax({
       method: 'GET',
-      url: '/getWatchedItems',
+      url: '/getListedItems',
       data: { user_id: this.props.user.id },
       dataType: 'json',
       success: function(data) {
-        this.props.updateWatchedItems(data);
+        this.props.updateListedItems(data);
       }.bind(this)
     })
   }
@@ -30,14 +30,14 @@ class WatchedItems extends Component {
   render() {
     if (this.props.user.id) {
       return (
-        <div className='watched-items'>
-          <div className='watching'>Your current watch list</div>
-          {this.props.watchedItems.map(item => <ItemEntry item={item} key={item.id} />)}
+        <div className='listed-items'>
+          <div className='listings'>Your current listings</div>
+          {this.props.listedItems.map(item => <ItemEntry item={item} key={item.id} />)}
         </div>
       );
     } else {
       return (
-        <div>Sign in to watch items!</div>
+        <div>Sign in to see your listed items!</div>
       );
     }
   }
@@ -46,20 +46,20 @@ class WatchedItems extends Component {
 var mapStateToProps = function(state, ownProps) {
   return {
     user: state.user,
-    watchedItems: state.watchedItems
+    listedItems: state.listedItems
   };
 };
 
 var mapDispatchToProps = function(dispatch) {
   return {
     getUserId: checkAuthentication(dispatch),
-    updateWatchedItems: (data) => {
+    updateListedItems: (data) => {
       dispatch({
-        type: 'UPDATE_WATCHED_ITEMS',
+        type: 'UPDATE_LISTED_ITEMS',
         data
       });
     }
   }
 };
 
-module.exports = connect(mapStateToProps, mapDispatchToProps)(WatchedItems);
+module.exports = connect(mapStateToProps, mapDispatchToProps)(ListedItems);

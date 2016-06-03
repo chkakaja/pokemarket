@@ -27329,6 +27329,14 @@
 
 	var _setWatchedItems2 = _interopRequireDefault(_setWatchedItems);
 
+	var _setListedItems = __webpack_require__(371);
+
+	var _setListedItems2 = _interopRequireDefault(_setListedItems);
+
+	var _setPopularItems = __webpack_require__(374);
+
+	var _setPopularItems2 = _interopRequireDefault(_setPopularItems);
+
 	var _initialState = __webpack_require__(296);
 
 	var _initialState2 = _interopRequireDefault(_initialState);
@@ -27341,7 +27349,9 @@
 	  user: _authentication2.default,
 	  item: _getItemData2.default,
 	  filteredItems: _searchItems2.default,
-	  watchedItems: _setWatchedItems2.default
+	  watchedItems: _setWatchedItems2.default,
+	  listedItems: _setListedItems2.default,
+	  popularItems: _setPopularItems2.default
 	});
 
 	module.exports = (0, _redux.createStore)(reducers, (0, _initialState2.default)(), (0, _redux.applyMiddleware)(_reduxThunk2.default));
@@ -49597,10 +49607,6 @@
 
 	var _ItemEntry2 = _interopRequireDefault(_ItemEntry);
 
-	var _setWatchedItems = __webpack_require__(370);
-
-	var _setWatchedItems2 = _interopRequireDefault(_setWatchedItems);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -49640,11 +49646,15 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      console.log('watcheditems', this.props.watchedItems);
 	      if (this.props.user.id) {
 	        return _react2.default.createElement(
 	          'div',
-	          null,
+	          { className: 'watched-items' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'watching' },
+	            'Your current watch list'
+	          ),
 	          this.props.watchedItems.map(function (item) {
 	            return _react2.default.createElement(_ItemEntry2.default, { item: item, key: item.id });
 	          })
@@ -49704,9 +49714,21 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
+	var _reactRedux = __webpack_require__(168);
+
+	var _actions = __webpack_require__(357);
+
 	var _WatchedItems = __webpack_require__(366);
 
 	var _WatchedItems2 = _interopRequireDefault(_WatchedItems);
+
+	var _ListedItems = __webpack_require__(372);
+
+	var _ListedItems2 = _interopRequireDefault(_ListedItems);
+
+	var _PopularItems = __webpack_require__(373);
+
+	var _PopularItems2 = _interopRequireDefault(_PopularItems);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49726,20 +49748,46 @@
 	  }
 
 	  _createClass(Landing, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.getUserId();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'landing' },
-	        _react2.default.createElement(_WatchedItems2.default, null)
-	      );
+	      if (this.props.user.id) {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'landing' },
+	          _react2.default.createElement(_WatchedItems2.default, null),
+	          _react2.default.createElement(_ListedItems2.default, null)
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'landing' },
+	          _react2.default.createElement(_PopularItems2.default, null)
+	        );
+	      }
 	    }
 	  }]);
 
 	  return Landing;
 	}(_react.Component);
 
-	module.exports = Landing;
+	var mapStateToProps = function mapStateToProps(state, ownProps) {
+	  return {
+	    user: state.user
+	  };
+	};
+
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    getUserId: (0, _actions.checkAuthentication)(dispatch)
+	  };
+	};
+
+	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Landing);
 
 /***/ },
 /* 368 */
@@ -49904,7 +49952,6 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      console.log(this.props.item);
 	      if (this.props.user.id) {
 	        return _react2.default.createElement(
 	          'div',
@@ -50035,6 +50082,278 @@
 	  var newState = [];
 	  switch (action.type) {
 	    case 'UPDATE_WATCHED_ITEMS':
+	      action.data.forEach(function (item) {
+	        newState.push(item);
+	      });
+	      return newState;
+	    default:
+	      return state;
+	  }
+	};
+
+/***/ },
+/* 371 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	module.exports = function () {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+	  var action = arguments[1];
+
+	  var newState = [];
+	  switch (action.type) {
+	    case 'UPDATE_LISTED_ITEMS':
+	      action.data.forEach(function (item) {
+	        newState.push(item);
+	      });
+	      return newState;
+	    default:
+	      return state;
+	  }
+	};
+
+/***/ },
+/* 372 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(38);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _reactRedux = __webpack_require__(168);
+
+	var _jquery = __webpack_require__(306);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _actions = __webpack_require__(357);
+
+	var _ItemEntry = __webpack_require__(369);
+
+	var _ItemEntry2 = _interopRequireDefault(_ItemEntry);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ListedItems = function (_Component) {
+	  _inherits(ListedItems, _Component);
+
+	  function ListedItems() {
+	    _classCallCheck(this, ListedItems);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(ListedItems).apply(this, arguments));
+	  }
+
+	  _createClass(ListedItems, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.getUserId();
+	      this.getListedItems();
+	    }
+	  }, {
+	    key: 'getListedItems',
+	    value: function getListedItems() {
+	      _jquery2.default.ajax({
+	        method: 'GET',
+	        url: '/getListedItems',
+	        data: { user_id: this.props.user.id },
+	        dataType: 'json',
+	        success: function (data) {
+	          this.props.updateListedItems(data);
+	        }.bind(this)
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      if (this.props.user.id) {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'listed-items' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'listings' },
+	            'Your current listings'
+	          ),
+	          this.props.listedItems.map(function (item) {
+	            return _react2.default.createElement(_ItemEntry2.default, { item: item, key: item.id });
+	          })
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          'Sign in to see your listed items!'
+	        );
+	      }
+	    }
+	  }]);
+
+	  return ListedItems;
+	}(_react.Component);
+
+	ListedItems.defaultProps = {
+	  listedItems: []
+	};
+
+
+	var mapStateToProps = function mapStateToProps(state, ownProps) {
+	  return {
+	    user: state.user,
+	    listedItems: state.listedItems
+	  };
+	};
+
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    getUserId: (0, _actions.checkAuthentication)(dispatch),
+	    updateListedItems: function updateListedItems(data) {
+	      dispatch({
+	        type: 'UPDATE_LISTED_ITEMS',
+	        data: data
+	      });
+	    }
+	  };
+	};
+
+	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ListedItems);
+
+/***/ },
+/* 373 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(38);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _reactRedux = __webpack_require__(168);
+
+	var _jquery = __webpack_require__(306);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _actions = __webpack_require__(357);
+
+	var _ItemEntry = __webpack_require__(369);
+
+	var _ItemEntry2 = _interopRequireDefault(_ItemEntry);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var PopularItems = function (_Component) {
+	  _inherits(PopularItems, _Component);
+
+	  function PopularItems() {
+	    _classCallCheck(this, PopularItems);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(PopularItems).apply(this, arguments));
+	  }
+
+	  _createClass(PopularItems, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.getUserId();
+	      this.getPopularItems();
+	    }
+	  }, {
+	    key: 'getPopularItems',
+	    value: function getPopularItems() {
+	      _jquery2.default.ajax({
+	        method: 'GET',
+	        url: '/getPopularItems',
+	        success: function (data) {
+	          this.props.updatePopularItems(data);
+	        }.bind(this)
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'popular-items' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'popular' },
+	          'What\'s popular'
+	        ),
+	        this.props.popularItems.map(function (item) {
+	          return _react2.default.createElement(_ItemEntry2.default, { item: item, key: item.id });
+	        })
+	      );
+	    }
+	  }]);
+
+	  return PopularItems;
+	}(_react.Component);
+
+	PopularItems.defaultProps = {
+	  popularItems: []
+	};
+
+
+	var mapStateToProps = function mapStateToProps(state, ownProps) {
+	  return {
+	    user: state.user,
+	    popularItems: state.popularItems
+	  };
+	};
+
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    getUserId: (0, _actions.checkAuthentication)(dispatch),
+	    updatePopularItems: function updatePopularItems(data) {
+	      dispatch({
+	        type: 'UPDATE_POPULAR_ITEMS',
+	        data: data
+	      });
+	    }
+	  };
+	};
+
+	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(PopularItems);
+
+/***/ },
+/* 374 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	module.exports = function () {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+	  var action = arguments[1];
+
+	  var newState = [];
+	  switch (action.type) {
+	    case 'UPDATE_POPULAR_ITEMS':
 	      action.data.forEach(function (item) {
 	        newState.push(item);
 	      });

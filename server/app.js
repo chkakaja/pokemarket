@@ -139,20 +139,32 @@ app.post('/addvisit', (req, res) => {
     });
 });
 
-// app.get('/feedback', (req, res) => {
-//  db.('feedback')
-//    .where({ receiver_id: req.query.receiver })
-//    .innerJoin('users', 'feedback.author_id', '=', 'users.id')
-//    .then(feedbackArray => {
-//      res.status(200).send(feedbackArray);
-//    });
-// });
-
 app.get('/getWatchedItems', (req, res) => {
   db.knex('watchlists')
     .where({ user_id: req.query.user_id })
     .innerJoin('items', 'items.id', '=', 'watchlists.item_id')
     .then(items => {
+      res.send(items);
+    })
+    .catch(err => {
+      res.send('Error:', err);
+    });
+});
+
+app.get('/getListedItems', (req, res) => {
+  Item.where({ seller_id: req.query.user_id }).fetchAll()
+    .then(items => {
+      res.send(items);
+    })
+    .catch(err => {
+      res.send('Error:', err);
+    });
+});
+
+app.get('/getPopularItems', (req, res) => {
+  Item.forge().orderBy('visits', 'desc').fetchAll()
+    .then(items => {
+      console.log(items);
       res.send(items);
     })
     .catch(err => {

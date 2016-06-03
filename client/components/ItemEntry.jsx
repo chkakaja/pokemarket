@@ -44,7 +44,6 @@ export default class ItemEntry extends Component {
   }
 
   render () {
-    console.log(this.props.item)
     if (this.props.user.id) {
       return (
         <div className='item-entry' onClick={this.goToItem}>
