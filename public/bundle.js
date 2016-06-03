@@ -30833,6 +30833,19 @@
 	      this.props.updateMessage(text, this.props.userId, this.props.receiver);
 	    }
 	  }, {
+	    key: 'min',
+	    value: function min() {
+	      var messages = document.getElementsByClassName('message-box-messages')[0];
+	      var input = document.getElementsByClassName('message-box-new')[0];
+	      if (messages.style.display == "block") {
+	        messages.style.display = 'none';
+	        input.style.display = 'none';
+	      } else {
+	        messages.style.display = 'block';
+	        input.style.display = 'block';
+	      }
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this3 = this;
@@ -30842,9 +30855,11 @@
 	        { className: 'message-box' },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'message-box-name', onClick: function onClick() {
+	          { className: 'message-box-name' },
+	          _react2.default.createElement('img', { src: 'https://cdn3.iconfinder.com/data/icons/virtual-notebook/16/button_close-128.png', className: 'remove', onClick: function onClick() {
 	              return _this3.props.minimize(_this3.props.receiver);
-	            } },
+	            } }),
+	          _react2.default.createElement('img', { src: 'http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/rounded-glossy-black-icons-symbols-shapes/020739-rounded-glossy-black-icon-symbols-shapes-minimize.png', className: 'minimize', onClick: this.min }),
 	          this.props.receiverName
 	        ),
 	        _react2.default.createElement(
@@ -48687,7 +48702,7 @@
 	          _react2.default.createElement(
 	            _reactRouter.Link,
 	            { to: '/searchresults' },
-	            _react2.default.createElement('img', { src: 'http://www.clker.com/cliparts/9/T/2/h/X/7/search-icon-hi.png', className: 'search-icon' })
+	            _react2.default.createElement('img', { src: 'http://www.gardenbenches.com/assets/search_mob-4e31f0d049c237cff0aa0f66fc77efc1.png', className: 'search-icon' })
 	          )
 	        )
 	      );
