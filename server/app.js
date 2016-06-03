@@ -81,7 +81,7 @@ app.get('/getuserfacebookid', (req, res) => {
   }
 });
 
-app.get('/getItemData', (req, res) => {
+app.get('/getItemSeller', (req, res) => {
   Item.where({ id: req.query.id }).fetch()
     .then(function(item) {
       User.where({ id: item.attributes.seller_id }).fetch()
@@ -111,7 +111,6 @@ app.post('/updateBid', (req, res) => {
 app.get('/watchitem', (req, res) => {
   WatchList.where({ user_id: req.query.user_id, item_id: req.query.item_id }).fetch()
     .then(function(result) {
-      console.log(result);
       if (result === null) {
         new WatchList(req.query).save().then(() => res.send(req.query.item_id));
       } else {

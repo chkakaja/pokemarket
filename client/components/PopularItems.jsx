@@ -27,7 +27,7 @@ class PopularItems extends Component {
 
   render() {
     return (
-      <div className='popular-items'>
+      <div>
         <div className='popular'>What's popular</div>
         {this.props.popularItems.map(item => <ItemEntry item={item} key={item.id} />)}
       </div>

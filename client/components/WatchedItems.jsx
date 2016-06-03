@@ -30,7 +30,7 @@ class WatchedItems extends Component {
   render() {
     if (this.props.user.id) {
       return (
-        <div className='watched-items'>
+        <div>
           <div className='watching'>Your current watch list</div>
           {this.props.watchedItems.map(item => <ItemEntry item={item} key={item.id} />)}
         </div>

@@ -31,7 +31,7 @@ class SellItem extends Component {
     }
     return (
       <div className='sell-item'>
-        <h2 className='sell-item-title'>Sell Your Item Below</h2>
+        <h2 className='sell-item-title'>Sell Your Item</h2>
         <form onSubmit={handleSubmit(postItem)} className='pure-form pure-form-aligned'>
           <fieldset>
             <div className='pure-control-group'>

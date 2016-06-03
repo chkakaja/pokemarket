@@ -16,14 +16,15 @@ class Landing extends Component {
     if (this.props.user.id) {
       return (
         <div className='landing'>
-          <WatchedItems />
-          <ListedItems />
+          <div className='watched-items pure-u-1-3'><WatchedItems /></div>
+          <div className='listed-items pure-u-1-3'><ListedItems /></div>
+          <div className='popular-items pure-u-1-3'><PopularItems /></div>
         </div>
       )
     } else {
       return (
         <div className='landing'>
-          <PopularItems />
+          <div className='popular-items no-user'><PopularItems /></div>
         </div>
       )
     }

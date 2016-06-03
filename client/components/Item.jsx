@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import $ from 'jquery';
 import prettyDate from 'dateformat';
-import MessageBox from './MessageBox.jsx';
+import SearchResults from './SearchResults.jsx';
 
 class Item extends Component {
 
   static defaultProps = {
-    id: 1,
     item: {
+      id: 0,
       seller: {
         name: '',
         picture: ''
@@ -18,19 +18,19 @@ class Item extends Component {
   }
 
   componentDidMount() {
-    this.grabItemData();
+    this.grabItemSeller();
     this.getCurrentUser();
     this.addVisit();
   }
 
-  grabItemData() {
+  grabItemSeller() {
     $.ajax({
       method: 'GET',
-      url: '/getItemData',
-      data: { id: this.props.id },
+      url: '/getItemSeller',
+      data: { id: this.props.item.id },
       dataType: 'json',
       success: function(data) {
-        this.props.sendItemData(data);
+        this.props.setCurrentItem(data);
       }.bind(this)
     });
   }
@@ -39,7 +39,7 @@ class Item extends Component {
     $.ajax({
       method: 'GET',
       url: '/getuserid',
-      data: { id: this.props.id },
+      data: { id: this.props.item.id },
       dataType: 'json',
       success: function(data) {
         this.current_user = data;
@@ -67,7 +67,7 @@ class Item extends Component {
       method: 'POST',
       url: '/updateBid',
       data: {
-        id: this.props.id,
+        id: this.props.item.id,
         newBid: this.form
       },
       dataType: 'json',
@@ -95,11 +95,6 @@ class Item extends Component {
         console.log('Watching item', data);
       }
     })
-  }
-
-  createMessageBox() {
-    // ################## RENDER MESSAGE BOX HERE
-    
   }
 
   render () {
@@ -172,16 +167,16 @@ class Item extends Component {
 
 var mapStateToProps = function(state, ownProps) {
   return {
-    item: state.item,
+    item: state.currentItem,
     user: state.user
   }
 };
 
 var mapDispatchToProps = function(dispatch){
   return {
-    sendItemData: (item) => {
+    setCurrentItem: (item) => {
       dispatch({
-        type: 'UPDATE_ITEM_DATA',
+        type: 'SET_CURRENT_ITEM',
         item
       })
     }

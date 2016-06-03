@@ -32,10 +32,17 @@ html, button, input, select, textarea,
   transition:all 0.3s ease;
 }
 
+a {
+  text-decoration: none;
+  color: black;
+}
+
+
 /***************** NAVBAR / SEARCHBAR *****************/
 
 .nav {
   font-weight: 500;
+  font-size: 18px;
   margin-top: 20px;
   width: 100%;
 }
@@ -47,6 +54,15 @@ html, button, input, select, textarea,
 
 .nav .links {
   line-height: 60px;
+}
+
+.nav .links .empty-navlink {
+  height: 60px;
+  margin: 10px 0 10px 0;
+  padding: auto 0;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #ff9e14;
 }
 
 .nav .links .navlink {
@@ -262,28 +278,81 @@ html, button, input, select, textarea,
   margin-bottom: 5px;
 }
 
-/***************** MESSAGES *****************/
 
-.messages {
-  width: 200px;
-  height: 300px;
-  overflow: scroll;
-  padding: 8px;
+/***************** POPULAR / WATCHED / LISTED ITEMS *****************/
+
+.landing .popular-items {
+  text-align: center;
+  font-weight: 500;
+  font-size: 20px;
 }
+
+.landing .watched-items {
+  text-align: center;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.landing .listed-items {
+  text-align: center;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.landing .item-entry {
+  font-weight: 300;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  padding: 10px;
+  margin: 10px auto;
+  width: 300px;
+}
+
+.landing .item-entry .item-entry-picture {
+  display: block;
+  margin: auto;
+  height: auto;
+  width: auto;
+  max-height: 200px;
+  max-width: 300px;
+}
+
+.landing .item-entry .all-info .item-entry-info .item-entry-title {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.landing .item-entry .all-info .item-entry-info .item-entry-description {
+  margin-bottom: 5px;
+  width: 300px;
+  max-height: 40px;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.landing .item-entry .all-info .item-entry-purchase .item-entry-current-bid {
+  margin-bottom: 5px;
+}
+
+.landing .item-entry .all-info .item-entry-purchase .item-entry-end-time {
+  margin-bottom: 5px;
+}
+
+
+/***************** MESSAGES *****************/
 
 .message-boxes {
   display: inline-block;
-  position: absolute;
+  position: fixed;
   bottom: 0px;
-  width: 90%; 
   z-index: 50;
+  overflow-y: scroll;
 }
 
 .message-box-name {
   top: 0px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  background: #3b5998;
+  background: #4477b2;
   color: white;
   font-weight: bold;
   height: 30px;
@@ -293,8 +362,8 @@ html, button, input, select, textarea,
 }
 
 .message-box {
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
   display: inline-block;
   float: right;
   background: white;
@@ -302,6 +371,14 @@ html, button, input, select, textarea,
   box-shadow: 0 0 5px;
   height: 300px;
   width: 275px;
+  overflow-y: scroll;
+}
+
+.messages {
+  width: 200px;
+  height: 300px;
+  overflow: scroll;
+  padding: 8px;
 }
 
 .message-input-box {
