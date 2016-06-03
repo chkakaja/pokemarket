@@ -4,18 +4,15 @@ import { connect } from 'react-redux';
 import $ from 'jquery';
 import { checkAuthentication } from '../actions.js';
 import ItemEntry from './ItemEntry.jsx';
+import setWatchedItems from '../reducers/setWatchedItems.js';
 
 class WatchedItems extends Component {
-  // static defaultProps = {
-  //   watchedItems = [];
-  // }
-
-  componentWillMount() {
-    this.watchedItems = [];
+  static defaultProps = {
+    watchedItems: []
   }
 
   componentDidMount() {
-    // this.props.getUserId();
+    this.props.getUserId();
     this.getWatchedItems();
   }
 
@@ -23,21 +20,20 @@ class WatchedItems extends Component {
     $.ajax({
       method: 'GET',
       url: '/getWatchedItems',
-      // CHANGE THIS
-      data: { user_id: 1 },
+      data: { user_id: this.props.user.id },
       dataType: 'json',
       success: function(data) {
-        this.watchedItems = data;
-        console.log(this.watchedItems);
-      }
+        this.props.updateWatchedItems(data);
+      }.bind(this)
     })
   }
 
   render() {
-    if (1) {
+    console.log('watcheditems', this.props.watchedItems);
+    if (this.props.user.id) {
       return (
         <div>
-          {this.watchedItems.map(item => <ItemEntry id={item.id} key={item.id} />)}
+          {this.props.watchedItems.map(item => <ItemEntry item={item} key={item.id} />)}
         </div>
       );
     } else {
@@ -50,13 +46,20 @@ class WatchedItems extends Component {
 
 var mapStateToProps = function(state, ownProps) {
   return {
-    // userId: state.userId
+    user: state.user,
+    watchedItems: state.watchedItems
   };
 };
 
 var mapDispatchToProps = function(dispatch) {
   return {
-    // getUserId: checkAuthentication(dispatch)
+    getUserId: checkAuthentication(dispatch),
+    updateWatchedItems: (data) => {
+      dispatch({
+        type: 'UPDATE_WATCHED_ITEMS',
+        data
+      });
+    }
   }
 };
 

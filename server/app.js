@@ -57,7 +57,7 @@ app.post('/sendMessage', (req, res) => {
 app.get('/getuserid', (req, res) => {
   if (req.session.hasOwnProperty('passport')) {
     User.where({ facebookId: req.session.passport.user }).fetch().then(user => {
-      res.status(200).send(String(user.id));
+      res.status(200).send(user);
     });
     return;
   }     
@@ -84,7 +84,7 @@ app.get('/getuserfacebookid', (req, res) => {
 app.get('/getItemData', (req, res) => {
   Item.where({ id: req.query.id }).fetch()
     .then(function(item) {
-      User.where({ facebookId: item.attributes.seller_id }).fetch()
+      User.where({ id: item.attributes.seller_id }).fetch()
         .then(function(seller) {
           item.attributes.seller = seller.attributes;
           res.status(200).send(item.attributes);
@@ -109,24 +109,23 @@ app.post('/updateBid', (req, res) => {
 });
 
 app.get('/watchitem', (req, res) => {
-  if (!req.query.user_id) {
-    res.send("nothing - you're not signed in!");
-  } else {
-    WatchList.where({ user_id: req.query.user_id, item_id: req.query.item_id }).fetchAll()
-      .then(function(results) {
-        if (results === null) {
-          new WatchList(req.query).save().then(() => res.send(req.query.item_id));
-        } else {
-          res.send("already watched!");
-        }
-      })
-      .catch(function(err) {
-        res.send('Error:', err);
-      })
-  }
+  WatchList.where({ user_id: req.query.user_id, item_id: req.query.item_id }).fetch()
+    .then(function(result) {
+      console.log(result);
+      if (result === null) {
+        new WatchList(req.query).save().then(() => res.send(req.query.item_id));
+      } else {
+        result.destroy();
+        res.send("Unwatched item");
+      }
+    })
+    .catch(function(err) {
+      res.send('Error:', err);
+    });
 });
 
 app.post('/addvisit', (req, res) => {
+  console.log(req.body);
   Item.where(req.body).fetch()
     .then(function(item) {
       if (item.attributes.visits === null) {
@@ -140,17 +139,28 @@ app.post('/addvisit', (req, res) => {
     });
 });
 
+// app.get('/feedback', (req, res) => {
+//  db.('feedback')
+//    .where({ receiver_id: req.query.receiver })
+//    .innerJoin('users', 'feedback.author_id', '=', 'users.id')
+//    .then(feedbackArray => {
+//      res.status(200).send(feedbackArray);
+//    });
+// });
+
 app.get('/getWatchedItems', (req, res) => {
-  WatchList.where(req.query).fetchAll()
-    .then(function(items) {
+  db.knex('watchlists')
+    .where({ user_id: req.query.user_id })
+    .innerJoin('items', 'items.id', '=', 'watchlists.item_id')
+    .then(items => {
       res.send(items);
     })
-    .catch(function(err) {
+    .catch(err => {
       res.send('Error:', err);
     });
 });
 
-app.get('/search', (req, res) => {
+app.post('/search', (req, res) => {
   db.knex('items')
     .where('title', 'like', '%' + req.body.search + ' %')
     .orWhere('title', 'like', '% ' + req.body.search + '%')
@@ -175,7 +185,7 @@ app.get('/auth/facebook',
  
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { successRedirect: '/',
-                                      failureRedirect: '/signin' }));
+                                      failureRedirect: '/' }));
 
 app.get('/signout' , (req, res) => {
   // check to see if this actually works

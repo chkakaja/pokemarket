@@ -5,6 +5,7 @@ module.exports = function(state = { seller: { name: '', picture: '' } }, action)
       for (var key in action.item) {
         newState[key] = action.item[key];
       }
+      console.log(newState);
       return newState;
     default:
       return state;

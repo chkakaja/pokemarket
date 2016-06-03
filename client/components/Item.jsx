@@ -83,12 +83,12 @@ class Item extends Component {
 
   watchItem(e) {
     e.preventDefault();
-    return $.ajax({
+    $.ajax({
       method: 'GET',
       url: '/watchitem',
       data: {
-        item_id: this.props.id,
-        user_id: this.current_user
+        item_id: this.props.user.id,
+        user_id: this.current_user.id
       },
       dataType: 'json',
       success: function(data) {
@@ -103,7 +103,7 @@ class Item extends Component {
   }
 
   render () {
-    if (this.props.userId) {
+    if (this.current_user) {
       return (
         <div className='item'>
           <div className='item-title'>{this.props.item.title}</div>
@@ -173,7 +173,7 @@ class Item extends Component {
 var mapStateToProps = function(state, ownProps) {
   return {
     item: state.item,
-    userId: state.userId
+    user: state.user
   }
 };
 

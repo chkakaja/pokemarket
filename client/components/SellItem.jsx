@@ -21,7 +21,7 @@ class SellItem extends Component {
         description: this.props.fields.itemDescription.value,
         duration: this.props.fields.itemDuration.value,
         picture: this.props.fields.itemPicture.value,
-        seller_id: this.seller_id,
+        seller_id: this.props.user.id,
         currentBid: this.props.fields.itemStartingBid.value
       });
       resetForm();
@@ -64,17 +64,18 @@ class SellItem extends Component {
   }
 }
 
+var mapStateToProps = function(state, ownProps) {
+  return {
+    user: state.user
+  };
+};
+
 var mapDispatchToProps = function(dispatch) {
   return {
     getUser: checkAuthentication(dispatch)
   }
 };
 
-var mapStateToProps = function(state, ownProps) {
-  return {
-    user: state.user
-  };
-};
 // essentially a reducer for the form
 SellItem = reduxForm({
   // a unique name for this form

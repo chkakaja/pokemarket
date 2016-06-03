@@ -7,6 +7,7 @@ import messengerReducer from './reducers/messenger.js';
 import authenticationReducer from './reducers/authentication.js';
 import getItemDataReducer from './reducers/getItemData.js';
 import searchItemsReducer from './reducers/searchItems.js';
+import setWatchedItemsReducer from './reducers/setWatchedItems.js';
 import initialState from './initialState.js'
 
 var reducers = combineReducers({
@@ -14,7 +15,8 @@ var reducers = combineReducers({
   form: formReducer,
   user: authenticationReducer,
   item: getItemDataReducer,
-  filteredItems: searchItemsReducer
+  filteredItems: searchItemsReducer,
+  watchedItems: setWatchedItemsReducer
 });
 
 module.exports = createStore(reducers, initialState(), applyMiddleware(Thunk));

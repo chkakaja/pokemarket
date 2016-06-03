@@ -1,11 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+import WatchedItems from './WatchedItems.jsx';
 
 class Landing extends Component {
   render () {
     return (
       <div className='landing'>
-        Landing page
+        <WatchedItems />
       </div>
     );
   }

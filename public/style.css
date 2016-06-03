@@ -24,11 +24,11 @@ html, button, input, select, textarea,
 }
 
 .pure-button-primary {
-  background-color: #ff6961;
+  background-color: #4477b2;
 }
 
 .pure-button-primary:hover {
-  background-color: #ff9a95;
+  background-color: #779ecb;
   transition:all 0.3s ease;
 }
 
@@ -55,11 +55,11 @@ html, button, input, select, textarea,
   padding: auto 0;
   text-align: center;
   vertical-align: middle;
-  background-color: #939393;
+  background-color: #ff9e14;
 }
 
 .nav .links .navlink:hover {
-  background-color: #a0a0a0;
+  background-color: #ffb347;
   transition:all 0.3s ease;
 }
 
@@ -267,10 +267,8 @@ html, button, input, select, textarea,
 .messages {
   width: 200px;
   height: 300px;
->>>>>>> complete basic styling, re-arrange some of component arrangements
   overflow: scroll;
   padding: 8px;
-
 }
 
 .message-boxes {
@@ -279,9 +277,9 @@ html, button, input, select, textarea,
   bottom: 0px;
   width: 90%; 
   z-index: 50;
-}*/
+}
 
-/*.message-box-name {
+.message-box-name {
   top: 0px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -302,9 +300,18 @@ html, button, input, select, textarea,
   background: white;
   margin-left: 5px;
   box-shadow: 0 0 5px;
+  height: 300px;
+  width: 275px;
+}
 
-}*/
-
-/*.message-input-box {
+.message-input-box {
+  position: absolute;
+  bottom: 0%;
   width: 220px;
-}*/
+}
+
+.message-input-submit {
+  position: absolute;
+  bottom: 0%;
+  right: 0%;
+}
