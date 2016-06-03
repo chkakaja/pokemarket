@@ -31,6 +31,8 @@ export default class Navbar extends React.Component {
           <Link to="item"><div className='pure-u-1-8 navlink'>Item</div></Link>
           <Link to="watcheditems"><div className='pure-u-1-8 navlink'>Watched Items</div></Link>
           <Link to="message"><div className='pure-u-1-8 navlink'>Messages</div></Link>
+          <Link to="feedback"><div className='pure-u-1-8 navlink'>Feedback</div></Link>
+          <Link to="leavefeedback"><div className='pure-u-1-8 navlink'>Leave Feedback</div></Link>
           <a href='auth/facebook'><div className='pure-u-1-8 navlink'>Connect with Facebook</div></a>
           <a href='signout'><div className='pure-u-1-8 navlink' onClick={this.props.logoutUser}>Sign Out</div></a>
         </div>

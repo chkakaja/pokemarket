@@ -11,6 +11,8 @@ var Message = require('./db/models/message.js');
 var User = require('./db/models/user');
 var Item = require('./db/models/item');
 var WatchList = require('./db/models/watchlist');
+var Feedback = require('./db/models/feedback.js');
+var dateformat = require('dateformat');
 
 app.use(express.static(__dirname + '/../public'));
 app.use(bodyParser());
@@ -36,7 +38,42 @@ require('./socket.js');
 
 // ######################### END SOCKET.IO CODE #########################
 
-// ##################### GETS USERID FOR MESSAGES #######################
+// ############################## FEEDBACK ##############################
+
+app.get('/feedback', (req, res) => {
+  db.knex('feedback')
+    .where({ receiver_id: req.query.receiver })
+    .innerJoin('users', 'feedback.author_id', '=', 'users.id')
+    .then(feedbackArray => {
+      console.log('requestid', req.query.receiver, feedbackArray);
+      res.status(200).send(feedbackArray);
+    });
+});
+
+app.get('/toleavefeedback', (req, res) => {
+  if (req.session.hasOwnProperty('passport')) {
+    User
+      .where({ facebookId: req.session.passport.user })
+      .fetch()
+      .then(user => {
+        db.knex('items')
+          .where({ current_bidder: user.id, feedback: null })
+          .andWhere('end_at', '<', dateformat(new Date(), "dddd, mmmm dS, yyyy, h:MM:ss TT"))
+          .then(items => res.status(200).send(items));
+      });
+  }  
+  res.status(404);
+});
+
+app.post('/leavefeedback', (req, res) => {
+  new Feedback(req.body)
+    .save()
+    .then(feedback => {
+      new Item({ id: req.body.item_id, feedback: feedback.attributes.id });
+      res.send();
+    });
+});
+// ############################## MESSAGES #############################
 
 app.post('/getMessages', (req, res) => {
   console.log(req.body.sender, req.body.receiver);
@@ -56,22 +93,36 @@ app.post('/sendMessage', (req, res) => {
 
 app.get('/getuserid', (req, res) => {
   if (req.session.hasOwnProperty('passport')) {
-    User.where({ facebookId: req.session.passport.user }).fetch().then(user => {
-      res.status(200).send(String(user.id));
-    });
+    User
+      .where({ facebookId: req.session.passport.user })
+      .fetch()
+      .then(user => {
+        res.status(200).send(user);
+      });
     return;
   }     
   res.sendStatus(404);
+}); 
+
+// ############################## SEARCH ################################
+
+app.post('/search', (req, res) => {
+  db.knex('items')
+    .where('title', 'like', '%' + req.body.search + ' %')
+    .orWhere('title', 'like', '% ' + req.body.search + '%')
+    .orWhere('title', 'like', '% ' + req.body.search + ' %')
+    .orWhere('title', '=', req.body.search)
+    .then(items => {
+      console.log(items);
+      res.send(items);
+    })
+    .catch(err => {
+      res.send('Error:', err)
+    });
 });
 
-// app.get('/getname', (req, res) => {
-//   User
-//     .where({ id: req.query.id })
-//     .fetch()
-//     .then(user => {
-//       res.status(200).send(user.name);
-//     });
-// });
+
+// ############################## ITEMS ################################
 
 app.get('/getuserfacebookid', (req, res) => {
   if (req.session.passport) {
@@ -150,19 +201,7 @@ app.get('/getWatchedItems', (req, res) => {
     });
 });
 
-app.get('/search', (req, res) => {
-  db.knex('items')
-    .where('title', 'like', '%' + req.body.search + ' %')
-    .orWhere('title', 'like', '% ' + req.body.search + '%')
-    .orWhere('title', 'like', '% ' + req.body.search + ' %')
-    .orWhere('title', '=', req.body.search)
-    .then(items => {
-      res.send(items);
-    })
-    .catch(err => {
-      res.send('Error:', err)
-    });
-});
+
 
 // item selling form routes
 app.post('/sellItem', (req, res) => {

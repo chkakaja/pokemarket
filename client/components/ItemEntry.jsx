@@ -20,7 +20,7 @@ export default class ItemEntry extends Component {
       data: { id: this.props.id },
       dataType: 'json',
       success: function(data) {
-        console.log('Successfully populated item', data);
+        //console.log('Successfully populated item', data);
       }.bind(this)
     });
   }

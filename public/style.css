@@ -267,7 +267,6 @@ html, button, input, select, textarea,
 .messages {
   width: 200px;
   height: 300px;
->>>>>>> complete basic styling, re-arrange some of component arrangements
   overflow: scroll;
   padding: 8px;
 
@@ -279,7 +278,11 @@ html, button, input, select, textarea,
   bottom: 0px;
   width: 90%; 
   z-index: 50;
-}*/
+}
+
+.leave-feedback-selected {
+  font-weight: bold;
+}
 
 /*.message-box-name {
   top: 0px;

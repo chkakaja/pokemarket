@@ -5,7 +5,8 @@ module.exports = function() {
     },
     user: {
       id: null
-    }
+    },
+    feedback: {}
   };
 };
 

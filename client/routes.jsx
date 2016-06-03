@@ -10,6 +10,8 @@ import Navbar from './components/Navbar.jsx';
 import Item from './components/Item.jsx';
 import SearchResults from './components/SearchResults.jsx';
 import WatchedItems from './components/WatchedItems.jsx';
+import Feedback from './components/Feedback.jsx';
+import LeaveFeedback from './components/LeaveFeedback.jsx';
 
 module.exports = (
   <Route path="/" component={App}>
@@ -20,5 +22,7 @@ module.exports = (
     <Route path="item" component={Item} />
     <Route path="searchresults" component={SearchResults} />
     <Route path="watcheditems" component={WatchedItems} />
+    <Route path="feedback" component={Feedback} />
+    <Route path="leavefeedback" component={LeaveFeedback} />
   </Route>
 );

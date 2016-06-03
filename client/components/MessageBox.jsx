@@ -73,7 +73,6 @@ class MessageBox extends Component {
 }
 
 var mapStateToProps = function(state, ownProps) {
-  console.log('state', state);
   return {
     messages: state.messages[ownProps.receiver]
   };

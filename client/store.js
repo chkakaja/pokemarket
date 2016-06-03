@@ -8,13 +8,17 @@ import authenticationReducer from './reducers/authentication.js';
 import getItemDataReducer from './reducers/getItemData.js';
 import searchItemsReducer from './reducers/searchItems.js';
 import initialState from './initialState.js'
+import feedbackReducer from './reducers/feedback.js';
+import toLeaveFeedbackReducer from './reducers/leaveFeedback.js';
 
 var reducers = combineReducers({
   messages: messengerReducer,
   form: formReducer,
   user: authenticationReducer,
   item: getItemDataReducer,
-  filteredItems: searchItemsReducer
+  filteredItems: searchItemsReducer,
+  feedback: feedbackReducer,
+  toLeaveFeedback: toLeaveFeedbackReducer
 });
 
 module.exports = createStore(reducers, initialState(), applyMiddleware(Thunk));

@@ -52,7 +52,7 @@ class Item extends Component {
       method: 'POST',
       url: '/addvisit',
       success: function(data) {
-        console.log('Visit added. Now at', data.visits, 'visits');
+        //console.log('Visit added. Now at', data.visits, 'visits');
       }
     })
   }
