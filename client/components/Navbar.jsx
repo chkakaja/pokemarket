@@ -13,9 +13,7 @@ import { checkAuthentication } from '../actions.js';
 
 export default class Navbar extends React.Component {
   
-  componentDidMount() {
-    this.props.getUser();
-  }
+
 
   // WHEN PERSONAL PROFILE IS DONE, ADD THE FOLLOWING CODE BELOW THE MESSAGES DIV
   // <Link to="personalprofile"><div className='pure-u-1-6 navlink'>Personal Profile</div></Link>
@@ -38,6 +36,7 @@ export default class Navbar extends React.Component {
             <a href='signout'><div className='pure-u-1-8 navlink' onClick={this.props.logoutUser}>Sign Out</div></a>
           </div>
         </div>
+      );
     } else {
       return (
         <div className='nav'>
@@ -50,7 +49,7 @@ export default class Navbar extends React.Component {
             <a href='auth/facebook'><div className='pure-u-1-6 navlink'>Connect with Facebook</div></a>
           </div>
         </div>
-      )
+      );
     }
   }
 };
@@ -68,4 +67,4 @@ var mapDispatchToProps = function(dispatch) {
   }
 };
 
-module.exports = connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

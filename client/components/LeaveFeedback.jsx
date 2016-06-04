@@ -24,7 +24,6 @@ export default class LeaveFeedback extends Component {
 }
 
 var mapStateToProps = function(state, ownProps) {
-  console.log(state);
   return {
     toLeaveFeedbackArray: state.toLeaveFeedback
   };

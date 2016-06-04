@@ -3,8 +3,11 @@ import ReactDOM from 'react-dom';
 
 export default props => {
   return (
-    <div> 
-      <span style={{'fontWeight': 'bold'}}>{ (props.userId === props.msg.sender ? 'You' : props.receiverName) + ': '}</span>{props.msg.message}
+    <div>
+      <div className={props.userId === props.msg.sender ? 'from-me' : 'from-them'}>
+        {props.msg.message}
+      </div>
+      <div className="clear"></div>
     </div>
   );
 };

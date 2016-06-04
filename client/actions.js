@@ -29,10 +29,10 @@ exports.getFeedback = function(dispatch) {
       var neutral = 0;
 
       feedbackArray.forEach(feedback => {
-        if (feedback.rating === 1) {
+        if (feedback.rating == 1) {
           return positive++;
         }
-        if (feedback.rating === -1) {
+        if (feedback.rating == -1) {
           return negative++;
         }
         neutral++;

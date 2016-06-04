@@ -12,13 +12,21 @@ class MessageBoxes extends Component {
 
   componentDidMount() {
     // this.props.getUser();
+    console.log(this.props.activeMessages);
   }
 
   render() {
     if (this.props.user.id) {
       return (
         <div className="message-boxes">
-          {this.props.activeMessages.map(receiver => <MessageBox userId={this.props.user.id} name={this.props.user.name} receiver={receiver.id} receiverName={receiver.name} />)}
+          {this.props.activeMessages.map((receiver, index) => 
+            <MessageBox userId={this.props.user.id} 
+                        name={this.props.user.name} 
+                        receiver={receiver.id} 
+                        receiverName={receiver.name}
+                        hide={receiver.hide ? true : false} 
+                        key={index}
+            />)}
         </div>
       );
     }

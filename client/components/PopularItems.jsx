@@ -11,7 +11,6 @@ class PopularItems extends Component {
   }
 
   componentDidMount() {
-    this.props.getUserId();
     this.getPopularItems();
   }
 
@@ -44,7 +43,6 @@ var mapStateToProps = function(state, ownProps) {
 
 var mapDispatchToProps = function(dispatch) {
   return {
-    getUserId: checkAuthentication(dispatch),
     updatePopularItems: (data) => {
       dispatch({
         type: 'UPDATE_POPULAR_ITEMS',

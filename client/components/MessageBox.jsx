@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import Message from './Message.jsx';
+import Messages from './Messages.jsx';
 import MessageInput from './MessageInput.jsx';
 import $ from 'jquery';
 import { join, sendMessage } from '../socket.js';
@@ -13,6 +13,7 @@ class MessageBox extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props.hide);
     this.getMessages();
     join(this.props.userId);
   }
@@ -29,31 +30,28 @@ class MessageBox extends Component {
   }
 
   min() {
-    var messages = document.getElementsByClassName('message-box-messages')[0];
-    var input = document.getElementsByClassName('message-box-new')[0];
-    if (messages.style.display == "block") {
-      messages.style.display = 'none';
-      input.style.display = 'none';
-    }
-    else {
-      messages.style.display = 'block';
-      input.style.display = 'block';
+    this.props.hideMessages(this.props.receiver);
+  }
+
+  renderMessages(hide) {
+    if (!hide) {
+      return (
+        <div> 
+          <Messages messages={this.props.messages} userId={this.props.userId} receiverName={this.props.receiverName} />
+          <MessageInput submit={this.sendMessages.bind(this)}/>
+        </div>
+      );
     }
   }
 
   render() {
     return (
       <div className='message-box'>
-        <div className='message-box-name' onClick={this.min}>
+        <div className='message-box-name' onClick={this.min.bind(this)}>
           <img src='https://cdn3.iconfinder.com/data/icons/virtual-notebook/16/button_close-128.png' className='remove' onClick={() => this.props.minimize(this.props.receiver)} />
-          {this.props.receiverName}
+          {this.props.receiverName.slice(0, 15)}
         </div>
-        <div className='message-box-messages'>
-          {this.props.messages.map((message, index) => <Message userId={this.props.userId} receiverName={this.props.receiverName} msg={message} key={index} />)}
-        </div>
-        <div className='message-box-new'>
-          <MessageInput submit={this.sendMessages.bind(this)}/>
-        </div>
+        {this.renderMessages(this.props.hide)}
       </div>
     );
   }
@@ -61,7 +59,7 @@ class MessageBox extends Component {
 
 var mapStateToProps = function(state, ownProps) {
   return {
-    messages: state.messages[ownProps.receiver]
+    messages: state.messages[ownProps.receiver],
   };
 };
 
@@ -82,9 +80,15 @@ var mapDispatchToProps = function(dispatch) {
         }
       });
     },
-    minimize: (receiverId) => {
+    minimize: receiverId => {
       dispatch({
         type: 'MINIMIZE',
+        receiverId
+      })
+    },
+    hideMessages: receiverId => {
+      dispatch({
+        type: 'HIDE',
         receiverId
       })
     }

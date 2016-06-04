@@ -3,9 +3,14 @@ import MessageBoxes from './MessageBoxes.jsx';
 import Router from 'react-router';  
 import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
 import Navbar from './Navbar.jsx';
+import { connect } from 'react-redux';
+import { checkAuthentication } from '../actions.js';
 
 export default class App extends Component {
-   render() {
+  componentWillMount() {
+    this.props.getUser();
+  }
+  render() {
     return (
       <div className='app'>
        <Navbar />
@@ -15,3 +20,17 @@ export default class App extends Component {
     );
   }
 }
+
+var mapStateToProps = function(state, ownProps) {
+  return {
+    user: state.user
+  };
+};
+
+var mapDispatchToProps = function(dispatch) {
+  return {
+    getUser: checkAuthentication(dispatch),
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

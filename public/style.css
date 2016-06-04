@@ -352,9 +352,10 @@ a {
 /***************** MESSAGES *****************/
 
 .message-boxes {
-  display: inline-block;
+  display: flex;
   position: fixed;
   bottom: 0px;
+  right: 0px;
   z-index: 50;
   overflow-y: scroll;
 }
@@ -364,13 +365,14 @@ a {
 }
 
 .message-box {
+  float: right;
   border-style: solid;
   border-width: 1px;
   display: inline-block;
   float: right;
   background: white;
   margin-left: 5px;
-  overflow-y: scroll;
+  width: 275px;
 }
 
 .message-box-name {
@@ -384,7 +386,8 @@ a {
   padding-bottom: 2px;
 }
 
-.message-box-name .remove {
+
+.remove {
   position: absolute;
   max-height: 20px;
   max-width: 20px;
@@ -394,25 +397,105 @@ a {
 }
 
 .message-box-messages {
-  height: 280px;
+  height: 275px;
+  overflow: scroll;
 }
 
 .messages {
   width: 200px;
   height: 300px;
-  overflow: scroll;
   padding: 8px;
 }
 
 .message-input-box {
-  position: absolute;
-  bottom: 0%;
   height: 20px;
   width: 220px;
 }
 
-.message-input-submit {
+/*.message-input-submit {
   position: absolute;
   bottom: 0%;
   right: 0%;
+}*/
+
+
+
+.clear {clear: both}
+.from-me {
+  position:relative;
+  padding:10px 20px;
+  color:white; 
+  background:#F29B2F;
+  border-radius:10px;
+  float: right;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  font-size: 14px;
+  max-width: 185px;
+  word-wrap: break-word;
+  margin-left: 3px;
+/*  &:before {
+    content:"";
+    position:absolute;
+    z-index:-1;
+    bottom:-2px;
+    right:-7px;
+    height:20px;
+    border-right:20px solid #0B93F6;
+    border-bottom-left-radius: 16px 14px;
+    -webkit-transform:translate(0, -2px);
+  }
+
+  &:after {
+    content:"";
+    position:absolute;
+    z-index:1;
+    bottom:-2px;
+    right:-56px;
+    width:26px;
+    height:20px;
+    background:white;
+    border-bottom-left-radius: 10px;
+    -webkit-transform:translate(-30px, -2px);
+  }*/
+}
+.from-them {
+  position:relative;
+  padding:10px 20px;
+  background:#E5E5EA;
+  border-radius:10px;
+  color: black;
+  float: left;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  font-size: 14px;
+  max-width: 185px;
+  word-wrap: break-word;
+  margin-left: 3px;
+
+    
+/*  &:before {
+    content:"";
+    position:absolute;
+    z-index:2;
+    bottom:-2px;
+    left:-7px;
+    height:20px;
+    border-left:20px solid #E5E5EA;
+    border-bottom-right-radius: 16px 14px;
+    -webkit-transform:translate(0, -2px);
+  }
+
+  &:after {
+    content:"";
+    position:absolute;
+    z-index:3;
+    bottom:-2px;
+    left:4px;
+    width:26px;
+    height:20px;
+    background:white;
+    border-bottom-right-radius: 10px;
+    -webkit-transform:translate(-30px, -2px);
+  }*/
 }

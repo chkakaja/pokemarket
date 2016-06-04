@@ -41,13 +41,12 @@ export default class Feedback extends Component {
 }
 
 var mapStateToProps = function(state, ownProps) {
-    console.log(state.feedback);
-    return {
-      feedbackArray: state.feedback.feedbackArray,
-      negative: state.feedback.negative,
-      positive: state.feedback.positive,
-      neutral: state.feedback.neutral
-    };
+  return {
+    feedbackArray: state.feedback.feedbackArray,
+    negative: state.feedback.negative,
+    positive: state.feedback.positive,
+    neutral: state.feedback.neutral
+  };
 };
 
 var mapDispatchToProps = function(dispatch) {

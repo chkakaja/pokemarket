@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import $ from 'jquery';
 import prettyDate from 'dateformat';
 import SearchResults from './SearchResults.jsx';
+import Username from './Username.jsx';
+import { checkAuthentication } from '../actions.js';
+import CountdownTimer from './CountdownTimer.jsx';
 
 class Item extends Component {
 
@@ -19,7 +22,6 @@ class Item extends Component {
 
   componentDidMount() {
     this.grabItemSeller();
-    this.getCurrentUser();
     this.addVisit();
   }
 
@@ -37,17 +39,17 @@ class Item extends Component {
     }
   }
 
-  getCurrentUser() {
-    $.ajax({
-      method: 'GET',
-      url: '/getuserid',
-      data: { id: this.props.item.id },
-      dataType: 'json',
-      success: function(data) {
-        this.current_user = data;
-      }.bind(this)
-    });
-  }
+  // getCurrentUser() {
+  //   $.ajax({
+  //     method: 'GET',
+  //     url: '/getuserid',
+  //     data: { id: this.props.item.id },
+  //     dataType: 'json',
+  //     success: function(data) {
+  //       this.current_user = data;
+  //     }.bind(this)
+  //   });
+  // }
 
   addVisit() {
     $.ajax({
@@ -89,8 +91,8 @@ class Item extends Component {
       method: 'GET',
       url: '/watchitem',
       data: {
-        item_id: this.props.user.id,
-        user_id: this.current_user.id
+        item_id: this.props.item.id,
+        user_id: this.props.user.id
       },
       dataType: 'json',
       success: function(data) {
@@ -100,7 +102,7 @@ class Item extends Component {
   }
 
   render () {
-    if (this.current_user) {
+    if (this.props.user) {
       return (
         <div className='item'>
           <div className='item-title'>{this.props.item.title}</div>
@@ -121,19 +123,20 @@ class Item extends Component {
               </div>
             </form>
             <div className='end-time'>{prettyDate(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</div>
+            <CountdownTimer endDate={this.props.item.end_at} />
             <button className='watch pure-button' type='submit' onClick={this.watchItem.bind(this)}>Watch Item</button>
           </div>
           <div className='pure-u-1-24'></div>
           <div className='item-seller pure-u-4-24'>
             <div className='seller-info'>Seller:</div>
-            <div className='seller-name'>{this.props.item.seller.name}</div>
+            <Username id={this.props.item.seller.id} name={this.props.item.seller.name} />
             <div className='hover-image'>
               <img src={this.props.item.seller.picture} className='seller-picture' />
               <p className='text'>Message seller</p>
             </div>
           </div>
         </div>
-      )
+      );
     } else {
       return (
         <div className='item'>
@@ -181,7 +184,8 @@ var mapDispatchToProps = function(dispatch){
         type: 'SET_CURRENT_ITEM',
         item
       })
-    }
+    },
+    getUser: checkAuthentication(dispatch)
   }
 };
 

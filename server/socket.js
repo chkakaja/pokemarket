@@ -7,16 +7,13 @@ var User = require('./db/models/user.js');
 io.on('connection', socket => {
   socket.on('join', data => {
     socket.join(data.userId);
-    console.log('joined', data.userId);
   });
 
   socket.on('message', msg => {
-    console.log('message sent', msg);
     User
       .where({ id: msg.sender })
       .fetch()
       .then(user => {
-        console.log(user);
         var json = {
           message: msg,
           name: user.attributes.name

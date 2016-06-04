@@ -18,10 +18,9 @@ var reducers = combineReducers({
   messages: messengerReducer,
   form: formReducer,
   user: authenticationReducer,
-  item: getItemDataReducer,
   filteredItems: searchItemsReducer,
   feedback: feedbackReducer,
-  toLeaveFeedback: toLeaveFeedbackReducer
+  toLeaveFeedback: toLeaveFeedbackReducer,
   filteredItems: searchItemsReducer,
   watchedItems: setWatchedItemsReducer,
   listedItems: setListedItemsReducer,

@@ -23,7 +23,6 @@ export default function(state = initialState(), action) {
 
       newState.active = newState.active.concat({ id: action.message.sender,
                                                  name: action.name });
-
       return newState;
     case 'MINIMIZE':
       for (i = 0; i < newState.active.length; i++) {
@@ -32,6 +31,18 @@ export default function(state = initialState(), action) {
           break;
         }
       }
+      return newState;
+    case 'HIDE':
+      for (i = 0; i < newState.active.length; i++) {
+        if (action.receiverId === newState.active[i].id) {
+          newState.active = newState.active.slice();
+          newState.active[i].hide = newState.active[i].hide ? false : true;
+          break;
+        }
+      }
+      return newState;
+    case 'NEW_MESSAGE_BOX':
+      newState.active = newState.active.concat(action.chatter);
       return newState;
     default: 
       return state;
