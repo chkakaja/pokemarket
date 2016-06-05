@@ -6,24 +6,29 @@ import { checkAuthentication } from '../actions.js';
 
 class SearchBar extends React.Component {
 
-  static defaultProps = {
-    search: ''
+  constructor(props) {
+    super(props);
+    // UI state 
+    this.state = {
+      search: ''
+    };
   }
 
   onInputChange(e) {
-    this.search = e.target.value;
+    this.setState({
+      search: e.target.value
+    });
   };
 
   onFormSubmit(e) {
     e.preventDefault();
 
     // ###################### SEARCH STRING MUST NOT BE EMPTY OR SEARCH WILL BE WRONG ###################
-    if (this.search) {
-      $.post('/search', { search: this.search }, data => {
+    if (this.state.search) {
+      $.post('/search', { search: this.state.search }, data => {
         this.props.updateSearchResults(data);
-        this.search = '';
       });
-      document.getElementsByClassName('search-input')[0].value = '';
+      this.setState({ search: ''});
     }
   }
 
@@ -31,7 +36,10 @@ class SearchBar extends React.Component {
   render() {
     return (
       <form className='searchbar pure-form'>
-        <input type='text' onChange={this.onInputChange.bind(this)} className='search-input pure-input-2-3' />
+        <input type='text' 
+               onChange={this.onInputChange.bind(this)} 
+               className='search-input pure-input-2-3' 
+               value={this.state.input} />
         <button onClick={this.onFormSubmit.bind(this)} type='submit' className='submit-search pure-button pure-button-primary'>
           <Link to='/searchresults'><img src='http://www.gardenbenches.com/assets/search_mob-4e31f0d049c237cff0aa0f66fc77efc1.png' className='search-icon' /></Link>
         </button>
@@ -40,12 +48,6 @@ class SearchBar extends React.Component {
   }
 
 }
-
-
-var mapStateToProps = function(state, ownProps) {
-  return {
-  }
-};
 
 var mapDispatchToProps = function(dispatch){
   return {
@@ -62,4 +64,4 @@ var mapDispatchToProps = function(dispatch){
   }
 };
 
-module.exports = connect(mapStateToProps, mapDispatchToProps)(SearchBar);
+module.exports = connect(null, mapDispatchToProps)(SearchBar);

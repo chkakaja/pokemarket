@@ -1,0 +1,142 @@
+/*
+  ############################# MESSAGE BOX CSS #############################
+  ####################### BE CAREFUL ABOUT ANY EDITS ########################
+*/
+.message-box-container {
+  position: relative;
+  min-height: 352px;
+  margin-left: 5px;
+  margin-right: 5px;
+  display: inline-block;
+  width: 280px;
+
+}
+
+.message-boxes {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  z-index: 50;
+  overflow-y: scroll;
+  display: flex;
+}
+
+.message-box {
+  border: 2px solid #F29B2F;
+  background: white;
+  width: 275px;
+  position: absolute;
+  bottom: 0;
+  margin-left: 5px;
+  margin-right: 5px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.message-box-name {
+  background-color: #1f1e1f;
+  color: white;
+  font-weight: bold;
+  height: 30px;
+  width: 275px;
+  text-align: left;
+  padding-top: 7px;
+  padding-bottom: 2px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+
+}
+.message-box-name-text {
+  margin-left: 15px;
+}
+
+.remove {
+  position: absolute;
+  max-height: 15px;
+  max-width: 15px;
+  margin: auto 0px;
+  top: 9px;
+  right: 12px;
+}
+
+.messages-input-wrapper {
+  position: relative;
+  height: 308px;
+}
+.message-box-messages {
+  height: 275px;
+  overflow: scroll;
+}
+
+.messages {
+  width: 200px;
+  height: 300px;
+  padding: 8px;
+}
+
+
+
+
+.clear {clear: both}
+.from-me {
+  position:relative;
+  padding:10px 20px;
+  color:black; 
+  background:#F1C58D;
+  border-radius:10px;
+  float: right;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  font-size: 14px;
+  max-width: 185px;
+  word-wrap: break-word;
+  margin-right: 3px;
+}
+.from-them {
+  position:relative;
+  padding:10px 20px;
+  background:#E5E5EA;
+  border-radius:10px;
+  color: black;
+  float: left;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  font-size: 14px;
+  max-width: 185px;
+  word-wrap: break-word;
+  margin-left: 3px;
+}
+
+.message-input {
+  position: absolute;
+  bottom: 0;
+  display: block;
+  background-color: #E5E5EA;  
+  width: 275px;
+}
+
+.message-input-box {
+  vertical-align: center;
+  height: 20px;
+  width: 220px;
+  clear: both;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  margin: 5px;
+  resize: none;
+}
+
+.message-input-submit {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 25px;
+  vertical-align: bottom;
+  margin-left: 5px;
+  margin-right: 10px;
+  margin-top: 2.5px;
+  margin-bottom: 5px;
+}
+
+

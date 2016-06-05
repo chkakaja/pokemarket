@@ -42,6 +42,11 @@ export default function(state = initialState(), action) {
       }
       return newState;
     case 'NEW_MESSAGE_BOX':
+      for (i = 0; i < newState.active.length; i++) {
+        if (action.chatter.id === newState.active[id]) {
+          return state;
+        }
+      }
       newState.active = newState.active.concat(action.chatter);
       return newState;
     default: 

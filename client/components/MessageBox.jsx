@@ -36,7 +36,7 @@ class MessageBox extends Component {
   renderMessages(hide) {
     if (!hide) {
       return (
-        <div> 
+        <div className='messages-input-wrapper'> 
           <Messages messages={this.props.messages} userId={this.props.userId} receiverName={this.props.receiverName} />
           <MessageInput submit={this.sendMessages.bind(this)}/>
         </div>
@@ -46,12 +46,14 @@ class MessageBox extends Component {
 
   render() {
     return (
-      <div className='message-box'>
-        <div className='message-box-name' onClick={this.min.bind(this)}>
-          <img src='https://cdn3.iconfinder.com/data/icons/virtual-notebook/16/button_close-128.png' className='remove' onClick={() => this.props.minimize(this.props.receiver)} />
-          {this.props.receiverName.slice(0, 15)}
+      <div className="message-box-container">
+        <div className='message-box'>
+          <div className='message-box-name' onClick={this.min.bind(this)}>
+            <div className='message-box-name-text'>{this.props.receiverName.slice(0, 15)}</div>
+            <img src='images/xbutton.png' className='remove' onClick={() => this.props.minimize(this.props.receiver)} />
+          </div>
+          {this.renderMessages(this.props.hide)}
         </div>
-        {this.renderMessages(this.props.hide)}
       </div>
     );
   }

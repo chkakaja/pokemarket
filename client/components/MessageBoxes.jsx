@@ -16,7 +16,7 @@ class MessageBoxes extends Component {
   }
 
   render() {
-    if (this.props.user.id) {
+    if (this.props.user.id && this.props.activeMessages.length) {
       return (
         <div className="message-boxes">
           {this.props.activeMessages.map((receiver, index) => 
