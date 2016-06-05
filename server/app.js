@@ -38,6 +38,16 @@ require('./socket.js');
 
 // ######################### END SOCKET.IO CODE #########################
 
+
+// ############################## PROFILE ###############################
+app.get('/getprofile', (req, res) => {
+  User
+    .where({ id: req.query.id })
+    .fetch()
+    .then(user => res.send(user));
+});
+
+
 // ############################## FEEDBACK ##############################
 
 app.get('/feedback', (req, res) => {

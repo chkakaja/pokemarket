@@ -22,7 +22,7 @@
 }
 
 .message-box {
-  border: 2px solid #F29B2F;
+  border: 2px solid #C7C5C2;
   background: white;
   width: 275px;
   position: absolute;
@@ -45,6 +45,10 @@
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 
+}
+
+.message-box-name:hover {
+  opacity: 0.75;
 }
 .message-box-name-text {
   margin-left: 15px;
@@ -124,6 +128,7 @@
   border: none;
   outline: none;
   margin: 5px;
+  margin-top: 8px;
   resize: none;
 }
 

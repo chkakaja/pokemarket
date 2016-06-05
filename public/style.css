@@ -9,6 +9,11 @@ html, button, input, select, textarea,
     font-weight: 300;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
 .bold {
   font-weight:500;
 }
@@ -48,7 +53,7 @@ a {
 .nav {
   font-weight: 500;
   font-size: 18px;
-  margin-top: 20px;
+  /*margin-top: 20px;*/
   width: 100%;
 }
 
@@ -70,9 +75,9 @@ a {
   background-color: #1f1e1f;
 }
 
-.nav .links .navlink {
-  height: 60px;
-  margin: 10px 0 10px 0;
+.nav .links .navlink, .navlink2{
+  height: 70px;
+  /*margin: 10px 0 10px 0;*/
   padding: auto 0;
   text-align: center;
   vertical-align: middle;
@@ -80,8 +85,9 @@ a {
 }
 
 .nav .links .navlink:hover {
-  background-color: #1f1e1f;
+  border-bottom: 5px solid #F29B2F;
   transition:all 0.3s ease;
+  box-sizing: border-box;
 }
 
 .nav .links a {

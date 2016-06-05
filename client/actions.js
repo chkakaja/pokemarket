@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import { join } from './socket.js';
 
-exports.checkAuthentication = function(dispatch) {
+var checkAuthentication = function(dispatch) {
   
   return function() {
     $.get('/getuserid', user => {
@@ -20,7 +20,7 @@ exports.checkAuthentication = function(dispatch) {
   };
 };
 
-exports.getFeedback = function(dispatch) {
+var getFeedback = function(dispatch) {
 
   return function(receiver) {
     $.get('/feedback', { receiver }, feedbackArray => {
@@ -53,7 +53,7 @@ exports.getFeedback = function(dispatch) {
   };
 };
 
-exports.getLeaveFeedback = function(dispatch) {
+var getLeaveFeedback = function(dispatch) {
   return function() {
     $.get('/toleavefeedback', toLeaveFeedbackArray => {
       dispatch({
@@ -63,3 +63,17 @@ exports.getLeaveFeedback = function(dispatch) {
     })
   }
 };
+
+var getProfile = function(dispatch) {
+  return function(id) {
+    $.get('/getprofile', { id }, profile => {
+      console.log(profile);
+      dispatch({
+        type: 'UPDATE_PROFILE',
+        profile
+      });
+    });
+  }
+}
+ 
+export { checkAuthentication, getLeaveFeedback, getFeedback, getProfile };

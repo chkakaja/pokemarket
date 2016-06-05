@@ -17,39 +17,30 @@ export default class Navbar extends React.Component {
 
   // WHEN PERSONAL PROFILE IS DONE, ADD THE FOLLOWING CODE BELOW THE MESSAGES DIV
   // <Link to="personalprofile"><div className='pure-u-1-6 navlink'>Personal Profile</div></Link>
-  render() {
-    if (this.props.user.id !== null) {
-    	return (
-        <div className='nav'>
-          <div className='search'>
-            <div className='pure-u-1-1 navlink'><SearchBar /></div>
-          </div>
-          <div className='links'>
-            <Link to="landing"><div className='pure-u-1-8 navlink'>Home</div></Link>
-            <Link to="sellitem"><div className='pure-u-1-8 navlink'>Sell an Item</div></Link>
-            <Link to="item"><div className='pure-u-1-8 navlink'>Item</div></Link>
-            <Link to="watcheditems"><div className='pure-u-1-8 navlink'>Watched Items</div></Link>
-            <Link to="message"><div className='pure-u-1-8 navlink'>Messages</div></Link>
-            <Link to="feedback"><div className='pure-u-1-8 navlink'>Feedback</div></Link>
-            <Link to="leavefeedback"><div className='pure-u-1-8 navlink'>Leave Feedback</div></Link>
-            <a href='signout'><div className='pure-u-1-8 navlink' onClick={this.props.logoutUser}>Sign Out</div></a>
-          </div>
-        </div>
-      );
+  renderAuth() {
+    if (this.props.user.id) {
+      return (<Link to="signout"><div className='navlink' style={{width: '7%', display: 'inline-block'}}><img style={{marginTop: '12px', marginLeft: '5px'}} src="images/setting.png" width="40px" /></div></Link>);
     } else {
-      return (
-        <div className='nav'>
-          <div className='search'>
-            <div className='pure-u-1-1 navlink'><SearchBar /></div>
-          </div>
-          <div className='links'>
-            <Link to="landing"><div className='pure-u-1-6 navlink'>Home</div></Link>
-            <p className='pure-u-2-3 empty-navlink'></p>
-            <a href='auth/facebook'><div className='pure-u-1-6 navlink'>Connect with Facebook</div></a>
-          </div>
-        </div>
-      );
+      return (<a href='auth/facebook'><div className='pure-u-1-6 navlink' style={{width: '7%', display: 'inline-block'}}>Facebook</div></a>);
+
     }
+  }
+  render() {
+  	return (
+      <div className='nav'>
+
+        <div className='links'>
+          <div className='navlink' style={{width: '5%', display: 'inline-block'}}><img style={{marginTop: '10px', marginLeft: '5px'}} src="images/logo.png" width="40px" /></div>
+          <Link to="landing"><div className='navlink' style={{width: '5%', display: 'inline-block'}}><img style={{marginTop: '12px', marginLeft: '5px'}} src="images/notification.png" width="40px" /></div></Link>
+          <Link to="watch"><div className='navlink' style={{width: '7%', display: 'inline-block'}}><img style={{marginTop: '18px', marginLeft: '5px'}} src="images/watch.png" width="60px" /></div></Link>
+          <Link to="sellitem"><div className='navlink' style={{width: '5%', display: 'inline-block'}}><img style={{marginTop: '12px', marginLeft: '5px'}} src="images/sell.png" width="40px" /></div></Link>
+          <div className='navlink2' style={{width: '64%', display: 'inline-block'}}><SearchBar /></div>
+          <Link to="profile"><div className='navlink' style={{width: '7%', display: 'inline-block'}}><img style={{marginTop: '12px', marginLeft: '5px'}} src="images/profile.png" width="40px" /></div></Link>
+          {this.renderAuth()}
+          
+        </div>
+      </div>
+      );
   }
 };
 
@@ -61,7 +52,6 @@ var mapStateToProps = function(state, ownProps) {
 
 var mapDispatchToProps = function(dispatch) {
   return {
-    getUser: checkAuthentication(dispatch),
     logoutUser: checkAuthentication({ type: 'LOGOUT_USER' })
   }
 };

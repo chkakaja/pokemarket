@@ -31,7 +31,8 @@ export default class Feedback extends Component {
             return <FeedbackEntry author={feedback.name} 
                                   rating={feedback.rating} 
                                   item={feedback.item}
-                                  comment={feedback.comment} />
+                                  comment={feedback.comment}
+                                  key={feedback.id} />
           })}
         </div>
       </div>

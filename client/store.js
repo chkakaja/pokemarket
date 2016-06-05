@@ -13,6 +13,7 @@ import setCurrentItemReducer from './reducers/setCurrentItem.js';
 import initialState from './initialState.js'
 import feedbackReducer from './reducers/feedback.js';
 import toLeaveFeedbackReducer from './reducers/leaveFeedback.js';
+import profileReducer from './reducers/profile.js';
 
 var reducers = combineReducers({
   messages: messengerReducer,
@@ -25,8 +26,9 @@ var reducers = combineReducers({
   watchedItems: setWatchedItemsReducer,
   listedItems: setListedItemsReducer,
   popularItems: setPopularItemsReducer,
-  currentItem: setCurrentItemReducer
+  currentItem: setCurrentItemReducer,
+  profile: profileReducer
 });
 
-module.exports = createStore(reducers, initialState(), applyMiddleware(Thunk));
+export default createStore(reducers, initialState(), applyMiddleware(Thunk));
 

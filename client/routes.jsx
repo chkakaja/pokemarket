@@ -12,6 +12,7 @@ import SearchResults from './components/SearchResults.jsx';
 import WatchedItems from './components/WatchedItems.jsx';
 import Feedback from './components/Feedback.jsx';
 import LeaveFeedback from './components/LeaveFeedback.jsx';
+import Profile from './components/Profile.jsx';
 
 module.exports = (
   <Route path="/" component={App}>
@@ -24,5 +25,7 @@ module.exports = (
     <Route path="watcheditems" component={WatchedItems} />
     <Route path="feedback" component={Feedback} />
     <Route path="leavefeedback" component={LeaveFeedback} />
+    <Route path="profile" component={Profile} />
+
   </Route>
 );

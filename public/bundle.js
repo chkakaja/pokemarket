@@ -27301,6 +27301,10 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
 	var _combineReducers;
 
 	var _redux = __webpack_require__(175);
@@ -27351,6 +27355,10 @@
 
 	var _leaveFeedback2 = _interopRequireDefault(_leaveFeedback);
 
+	var _profile = __webpack_require__(389);
+
+	var _profile2 = _interopRequireDefault(_profile);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -27362,9 +27370,9 @@
 	  filteredItems: _searchItems2.default,
 	  feedback: _feedback2.default,
 	  toLeaveFeedback: _leaveFeedback2.default
-	}, _defineProperty(_combineReducers, 'filteredItems', _searchItems2.default), _defineProperty(_combineReducers, 'watchedItems', _setWatchedItems2.default), _defineProperty(_combineReducers, 'listedItems', _setListedItems2.default), _defineProperty(_combineReducers, 'popularItems', _setPopularItems2.default), _defineProperty(_combineReducers, 'currentItem', _setCurrentItem2.default), _combineReducers));
+	}, _defineProperty(_combineReducers, 'filteredItems', _searchItems2.default), _defineProperty(_combineReducers, 'watchedItems', _setWatchedItems2.default), _defineProperty(_combineReducers, 'listedItems', _setListedItems2.default), _defineProperty(_combineReducers, 'popularItems', _setPopularItems2.default), _defineProperty(_combineReducers, 'currentItem', _setCurrentItem2.default), _defineProperty(_combineReducers, 'profile', _profile2.default), _combineReducers));
 
-	module.exports = (0, _redux.createStore)(reducers, (0, _initialState2.default)(), (0, _redux.applyMiddleware)(_reduxThunk2.default));
+	exports.default = (0, _redux.createStore)(reducers, (0, _initialState2.default)(), (0, _redux.applyMiddleware)(_reduxThunk2.default));
 
 /***/ },
 /* 250 */
@@ -30772,6 +30780,10 @@
 
 	var _LeaveFeedback2 = _interopRequireDefault(_LeaveFeedback);
 
+	var _Profile = __webpack_require__(390);
+
+	var _Profile2 = _interopRequireDefault(_Profile);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = _react2.default.createElement(
@@ -30785,7 +30797,8 @@
 	  _react2.default.createElement(_reactRouter.Route, { path: 'searchresults', component: _SearchResults2.default }),
 	  _react2.default.createElement(_reactRouter.Route, { path: 'watcheditems', component: _WatchedItems2.default }),
 	  _react2.default.createElement(_reactRouter.Route, { path: 'feedback', component: _Feedback2.default }),
-	  _react2.default.createElement(_reactRouter.Route, { path: 'leavefeedback', component: _LeaveFeedback2.default })
+	  _react2.default.createElement(_reactRouter.Route, { path: 'leavefeedback', component: _LeaveFeedback2.default }),
+	  _react2.default.createElement(_reactRouter.Route, { path: 'profile', component: _Profile2.default })
 	);
 
 /***/ },
@@ -48581,6 +48594,11 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getProfile = exports.getFeedback = exports.getLeaveFeedback = exports.checkAuthentication = undefined;
+
 	var _jquery = __webpack_require__(311);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
@@ -48589,7 +48607,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	exports.checkAuthentication = function (dispatch) {
+	var checkAuthentication = function checkAuthentication(dispatch) {
 
 	  return function () {
 	    _jquery2.default.get('/getuserid', function (user) {
@@ -48608,7 +48626,7 @@
 	  };
 	};
 
-	exports.getFeedback = function (dispatch) {
+	var getFeedback = function getFeedback(dispatch) {
 
 	  return function (receiver) {
 	    _jquery2.default.get('/feedback', { receiver: receiver }, function (feedbackArray) {
@@ -48641,7 +48659,7 @@
 	  };
 	};
 
-	exports.getLeaveFeedback = function (dispatch) {
+	var getLeaveFeedback = function getLeaveFeedback(dispatch) {
 	  return function () {
 	    _jquery2.default.get('/toleavefeedback', function (toLeaveFeedbackArray) {
 	      dispatch({
@@ -48651,6 +48669,23 @@
 	    });
 	  };
 	};
+
+	var getProfile = function getProfile(dispatch) {
+	  return function (id) {
+	    _jquery2.default.get('/getprofile', { id: id }, function (profile) {
+	      console.log(profile);
+	      dispatch({
+	        type: 'UPDATE_PROFILE',
+	        profile: profile
+	      });
+	    });
+	  };
+	};
+
+	exports.checkAuthentication = checkAuthentication;
+	exports.getLeaveFeedback = getLeaveFeedback;
+	exports.getFeedback = getFeedback;
+	exports.getProfile = getProfile;
 
 /***/ },
 /* 363 */
@@ -48720,140 +48755,92 @@
 	  }
 
 	  _createClass(Navbar, [{
-	    key: 'render',
+	    key: 'renderAuth',
 
 
 	    // WHEN PERSONAL PROFILE IS DONE, ADD THE FOLLOWING CODE BELOW THE MESSAGES DIV
 	    // <Link to="personalprofile"><div className='pure-u-1-6 navlink'>Personal Profile</div></Link>
-	    value: function render() {
-	      if (this.props.user.id !== null) {
+	    value: function renderAuth() {
+	      if (this.props.user.id) {
 	        return _react2.default.createElement(
-	          'div',
-	          { className: 'nav' },
+	          _reactRouter.Link,
+	          { to: 'signout' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'search' },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'pure-u-1-1 navlink' },
-	              _react2.default.createElement(_SearchBar2.default, null)
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'links' },
-	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: 'landing' },
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'pure-u-1-8 navlink' },
-	                'Home'
-	              )
-	            ),
-	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: 'sellitem' },
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'pure-u-1-8 navlink' },
-	                'Sell an Item'
-	              )
-	            ),
-	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: 'item' },
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'pure-u-1-8 navlink' },
-	                'Item'
-	              )
-	            ),
-	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: 'watcheditems' },
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'pure-u-1-8 navlink' },
-	                'Watched Items'
-	              )
-	            ),
-	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: 'message' },
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'pure-u-1-8 navlink' },
-	                'Messages'
-	              )
-	            ),
-	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: 'feedback' },
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'pure-u-1-8 navlink' },
-	                'Feedback'
-	              )
-	            ),
-	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: 'leavefeedback' },
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'pure-u-1-8 navlink' },
-	                'Leave Feedback'
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'a',
-	              { href: 'signout' },
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'pure-u-1-8 navlink', onClick: this.props.logoutUser },
-	                'Sign Out'
-	              )
-	            )
+	            { className: 'navlink', style: { width: '7%', display: 'inline-block' } },
+	            _react2.default.createElement('img', { style: { marginTop: '12px', marginLeft: '5px' }, src: 'images/setting.png', width: '40px' })
 	          )
 	        );
 	      } else {
 	        return _react2.default.createElement(
-	          'div',
-	          { className: 'nav' },
+	          'a',
+	          { href: 'auth/facebook' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'search' },
+	            { className: 'pure-u-1-6 navlink', style: { width: '7%', display: 'inline-block' } },
+	            'Facebook'
+	          )
+	        );
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'nav' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'links' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'navlink', style: { width: '5%', display: 'inline-block' } },
+	            _react2.default.createElement('img', { style: { marginTop: '10px', marginLeft: '5px' }, src: 'images/logo.png', width: '40px' })
+	          ),
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: 'landing' },
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'pure-u-1-1 navlink' },
-	              _react2.default.createElement(_SearchBar2.default, null)
+	              { className: 'navlink', style: { width: '5%', display: 'inline-block' } },
+	              _react2.default.createElement('img', { style: { marginTop: '12px', marginLeft: '5px' }, src: 'images/notification.png', width: '40px' })
+	            )
+	          ),
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: 'watch' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'navlink', style: { width: '7%', display: 'inline-block' } },
+	              _react2.default.createElement('img', { style: { marginTop: '18px', marginLeft: '5px' }, src: 'images/watch.png', width: '60px' })
+	            )
+	          ),
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: 'sellitem' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'navlink', style: { width: '5%', display: 'inline-block' } },
+	              _react2.default.createElement('img', { style: { marginTop: '12px', marginLeft: '5px' }, src: 'images/sell.png', width: '40px' })
 	            )
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'links' },
+	            { className: 'navlink2', style: { width: '64%', display: 'inline-block' } },
+	            _react2.default.createElement(_SearchBar2.default, null)
+	          ),
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: 'profile' },
 	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: 'landing' },
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'pure-u-1-6 navlink' },
-	                'Home'
-	              )
-	            ),
-	            _react2.default.createElement('p', { className: 'pure-u-2-3 empty-navlink' }),
-	            _react2.default.createElement(
-	              'a',
-	              { href: 'auth/facebook' },
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'pure-u-1-6 navlink' },
-	                'Connect with Facebook'
-	              )
+	              'div',
+	              { className: 'navlink', style: { width: '7%', display: 'inline-block' } },
+	              _react2.default.createElement('img', { style: { marginTop: '12px', marginLeft: '5px' }, src: 'images/profile.png', width: '40px' })
 	            )
-	          )
-	        );
-	      }
+	          ),
+	          this.renderAuth()
+	        )
+	      );
 	    }
 	  }]);
 
@@ -48871,7 +48858,6 @@
 
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
-	    getUser: (0, _actions.checkAuthentication)(dispatch),
 	    logoutUser: (0, _actions.checkAuthentication)({ type: 'LOGOUT_USER' })
 	  };
 	};
@@ -50695,7 +50681,8 @@
 	            return _react2.default.createElement(_FeedbackEntry2.default, { author: feedback.name,
 	              rating: feedback.rating,
 	              item: feedback.item,
-	              comment: feedback.comment });
+	              comment: feedback.comment,
+	              key: feedback.id });
 	          })
 	        )
 	      );
@@ -50853,7 +50840,11 @@
 	        'div',
 	        { className: 'leave-feedback' },
 	        this.props.toLeaveFeedbackArray.map(function (item) {
-	          return _react2.default.createElement(_LeaveFeedbackEntry2.default, { buyer: item.current_bidder, key: item.id, item: item.id, title: item.title, seller: item.seller_id });
+	          return _react2.default.createElement(_LeaveFeedbackEntry2.default, { buyer: item.current_bidder,
+	            key: item.id,
+	            item: item.id,
+	            title: item.title,
+	            seller: item.seller_id });
 	        })
 	      );
 	    }
@@ -51722,6 +51713,198 @@
 	  return nodeInfo;
 	}
 
+
+/***/ },
+/* 389 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	exports.default = function () {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	  var action = arguments[1];
+
+	  var newState = Object.assign({}, state);
+	  switch (action.type) {
+	    case 'SET_USER':
+	      newState.current = action.current;
+	      return newState;
+	    case 'UPDATE_PROFILE':
+	      newState.profile = action.profile;
+	      return newState;
+	    default:
+	      return state;
+	  }
+	};
+
+/***/ },
+/* 390 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(168);
+
+	var _actions = __webpack_require__(362);
+
+	var _Feedback = __webpack_require__(377);
+
+	var _Feedback2 = _interopRequireDefault(_Feedback);
+
+	var _ProfileEntry = __webpack_require__(391);
+
+	var _ProfileEntry2 = _interopRequireDefault(_ProfileEntry);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Profile = function (_Component) {
+	  _inherits(Profile, _Component);
+
+	  function Profile() {
+	    _classCallCheck(this, Profile);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Profile).apply(this, arguments));
+	  }
+
+	  _createClass(Profile, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.props.getProfile(this.props.id);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      if (this.props.profile) {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'profile-page' },
+	          _react2.default.createElement(_ProfileEntry2.default, { id: this.props.profile.id,
+	            name: this.props.profile.name,
+	            email: this.props.profile.email,
+	            bio: this.props.profile.bio,
+	            picture: this.props.profile.picture }),
+	          _react2.default.createElement(_Feedback2.default, { receiver: this.props.profile.id })
+	        );
+	      }
+	      return null;
+	    }
+	  }]);
+
+	  return Profile;
+	}(_react.Component);
+
+	Profile.propTypes = {
+	  id: _react.PropTypes.number.isRequired
+	};
+
+
+	var mapStateToProps = function mapStateToProps(state, ownProps) {
+	  console.log(state);
+	  return {
+	    profile: state.profile.profile,
+	    id: state.profile.current || state.user.id
+	  };
+	};
+
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    getProfile: (0, _actions.getProfile)(dispatch)
+	  };
+	};
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Profile);
+
+/***/ },
+/* 391 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Username = __webpack_require__(381);
+
+	var _Username2 = _interopRequireDefault(_Username);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ProfileEntry = function (_Component) {
+	  _inherits(ProfileEntry, _Component);
+
+	  function ProfileEntry() {
+	    _classCallCheck(this, ProfileEntry);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(ProfileEntry).apply(this, arguments));
+	  }
+
+	  _createClass(ProfileEntry, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'profile' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'profile-name' },
+	          _react2.default.createElement(_Username2.default, { id: this.props.id, name: this.props.name })
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'profile-email' },
+	          'Email: ' + this.props.email
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'profile-bio' },
+	          this.props.bio
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'profile-picture' },
+	          _react2.default.createElement('img', { src: this.props.picture, style: { maxWidth: '300px' } })
+	        )
+	      );
+	    }
+	  }]);
+
+	  return ProfileEntry;
+	}(_react.Component);
+
+	exports.default = ProfileEntry;
 
 /***/ }
 /******/ ]);
