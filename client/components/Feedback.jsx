@@ -21,9 +21,9 @@ export default class Feedback extends Component {
     return (
       <div className='feedback'>
         <div className='feedback-profile'>
-          <div>{`Positive: ${this.props.positive}`}</div>
-          <div>{`Neutral: ${this.props.neutral}`}</div>
-          <div>{`Negative: ${this.props.negative}`}</div>
+          <span style={{ marginRight: '25%'}}>{`Positive: ${this.props.positive}`}</span>
+          <span style={{ marginRight: '25%'}}>{`Neutral: ${this.props.neutral}`}</span>
+          <span style={{ marginRight: '25%'}}>{`Negative: ${this.props.negative}`}</span>
 
         </div>
         <div className='feedback-entries'>

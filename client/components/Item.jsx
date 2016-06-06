@@ -34,6 +34,7 @@ class Item extends Component {
         dataType: 'json',
         success: function(data) {
           this.props.setCurrentItem(data);
+          console.log(this.props);
         }.bind(this)
       });
     }
@@ -102,6 +103,7 @@ class Item extends Component {
   }
 
   render () {
+    console.log('item page', this.props.item.seller.id);
     if (this.props.user) {
       return (
         <div className='item'>
