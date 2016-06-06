@@ -28,7 +28,8 @@ class SearchBar extends React.Component {
       $.post('/search', { search: this.state.search }, data => {
         this.props.updateSearchResults(data);
       });
-      this.setState({ search: ''});
+      this.setState({ search: '' });
+      document.getElementsByClassName('search-input')[0].value = '';
     }
   }
 

@@ -36,9 +36,7 @@ class WatchedItems extends Component {
         </div>
       );
     } else {
-      return (
-        <div>Sign in to watch items!</div>
-      );
+      return <div>Sign in to watch items!</div>
     }
   }
 }

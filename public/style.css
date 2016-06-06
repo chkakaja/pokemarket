@@ -166,6 +166,12 @@ a {
   box-sizing: border-box;
 }
 
+.nav .links .navlink .fb-logo {
+  padding-top: 10px;
+  height: 50px;
+  width: 90px;
+}
+
 .nav .links a {
   text-decoration: none;
   color: white;
@@ -185,6 +191,7 @@ a {
 /***************** ITEM SALE FORM *****************/
 
 .sell-item .sell-item-title {
+  margin-top: 20px;
   text-align: center;
 }
 
@@ -230,6 +237,12 @@ a {
   overflow: hidden;
 }
 
+.item .item-info .watch {
+  position: absolute;
+  bottom: 3%;
+  right: 59%;
+}
+
 .item .purchase {
   border-style: solid;
   border-width: 1px;
@@ -248,11 +261,11 @@ a {
   font-size: 20px;
 }
 
-.item .purchase .end-time {
-
+.item .purchase .set-bid-button {
+  margin-left: 10px;
 }
 
-.item .purchase .watch {
+.item .purchase .end-time {
 
 }
 
@@ -365,7 +378,7 @@ a {
   margin-bottom: 5px;
 }
 
-/***************** POPULAR / WATCHED / LISTED ITEMS *****************/
+/***************** POPULAR ITEMS *****************/
 
 .landing {
   margin-top: 20px;
@@ -373,47 +386,47 @@ a {
 
 .landing .popular-items {
   text-align: center;
-  font-weight: 500;
-  font-size: 20px;
-}
-
-.landing .watched-items {
-  text-align: center;
-  font-weight: 500;
-  font-size: 20px;
-}
-
-.landing .listed-items {
-  text-align: center;
-  font-weight: 500;
-  font-size: 20px;
-}
-
-.landing .item-entry {
   font-weight: 300;
+  font-size: 14px;
+}
+
+.landing .popular-items .popular {
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.landing .popular-items .item-entry {
+  position: relative;
+  display: inline-block;
+  width: 300px;
+  height: 300px;
   border-style: solid;
   border-width: 1px;
   border-color: black;
-  padding: 10px;
-  margin: 20px auto;
-  width: 300px;
+  margin: 20px 20px;
+  padding: 20px;
 }
 
-.landing .item-entry .item-entry-picture {
+.landing .popular-items .item-entry .item-entry-picture {
   display: block;
   margin: auto;
   height: auto;
   width: auto;
-  max-height: 200px;
+  max-height: 170px;
   max-width: 300px;
 }
 
-.landing .item-entry .all-info .item-entry-info .item-entry-title {
+.landing .popular-items .item-entry .all-info {
+  position: absolute;
+  bottom: 3%;
+}
+
+.landing .popular-items .item-entry .all-info .item-entry-info .item-entry-title {
   font-size: 24px;
   margin-bottom: 5px;
 }
 
-.landing .item-entry .all-info .item-entry-info .item-entry-description {
+.landing .popular-items .item-entry .all-info .item-entry-info .item-entry-description {
   margin-bottom: 5px;
   width: 300px;
   max-height: 40px;
@@ -421,15 +434,133 @@ a {
   overflow: hidden;
 }
 
-.landing .item-entry .all-info .item-entry-purchase .item-entry-current-bid {
+.landing .popular-items .item-entry .all-info .item-entry-purchase .item-entry-current-bid {
   margin-bottom: 5px;
 }
 
-.landing .item-entry .all-info .item-entry-purchase .item-entry-end-time {
+.landing .popular-items .item-entry .all-info .item-entry-purchase .item-entry-end-time {
   margin-bottom: 5px;
 }
 
 
+/***************** WATCHED / LISTED ITEMS *****************/
+
+.personalpage .watched-items {
+  margin-top: 20px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.personalpage .listed-items {
+  margin-top: 20px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.personalpage .item-entry {
+  position: relative;
+  display: inline-block;
+  font-weight: 300;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  padding: 10px;
+  margin: 20px 20px;
+  width: 80%;
+  height: 500px;
+}
+
+.personalpage .item-entry .item-entry-picture {
+  display: block;
+  margin: auto;
+  height: auto;
+  width: auto;
+  max-height: 200px;
+  max-width: 100%;
+}
+
+.personalpage .item-entry .all-info .item-entry-info .item-entry-title {
+  margin-top: 10px;
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.personalpage .item-entry .all-info .item-entry-info .item-entry-description {
+  margin-bottom: 10px;
+  width: 100%;
+  max-height: 40px;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.personalpage .item-entry .all-info .item-entry-purchase .item-entry-current-bid {
+  margin-bottom: 10px;
+}
+
+.personalpage .item-entry .all-info .item-entry-purchase .item-entry-end-time {
+  margin-bottom: 10px;
+}
+
+.personalpage .item-entry .all-info .item-entry-purchase .countdown {
+  margin-bottom: 10px;
+}
 
 
+/***************** LEAVE FEEDBACK - PERSONAL PAGE *****************/
 
+.personalpage .leave-feedback .feedback {
+  margin-top: 20px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.personalpage .leave-feedback .leave-feedback-entry {
+  position: relative;
+  display: inline-block;
+  font-weight: 300;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  padding: 10px;
+  margin: 20px 20px;
+  width: 80%;
+  height: 500px;
+}
+
+.personalpage .leave-feedback .leave-feedback-entry .picture {
+  display: block;
+  margin: auto;
+  height: auto;
+  width: auto;
+  max-height: 200px;
+  max-width: 100%;
+  margin-bottom: 10px;
+}
+
+.personalpage .leave-feedback .leave-feedback-entry {
+  font-size: 18px;
+}
+
+.personalpage .leave-feedback .leave-feedback-entry .title {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.personalpage .leave-feedback .leave-feedback-entry .leave-feedback-button {
+  width: 20px;
+  height: 20px;
+  border-radius: 10%;
+  margin-bottom: 5px;
+}
+
+.personalpage .leave-feedback .leave-feedback-entry .leave-feedback-comment {
+  margin: 10px auto;
+}
+
+/***************** FEEDBACK *****************/
+.leave-feedback-selected {
+  font-weight: bold;
+}

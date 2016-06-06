@@ -56,6 +56,8 @@ class Item extends Component {
     $.ajax({
       method: 'POST',
       url: '/addvisit',
+      data: { id: this.props.item.id },
+      dataType: 'json',
       success: function(data) {
         //console.log('Visit added. Now at', data.visits, 'visits');
       }
@@ -68,11 +70,13 @@ class Item extends Component {
 
   setBid(e) {
     e.preventDefault();
+    console.log('bidded', this.form)
     return $.ajax({
       method: 'POST',
       url: '/updateBid',
       data: {
         id: this.props.item.id,
+        currentBidder: this.props.user.id,
         newBid: this.form
       },
       dataType: 'json',
@@ -80,8 +84,8 @@ class Item extends Component {
         this.props.item.currentBid = data.currentBid;
         this.props.item.current_bidder = this.seller_id;
         console.log('Current bid:', data.currentBid);
-        this.props.sendItemData(this.props.item);
-        document.getElementsByClassName('set-bid')[0].value = '';
+        this.props.setCurrentItem(this.props.item);
+        document.getElementsByClassName('set-bid-input')[0].value = '';
       }.bind(this)
     })
   }
@@ -103,14 +107,14 @@ class Item extends Component {
   }
 
   render () {
-    console.log('item page', this.props.item.seller.id);
-    if (this.props.user) {
+    if (this.props.user.id) {
       return (
         <div className='item'>
           <div className='item-title'>{this.props.item.title}</div>
           <div className='item-info pure-u-10-24'>
             <img src={this.props.item.picture} className='item-picture' />
             <div className='item-description'>{this.props.item.description}</div>
+            <button className='watch pure-button' type='submit' onClick={this.watchItem.bind(this)}>Watch Item</button>
           </div>
           <div className='pure-u-1-24'></div>
           <div className='purchase pure-u-6-24'>
@@ -120,13 +124,12 @@ class Item extends Component {
             </div>
             <form onSubmit={this.setBid.bind(this)}>
               <div className='set-bid pure-form'>
-                <span className='bold'>Set Your Bid: </span>
-                <input className='pure-input-1-2' onChange={this.changeBid.bind(this)} type='number' placeholder='Set your bid' />
+                <input className='set-bid-input pure-input-1-2' onChange={this.changeBid.bind(this)} type='number' placeholder='Set your bid' />
+                <input type='submit' className='set-bid-button pure-button' />
               </div>
             </form>
             <div className='end-time'>{prettyDate(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</div>
             <CountdownTimer endDate={this.props.item.end_at} />
-            <button className='watch pure-button' type='submit' onClick={this.watchItem.bind(this)}>Watch Item</button>
           </div>
           <div className='pure-u-1-24'></div>
           <div className='item-seller pure-u-4-24'>
@@ -156,6 +159,7 @@ class Item extends Component {
             <form onSubmit={this.setBid.bind(this)}>
             </form>
             <div className='end-time'>{prettyDate(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</div>
+            <CountdownTimer endDate={this.props.item.end_at} />
           </div>
           <div className='pure-u-1-24'></div>
           <div className='item-seller pure-u-4-24'>
