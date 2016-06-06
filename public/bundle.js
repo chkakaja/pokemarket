@@ -30517,7 +30517,7 @@
 	module.exports = function () {
 	  return {
 	    messages: {
-	      active: [{ id: 1, name: "Will Tang" }]
+	      active: []
 	    },
 	    user: {
 	      id: null
@@ -30822,7 +30822,8 @@
 
 	module.exports = _react2.default.createElement(
 	  _reactRouter.Route,
-	  { path: '/', component: _App2.default },
+	  { component: _App2.default },
+	  _react2.default.createElement(_reactRouter.Redirect, { from: '/', to: 'landing' }),
 	  _react2.default.createElement(_reactRouter.Route, { path: 'message', component: _MessageBoxes2.default }),
 	  _react2.default.createElement(_reactRouter.Route, { path: 'signin', component: _Signin2.default }),
 	  _react2.default.createElement(_reactRouter.Route, { path: 'landing', component: _Landing2.default }),
@@ -49270,12 +49271,34 @@
 	    value: function renderAuth() {
 	      if (this.props.user.id) {
 	        return _react2.default.createElement(
-	          'a',
-	          { href: 'signout' },
+	          'span',
+	          null,
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'navlink', style: { width: '7%', display: 'inline-block' } },
-	            _react2.default.createElement('img', { style: { marginTop: '12px', marginLeft: '5px' }, src: 'images/setting.png', width: '40px' })
+	            { className: 'navlink empty dropdown', style: { width: '7%', display: 'inline-block' } },
+	            _react2.default.createElement('img', { style: { marginTop: '12px', marginLeft: '5px' }, src: 'images/setting.png', width: '40px' }),
+	            _react2.default.createElement(
+	              'ul',
+	              null,
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: 'profile' },
+	                _react2.default.createElement(
+	                  'div',
+	                  null,
+	                  'Edit Profile'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'a',
+	                { href: 'signout' },
+	                _react2.default.createElement(
+	                  'div',
+	                  null,
+	                  'Sign Out'
+	                )
+	              )
+	            )
 	          )
 	        );
 	      } else {
@@ -49304,7 +49327,7 @@
 	          )
 	        );
 	      }
-	      return _react2.default.createElement('div', { className: 'navlink', style: { width: '7%', display: 'inline-block' } });
+	      return _react2.default.createElement('div', { className: 'navlink empty', style: { width: '7%', display: 'inline-block' } });
 	    }
 	  }, {
 	    key: 'render',
@@ -49317,7 +49340,7 @@
 	          { className: 'links' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'navlink logo', style: { width: '5%', display: 'inline-block' } },
+	            { className: 'navlink empty', style: { width: '5%', display: 'inline-block' } },
 	            _react2.default.createElement('img', { style: { marginTop: '10px', marginLeft: '5px' }, src: 'images/logo.png', width: '40px' })
 	          ),
 	          _react2.default.createElement(
@@ -49497,18 +49520,18 @@
 	    }
 	  }, {
 	    key: 'onFormSubmit',
-	    value: function onFormSubmit() {
+	    value: function onFormSubmit(e) {
 	      var _this2 = this;
 
-	      console.log('submitted', this.state.search);
+	      e.preventDefault();
 	      // ###################### SEARCH STRING MUST NOT BE EMPTY OR SEARCH WILL BE WRONG ###################
 	      if (this.state.search) {
 	        _jquery2.default.post('/search', { search: this.state.search }, function (data) {
 	          _this2.props.updateSearchResults(data);
 	        });
 	        this.setState({ search: '' });
+	        this.context.history.pushState(null, '/searchresults');
 	      }
-	      // browserHistory.push('/searchresults');
 	    }
 	  }, {
 	    key: 'render',
@@ -49519,22 +49542,18 @@
 	        _react2.default.createElement('input', { type: 'text',
 	          onChange: this.onInputChange.bind(this),
 	          className: 'search-input pure-input-2-3',
-	          value: this.state.search }),
-	        _react2.default.createElement(
-	          'button',
-	          { onClick: this.onFormSubmit.bind(this), type: 'submit', className: 'submit-search pure-button pure-button-primary' },
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/searchresults' },
-	            _react2.default.createElement('img', { src: 'http://www.gardenbenches.com/assets/search_mob-4e31f0d049c237cff0aa0f66fc77efc1.png', className: 'search-icon' })
-	          )
-	        )
+	          value: this.state.search })
 	      );
 	    }
 	  }]);
 
 	  return SearchBar;
 	}(_react2.default.Component);
+
+	SearchBar.contextTypes = {
+	  history: _react2.default.PropTypes.object
+	};
+
 
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
@@ -49690,6 +49709,7 @@
 	        });
 	        resetForm();
 	      };
+
 	      if (!this.props.user.id) {
 	        return _react2.default.createElement(
 	          'div',

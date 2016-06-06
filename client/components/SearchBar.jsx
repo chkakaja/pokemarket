@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, browserHistory } from 'react-router'
+import { Link, browserHistory, History } from 'react-router'
 import $ from 'jquery';
 import { checkAuthentication } from '../actions.js';
 
@@ -14,22 +14,26 @@ class SearchBar extends React.Component {
     };
   }
 
+  static contextTypes= {
+    history: React.PropTypes.object
+  }
+
   onInputChange(e) {
     this.setState({
       search: e.target.value
     });
   };
 
-  onFormSubmit() {
-    console.log('submitted', this.state.search);
+  onFormSubmit(e) {
+    e.preventDefault();
     // ###################### SEARCH STRING MUST NOT BE EMPTY OR SEARCH WILL BE WRONG ###################
     if (this.state.search) {
       $.post('/search', { search: this.state.search }, data => {
         this.props.updateSearchResults(data);
       });
       this.setState({ search: '' });
+      this.context.history.pushState(null, '/searchresults');
     }
-    // browserHistory.push('/searchresults');
   }
 
   render() {
@@ -39,11 +43,8 @@ class SearchBar extends React.Component {
                onChange={this.onInputChange.bind(this)} 
                className='search-input pure-input-2-3' 
                value={this.state.search} />
-        <button onClick={this.onFormSubmit.bind(this)} type='submit' className='submit-search pure-button pure-button-primary'>
-          <Link to='/searchresults'><img src='http://www.gardenbenches.com/assets/search_mob-4e31f0d049c237cff0aa0f66fc77efc1.png' className='search-icon' /></Link>
-        </button>
       </form>
-    ) 
+    )
   }
 
 }

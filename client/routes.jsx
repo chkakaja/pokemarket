@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactRouter, { Route, IndexRoute } from 'react-router';
+import ReactRouter, { Route, IndexRoute, Redirect } from 'react-router';
 import App from './components/App.jsx';
 import MessageBoxes from './components/MessageBoxes.jsx';
 import FacebookButton from './components/FacebookButton.jsx';
@@ -16,7 +16,8 @@ import Profile from './components/Profile.jsx';
 import PersonalPage from './components/PersonalPage.jsx';
 
 module.exports = (
-  <Route path="/" component={App}>
+  <Route component={App}>
+    <Redirect from='/' to='landing' />
     <Route path="message" component={MessageBoxes} />
     <Route path="signin" component={Signin} />
     <Route path="landing" component={Landing} />

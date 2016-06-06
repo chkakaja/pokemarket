@@ -29,7 +29,7 @@ body {
 
 .pure-button:hover {
   background-color: #b9b9b9;
-  transition:all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .pure-button-primary {
@@ -38,7 +38,7 @@ body {
 
 .pure-button-primary:hover {
   background-color: #cedde2;
-  transition:all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 a {
@@ -156,6 +156,8 @@ a {
   bottom: 0;
   right: 0;
 }
+
+
 /***************** NAVBAR / SEARCHBAR *****************/
 
 .nav {
@@ -176,16 +178,15 @@ a {
 
 .nav .links .empty-navlink {
   height: 60px;
-  margin: 10px 0 10px 0;
+  margin: 10px 0 0 0;
   padding: auto 0;
   text-align: center;
   vertical-align: middle;
   background-color: #1f1e1f;
 }
 
-.nav .links .navlink, .navlink2{
+.nav .links .navlink, .navlink2 {
   height: 70px;
-  /*margin: 10px 0 10px 0;*/
   padding: auto 0;
   text-align: center;
   vertical-align: middle;
@@ -194,12 +195,41 @@ a {
 
 .nav .links .navlink:hover {
   border-bottom: 5px solid #F29B2F;
-  transition:all 0.3s ease;
+  transition: all 0.3s ease;
   box-sizing: border-box;
 }
 
-.nav .links .logo:hover {
+.nav .links .empty {
   border: none;
+}
+
+.nav .links .empty:hover {
+  border: none;
+}
+
+.nav .links .dropdown ul {
+  margin-top: -5px;
+  transition: opacity 0.3s ease-out;
+  opacity: 0; 
+  height: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.nav .links .dropdown:hover ul {
+  opacity: 1;
+  height: auto;
+  background-color: #1f1e1f;
+}
+
+.nav .links .dropdown ul a {
+  color: #E0DEDA;
+}
+
+.nav .links .dropdown ul div:hover {
+  border-left: 5px solid #F29B2F;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
 }
 
 .nav .links .navlink .fb-logo {
@@ -210,12 +240,17 @@ a {
 
 .nav .links a {
   text-decoration: none;
-  color: white;
+  color: #E0DEDA;
 }
 
 .searchbar .search-input {
   margin-right: 5px;
   height: 50px;
+  background-image: url(images/search-icon.png);
+  background-size: 50px;
+  background-position: 99% 45%;
+  background-repeat: no-repeat;
+  background-color: #E0DEDA;
 }
 
 .searchbar .search-icon {
@@ -332,6 +367,7 @@ a {
 
 .item .item-seller .hover-image .seller-picture {
   height: 200px;
+  max-width: 100%;
   transition: opacity 0.25s ease-in-out;
   -moz-transition: opacity 0.25s ease-in-out;
   -webkit-transition: opacity 0.25s ease-in-out;
