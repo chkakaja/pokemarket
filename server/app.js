@@ -55,7 +55,6 @@ app.get('/feedback', (req, res) => {
     .where({ receiver_id: req.query.receiver })
     .innerJoin('users', 'feedback.author_id', '=', 'users.id')
     .then(feedbackArray => {
-      console.log('requestid', req.query.receiver, feedbackArray);
       res.status(200).send(feedbackArray);
     });
 });

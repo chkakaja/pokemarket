@@ -16,7 +16,7 @@ class Username extends Component {
           <div onClick={this.props.setProfileUser.bind(this, this.props.id)} className="username-name">{this.props.name}</div>
         </Link>
         <img onClick={this.props.addMessageBox.bind(this, this.props.userId, this.props.id, this.props.name)} 
-             src="images/message.png" style={{ height: '14px'}}/>
+             src="images/message.png" className='message-button'/>
       </div>
     );
   }
@@ -31,7 +31,6 @@ var mapStateToProps = function(state) {
 var mapDispatchToProps = function(dispatch) {
   return {
     addMessageBox: (userId, id, name) => {
-      console.log(userId, id, userId === id);
       if (userId != id) {
         dispatch({
           type: 'NEW_MESSAGE_BOX',

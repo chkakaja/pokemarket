@@ -49515,14 +49515,14 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'form',
-	        { className: 'searchbar pure-form', onSubmit: this.onFormSubmit.bind(this) },
+	        { className: 'searchbar pure-form' },
 	        _react2.default.createElement('input', { type: 'text',
 	          onChange: this.onInputChange.bind(this),
 	          className: 'search-input pure-input-2-3',
 	          value: this.state.search }),
 	        _react2.default.createElement(
 	          'button',
-	          { type: 'submit', className: 'submit-search pure-button pure-button-primary' },
+	          { onClick: this.onFormSubmit.bind(this), type: 'submit', className: 'submit-search pure-button pure-button-primary' },
 	          _react2.default.createElement(
 	            _reactRouter.Link,
 	            { to: '/searchresults' },
@@ -50734,7 +50734,7 @@
 	          )
 	        ),
 	        _react2.default.createElement('img', { onClick: this.props.addMessageBox.bind(this, this.props.userId, this.props.id, this.props.name),
-	          src: 'images/message.png', style: { height: '14px' } })
+	          src: 'images/message.png', className: 'message-button' })
 	      );
 	    }
 	  }]);
@@ -50757,7 +50757,6 @@
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
 	    addMessageBox: function addMessageBox(userId, id, name) {
-	      console.log(userId, id, userId === id);
 	      if (userId != id) {
 	        dispatch({
 	          type: 'NEW_MESSAGE_BOX',
@@ -51677,23 +51676,31 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'feedback' },
+	        { className: 'feedback pure-u-3-5' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'feedback-section' },
+	          'Feedback'
+	        ),
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'feedback-profile' },
 	          _react2.default.createElement(
 	            'span',
-	            { style: { marginRight: '25%' } },
+	            { className: 'feedback-buttons' },
+	            _react2.default.createElement('img', { src: 'images/positive.png', className: 'feedback-button' }),
 	            'Positive: ' + this.props.positive
 	          ),
 	          _react2.default.createElement(
 	            'span',
-	            { style: { marginRight: '25%' } },
+	            { className: 'feedback-buttons' },
+	            _react2.default.createElement('img', { src: 'images/neutral.png', className: 'feedback-button' }),
 	            'Neutral: ' + this.props.neutral
 	          ),
 	          _react2.default.createElement(
 	            'span',
-	            { style: { marginRight: '25%' } },
+	            { className: 'feedback-buttons' },
+	            _react2.default.createElement('img', { src: 'images/negative.png', className: 'feedback-button' }),
 	            'Negative: ' + this.props.negative
 	          )
 	        ),
@@ -51726,6 +51733,7 @@
 
 
 	var mapStateToProps = function mapStateToProps(state, ownProps) {
+	  console.log(state.feedbackArray);
 	  return {
 	    feedbackArray: state.feedback.feedbackArray,
 	    negative: state.feedback.negative,
@@ -51766,6 +51774,13 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var image = {
+	  '0': 'images/neutral.png',
+	  '1': 'images/positive.png',
+	  '-1': 'images/negative.png',
+	  null: 'images/neutral.png'
+	};
+
 	var FeedbackEntry = function (_Component) {
 	  _inherits(FeedbackEntry, _Component);
 
@@ -51778,18 +51793,20 @@
 	  _createClass(FeedbackEntry, [{
 	    key: 'render',
 	    value: function render() {
+
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'feedback-entry' },
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'feedback-author' },
-	          this.props.author
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'feedback-rating' },
-	          this.props.rating
+	          _react2.default.createElement('img', { src: image[String(this.props.rating)],
+	            style: { width: '20px', marginRight: '6px' } }),
+	          _react2.default.createElement(
+	            'span',
+	            { className: 'feedback-author-name' },
+	            this.props.author
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'div',
@@ -51799,6 +51816,11 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'feedback-comment' },
+	          _react2.default.createElement(
+	            'b',
+	            null,
+	            'Comment:  '
+	          ),
 	          this.props.comment
 	        )
 	      );
@@ -51871,7 +51893,8 @@
 	            name: this.props.profile.name,
 	            email: this.props.profile.email,
 	            bio: this.props.profile.bio,
-	            picture: this.props.profile.picture }),
+	            picture: this.props.profile.picture,
+	            createdAt: this.props.profile.created_at }),
 	          _react2.default.createElement(_Feedback2.default, { receiver: this.props.profile.id })
 	        );
 	      }
@@ -51939,17 +51962,17 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'profile' },
+	        { className: 'profile pure-u-2-5' },
 	        _react2.default.createElement(_Username2.default, { id: this.props.id, name: this.props.name }),
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'profile-picture' },
-	          _react2.default.createElement('img', { src: this.props.picture, style: { width: '300px' } })
+	          _react2.default.createElement('img', { src: this.props.picture, style: { width: '90%' } })
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'profile-email' },
-	          'Email: ' + this.props.email
+	          { className: 'profile-created-at' },
+	          'Member since ' + this.props.createdAt.slice(0, 4)
 	        ),
 	        _react2.default.createElement(
 	          'div',

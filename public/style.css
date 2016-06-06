@@ -52,17 +52,17 @@ a {
 }
 
 /***************** PROFILE ******************/
-
+.profile-page * {
+  box-sizing: border-box;
+}
 .profile-page {
-  width: 69%;
+  /*width: 69%;*/
   margin-left: 15%;
   margin-top: 100px;
   margin-right: 15%;
-  border: 2px solid black;
 }
 
 .profile {
-  border: 2px solid black;
   display: inline-block;
 }
 
@@ -71,16 +71,11 @@ a {
   font-weight: bold;
 }
 
-.feedback {
-  border: 2px solid black;
-  display: inline-block;
-}
 
 .feedback-profile {
-  
+  vertical-align: top;
 }
 
-<<<<<<< HEAD
 .username-name {
   display: inline-block;
   margin-right: 5px;
@@ -89,9 +84,40 @@ a {
 .profile .username-name {
   margin-bottom: 10px;
 }
-=======
 
->>>>>>> 55c142b4ab7b3c703992dda6b958780e23a6cb24
+.profile .message-button {
+  width: 40px;
+}
+
+.profile .profile-created-at {
+  font-weight: bold;
+}
+
+.feedback .feedback-section {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.feedback .feedback-button {
+  width: 25px;
+  margin-right: 5px;
+}
+
+.feedback .feedback-buttons {
+  font-size: 27px;
+  font-weight: bold;
+  margin-right: 5%;
+}
+
+.feedback .feedback-entry {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.feedback .feedback-author-name {
+  font-weight: bold;
+  font-size: 20px;
+}
 /***************** FEEDBACK *****************/
 
 .leave-feedback-selected {
