@@ -13,6 +13,7 @@ export default class LeaveFeedback extends Component {
     this.props.getLeaveFeedback();
   }
   render() {
+    console.log(this.props.toLeaveFeedbackArray);
     if (this.props.toLeaveFeedbackArray.length) {
       return (
         <div>

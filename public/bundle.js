@@ -30517,7 +30517,7 @@
 	module.exports = function () {
 	  return {
 	    messages: {
-	      active: [{ id: 1, name: "Will Tang" }]
+	      active: []
 	    },
 	    user: {
 	      id: null
@@ -50819,6 +50819,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      console.log(this.props.toLeaveFeedbackArray);
 	      if (this.props.toLeaveFeedbackArray.length) {
 	        return _react2.default.createElement(
 	          'div',

@@ -1,7 +1,7 @@
 module.exports = function() {
   return {
     messages: {
-      active: [ { id: 1, name: "Will Tang" }]
+      active: []
     },
     user: {
       id: null
