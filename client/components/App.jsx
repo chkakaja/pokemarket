@@ -7,9 +7,11 @@ import { connect } from 'react-redux';
 import { checkAuthentication } from '../actions.js';
 
 export default class App extends Component {
+
   componentWillMount() {
     this.props.getUser();
   }
+
   render() {
     return (
       <div className='app'>
@@ -19,6 +21,7 @@ export default class App extends Component {
       </div>
     );
   }
+
 }
 
 var mapStateToProps = function(state, ownProps) {

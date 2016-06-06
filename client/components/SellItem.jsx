@@ -26,6 +26,7 @@ class SellItem extends Component {
       });
       resetForm();
     };
+    
     if (!this.props.user.id) {
       return <div>Sign in to sell items!</div>
     }
