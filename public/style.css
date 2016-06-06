@@ -80,6 +80,7 @@ a {
   
 }
 
+<<<<<<< HEAD
 .username-name {
   display: inline-block;
   margin-right: 5px;
@@ -88,7 +89,11 @@ a {
 .profile .username-name {
   margin-bottom: 10px;
 }
+=======
+
+>>>>>>> 55c142b4ab7b3c703992dda6b958780e23a6cb24
 /***************** FEEDBACK *****************/
+
 .leave-feedback-selected {
   font-weight: bold;
 }
@@ -97,13 +102,6 @@ a {
   position: relative;
   vertical-align: top;
   width: 850px;
-}
-
-.leave-feedback {
-  border: 2px solid black;
-  margin-right: 250px;
-  margin-left: 250px;
-  width: 950px;
 }
 
 .leave-feedback-entry {
@@ -174,6 +172,10 @@ a {
   box-sizing: border-box;
 }
 
+.nav .links .logo:hover {
+  border: none;
+}
+
 .nav .links .navlink .fb-logo {
   padding-top: 10px;
   height: 50px;
@@ -200,6 +202,8 @@ a {
 
 .sell-item .sell-item-title {
   margin-top: 20px;
+  margin: 20px 0px 10px 0px;
+  font-size: 20px;
   text-align: center;
 }
 
@@ -513,20 +517,19 @@ a {
 
 .personalpage .item-entry .all-info .item-entry-purchase .countdown {
   margin-bottom: 10px;
-<<<<<<< HEAD
 }
 
 
 /***************** LEAVE FEEDBACK - PERSONAL PAGE *****************/
 
-.personalpage .leave-feedback .feedback {
+.personalpage .feedback {
   margin-top: 20px;
   text-align: center;
   font-weight: 500;
   font-size: 20px;
 }
 
-.personalpage .leave-feedback .leave-feedback-entry {
+.personalpage .feedback .leave-feedback-entry {
   position: relative;
   display: inline-block;
   font-weight: 300;
@@ -539,7 +542,7 @@ a {
   height: 500px;
 }
 
-.personalpage .leave-feedback .leave-feedback-entry .picture {
+.personalpage .feedback .leave-feedback-entry .picture {
   display: block;
   margin: auto;
   height: auto;
@@ -549,69 +552,23 @@ a {
   margin-bottom: 10px;
 }
 
-.personalpage .leave-feedback .leave-feedback-entry {
+.personalpage .feedback .leave-feedback-entry {
   font-size: 18px;
 }
 
-.personalpage .leave-feedback .leave-feedback-entry .title {
+.personalpage .feedback .leave-feedback-entry .title {
   font-size: 20px;
   margin-bottom: 10px;
 }
 
-=======
-}
-
-
-/***************** LEAVE FEEDBACK - PERSONAL PAGE *****************/
-
-.personalpage .leave-feedback .feedback {
-  margin-top: 20px;
-  text-align: center;
-  font-weight: 500;
-  font-size: 20px;
-}
-
-.personalpage .leave-feedback .leave-feedback-entry {
-  position: relative;
-  display: inline-block;
-  font-weight: 300;
-  border-style: solid;
-  border-width: 1px;
-  border-color: black;
-  padding: 10px;
-  margin: 20px 20px;
-  width: 80%;
-  height: 500px;
-}
-
-.personalpage .leave-feedback .leave-feedback-entry .picture {
-  display: block;
-  margin: auto;
-  height: auto;
-  width: auto;
-  max-height: 200px;
-  max-width: 100%;
-  margin-bottom: 10px;
-}
-
-.personalpage .leave-feedback .leave-feedback-entry {
-  font-size: 18px;
-}
-
-.personalpage .leave-feedback .leave-feedback-entry .title {
-  font-size: 20px;
-  margin-bottom: 10px;
-}
-
->>>>>>> feature-branch
-.personalpage .leave-feedback .leave-feedback-entry .leave-feedback-button {
+.personalpage .feedback .leave-feedback-entry .leave-feedback-button {
   width: 20px;
   height: 20px;
   border-radius: 10%;
   margin-bottom: 5px;
 }
 
-.personalpage .leave-feedback .leave-feedback-entry .leave-feedback-comment {
+.personalpage .feedback .leave-feedback-entry .leave-feedback-comment {
   margin: 10px auto;
 }
 

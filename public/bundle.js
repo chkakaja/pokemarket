@@ -49304,15 +49304,7 @@
 	          )
 	        );
 	      }
-	      return _react2.default.createElement(
-	        _reactRouter.Link,
-	        { to: 'profile' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'navlink', style: { width: '7%', display: 'inline-block' } },
-	          _react2.default.createElement('img', { style: { marginTop: '12px', marginLeft: '5px' }, src: 'images/profile.png', width: '40px' })
-	        )
-	      );
+	      return _react2.default.createElement('div', { className: 'navlink', style: { width: '7%', display: 'inline-block' } });
 	    }
 	  }, {
 	    key: 'render',
@@ -49325,7 +49317,7 @@
 	          { className: 'links' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'navlink', style: { width: '5%', display: 'inline-block' } },
+	            { className: 'navlink logo', style: { width: '5%', display: 'inline-block' } },
 	            _react2.default.createElement('img', { style: { marginTop: '10px', marginLeft: '5px' }, src: 'images/logo.png', width: '40px' })
 	          ),
 	          _react2.default.createElement(
@@ -49505,33 +49497,32 @@
 	    }
 	  }, {
 	    key: 'onFormSubmit',
-	    value: function onFormSubmit(e) {
+	    value: function onFormSubmit() {
 	      var _this2 = this;
 
-	      e.preventDefault();
-
+	      console.log('submitted', this.state.search);
 	      // ###################### SEARCH STRING MUST NOT BE EMPTY OR SEARCH WILL BE WRONG ###################
 	      if (this.state.search) {
 	        _jquery2.default.post('/search', { search: this.state.search }, function (data) {
 	          _this2.props.updateSearchResults(data);
 	        });
 	        this.setState({ search: '' });
-	        document.getElementsByClassName('search-input')[0].value = '';
 	      }
+	      // browserHistory.push('/searchresults');
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'form',
-	        { className: 'searchbar pure-form' },
+	        { className: 'searchbar pure-form', onSubmit: this.onFormSubmit.bind(this) },
 	        _react2.default.createElement('input', { type: 'text',
 	          onChange: this.onInputChange.bind(this),
 	          className: 'search-input pure-input-2-3',
-	          value: this.state.input }),
+	          value: this.state.search }),
 	        _react2.default.createElement(
 	          'button',
-	          { onClick: this.onFormSubmit.bind(this), type: 'submit', className: 'submit-search pure-button pure-button-primary' },
+	          { type: 'submit', className: 'submit-search pure-button pure-button-primary' },
 	          _react2.default.createElement(
 	            _reactRouter.Link,
 	            { to: '/searchresults' },
