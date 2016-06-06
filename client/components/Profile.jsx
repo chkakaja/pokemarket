@@ -7,7 +7,7 @@ import ProfileEntry from './ProfileEntry.jsx';
 
 class Profile extends Component {
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getProfile(this.props.id);
   }
   render() {
@@ -31,7 +31,7 @@ class Profile extends Component {
 var mapStateToProps = function(state, ownProps) {
   return {
     profile: state.profile.profile,
-    id: state.profile.current || state.user.id
+    id: (state.profile.current || state.user.id)
   };
 };
 

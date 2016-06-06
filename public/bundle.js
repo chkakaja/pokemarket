@@ -30737,7 +30737,7 @@
 
 	  var newState = Object.assign({}, state);
 	  switch (action.type) {
-	    case 'SET_USER':
+	    case 'SET_PROFILE_USER':
 	      newState.current = action.current;
 	      return newState;
 	    case 'UPDATE_PROFILE':
@@ -49975,6 +49975,7 @@
 	    key: 'render',
 	    value: function render() {
 	      if (this.props.user.id) {
+	        console.log(this.props.item.seller.id);
 	        return _react2.default.createElement(
 	          'div',
 	          { className: 'item' },
@@ -50111,12 +50112,7 @@
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'hover-image' },
-	              _react2.default.createElement('img', { src: this.props.item.seller.picture, className: 'seller-picture' }),
-	              _react2.default.createElement(
-	                'p',
-	                { className: 'text' },
-	                'Message seller'
-	              )
+	              _react2.default.createElement('img', { src: this.props.item.seller.picture, className: 'seller-picture' })
 	            )
 	          )
 	        );
@@ -50786,7 +50782,7 @@
 	    },
 	    setProfileUser: function setProfileUser(current) {
 	      dispatch({
-	        type: 'SET_USER',
+	        type: 'SET_PROFILE_USER',
 	        current: current
 	      });
 	    }
@@ -51262,6 +51258,10 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
@@ -51361,7 +51361,7 @@
 	  };
 	};
 
-	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(PopularItems);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(PopularItems);
 
 /***/ },
 /* 385 */
@@ -51898,8 +51898,8 @@
 	  }
 
 	  _createClass(Profile, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
 	      this.props.getProfile(this.props.id);
 	    }
 	  }, {

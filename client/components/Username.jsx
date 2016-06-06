@@ -40,7 +40,7 @@ var mapDispatchToProps = function(dispatch) {
     },
     setProfileUser: current => {
       dispatch({
-        type: 'SET_USER',
+        type: 'SET_PROFILE_USER',
         current
       });
     }

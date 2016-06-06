@@ -108,6 +108,7 @@ class Item extends Component {
 
   render () {
     if (this.props.user.id) {
+      console.log(this.props.item.seller.id);
       return (
         <div className='item'>
           <div className='item-title'>{this.props.item.title}</div>
@@ -167,7 +168,6 @@ class Item extends Component {
             <div className='seller-name'>{this.props.item.seller.name}</div>
             <div className='hover-image'>
               <img src={this.props.item.seller.picture} className='seller-picture' />
-              <p className='text'>Message seller</p>
             </div>
           </div>
         </div>
