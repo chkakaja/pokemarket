@@ -38,7 +38,7 @@ class SearchBar extends React.Component {
 
   render() {
     return (
-      <form className='searchbar pure-form' onSubmit={this.onFormSubmit.bind(this)}>
+      <form className='searchbar pure-form'>
         <input type='text' 
                onChange={this.onInputChange.bind(this)} 
                className='search-input pure-input-2-3' 

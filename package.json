@@ -4,12 +4,11 @@
   "description": "a simple auction app",
   "main": "index.html",
   "scripts": {
-    "start": "babel --watch client --out-dir public --presets=es2015,react --ignore=node_modules, --source-maps inline",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/auctionapp/auctionapp.git"
+    "url": "git+https://github.com/auctionapp/auction-app.git"
   },
   "keywords": [
     "auction",

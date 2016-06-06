@@ -19,11 +19,21 @@ export default class Feedback extends Component {
 
   render() {
     return (
-      <div className='feedback'>
+      <div className='feedback pure-u-3-5'>
+        <div className='feedback-section'>Feedback</div>
         <div className='feedback-profile'>
-          <span style={{ marginRight: '25%'}}>{`Positive: ${this.props.positive}`}</span>
-          <span style={{ marginRight: '25%'}}>{`Neutral: ${this.props.neutral}`}</span>
-          <span style={{ marginRight: '25%'}}>{`Negative: ${this.props.negative}`}</span>
+          <span className='feedback-buttons'>
+            <img src="images/positive.png" className="feedback-button"/>
+            {`Positive: ${this.props.positive}`}
+          </span>
+          <span className='feedback-buttons'>
+            <img src="images/neutral.png" className="feedback-button"/>
+            {`Neutral: ${this.props.neutral}`}
+          </span>
+          <span className='feedback-buttons'>
+            <img src="images/negative.png" className="feedback-button"/>
+            {`Negative: ${this.props.negative}`}
+          </span>
 
         </div>
         <div className='feedback-entries'>
@@ -42,6 +52,7 @@ export default class Feedback extends Component {
 }
 
 var mapStateToProps = function(state, ownProps) {
+  console.log(state.feedbackArray);
   return {
     feedbackArray: state.feedback.feedbackArray,
     negative: state.feedback.negative,

@@ -55,7 +55,6 @@ app.get('/feedback', (req, res) => {
     .where({ receiver_id: req.query.receiver })
     .innerJoin('users', 'feedback.author_id', '=', 'users.id')
     .then(feedbackArray => {
-      console.log('requestid', req.query.receiver, feedbackArray);
       res.status(200).send(feedbackArray);
     });
 });
@@ -68,7 +67,9 @@ app.get('/toleavefeedback', (req, res) => {
       .then(user => {
         db.knex('items')
           .where({ current_bidder: user.id, feedback: null })
-          .andWhere('end_at', '<', dateformat(new Date(), "dddd, mmmm dS, yyyy, h:MM:ss TT"))
+          .andWhere('end_at', '<', new Date())
+          // 2016-06-06T23:11:07.828Z
+          // 2016-06-12 15:59:22.632
           .then(items => res.status(200).send(items));
       });
   }  
@@ -86,7 +87,6 @@ app.post('/leavefeedback', (req, res) => {
 // ############################## MESSAGES #############################
 
 app.post('/getMessages', (req, res) => {
-  console.log(req.body.sender, req.body.receiver);
   Message
   .query({ where: { sender: req.body.sender, receiver: req.body.receiver },
            orWhere: { sender: req.body.receiver, receiver: req.body.sender }})
@@ -282,11 +282,11 @@ passport.use(new FacebookStrategy({
       User.where({ facebookId: profile.id }).fetch()
         .then(function(user) {
           // creates user if not found
+          console.log(profile);
           if (!user) {
             user = new User({
               name: profile.displayName,
               facebookId: profile.id,
-              email: profile.emails[0].value,
               picture: profile.photos[0].value
             }).save();
           }

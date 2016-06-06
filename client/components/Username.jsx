@@ -3,6 +3,12 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 class Username extends Component {
+
+  componentWillMount() {
+    console.log('in username', this.props.id, this.props.name);
+    
+  }
+
   static propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired
@@ -16,7 +22,7 @@ class Username extends Component {
           <div onClick={this.props.setProfileUser.bind(this, this.props.id)} className="username-name">{this.props.name}</div>
         </Link>
         <img onClick={this.props.addMessageBox.bind(this, this.props.userId, this.props.id, this.props.name)} 
-             src="images/message.png" />
+             src="images/message.png" className='message-button'/>
       </div>
     );
   }
@@ -31,7 +37,6 @@ var mapStateToProps = function(state) {
 var mapDispatchToProps = function(dispatch) {
   return {
     addMessageBox: (userId, id, name) => {
-      console.log(userId, id, userId === id);
       if (userId != id) {
         dispatch({
           type: 'NEW_MESSAGE_BOX',
@@ -40,6 +45,7 @@ var mapDispatchToProps = function(dispatch) {
       }
     },
     setProfileUser: current => {
+      console.log('dispatching current', current)
       dispatch({
         type: 'SET_USER',
         current

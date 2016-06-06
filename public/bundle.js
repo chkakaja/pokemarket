@@ -30735,6 +30735,7 @@
 	  var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 	  var action = arguments[1];
 
+	  console.log('profile reducer', state, action);
 	  var newState = Object.assign({}, state);
 	  switch (action.type) {
 	    case 'SET_USER':
@@ -30774,15 +30775,15 @@
 
 	var _FacebookButton2 = _interopRequireDefault(_FacebookButton);
 
-	var _Landing = __webpack_require__(370);
+	var _Landing = __webpack_require__(382);
 
 	var _Landing2 = _interopRequireDefault(_Landing);
 
-	var _Signin = __webpack_require__(382);
+	var _Signin = __webpack_require__(371);
 
 	var _Signin2 = _interopRequireDefault(_Signin);
 
-	var _SellItem = __webpack_require__(383);
+	var _SellItem = __webpack_require__(372);
 
 	var _SellItem2 = _interopRequireDefault(_SellItem);
 
@@ -30790,7 +30791,7 @@
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _Item = __webpack_require__(374);
+	var _Item = __webpack_require__(373);
 
 	var _Item2 = _interopRequireDefault(_Item);
 
@@ -30798,23 +30799,23 @@
 
 	var _SearchResults2 = _interopRequireDefault(_SearchResults);
 
-	var _WatchedItems = __webpack_require__(384);
+	var _WatchedItems = __webpack_require__(381);
 
 	var _WatchedItems2 = _interopRequireDefault(_WatchedItems);
 
-	var _Feedback = __webpack_require__(385);
+	var _Feedback = __webpack_require__(386);
 
 	var _Feedback2 = _interopRequireDefault(_Feedback);
 
-	var _LeaveFeedback = __webpack_require__(380);
+	var _LeaveFeedback = __webpack_require__(384);
 
 	var _LeaveFeedback2 = _interopRequireDefault(_LeaveFeedback);
 
-	var _Profile = __webpack_require__(387);
+	var _Profile = __webpack_require__(388);
 
 	var _Profile2 = _interopRequireDefault(_Profile);
 
-	var _PersonalPage = __webpack_require__(389);
+	var _PersonalPage = __webpack_require__(390);
 
 	var _PersonalPage2 = _interopRequireDefault(_PersonalPage);
 
@@ -49219,15 +49220,15 @@
 
 	var _FacebookButton2 = _interopRequireDefault(_FacebookButton);
 
-	var _SearchBar = __webpack_require__(391);
+	var _SearchBar = __webpack_require__(370);
 
 	var _SearchBar2 = _interopRequireDefault(_SearchBar);
 
-	var _Signin = __webpack_require__(382);
+	var _Signin = __webpack_require__(371);
 
 	var _Signin2 = _interopRequireDefault(_Signin);
 
-	var _SellItem = __webpack_require__(383);
+	var _SellItem = __webpack_require__(372);
 
 	var _SellItem2 = _interopRequireDefault(_SellItem);
 
@@ -49235,11 +49236,11 @@
 
 	var _MessageBox2 = _interopRequireDefault(_MessageBox);
 
-	var _Item = __webpack_require__(374);
+	var _Item = __webpack_require__(373);
 
 	var _Item2 = _interopRequireDefault(_Item);
 
-	var _WatchedItems = __webpack_require__(384);
+	var _WatchedItems = __webpack_require__(381);
 
 	var _WatchedItems2 = _interopRequireDefault(_WatchedItems);
 
@@ -49477,19 +49478,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactDom = __webpack_require__(38);
+	var _reactRedux = __webpack_require__(168);
 
-	var _reactDom2 = _interopRequireDefault(_reactDom);
+	var _reactRouter = __webpack_require__(190);
+
+	var _jquery = __webpack_require__(315);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
 
 	var _actions = __webpack_require__(366);
-
-	var _PopularItems = __webpack_require__(371);
-
-	var _PopularItems2 = _interopRequireDefault(_PopularItems);
-
-	var _LeaveFeedback = __webpack_require__(380);
-
-	var _LeaveFeedback2 = _interopRequireDefault(_LeaveFeedback);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49499,34 +49496,82 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Landing = function (_Component) {
-	  _inherits(Landing, _Component);
+	var SearchBar = function (_React$Component) {
+	  _inherits(SearchBar, _React$Component);
 
-	  function Landing() {
-	    _classCallCheck(this, Landing);
+	  function SearchBar(props) {
+	    _classCallCheck(this, SearchBar);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Landing).apply(this, arguments));
+	    // UI state
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SearchBar).call(this, props));
+
+	    _this.state = {
+	      search: ''
+	    };
+	    return _this;
 	  }
 
-	  _createClass(Landing, [{
+	  _createClass(SearchBar, [{
+	    key: 'onInputChange',
+	    value: function onInputChange(e) {
+	      this.setState({
+	        search: e.target.value
+	      });
+	    }
+	  }, {
+	    key: 'onFormSubmit',
+	    value: function onFormSubmit(e) {
+	      var _this2 = this;
+
+	      e.preventDefault();
+	      // ###################### SEARCH STRING MUST NOT BE EMPTY OR SEARCH WILL BE WRONG ###################
+	      if (this.state.search) {
+	        _jquery2.default.post('/search', { search: this.state.search }, function (data) {
+	          _this2.props.updateSearchResults(data);
+	        });
+	        this.setState({ search: '' });
+	        this.context.history.pushState(null, '/searchresults');
+	      }
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'div',
-	        { className: 'landing' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'popular-items' },
-	          _react2.default.createElement(_PopularItems2.default, null)
-	        )
+	        'form',
+	        { className: 'searchbar pure-form' },
+	        _react2.default.createElement('input', { type: 'text',
+	          onChange: this.onInputChange.bind(this),
+	          className: 'search-input pure-input-2-3',
+	          value: this.state.search })
 	      );
 	    }
 	  }]);
 
-	  return Landing;
-	}(_react.Component);
+	  return SearchBar;
+	}(_react2.default.Component);
 
-	module.exports = Landing;
+	SearchBar.contextTypes = {
+	  history: _react2.default.PropTypes.object
+	};
+
+
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    // use this information to populate search results page
+	    updateSearchResults: function updateSearchResults(results) {
+	      dispatch({
+	        type: 'CLEAR_SEARCH_RESULTS'
+	      });
+	      dispatch({
+	        type: 'UPDATE_SEARCH_RESULTS',
+	        results: results
+	      });
+	    }
+	  };
+	};
+
+	module.exports = (0, _reactRedux.connect)(null, mapDispatchToProps)(SearchBar);
 
 /***/ },
 /* 371 */
@@ -49544,17 +49589,9 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _reactRedux = __webpack_require__(168);
+	var _FacebookButton = __webpack_require__(368);
 
-	var _jquery = __webpack_require__(315);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _actions = __webpack_require__(366);
-
-	var _ItemEntry = __webpack_require__(372);
-
-	var _ItemEntry2 = _interopRequireDefault(_ItemEntry);
+	var _FacebookButton2 = _interopRequireDefault(_FacebookButton);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49564,76 +49601,31 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var PopularItems = function (_Component) {
-	  _inherits(PopularItems, _Component);
+	var Signin = function (_Component) {
+	  _inherits(Signin, _Component);
 
-	  function PopularItems() {
-	    _classCallCheck(this, PopularItems);
+	  function Signin() {
+	    _classCallCheck(this, Signin);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(PopularItems).apply(this, arguments));
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Signin).apply(this, arguments));
 	  }
 
-	  _createClass(PopularItems, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.getPopularItems();
-	    }
-	  }, {
-	    key: 'getPopularItems',
-	    value: function getPopularItems() {
-	      _jquery2.default.ajax({
-	        method: 'GET',
-	        url: '/getPopularItems',
-	        success: function (data) {
-	          this.props.updatePopularItems(data);
-	        }.bind(this)
-	      });
-	    }
-	  }, {
+	  _createClass(Signin, [{
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'popular' },
-	          'What\'s popular'
-	        ),
-	        this.props.popularItems.map(function (item) {
-	          return _react2.default.createElement(_ItemEntry2.default, { item: item, key: item.id });
-	        })
+	        { className: 'signin' },
+	        'Sign in or register using Facebook:',
+	        _react2.default.createElement(_FacebookButton2.default, null)
 	      );
 	    }
 	  }]);
 
-	  return PopularItems;
+	  return Signin;
 	}(_react.Component);
 
-	PopularItems.defaultProps = {
-	  popularItems: []
-	};
-
-
-	var mapStateToProps = function mapStateToProps(state, ownProps) {
-	  return {
-	    user: state.user,
-	    popularItems: state.popularItems
-	  };
-	};
-
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {
-	    updatePopularItems: function updatePopularItems(data) {
-	      dispatch({
-	        type: 'UPDATE_POPULAR_ITEMS',
-	        data: data
-	      });
-	    }
-	  };
-	};
-
-	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(PopularItems);
+	module.exports = Signin;
 
 /***/ },
 /* 372 */
@@ -49641,9 +49633,200 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(38);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _reduxForm = __webpack_require__(251);
+
+	var _jquery = __webpack_require__(315);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _actions = __webpack_require__(366);
+
+	var _reactRedux = __webpack_require__(168);
+
+	var _FacebookButton = __webpack_require__(368);
+
+	var _FacebookButton2 = _interopRequireDefault(_FacebookButton);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	// look up documentation for redux-form for more insight on how this works
+
+	var SellItem = function (_Component) {
+	  _inherits(SellItem, _Component);
+
+	  function SellItem() {
+	    _classCallCheck(this, SellItem);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(SellItem).apply(this, arguments));
+	  }
+
+	  _createClass(SellItem, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.getUser();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      var _props = this.props;
+	      var _props$fields = _props.fields;
+	      var itemTitle = _props$fields.itemTitle;
+	      var itemDescription = _props$fields.itemDescription;
+	      var itemDuration = _props$fields.itemDuration;
+	      var itemPicture = _props$fields.itemPicture;
+	      var itemStartingBid = _props$fields.itemStartingBid;
+	      var handleSubmit = _props.handleSubmit;
+	      var resetForm = _props.resetForm;
+
+	      var postItem = function postItem() {
+	        // sending post request with all of the necessary fields
+	        _jquery2.default.post('/sellItem', {
+	          title: _this2.props.fields.itemTitle.value,
+	          description: _this2.props.fields.itemDescription.value,
+	          duration: _this2.props.fields.itemDuration.value,
+	          picture: _this2.props.fields.itemPicture.value,
+	          seller_id: _this2.props.user.id,
+	          currentBid: _this2.props.fields.itemStartingBid.value
+	        });
+	        resetForm();
+	      };
+
+	      if (!this.props.user.id) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          'Sign in to sell items!'
+	        );
+	      }
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'sell-item' },
+	        _react2.default.createElement(
+	          'h2',
+	          { className: 'sell-item-title' },
+	          'Sell Your Item'
+	        ),
+	        _react2.default.createElement(
+	          'form',
+	          { onSubmit: handleSubmit(postItem), className: 'pure-form pure-form-aligned' },
+	          _react2.default.createElement(
+	            'fieldset',
+	            null,
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'pure-control-group' },
+	              _react2.default.createElement(
+	                'label',
+	                null,
+	                'Title: '
+	              ),
+	              _react2.default.createElement('input', _extends({ type: 'text', className: 'pure-input-2-3', placeholder: 'What would you like the title to be?' }, itemTitle))
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'pure-control-group' },
+	              _react2.default.createElement(
+	                'label',
+	                null,
+	                'Duration (in days): '
+	              ),
+	              _react2.default.createElement('input', _extends({ type: 'number', className: 'pure-input-2-3', placeholder: 'How long would you like your item to be on the market?' }, itemDuration))
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'pure-control-group' },
+	              _react2.default.createElement(
+	                'label',
+	                null,
+	                'Starting Bid: '
+	              ),
+	              _react2.default.createElement('input', _extends({ type: 'number', className: 'pure-input-2-3', placeholder: 'What would you like your starting bid to be?' }, itemStartingBid))
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'pure-control-group' },
+	              _react2.default.createElement(
+	                'label',
+	                null,
+	                'Picture: '
+	              ),
+	              _react2.default.createElement('input', _extends({ type: 'url', className: 'pure-input-2-3', placeholder: 'Place a picture URL here' }, itemPicture))
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'pure-control-group' },
+	              _react2.default.createElement(
+	                'label',
+	                null,
+	                'Description: '
+	              ),
+	              _react2.default.createElement('textarea', _extends({ type: 'text', className: 'pure-input-2-3', placeholder: 'How would you describe your item?' }, itemDescription))
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'pure-controls' },
+	              _react2.default.createElement(
+	                'button',
+	                { type: 'submit', className: 'pure-button' },
+	                'Submit'
+	              )
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return SellItem;
+	}(_react.Component);
+
+	var mapStateToProps = function mapStateToProps(state, ownProps) {
+	  return {
+	    user: state.user
+	  };
+	};
+
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    getUser: (0, _actions.checkAuthentication)(dispatch)
+	  };
+	};
+
+	// essentially a reducer for the form
+	SellItem = (0, _reduxForm.reduxForm)({
+	  // a unique name for this form
+	  form: 'sellItem',
+	  // all the fields in your form
+	  fields: ['itemTitle', 'itemDescription', 'itemDuration', 'itemPicture', 'itemStartingBid']
+	})(SellItem);
+
+	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SellItem);
+
+/***/ },
+/* 373 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -49657,21 +49840,23 @@
 
 	var _reactRedux = __webpack_require__(168);
 
-	var _reactRouter = __webpack_require__(190);
-
 	var _jquery = __webpack_require__(315);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	var _dateformat = __webpack_require__(373);
+	var _dateformat = __webpack_require__(374);
 
 	var _dateformat2 = _interopRequireDefault(_dateformat);
 
+	var _SearchResults = __webpack_require__(375);
+
+	var _SearchResults2 = _interopRequireDefault(_SearchResults);
+
+	var _Username = __webpack_require__(380);
+
+	var _Username2 = _interopRequireDefault(_Username);
+
 	var _actions = __webpack_require__(366);
-
-	var _Item = __webpack_require__(374);
-
-	var _Item2 = _interopRequireDefault(_Item);
 
 	var _CountdownTimer = __webpack_require__(377);
 
@@ -49685,23 +49870,95 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var ItemEntry = function (_Component) {
-	  _inherits(ItemEntry, _Component);
+	var Item = function (_Component) {
+	  _inherits(Item, _Component);
 
-	  function ItemEntry() {
-	    _classCallCheck(this, ItemEntry);
+	  function Item() {
+	    _classCallCheck(this, Item);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(ItemEntry).apply(this, arguments));
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Item).apply(this, arguments));
 	  }
 
-	  _createClass(ItemEntry, [{
+	  _createClass(Item, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      this.props.getUser();
+	      this.grabItemSeller();
+	      this.addVisit();
+	    }
+	  }, {
+	    key: 'grabItemSeller',
+	    value: function grabItemSeller() {
+	      if (this.props.item.id !== 0) {
+	        _jquery2.default.ajax({
+	          method: 'GET',
+	          url: '/getItemSeller',
+	          data: { id: this.props.item.id },
+	          dataType: 'json',
+	          success: function (data) {
+	            this.props.setCurrentItem(data);
+	            console.log(this.props);
+	          }.bind(this)
+	        });
+	      }
+	    }
+
+	    // getCurrentUser() {
+	    //   $.ajax({
+	    //     method: 'GET',
+	    //     url: '/getuserid',
+	    //     data: { id: this.props.item.id },
+	    //     dataType: 'json',
+	    //     success: function(data) {
+	    //       this.current_user = data;
+	    //     }.bind(this)
+	    //   });
+	    // }
+
+	  }, {
+	    key: 'addVisit',
+	    value: function addVisit() {
+	      _jquery2.default.ajax({
+	        method: 'POST',
+	        url: '/addvisit',
+	        data: { id: this.props.item.id },
+	        dataType: 'json',
+	        success: function success(data) {
+	          //console.log('Visit added. Now at', data.visits, 'visits');
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'changeBid',
+	    value: function changeBid(e) {
+	      this.form = e.target.value;
+	    }
+	  }, {
+	    key: 'setBid',
+	    value: function setBid(e) {
+	      e.preventDefault();
+	      console.log('bidded', this.form);
+	      return _jquery2.default.ajax({
+	        method: 'POST',
+	        url: '/updateBid',
+	        data: {
+	          id: this.props.item.id,
+	          currentBidder: this.props.user.id,
+	          newBid: this.form
+	        },
+	        dataType: 'json',
+	        success: function (data) {
+	          this.props.item.currentBid = data.currentBid;
+	          this.props.item.current_bidder = this.seller_id;
+	          console.log('Current bid:', data.currentBid);
+	          this.props.setCurrentItem(this.props.item);
+	          document.getElementsByClassName('set-bid-input')[0].value = '';
+	        }.bind(this)
+	      });
 	    }
 	  }, {
 	    key: 'watchItem',
 	    value: function watchItem(e) {
+	      e.preventDefault();
 	      _jquery2.default.ajax({
 	        method: 'GET',
 	        url: '/watchitem',
@@ -49716,73 +49973,83 @@
 	      });
 	    }
 	  }, {
-	    key: 'setCurrent',
-	    value: function setCurrent() {
-	      this.props.setCurrentItem(this.props.item);
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      if (this.props.user.id) {
+	        console.log('in item', this.props.item.seller.id, this.props.item.seller.name);
 	        return _react2.default.createElement(
 	          'div',
-	          { className: 'item-entry' },
+	          { className: 'item' },
 	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: 'item', onClick: this.setCurrent.bind(this) },
-	            _react2.default.createElement('img', { src: this.props.item.picture, height: '300px', className: 'item-entry-picture' }),
+	            'div',
+	            { className: 'item-title' },
+	            this.props.item.title
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'item-info pure-u-10-24' },
+	            _react2.default.createElement('img', { src: this.props.item.picture, className: 'item-picture' }),
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'all-info' },
+	              { className: 'item-description' },
+	              this.props.item.description
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { className: 'watch pure-button', type: 'submit', onClick: this.watchItem.bind(this) },
+	              'Watch Item'
+	            )
+	          ),
+	          _react2.default.createElement('div', { className: 'pure-u-1-24' }),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'purchase pure-u-6-24' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'current-bid' },
 	              _react2.default.createElement(
-	                'div',
-	                { className: 'item-entry-info' },
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'item-entry-title' },
-	                  this.props.item.title
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'item-entry-description' },
-	                  this.props.item.description
-	                )
+	                'span',
+	                { className: 'bold' },
+	                'Current Highest Bid: '
 	              ),
+	              '$',
+	              this.props.item.currentBid
+	            ),
+	            _react2.default.createElement(
+	              'form',
+	              { onSubmit: this.setBid.bind(this) },
 	              _react2.default.createElement(
 	                'div',
-	                { className: 'item-entry-purchase' },
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'item-entry-current-bid' },
-	                  _react2.default.createElement(
-	                    'b',
-	                    null,
-	                    'Current Bid:'
-	                  ),
-	                  ' $',
-	                  this.props.item.currentBid
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'item-entry-end-time' },
-	                  _react2.default.createElement(
-	                    'b',
-	                    null,
-	                    'Ending:'
-	                  ),
-	                  ' ',
-	                  (0, _dateformat2.default)(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'countdown' },
-	                  _react2.default.createElement(_CountdownTimer2.default, { endDate: this.props.item.end_at })
-	                ),
-	                _react2.default.createElement(
-	                  'button',
-	                  { className: 'watch pure-button', type: 'submit', onClick: this.watchItem.bind(this) },
-	                  'Watch Item'
-	                )
+	                { className: 'set-bid pure-form' },
+	                _react2.default.createElement('input', { className: 'set-bid-input pure-input-1-2', onChange: this.changeBid.bind(this), type: 'number', placeholder: 'Set your bid' }),
+	                _react2.default.createElement('input', { type: 'submit', className: 'set-bid-button pure-button' })
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'end-time' },
+	              (0, _dateformat2.default)(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')
+	            ),
+	            _react2.default.createElement(_CountdownTimer2.default, { endDate: this.props.item.end_at })
+	          ),
+	          _react2.default.createElement('div', { className: 'pure-u-1-24' }),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'item-seller pure-u-4-24' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'seller-info' },
+	              'Seller:'
+	            ),
+	            _react2.default.createElement(_Username2.default, { id: this.props.item.seller.id, name: this.props.item.seller.name }),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'hover-image' },
+	              _react2.default.createElement('img', { src: this.props.item.seller.picture, className: 'seller-picture' }),
+	              _react2.default.createElement(
+	                'p',
+	                { className: 'text' },
+	                'Message seller'
 	              )
 	            )
 	          )
@@ -49790,58 +50057,67 @@
 	      } else {
 	        return _react2.default.createElement(
 	          'div',
-	          { className: 'item-entry' },
+	          { className: 'item' },
 	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: 'item', onClick: this.setCurrent.bind(this) },
-	            _react2.default.createElement('img', { src: this.props.item.picture, height: '300px', className: 'item-entry-picture' }),
+	            'div',
+	            { className: 'item-title' },
+	            this.props.item.title
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'item-info pure-u-10-24' },
+	            _react2.default.createElement('img', { src: this.props.item.picture, className: 'item-picture' }),
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'all-info' },
+	              { className: 'item-description' },
+	              this.props.item.description
+	            )
+	          ),
+	          _react2.default.createElement('div', { className: 'pure-u-1-24' }),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'purchase pure-u-6-24' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'current-bid' },
 	              _react2.default.createElement(
-	                'div',
-	                { className: 'item-entry-info' },
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'item-entry-title' },
-	                  this.props.item.title
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'item-entry-description' },
-	                  this.props.item.description
-	                )
+	                'span',
+	                { className: 'bold' },
+	                'Current Highest Bid: '
 	              ),
+	              '$',
+	              this.props.item.currentBid
+	            ),
+	            _react2.default.createElement('form', { onSubmit: this.setBid.bind(this) }),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'end-time' },
+	              (0, _dateformat2.default)(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')
+	            ),
+	            _react2.default.createElement(_CountdownTimer2.default, { endDate: this.props.item.end_at })
+	          ),
+	          _react2.default.createElement('div', { className: 'pure-u-1-24' }),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'item-seller pure-u-4-24' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'seller-info' },
+	              'Seller:'
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'seller-name' },
+	              this.props.item.seller.name
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'hover-image' },
+	              _react2.default.createElement('img', { src: this.props.item.seller.picture, className: 'seller-picture' }),
 	              _react2.default.createElement(
-	                'div',
-	                { className: 'item-entry-purchase' },
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'item-entry-current-bid' },
-	                  _react2.default.createElement(
-	                    'b',
-	                    null,
-	                    'Current Bid:'
-	                  ),
-	                  ' $',
-	                  this.props.item.currentBid
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'item-entry-end-time' },
-	                  _react2.default.createElement(
-	                    'b',
-	                    null,
-	                    'Ending:'
-	                  ),
-	                  ' ',
-	                  (0, _dateformat2.default)(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'countdown' },
-	                  _react2.default.createElement(_CountdownTimer2.default, { endDate: this.props.item.end_at })
-	                )
+	                'p',
+	                { className: 'text' },
+	                'Message seller'
 	              )
 	            )
 	          )
@@ -49850,34 +50126,43 @@
 	    }
 	  }]);
 
-	  return ItemEntry;
+	  return Item;
 	}(_react.Component);
 
-	exports.default = ItemEntry;
+	Item.defaultProps = {
+	  item: {
+	    id: 0,
+	    seller: {
+	      name: '',
+	      picture: ''
+	    }
+	  }
+	};
 
 
 	var mapStateToProps = function mapStateToProps(state, ownProps) {
 	  return {
+	    item: state.currentItem,
 	    user: state.user
 	  };
 	};
 
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
-	    getUser: (0, _actions.checkAuthentication)(dispatch),
 	    setCurrentItem: function setCurrentItem(item) {
 	      dispatch({
 	        type: 'SET_CURRENT_ITEM',
 	        item: item
 	      });
-	    }
+	    },
+	    getUser: (0, _actions.checkAuthentication)(dispatch)
 	  };
 	};
 
-	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ItemEntry);
+	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Item);
 
 /***/ },
-/* 373 */
+/* 374 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*
@@ -50109,344 +50394,6 @@
 
 
 /***/ },
-/* 374 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(38);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _reactRedux = __webpack_require__(168);
-
-	var _jquery = __webpack_require__(315);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _dateformat = __webpack_require__(373);
-
-	var _dateformat2 = _interopRequireDefault(_dateformat);
-
-	var _SearchResults = __webpack_require__(375);
-
-	var _SearchResults2 = _interopRequireDefault(_SearchResults);
-
-	var _Username = __webpack_require__(376);
-
-	var _Username2 = _interopRequireDefault(_Username);
-
-	var _actions = __webpack_require__(366);
-
-	var _CountdownTimer = __webpack_require__(377);
-
-	var _CountdownTimer2 = _interopRequireDefault(_CountdownTimer);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Item = function (_Component) {
-	  _inherits(Item, _Component);
-
-	  function Item() {
-	    _classCallCheck(this, Item);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Item).apply(this, arguments));
-	  }
-
-	  _createClass(Item, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.grabItemSeller();
-	      this.addVisit();
-	    }
-	  }, {
-	    key: 'grabItemSeller',
-	    value: function grabItemSeller() {
-	      if (this.props.item.id !== 0) {
-	        _jquery2.default.ajax({
-	          method: 'GET',
-	          url: '/getItemSeller',
-	          data: { id: this.props.item.id },
-	          dataType: 'json',
-	          success: function (data) {
-	            this.props.setCurrentItem(data);
-	            console.log(this.props);
-	          }.bind(this)
-	        });
-	      }
-	    }
-
-	    // getCurrentUser() {
-	    //   $.ajax({
-	    //     method: 'GET',
-	    //     url: '/getuserid',
-	    //     data: { id: this.props.item.id },
-	    //     dataType: 'json',
-	    //     success: function(data) {
-	    //       this.current_user = data;
-	    //     }.bind(this)
-	    //   });
-	    // }
-
-	  }, {
-	    key: 'addVisit',
-	    value: function addVisit() {
-	      _jquery2.default.ajax({
-	        method: 'POST',
-	        url: '/addvisit',
-	        data: { id: this.props.item.id },
-	        dataType: 'json',
-	        success: function success(data) {
-	          //console.log('Visit added. Now at', data.visits, 'visits');
-	        }
-	      });
-	    }
-	  }, {
-	    key: 'changeBid',
-	    value: function changeBid(e) {
-	      this.form = e.target.value;
-	    }
-	  }, {
-	    key: 'setBid',
-	    value: function setBid(e) {
-	      e.preventDefault();
-	      console.log('bidded', this.form);
-	      return _jquery2.default.ajax({
-	        method: 'POST',
-	        url: '/updateBid',
-	        data: {
-	          id: this.props.item.id,
-	          currentBidder: this.props.user.id,
-	          newBid: this.form
-	        },
-	        dataType: 'json',
-	        success: function (data) {
-	          this.props.item.currentBid = data.currentBid;
-	          this.props.item.current_bidder = this.seller_id;
-	          console.log('Current bid:', data.currentBid);
-	          this.props.setCurrentItem(this.props.item);
-	          document.getElementsByClassName('set-bid-input')[0].value = '';
-	        }.bind(this)
-	      });
-	    }
-	  }, {
-	    key: 'watchItem',
-	    value: function watchItem(e) {
-	      e.preventDefault();
-	      _jquery2.default.ajax({
-	        method: 'GET',
-	        url: '/watchitem',
-	        data: {
-	          item_id: this.props.item.id,
-	          user_id: this.props.user.id
-	        },
-	        dataType: 'json',
-	        success: function success(data) {
-	          console.log('Watching item', data);
-	        }
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      if (this.props.user.id) {
-	        return _react2.default.createElement(
-	          'div',
-	          { className: 'item' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'item-title' },
-	            this.props.item.title
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'item-info pure-u-10-24' },
-	            _react2.default.createElement('img', { src: this.props.item.picture, className: 'item-picture' }),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'item-description' },
-	              this.props.item.description
-	            ),
-	            _react2.default.createElement(
-	              'button',
-	              { className: 'watch pure-button', type: 'submit', onClick: this.watchItem.bind(this) },
-	              'Watch Item'
-	            )
-	          ),
-	          _react2.default.createElement('div', { className: 'pure-u-1-24' }),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'purchase pure-u-6-24' },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'current-bid' },
-	              _react2.default.createElement(
-	                'span',
-	                { className: 'bold' },
-	                'Current Highest Bid: '
-	              ),
-	              '$',
-	              this.props.item.currentBid
-	            ),
-	            _react2.default.createElement(
-	              'form',
-	              { onSubmit: this.setBid.bind(this) },
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'set-bid pure-form' },
-	                _react2.default.createElement('input', { className: 'set-bid-input pure-input-1-2', onChange: this.changeBid.bind(this), type: 'number', placeholder: 'Set your bid' }),
-	                _react2.default.createElement('input', { type: 'submit', className: 'set-bid-button pure-button' })
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'end-time' },
-	              (0, _dateformat2.default)(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')
-	            ),
-	            _react2.default.createElement(_CountdownTimer2.default, { endDate: this.props.item.end_at })
-	          ),
-	          _react2.default.createElement('div', { className: 'pure-u-1-24' }),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'item-seller pure-u-4-24' },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'seller-info' },
-	              'Seller:'
-	            ),
-	            _react2.default.createElement(_Username2.default, { id: this.props.item.seller.id, name: this.props.item.seller.name }),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'hover-image' },
-	              _react2.default.createElement('img', { src: this.props.item.seller.picture, className: 'seller-picture' }),
-	              _react2.default.createElement(
-	                'p',
-	                { className: 'text' },
-	                'Message seller'
-	              )
-	            )
-	          )
-	        );
-	      } else {
-	        return _react2.default.createElement(
-	          'div',
-	          { className: 'item' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'item-title' },
-	            this.props.item.title
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'item-info pure-u-10-24' },
-	            _react2.default.createElement('img', { src: this.props.item.picture, className: 'item-picture' }),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'item-description' },
-	              this.props.item.description
-	            )
-	          ),
-	          _react2.default.createElement('div', { className: 'pure-u-1-24' }),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'purchase pure-u-6-24' },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'current-bid' },
-	              _react2.default.createElement(
-	                'span',
-	                { className: 'bold' },
-	                'Current Highest Bid: '
-	              ),
-	              '$',
-	              this.props.item.currentBid
-	            ),
-	            _react2.default.createElement('form', { onSubmit: this.setBid.bind(this) }),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'end-time' },
-	              (0, _dateformat2.default)(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')
-	            ),
-	            _react2.default.createElement(_CountdownTimer2.default, { endDate: this.props.item.end_at })
-	          ),
-	          _react2.default.createElement('div', { className: 'pure-u-1-24' }),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'item-seller pure-u-4-24' },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'seller-info' },
-	              'Seller:'
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'seller-name' },
-	              this.props.item.seller.name
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'hover-image' },
-	              _react2.default.createElement('img', { src: this.props.item.seller.picture, className: 'seller-picture' }),
-	              _react2.default.createElement(
-	                'p',
-	                { className: 'text' },
-	                'Message seller'
-	              )
-	            )
-	          )
-	        );
-	      }
-	    }
-	  }]);
-
-	  return Item;
-	}(_react.Component);
-
-	Item.defaultProps = {
-	  item: {
-	    id: 0,
-	    seller: {
-	      name: '',
-	      picture: ''
-	    }
-	  }
-	};
-
-
-	var mapStateToProps = function mapStateToProps(state, ownProps) {
-	  return {
-	    item: state.currentItem,
-	    user: state.user
-	  };
-	};
-
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {
-	    setCurrentItem: function setCurrentItem(item) {
-	      dispatch({
-	        type: 'SET_CURRENT_ITEM',
-	        item: item
-	      });
-	    },
-	    getUser: (0, _actions.checkAuthentication)(dispatch)
-	  };
-	};
-
-	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Item);
-
-/***/ },
 /* 375 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -50464,7 +50411,7 @@
 
 	var _reactRedux = __webpack_require__(168);
 
-	var _ItemEntry = __webpack_require__(372);
+	var _ItemEntry = __webpack_require__(376);
 
 	var _ItemEntry2 = _interopRequireDefault(_ItemEntry);
 
@@ -50525,15 +50472,41 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactDom = __webpack_require__(38);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
 	var _reactRedux = __webpack_require__(168);
 
 	var _reactRouter = __webpack_require__(190);
+
+	var _jquery = __webpack_require__(315);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _dateformat = __webpack_require__(374);
+
+	var _dateformat2 = _interopRequireDefault(_dateformat);
+
+	var _actions = __webpack_require__(366);
+
+	var _Item = __webpack_require__(373);
+
+	var _Item2 = _interopRequireDefault(_Item);
+
+	var _CountdownTimer = __webpack_require__(377);
+
+	var _CountdownTimer2 = _interopRequireDefault(_CountdownTimer);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -50543,72 +50516,196 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Username = function (_Component) {
-	  _inherits(Username, _Component);
+	var ItemEntry = function (_Component) {
+	  _inherits(ItemEntry, _Component);
 
-	  function Username() {
-	    _classCallCheck(this, Username);
+	  function ItemEntry() {
+	    _classCallCheck(this, ItemEntry);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Username).apply(this, arguments));
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(ItemEntry).apply(this, arguments));
 	  }
 
-	  _createClass(Username, [{
+	  _createClass(ItemEntry, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.getUser();
+	    }
+	  }, {
+	    key: 'watchItem',
+	    value: function watchItem(e) {
+	      _jquery2.default.ajax({
+	        method: 'GET',
+	        url: '/watchitem',
+	        data: {
+	          item_id: this.props.item.id,
+	          user_id: this.props.user.id
+	        },
+	        dataType: 'json',
+	        success: function success(data) {
+	          console.log('Watching item', data);
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'setCurrent',
+	    value: function setCurrent() {
+	      this.props.setCurrentItem(this.props.item);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'username' },
-	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: 'profile' },
+	      if (this.props.user.id) {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'item-entry' },
 	          _react2.default.createElement(
-	            'div',
-	            { onClick: this.props.setProfileUser.bind(this, this.props.id), className: 'username-name' },
-	            this.props.name
+	            _reactRouter.Link,
+	            { to: 'item', onClick: this.setCurrent.bind(this) },
+	            _react2.default.createElement('img', { src: this.props.item.picture, height: '300px', className: 'item-entry-picture' }),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'all-info' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'item-entry-info' },
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'item-entry-title' },
+	                  this.props.item.title
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'item-entry-description' },
+	                  this.props.item.description
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'item-entry-purchase' },
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'item-entry-current-bid' },
+	                  _react2.default.createElement(
+	                    'b',
+	                    null,
+	                    'Current Bid:'
+	                  ),
+	                  ' $',
+	                  this.props.item.currentBid
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'item-entry-end-time' },
+	                  _react2.default.createElement(
+	                    'b',
+	                    null,
+	                    'Ending:'
+	                  ),
+	                  ' ',
+	                  (0, _dateformat2.default)(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'countdown' },
+	                  _react2.default.createElement(_CountdownTimer2.default, { endDate: this.props.item.end_at })
+	                ),
+	                _react2.default.createElement(
+	                  'button',
+	                  { className: 'watch pure-button', type: 'submit', onClick: this.watchItem.bind(this) },
+	                  'Watch Item'
+	                )
+	              )
+	            )
 	          )
-	        ),
-	        _react2.default.createElement('img', { onClick: this.props.addMessageBox.bind(this, this.props.userId, this.props.id, this.props.name),
-	          src: 'images/message.png' })
-	      );
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'item-entry' },
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: 'item', onClick: this.setCurrent.bind(this) },
+	            _react2.default.createElement('img', { src: this.props.item.picture, height: '300px', className: 'item-entry-picture' }),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'all-info' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'item-entry-info' },
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'item-entry-title' },
+	                  this.props.item.title
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'item-entry-description' },
+	                  this.props.item.description
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'item-entry-purchase' },
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'item-entry-current-bid' },
+	                  _react2.default.createElement(
+	                    'b',
+	                    null,
+	                    'Current Bid:'
+	                  ),
+	                  ' $',
+	                  this.props.item.currentBid
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'item-entry-end-time' },
+	                  _react2.default.createElement(
+	                    'b',
+	                    null,
+	                    'Ending:'
+	                  ),
+	                  ' ',
+	                  (0, _dateformat2.default)(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'countdown' },
+	                  _react2.default.createElement(_CountdownTimer2.default, { endDate: this.props.item.end_at })
+	                )
+	              )
+	            )
+	          )
+	        );
+	      }
 	    }
 	  }]);
 
-	  return Username;
+	  return ItemEntry;
 	}(_react.Component);
 
-	Username.propTypes = {
-	  id: _react.PropTypes.number.isRequired,
-	  name: _react.PropTypes.string.isRequired
-	};
+	exports.default = ItemEntry;
 
 
-	var mapStateToProps = function mapStateToProps(state) {
+	var mapStateToProps = function mapStateToProps(state, ownProps) {
 	  return {
-	    userId: state.user.id
+	    user: state.user
 	  };
 	};
 
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
-	    addMessageBox: function addMessageBox(userId, id, name) {
-	      console.log(userId, id, userId === id);
-	      if (userId != id) {
-	        dispatch({
-	          type: 'NEW_MESSAGE_BOX',
-	          chatter: { id: id, name: name }
-	        });
-	      }
-	    },
-	    setProfileUser: function setProfileUser(current) {
+	    getUser: (0, _actions.checkAuthentication)(dispatch),
+	    setCurrentItem: function setCurrentItem(item) {
 	      dispatch({
-	        type: 'SET_USER',
-	        current: current
+	        type: 'SET_CURRENT_ITEM',
+	        item: item
 	      });
 	    }
 	  };
 	};
 
-	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Username);
+	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ItemEntry);
 
 /***/ },
 /* 377 */
@@ -50776,6 +50873,391 @@
 
 	'use strict';
 
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(168);
+
+	var _reactRouter = __webpack_require__(190);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Username = function (_Component) {
+	  _inherits(Username, _Component);
+
+	  function Username() {
+	    _classCallCheck(this, Username);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Username).apply(this, arguments));
+	  }
+
+	  _createClass(Username, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      console.log('in username', this.props.id, this.props.name);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'username' },
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: 'profile' },
+	          _react2.default.createElement(
+	            'div',
+	            { onClick: this.props.setProfileUser.bind(this, this.props.id), className: 'username-name' },
+	            this.props.name
+	          )
+	        ),
+	        _react2.default.createElement('img', { onClick: this.props.addMessageBox.bind(this, this.props.userId, this.props.id, this.props.name),
+	          src: 'images/message.png', className: 'message-button' })
+	      );
+	    }
+	  }]);
+
+	  return Username;
+	}(_react.Component);
+
+	Username.propTypes = {
+	  id: _react.PropTypes.number.isRequired,
+	  name: _react.PropTypes.string.isRequired
+	};
+
+
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    userId: state.user.id
+	  };
+	};
+
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    addMessageBox: function addMessageBox(userId, id, name) {
+	      if (userId != id) {
+	        dispatch({
+	          type: 'NEW_MESSAGE_BOX',
+	          chatter: { id: id, name: name }
+	        });
+	      }
+	    },
+	    setProfileUser: function setProfileUser(current) {
+	      console.log('dispatching current', current);
+	      dispatch({
+	        type: 'SET_USER',
+	        current: current
+	      });
+	    }
+	  };
+	};
+
+	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Username);
+
+/***/ },
+/* 381 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(38);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _reactRedux = __webpack_require__(168);
+
+	var _jquery = __webpack_require__(315);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _actions = __webpack_require__(366);
+
+	var _ItemEntry = __webpack_require__(376);
+
+	var _ItemEntry2 = _interopRequireDefault(_ItemEntry);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var WatchedItems = function (_Component) {
+	  _inherits(WatchedItems, _Component);
+
+	  function WatchedItems() {
+	    _classCallCheck(this, WatchedItems);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(WatchedItems).apply(this, arguments));
+	  }
+
+	  _createClass(WatchedItems, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.getUserId();
+	      this.getWatchedItems();
+	    }
+	  }, {
+	    key: 'getWatchedItems',
+	    value: function getWatchedItems() {
+	      _jquery2.default.ajax({
+	        method: 'GET',
+	        url: '/getWatchedItems',
+	        data: { user_id: this.props.user.id },
+	        dataType: 'json',
+	        success: function (data) {
+	          this.props.updateWatchedItems(data);
+	        }.bind(this)
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      if (this.props.user.id) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'watching' },
+	            'Your current watch list'
+	          ),
+	          this.props.watchedItems.map(function (item) {
+	            return _react2.default.createElement(_ItemEntry2.default, { item: item, key: item.id });
+	          })
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          'Sign in to watch items!'
+	        );
+	      }
+	    }
+	  }]);
+
+	  return WatchedItems;
+	}(_react.Component);
+
+	WatchedItems.defaultProps = {
+	  watchedItems: []
+	};
+
+
+	var mapStateToProps = function mapStateToProps(state, ownProps) {
+	  return {
+	    user: state.user,
+	    watchedItems: state.watchedItems
+	  };
+	};
+
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    getUserId: (0, _actions.checkAuthentication)(dispatch),
+	    updateWatchedItems: function updateWatchedItems(data) {
+	      dispatch({
+	        type: 'UPDATE_WATCHED_ITEMS',
+	        data: data
+	      });
+	    }
+	  };
+	};
+
+	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(WatchedItems);
+
+/***/ },
+/* 382 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(38);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _actions = __webpack_require__(366);
+
+	var _PopularItems = __webpack_require__(383);
+
+	var _PopularItems2 = _interopRequireDefault(_PopularItems);
+
+	var _LeaveFeedback = __webpack_require__(384);
+
+	var _LeaveFeedback2 = _interopRequireDefault(_LeaveFeedback);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Landing = function (_Component) {
+	  _inherits(Landing, _Component);
+
+	  function Landing() {
+	    _classCallCheck(this, Landing);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Landing).apply(this, arguments));
+	  }
+
+	  _createClass(Landing, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'landing' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'popular-items' },
+	          _react2.default.createElement(_PopularItems2.default, null)
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Landing;
+	}(_react.Component);
+
+	module.exports = Landing;
+
+/***/ },
+/* 383 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(38);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _reactRedux = __webpack_require__(168);
+
+	var _jquery = __webpack_require__(315);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _actions = __webpack_require__(366);
+
+	var _ItemEntry = __webpack_require__(376);
+
+	var _ItemEntry2 = _interopRequireDefault(_ItemEntry);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var PopularItems = function (_Component) {
+	  _inherits(PopularItems, _Component);
+
+	  function PopularItems() {
+	    _classCallCheck(this, PopularItems);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(PopularItems).apply(this, arguments));
+	  }
+
+	  _createClass(PopularItems, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.getPopularItems();
+	    }
+	  }, {
+	    key: 'getPopularItems',
+	    value: function getPopularItems() {
+	      _jquery2.default.ajax({
+	        method: 'GET',
+	        url: '/getPopularItems',
+	        success: function (data) {
+	          this.props.updatePopularItems(data);
+	        }.bind(this)
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'popular' },
+	          'What\'s popular'
+	        ),
+	        this.props.popularItems.map(function (item) {
+	          return _react2.default.createElement(_ItemEntry2.default, { item: item, key: item.id });
+	        })
+	      );
+	    }
+	  }]);
+
+	  return PopularItems;
+	}(_react.Component);
+
+	PopularItems.defaultProps = {
+	  popularItems: []
+	};
+
+
+	var mapStateToProps = function mapStateToProps(state, ownProps) {
+	  return {
+	    user: state.user,
+	    popularItems: state.popularItems
+	  };
+	};
+
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    updatePopularItems: function updatePopularItems(data) {
+	      dispatch({
+	        type: 'UPDATE_POPULAR_ITEMS',
+	        data: data
+	      });
+	    }
+	  };
+	};
+
+	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(PopularItems);
+
+/***/ },
+/* 384 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -50790,7 +51272,7 @@
 
 	var _reactRedux = __webpack_require__(168);
 
-	var _LeaveFeedbackEntry = __webpack_require__(381);
+	var _LeaveFeedbackEntry = __webpack_require__(385);
 
 	var _LeaveFeedbackEntry2 = _interopRequireDefault(_LeaveFeedbackEntry);
 
@@ -50819,7 +51301,6 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      console.log(this.props.toLeaveFeedbackArray);
 	      if (this.props.toLeaveFeedbackArray.length) {
 	        return _react2.default.createElement(
 	          'div',
@@ -50867,7 +51348,7 @@
 	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(LeaveFeedback);
 
 /***/ },
-/* 381 */
+/* 385 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51054,375 +51535,7 @@
 	exports.default = LeaveFeedbackEntry;
 
 /***/ },
-/* 382 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(38);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _FacebookButton = __webpack_require__(368);
-
-	var _FacebookButton2 = _interopRequireDefault(_FacebookButton);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Signin = function (_Component) {
-	  _inherits(Signin, _Component);
-
-	  function Signin() {
-	    _classCallCheck(this, Signin);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Signin).apply(this, arguments));
-	  }
-
-	  _createClass(Signin, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'signin' },
-	        'Sign in or register using Facebook:',
-	        _react2.default.createElement(_FacebookButton2.default, null)
-	      );
-	    }
-	  }]);
-
-	  return Signin;
-	}(_react.Component);
-
-	module.exports = Signin;
-
-/***/ },
-/* 383 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(38);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _reduxForm = __webpack_require__(251);
-
-	var _jquery = __webpack_require__(315);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _actions = __webpack_require__(366);
-
-	var _reactRedux = __webpack_require__(168);
-
-	var _FacebookButton = __webpack_require__(368);
-
-	var _FacebookButton2 = _interopRequireDefault(_FacebookButton);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	// look up documentation for redux-form for more insight on how this works
-
-	var SellItem = function (_Component) {
-	  _inherits(SellItem, _Component);
-
-	  function SellItem() {
-	    _classCallCheck(this, SellItem);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(SellItem).apply(this, arguments));
-	  }
-
-	  _createClass(SellItem, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.props.getUser();
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-
-	      var _props = this.props;
-	      var _props$fields = _props.fields;
-	      var itemTitle = _props$fields.itemTitle;
-	      var itemDescription = _props$fields.itemDescription;
-	      var itemDuration = _props$fields.itemDuration;
-	      var itemPicture = _props$fields.itemPicture;
-	      var itemStartingBid = _props$fields.itemStartingBid;
-	      var handleSubmit = _props.handleSubmit;
-	      var resetForm = _props.resetForm;
-
-	      var postItem = function postItem() {
-	        // sending post request with all of the necessary fields
-	        _jquery2.default.post('/sellItem', {
-	          title: _this2.props.fields.itemTitle.value,
-	          description: _this2.props.fields.itemDescription.value,
-	          duration: _this2.props.fields.itemDuration.value,
-	          picture: _this2.props.fields.itemPicture.value,
-	          seller_id: _this2.props.user.id,
-	          currentBid: _this2.props.fields.itemStartingBid.value
-	        });
-	        resetForm();
-	      };
-
-	      if (!this.props.user.id) {
-	        return _react2.default.createElement(
-	          'div',
-	          null,
-	          'Sign in to sell items!'
-	        );
-	      }
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'sell-item' },
-	        _react2.default.createElement(
-	          'h2',
-	          { className: 'sell-item-title' },
-	          'Sell Your Item'
-	        ),
-	        _react2.default.createElement(
-	          'form',
-	          { onSubmit: handleSubmit(postItem), className: 'pure-form pure-form-aligned' },
-	          _react2.default.createElement(
-	            'fieldset',
-	            null,
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'pure-control-group' },
-	              _react2.default.createElement(
-	                'label',
-	                null,
-	                'Title: '
-	              ),
-	              _react2.default.createElement('input', _extends({ type: 'text', className: 'pure-input-2-3', placeholder: 'What would you like the title to be?' }, itemTitle))
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'pure-control-group' },
-	              _react2.default.createElement(
-	                'label',
-	                null,
-	                'Duration (in days): '
-	              ),
-	              _react2.default.createElement('input', _extends({ type: 'number', className: 'pure-input-2-3', placeholder: 'How long would you like your item to be on the market?' }, itemDuration))
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'pure-control-group' },
-	              _react2.default.createElement(
-	                'label',
-	                null,
-	                'Starting Bid: '
-	              ),
-	              _react2.default.createElement('input', _extends({ type: 'number', className: 'pure-input-2-3', placeholder: 'What would you like your starting bid to be?' }, itemStartingBid))
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'pure-control-group' },
-	              _react2.default.createElement(
-	                'label',
-	                null,
-	                'Picture: '
-	              ),
-	              _react2.default.createElement('input', _extends({ type: 'url', className: 'pure-input-2-3', placeholder: 'Place a picture URL here' }, itemPicture))
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'pure-control-group' },
-	              _react2.default.createElement(
-	                'label',
-	                null,
-	                'Description: '
-	              ),
-	              _react2.default.createElement('textarea', _extends({ type: 'text', className: 'pure-input-2-3', placeholder: 'How would you describe your item?' }, itemDescription))
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'pure-controls' },
-	              _react2.default.createElement(
-	                'button',
-	                { type: 'submit', className: 'pure-button' },
-	                'Submit'
-	              )
-	            )
-	          )
-	        )
-	      );
-	    }
-	  }]);
-
-	  return SellItem;
-	}(_react.Component);
-
-	var mapStateToProps = function mapStateToProps(state, ownProps) {
-	  return {
-	    user: state.user
-	  };
-	};
-
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {
-	    getUser: (0, _actions.checkAuthentication)(dispatch)
-	  };
-	};
-
-	// essentially a reducer for the form
-	SellItem = (0, _reduxForm.reduxForm)({
-	  // a unique name for this form
-	  form: 'sellItem',
-	  // all the fields in your form
-	  fields: ['itemTitle', 'itemDescription', 'itemDuration', 'itemPicture', 'itemStartingBid']
-	})(SellItem);
-
-	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SellItem);
-
-/***/ },
-/* 384 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(38);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _reactRedux = __webpack_require__(168);
-
-	var _jquery = __webpack_require__(315);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _actions = __webpack_require__(366);
-
-	var _ItemEntry = __webpack_require__(372);
-
-	var _ItemEntry2 = _interopRequireDefault(_ItemEntry);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var WatchedItems = function (_Component) {
-	  _inherits(WatchedItems, _Component);
-
-	  function WatchedItems() {
-	    _classCallCheck(this, WatchedItems);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(WatchedItems).apply(this, arguments));
-	  }
-
-	  _createClass(WatchedItems, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.props.getUserId();
-	      this.getWatchedItems();
-	    }
-	  }, {
-	    key: 'getWatchedItems',
-	    value: function getWatchedItems() {
-	      _jquery2.default.ajax({
-	        method: 'GET',
-	        url: '/getWatchedItems',
-	        data: { user_id: this.props.user.id },
-	        dataType: 'json',
-	        success: function (data) {
-	          this.props.updateWatchedItems(data);
-	        }.bind(this)
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      if (this.props.user.id) {
-	        return _react2.default.createElement(
-	          'div',
-	          null,
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'watching' },
-	            'Your current watch list'
-	          ),
-	          this.props.watchedItems.map(function (item) {
-	            return _react2.default.createElement(_ItemEntry2.default, { item: item, key: item.id });
-	          })
-	        );
-	      } else {
-	        return _react2.default.createElement(
-	          'div',
-	          null,
-	          'Sign in to watch items!'
-	        );
-	      }
-	    }
-	  }]);
-
-	  return WatchedItems;
-	}(_react.Component);
-
-	WatchedItems.defaultProps = {
-	  watchedItems: []
-	};
-
-
-	var mapStateToProps = function mapStateToProps(state, ownProps) {
-	  return {
-	    user: state.user,
-	    watchedItems: state.watchedItems
-	  };
-	};
-
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {
-	    getUserId: (0, _actions.checkAuthentication)(dispatch),
-	    updateWatchedItems: function updateWatchedItems(data) {
-	      dispatch({
-	        type: 'UPDATE_WATCHED_ITEMS',
-	        data: data
-	      });
-	    }
-	  };
-	};
-
-	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(WatchedItems);
-
-/***/ },
-/* 385 */
+/* 386 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51441,7 +51554,7 @@
 
 	var _reactRedux = __webpack_require__(168);
 
-	var _FeedbackEntry = __webpack_require__(386);
+	var _FeedbackEntry = __webpack_require__(387);
 
 	var _FeedbackEntry2 = _interopRequireDefault(_FeedbackEntry);
 
@@ -51472,23 +51585,31 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'feedback' },
+	        { className: 'feedback pure-u-3-5' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'feedback-section' },
+	          'Feedback'
+	        ),
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'feedback-profile' },
 	          _react2.default.createElement(
 	            'span',
-	            { style: { marginRight: '25%' } },
+	            { className: 'feedback-buttons' },
+	            _react2.default.createElement('img', { src: 'images/positive.png', className: 'feedback-button' }),
 	            'Positive: ' + this.props.positive
 	          ),
 	          _react2.default.createElement(
 	            'span',
-	            { style: { marginRight: '25%' } },
+	            { className: 'feedback-buttons' },
+	            _react2.default.createElement('img', { src: 'images/neutral.png', className: 'feedback-button' }),
 	            'Neutral: ' + this.props.neutral
 	          ),
 	          _react2.default.createElement(
 	            'span',
-	            { style: { marginRight: '25%' } },
+	            { className: 'feedback-buttons' },
+	            _react2.default.createElement('img', { src: 'images/negative.png', className: 'feedback-button' }),
 	            'Negative: ' + this.props.negative
 	          )
 	        ),
@@ -51521,6 +51642,7 @@
 
 
 	var mapStateToProps = function mapStateToProps(state, ownProps) {
+	  console.log(state.feedbackArray);
 	  return {
 	    feedbackArray: state.feedback.feedbackArray,
 	    negative: state.feedback.negative,
@@ -51538,7 +51660,7 @@
 	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Feedback);
 
 /***/ },
-/* 386 */
+/* 387 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51561,6 +51683,13 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var image = {
+	  '0': 'images/neutral.png',
+	  '1': 'images/positive.png',
+	  '-1': 'images/negative.png',
+	  null: 'images/neutral.png'
+	};
+
 	var FeedbackEntry = function (_Component) {
 	  _inherits(FeedbackEntry, _Component);
 
@@ -51573,18 +51702,20 @@
 	  _createClass(FeedbackEntry, [{
 	    key: 'render',
 	    value: function render() {
+
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'feedback-entry' },
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'feedback-author' },
-	          this.props.author
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'feedback-rating' },
-	          this.props.rating
+	          _react2.default.createElement('img', { src: image[String(this.props.rating)],
+	            style: { width: '20px', marginRight: '6px' } }),
+	          _react2.default.createElement(
+	            'span',
+	            { className: 'feedback-author-name' },
+	            this.props.author
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'div',
@@ -51594,6 +51725,11 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'feedback-comment' },
+	          _react2.default.createElement(
+	            'b',
+	            null,
+	            'Comment:  '
+	          ),
 	          this.props.comment
 	        )
 	      );
@@ -51606,7 +51742,7 @@
 	exports.default = FeedbackEntry;
 
 /***/ },
-/* 387 */
+/* 388 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51625,11 +51761,11 @@
 
 	var _actions = __webpack_require__(366);
 
-	var _Feedback = __webpack_require__(385);
+	var _Feedback = __webpack_require__(386);
 
 	var _Feedback2 = _interopRequireDefault(_Feedback);
 
-	var _ProfileEntry = __webpack_require__(388);
+	var _ProfileEntry = __webpack_require__(389);
 
 	var _ProfileEntry2 = _interopRequireDefault(_ProfileEntry);
 
@@ -51666,7 +51802,8 @@
 	            name: this.props.profile.name,
 	            email: this.props.profile.email,
 	            bio: this.props.profile.bio,
-	            picture: this.props.profile.picture }),
+	            picture: this.props.profile.picture,
+	            createdAt: this.props.profile.created_at }),
 	          _react2.default.createElement(_Feedback2.default, { receiver: this.props.profile.id })
 	        );
 	      }
@@ -51693,7 +51830,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Profile);
 
 /***/ },
-/* 388 */
+/* 389 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51708,7 +51845,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Username = __webpack_require__(376);
+	var _Username = __webpack_require__(380);
 
 	var _Username2 = _interopRequireDefault(_Username);
 
@@ -51734,17 +51871,17 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'profile' },
+	        { className: 'profile pure-u-2-5' },
 	        _react2.default.createElement(_Username2.default, { id: this.props.id, name: this.props.name }),
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'profile-picture' },
-	          _react2.default.createElement('img', { src: this.props.picture, style: { width: '300px' } })
+	          _react2.default.createElement('img', { src: this.props.picture, style: { width: '90%' } })
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'profile-email' },
-	          'Email: ' + this.props.email
+	          { className: 'profile-created-at' },
+	          'Member since ' + this.props.createdAt.slice(0, 4)
 	        ),
 	        _react2.default.createElement(
 	          'div',
@@ -51761,7 +51898,7 @@
 	exports.default = ProfileEntry;
 
 /***/ },
-/* 389 */
+/* 390 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51780,15 +51917,15 @@
 
 	var _actions = __webpack_require__(366);
 
-	var _WatchedItems = __webpack_require__(384);
+	var _WatchedItems = __webpack_require__(381);
 
 	var _WatchedItems2 = _interopRequireDefault(_WatchedItems);
 
-	var _ListedItems = __webpack_require__(390);
+	var _ListedItems = __webpack_require__(391);
 
 	var _ListedItems2 = _interopRequireDefault(_ListedItems);
 
-	var _LeaveFeedback = __webpack_require__(380);
+	var _LeaveFeedback = __webpack_require__(384);
 
 	var _LeaveFeedback2 = _interopRequireDefault(_LeaveFeedback);
 
@@ -51865,7 +52002,7 @@
 	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(PersonalPage);
 
 /***/ },
-/* 390 */
+/* 391 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51888,7 +52025,7 @@
 
 	var _actions = __webpack_require__(366);
 
-	var _ItemEntry = __webpack_require__(372);
+	var _ItemEntry = __webpack_require__(376);
 
 	var _ItemEntry2 = _interopRequireDefault(_ItemEntry);
 
@@ -51982,113 +52119,6 @@
 	};
 
 	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ListedItems);
-
-/***/ },
-/* 391 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRedux = __webpack_require__(168);
-
-	var _reactRouter = __webpack_require__(190);
-
-	var _jquery = __webpack_require__(315);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _actions = __webpack_require__(366);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var SearchBar = function (_React$Component) {
-	  _inherits(SearchBar, _React$Component);
-
-	  function SearchBar(props) {
-	    _classCallCheck(this, SearchBar);
-
-	    // UI state
-
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SearchBar).call(this, props));
-
-	    _this.state = {
-	      search: ''
-	    };
-	    return _this;
-	  }
-
-	  _createClass(SearchBar, [{
-	    key: 'onInputChange',
-	    value: function onInputChange(e) {
-	      this.setState({
-	        search: e.target.value
-	      });
-	    }
-	  }, {
-	    key: 'onFormSubmit',
-	    value: function onFormSubmit(e) {
-	      var _this2 = this;
-
-	      e.preventDefault();
-	      // ###################### SEARCH STRING MUST NOT BE EMPTY OR SEARCH WILL BE WRONG ###################
-	      if (this.state.search) {
-	        _jquery2.default.post('/search', { search: this.state.search }, function (data) {
-	          _this2.props.updateSearchResults(data);
-	        });
-	        this.setState({ search: '' });
-	        this.context.history.pushState(null, '/searchresults');
-	      }
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'form',
-	        { className: 'searchbar pure-form', onSubmit: this.onFormSubmit.bind(this) },
-	        _react2.default.createElement('input', { type: 'text',
-	          onChange: this.onInputChange.bind(this),
-	          className: 'search-input pure-input-2-3',
-	          value: this.state.search })
-	      );
-	    }
-	  }]);
-
-	  return SearchBar;
-	}(_react2.default.Component);
-
-	SearchBar.contextTypes = {
-	  history: _react2.default.PropTypes.object
-	};
-
-
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {
-	    // use this information to populate search results page
-	    updateSearchResults: function updateSearchResults(results) {
-	      dispatch({
-	        type: 'CLEAR_SEARCH_RESULTS'
-	      });
-	      dispatch({
-	        type: 'UPDATE_SEARCH_RESULTS',
-	        results: results
-	      });
-	    }
-	  };
-	};
-
-	module.exports = (0, _reactRedux.connect)(null, mapDispatchToProps)(SearchBar);
 
 /***/ }
 /******/ ]);

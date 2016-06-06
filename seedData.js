@@ -127,7 +127,7 @@ var seedData = {
 		picture:'http://cdn.shopify.com/s/files/1/1042/8594/products/PigDog_deck_tailpatch_SUPERbrand_31c812c8-ee3f-42ed-b6ba-a82c5dafa2bc_1024x1024.jpg?v=1460509432',
 		duration:2,
 		currentBid:80,
-		end_at: '2016-02-06 21:19:55.000'
+		end_at: '2016-02-06T21:19:55.000Z'
 	},
 	{	
 		seller_id:2,
@@ -161,7 +161,7 @@ var seedData = {
 		duration:5,
 		currentBid: 50,
 		current_bidder: 1,
-		end_at: '2016-02-06 21:19:55.000'
+		end_at: '2016-02-06T21:19:55.000Z'
 	},
 	{	
 		seller_id:2,
@@ -171,7 +171,7 @@ var seedData = {
 		duration:4,
 		currentBid:30,
 		current_bidder: 2,
-		end_at: '2016-02-06 21:19:55.000'
+		end_at: '2016-02-06T21:19:55.000Z'
 	},
 	{	
 		seller_id:1,
@@ -181,7 +181,7 @@ var seedData = {
 		duration:3,
 		currentBid:8,
 		current_bidder: 2,
-		end_at: '2016-02-06 21:19:55.000'
+		end_at: '2016-02-06T21:19:55.000Z'
 	},
 	{	
 		seller_id:1,

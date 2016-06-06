@@ -10,7 +10,7 @@ class Landing extends Component {
       <div className='landing'>
         <div className='popular-items'><PopularItems /></div>
       </div>
-    )
+    );
   }
 }
 

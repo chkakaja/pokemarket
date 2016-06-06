@@ -10,6 +10,7 @@ class Profile extends Component {
   componentWillMount() {
     this.props.getProfile(this.props.id);
   }
+
   render() {
     if (this.props.profile) {
       return (
@@ -18,7 +19,8 @@ class Profile extends Component {
                         name={this.props.profile.name}
                         email={this.props.profile.email}
                         bio={this.props.profile.bio}
-                        picture={this.props.profile.picture} />
+                        picture={this.props.profile.picture}
+                        createdAt={this.props.profile.created_at} />
           <Feedback receiver={this.props.profile.id} />
         </div>
       );
