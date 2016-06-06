@@ -42,8 +42,11 @@ export default function(state = initialState(), action) {
       }
       return newState;
     case 'NEW_MESSAGE_BOX':
+      if (!action.chatter || !action.chatter.id || !action.chatter.name) {
+        return state;
+      }
       for (i = 0; i < newState.active.length; i++) {
-        if (action.chatter.id === newState.active[id]) {
+        if (action.chatter.id === newState.active[i].id) {
           return state;
         }
       }

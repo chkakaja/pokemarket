@@ -67,7 +67,6 @@ var getLeaveFeedback = function(dispatch) {
 var getProfile = function(dispatch) {
   return function(id) {
     $.get('/getprofile', { id }, profile => {
-      console.log(profile);
       dispatch({
         type: 'UPDATE_PROFILE',
         profile

@@ -34,6 +34,7 @@ class Item extends Component {
         dataType: 'json',
         success: function(data) {
           this.props.setCurrentItem(data);
+          console.log(this.props);
         }.bind(this)
       });
     }

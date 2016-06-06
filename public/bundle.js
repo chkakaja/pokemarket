@@ -30487,8 +30487,11 @@
 	      }
 	      return newState;
 	    case 'NEW_MESSAGE_BOX':
+	      if (!action.chatter || !action.chatter.id || !action.chatter.name) {
+	        return state;
+	      }
 	      for (i = 0; i < newState.active.length; i++) {
-	        if (action.chatter.id === newState.active[id]) {
+	        if (action.chatter.id === newState.active[i].id) {
 	          return state;
 	        }
 	      }
@@ -49182,7 +49185,6 @@
 	var getProfile = function getProfile(dispatch) {
 	  return function (id) {
 	    _jquery2.default.get('/getprofile', { id: id }, function (profile) {
-	      console.log(profile);
 	      dispatch({
 	        type: 'UPDATE_PROFILE',
 	        profile: profile
@@ -49283,10 +49285,34 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'pure-u-1-6 navlink', style: { width: '7%', display: 'inline-block' } },
-	            _react2.default.createElement('img', { src: 'images/fb-logo.png', className: 'fb-logo' })
+	            _react2.default.createElement('img', { style: { marginTop: '12px', marginLeft: '5px' }, src: 'images/facebook.png', width: '40px' })
 	          )
 	        );
 	      }
+	    }
+	  }, {
+	    key: 'renderProfilePic',
+	    value: function renderProfilePic() {
+	      if (this.props.user.id) {
+	        return _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: 'profile' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'navlink', style: { width: '7%', display: 'inline-block' } },
+	            _react2.default.createElement('img', { style: { marginTop: '12px', marginLeft: '5px', borderRadius: '50%', border: '2px solid white' }, width: '40px', height: '40px', src: this.props.user.picture })
+	          )
+	        );
+	      }
+	      return _react2.default.createElement(
+	        _reactRouter.Link,
+	        { to: 'profile' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'navlink', style: { width: '7%', display: 'inline-block' } },
+	          _react2.default.createElement('img', { style: { marginTop: '12px', marginLeft: '5px' }, src: 'images/profile.png', width: '40px' })
+	        )
+	      );
 	    }
 	  }, {
 	    key: 'render',
@@ -49334,15 +49360,7 @@
 	            { className: 'navlink2', style: { width: '64%', display: 'inline-block' } },
 	            _react2.default.createElement(_SearchBar2.default, null)
 	          ),
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: 'profile' },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'navlink', style: { width: '7%', display: 'inline-block' } },
-	              _react2.default.createElement('img', { style: { marginTop: '12px', marginLeft: '5px' }, src: 'images/profile.png', width: '40px' })
-	            )
-	          ),
+	          this.renderProfilePic(),
 	          this.renderAuth()
 	        )
 	      );
@@ -49866,6 +49884,7 @@
 	          dataType: 'json',
 	          success: function (data) {
 	            this.props.setCurrentItem(data);
+	            console.log(this.props);
 	          }.bind(this)
 	        });
 	      }
@@ -50849,6 +50868,8 @@
 
 	var _reactRedux = __webpack_require__(168);
 
+	var _reactRouter = __webpack_require__(190);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -50871,8 +50892,18 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { onClick: this.props.addMessageBox.bind(this, this.props.userId, this.props.id, this.props.name), className: 'seller-name' },
-	        this.props.name
+	        { className: 'username' },
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: 'profile' },
+	          _react2.default.createElement(
+	            'div',
+	            { onClick: this.props.setProfileUser.bind(this, this.props.id), className: 'username-name' },
+	            this.props.name
+	          )
+	        ),
+	        _react2.default.createElement('img', { onClick: this.props.addMessageBox.bind(this, this.props.userId, this.props.id, this.props.name),
+	          src: 'images/message.png' })
 	      );
 	    }
 	  }]);
@@ -50895,18 +50926,24 @@
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
 	    addMessageBox: function addMessageBox(userId, id, name) {
-	      console.log(userId);
-	      if (userId !== id) {
+	      console.log(userId, id, userId === id);
+	      if (userId != id) {
 	        dispatch({
 	          type: 'NEW_MESSAGE_BOX',
 	          chatter: { id: id, name: name }
 	        });
 	      }
+	    },
+	    setProfileUser: function setProfileUser(current) {
+	      dispatch({
+	        type: 'SET_USER',
+	        current: current
+	      });
 	    }
 	  };
 	};
 
-	module.exports = (0, _reactRedux.connect)(null, mapDispatchToProps)(Username);
+	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Username);
 
 /***/ },
 /* 381 */
@@ -51049,6 +51086,10 @@
 
 	var _PopularItems2 = _interopRequireDefault(_PopularItems);
 
+	var _LeaveFeedback = __webpack_require__(386);
+
+	var _LeaveFeedback2 = _interopRequireDefault(_LeaveFeedback);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -51069,15 +51110,46 @@
 	  _createClass(Landing, [{
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'landing' },
-	        _react2.default.createElement(
+	      if (this.props.user.id) {
+	        return _react2.default.createElement(
 	          'div',
-	          { className: 'popular-items' },
-	          _react2.default.createElement(_PopularItems2.default, null)
-	        )
-	      );
+	          null,
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'landing' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'watched-items pure-u-1-3' },
+	              _react2.default.createElement(WatchedItems, null)
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'listed-items pure-u-1-3' },
+	              _react2.default.createElement(ListedItems, null)
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'popular-items pure-u-1-3' },
+	              _react2.default.createElement(_PopularItems2.default, null)
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'leave-feedback pure-u-1-3' },
+	            _react2.default.createElement(_LeaveFeedback2.default, null)
+	          )
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'landing' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'popular-items' },
+	            _react2.default.createElement(_PopularItems2.default, null)
+	          )
+	        );
+	      }
 	    }
 	  }]);
 
@@ -51249,18 +51321,18 @@
 	          'div',
 	          { className: 'feedback-profile' },
 	          _react2.default.createElement(
-	            'div',
-	            null,
+	            'span',
+	            { style: { marginRight: '25%' } },
 	            'Positive: ' + this.props.positive
 	          ),
 	          _react2.default.createElement(
-	            'div',
-	            null,
+	            'span',
+	            { style: { marginRight: '25%' } },
 	            'Neutral: ' + this.props.neutral
 	          ),
 	          _react2.default.createElement(
-	            'div',
-	            null,
+	            'span',
+	            { style: { marginRight: '25%' } },
 	            'Negative: ' + this.props.negative
 	          )
 	        ),
@@ -51489,6 +51561,10 @@
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
+	var _reactTextareaAutosize = __webpack_require__(313);
+
+	var _reactTextareaAutosize2 = _interopRequireDefault(_reactTextareaAutosize);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -51507,7 +51583,9 @@
 
 	    _this.state = {
 	      selected: null,
-	      submitted: false
+	      submitted: false,
+	      input: '',
+	      error: null
 	    };
 	    _this.comment = '';
 	    return _this;
@@ -51519,22 +51597,49 @@
 	      this.setState({ selected: selected });
 	    }
 	  }, {
-	    key: 'commentChange',
-	    value: function commentChange(e) {
-	      this.comment = e.target.value;
-	    }
-	  }, {
 	    key: 'submitFeedback',
 	    value: function submitFeedback() {
 	      var _this2 = this;
 
-	      _jquery2.default.post('/leavefeedback', { item_id: this.props.item,
-	        receiver_id: this.props.seller,
-	        author_id: this.props.buyer,
-	        rating: this.state.selected,
-	        comment: this.props.comment }, function (data) {
-	        return _this2.setState({ submitted: true });
-	      });
+	      this.setState({ error: '' });
+	      if (this.state.selected && this.state.input.length > 19) {
+	        _jquery2.default.post('/leavefeedback', { item_id: this.props.item,
+	          receiver_id: this.props.seller,
+	          author_id: this.props.buyer,
+	          rating: this.state.selected,
+	          comment: this.state.comment }, function (data) {
+	          return _this2.setState({ submitted: true });
+	        });
+	        return;
+	      }
+	      if (!this.state.selected) {
+	        this.setState({ error: 'Must select a rating' });
+	      }
+	      if (this.state.input.length < 20) {
+	        this.setState({ error: (this.state.error ? this.state.error + ' & ' : '') + 'Comment must be at least 20 characters long' });
+	      }
+	    }
+	  }, {
+	    key: 'inputField',
+	    value: function inputField(input) {
+	      // Ugly hack to make sure the textarea is clear after pressing enter
+	      // Without this whenever enter is pressed the value will be '\n'
+	      if (input !== '\n') {
+	        this.setState({ input: input });
+	      }
+	    }
+	  }, {
+	    key: 'enterKeyPress',
+	    value: function enterKeyPress(e) {
+	      if (e.key === 'Enter' && this.state.input) {
+	        this.submitFeedback();
+	        this.clearInput();
+	      }
+	    }
+	  }, {
+	    key: 'clearInput',
+	    value: function clearInput() {
+	      this.setState({ input: '' });
 	    }
 	  }, {
 	    key: 'render',
@@ -51554,40 +51659,62 @@
 	        _react2.default.createElement('img', { className: 'picture', src: this.props.picture }),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'title' },
-	          this.props.title
+	          { className: 'leave-feedback-name' },
+	          'Auction name: ' + this.props.title
 	        ),
 	        _react2.default.createElement(
 	          'div',
 	          { onClick: this.selectChange.bind(this, 1), className: 'leave-feedback-positive' + (this.state.selected === 1 ? ' leave-feedback-selected' : '') },
-	          'Positive: +1'
+	          '+1'
 	        ),
 	        _react2.default.createElement(
 	          'div',
 	          { onClick: this.selectChange.bind(this, 0), className: 'leave-feedback-neutral' + (this.state.selected === 0 ? ' leave-feedback-selected' : '') },
-	          'Neutral: 0'
+	          '0'
 	        ),
 	        _react2.default.createElement(
 	          'div',
 	          { onClick: this.selectChange.bind(this, -1), className: 'leave-feedback-negative' + (this.state.selected === -1 ? ' leave-feedback-selected' : '') },
-	          'Negative: -1'
+	          '-1'
 	        ),
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'leave-feedback-input-box' },
-	          'Comments: ',
-	          _react2.default.createElement('input', { className: 'leave-feedback-comment', onChange: function onChange(e) {
-	              return _this3.commentChange(e);
-	            } })
+	          _react2.default.createElement(
+	            'span',
+	            { className: 'leave-feedback-comment-caption' },
+	            _react2.default.createElement(
+	              'b',
+	              null,
+	              'Comment:  '
+	            )
+	          ),
+	          _react2.default.createElement(_reactTextareaAutosize2.default, { className: 'leave-feedback-comment',
+	            onKeyPress: function onKeyPress(e) {
+	              return _this3.enterKeyPress(e);
+	            },
+	            onChange: function onChange(e) {
+	              return _this3.inputField(e.target.value);
+	            },
+	            type: 'text',
+	            name: 'messages',
+	            value: this.state.input,
+	            maxRows: 5,
+	            minRows: 1 }),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'leave-feedback-submit' },
+	            _react2.default.createElement(
+	              'button',
+	              { onClick: this.submitFeedback.bind(this) },
+	              'Submit'
+	            )
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'leave-feedback-submit' },
-	          _react2.default.createElement(
-	            'button',
-	            { className: 'pure-button', onClick: this.submitFeedback.bind(this) },
-	            'Submit'
-	          )
+	          { className: 'leave-feedback-error' },
+	          this.state.error
 	        )
 	      );
 	    }
@@ -51673,13 +51800,7 @@
 	  return Profile;
 	}(_react.Component);
 
-	Profile.propTypes = {
-	  id: _react.PropTypes.number.isRequired
-	};
-
-
 	var mapStateToProps = function mapStateToProps(state, ownProps) {
-	  console.log(state);
 	  return {
 	    profile: state.profile.profile,
 	    id: state.profile.current || state.user.id
@@ -51737,10 +51858,11 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'profile' },
+	        _react2.default.createElement(_Username2.default, { id: this.props.id, name: this.props.name }),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'profile-name' },
-	          _react2.default.createElement(_Username2.default, { id: this.props.id, name: this.props.name })
+	          { className: 'profile-picture' },
+	          _react2.default.createElement('img', { src: this.props.picture, style: { width: '300px' } })
 	        ),
 	        _react2.default.createElement(
 	          'div',
@@ -51751,11 +51873,6 @@
 	          'div',
 	          { className: 'profile-bio' },
 	          this.props.bio
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'profile-picture' },
-	          _react2.default.createElement('img', { src: this.props.picture, style: { maxWidth: '300px' } })
 	        )
 	      );
 	    }

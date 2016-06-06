@@ -17,9 +17,17 @@ export default class Navbar extends React.Component {
     if (this.props.user.id) {
       return (<a href="signout"><div className='navlink' style={{width: '7%', display: 'inline-block'}}><img style={{marginTop: '12px', marginLeft: '5px'}} src="images/setting.png" width="40px" /></div></a>);
     } else {
-      return (<a href='auth/facebook'><div className='pure-u-1-6 navlink' style={{width: '7%', display: 'inline-block'}}><img src='images/fb-logo.png' className='fb-logo' /></div></a>);
-
+      return (<a href='auth/facebook'><div className='pure-u-1-6 navlink' style={{width: '7%', display: 'inline-block'}}><img style={{marginTop: '12px', marginLeft: '5px'}} src="images/facebook.png" width="40px" /></div></a>);
     }
+  }
+
+  renderProfilePic() {
+    if (this.props.user.id) {
+      return (<Link to="profile"><div className='navlink' style={{width: '7%', display: 'inline-block'}}><img style={{marginTop: '12px', marginLeft: '5px', borderRadius:'50%', border: '2px solid white' }} width="40px" height='40px' src={this.props.user.picture} /></div></Link>);
+      
+    }
+    return (<Link to="profile"><div className='navlink' style={{width: '7%', display: 'inline-block'}}><img style={{marginTop: '12px', marginLeft: '5px'}} src="images/profile.png" width="40px" /></div></Link>);
+
   }
   render() {
   	return (
@@ -31,7 +39,7 @@ export default class Navbar extends React.Component {
           <Link to="personalpage"><div className='navlink' style={{width: '7%', display: 'inline-block'}}><img style={{marginTop: '18px', marginLeft: '5px'}} src="images/watch.png" width="60px" /></div></Link>
           <Link to="sellitem"><div className='navlink' style={{width: '5%', display: 'inline-block'}}><img style={{marginTop: '12px', marginLeft: '5px'}} src="images/sell.png" width="40px" /></div></Link>
           <div className='navlink2' style={{width: '64%', display: 'inline-block'}}><SearchBar /></div>
-          <Link to="profile"><div className='navlink' style={{width: '7%', display: 'inline-block'}}><img style={{marginTop: '12px', marginLeft: '5px'}} src="images/profile.png" width="40px" /></div></Link>
+          {this.renderProfilePic()}
           {this.renderAuth()}
           
         </div>

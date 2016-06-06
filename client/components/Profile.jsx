@@ -7,10 +7,6 @@ import ProfileEntry from './ProfileEntry.jsx';
 
 class Profile extends Component {
 
-  static propTypes = {
-    id: PropTypes.number.isRequired
-  };
-
   componentWillMount() {
     this.props.getProfile(this.props.id);
   }
@@ -32,7 +28,6 @@ class Profile extends Component {
 }
 
 var mapStateToProps = function(state, ownProps) {
-  console.log(state);
   return {
     profile: state.profile.profile,
     id: state.profile.current || state.user.id
