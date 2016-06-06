@@ -10,6 +10,7 @@ class Profile extends Component {
   componentWillMount() {
     this.props.getProfile(this.props.id);
   }
+
   render() {
     if (this.props.profile) {
       return (

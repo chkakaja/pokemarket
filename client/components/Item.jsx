@@ -108,6 +108,7 @@ class Item extends Component {
 
   render () {
     if (this.props.user.id) {
+      console.log('in item', this.props.item.seller.id, this.props.item.seller.name);
       return (
         <div className='item'>
           <div className='item-title'>{this.props.item.title}</div>
