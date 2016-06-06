@@ -25,6 +25,7 @@ class PersonalPage extends Component {
       return <div>Sign in to look at your watched and listed items!</div>
     }
   }
+
 }
 
 var mapStateToProps = function(state, ownProps) {

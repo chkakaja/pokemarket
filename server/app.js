@@ -285,10 +285,9 @@ passport.use(new FacebookStrategy({
           if (!user) {
             user = new User({
               name: profile.displayName,
-              facebookId: profile.id
-              // TEMPORARY, SO TEST USERS CAN GET THROUGH -- WILL
-              // email: profile.emails[0].value,
-              // picture: profile.photos[0].value
+              facebookId: profile.id,
+              email: profile.emails[0].value,
+              picture: profile.photos[0].value
             }).save();
           }
           return user;

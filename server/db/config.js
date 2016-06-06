@@ -16,8 +16,6 @@ db.knex.schema.hasTable('users').then(function(exists) {
       user.string('name', 255);
       user.string('email', 255);
       user.string('facebookId', 255);
-      user.integer('total_rating');
-      user.integer('num_ratings');
       user.string('address', 255);
       user.string('bio', 255);
       user.string('picture', 255);
