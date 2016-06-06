@@ -6,6 +6,7 @@ import $ from 'jquery';
 import prettyDate from 'dateformat';
 import { checkAuthentication } from '../actions.js';
 import Item from './Item.jsx';
+import CountdownTimer from './CountdownTimer.jsx';
 
 export default class ItemEntry extends Component {
 
@@ -46,7 +47,8 @@ export default class ItemEntry extends Component {
               <div className='item-entry-purchase'>
                 <div className='item-entry-current-bid'><b>Current Bid:</b> ${this.props.item.currentBid}</div>
                 <div className='item-entry-end-time'><b>Ending:</b> {prettyDate(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</div>
-                <button className='watch' type='submit' onClick={this.watchItem.bind(this)}>Watch Item</button>
+                <div className='countdown'><CountdownTimer endDate={this.props.item.end_at} /></div>
+                <button className='watch pure-button' type='submit' onClick={this.watchItem.bind(this)}>Watch Item</button>
               </div>
             </div>
           </Link>
@@ -65,6 +67,7 @@ export default class ItemEntry extends Component {
               <div className='item-entry-purchase'>
                 <div className='item-entry-current-bid'><b>Current Bid:</b> ${this.props.item.currentBid}</div>
                 <div className='item-entry-end-time'><b>Ending:</b> {prettyDate(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</div>
+                <div className='countdown'><CountdownTimer endDate={this.props.item.end_at} /></div>
               </div>
             </div>
           </Link>

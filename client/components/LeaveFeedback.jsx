@@ -14,14 +14,16 @@ export default class LeaveFeedback extends Component {
   }
   render() {
     return (
-      <div className='leave-feedback'>
-        {this.props.toLeaveFeedbackArray.map(item => (
-          <LeaveFeedbackEntry buyer={item.current_bidder} 
-                              key={item.id} 
-                              item={item.id} 
-                              title={item.title} 
-                              seller={item.seller_id} />
-        ))}
+      <div>
+        <div className='feedback'>Leave Feedback</div>
+          {this.props.toLeaveFeedbackArray.map(item => (
+            <LeaveFeedbackEntry buyer={item.current_bidder} 
+                                key={item.id} 
+                                item={item.id} 
+                                title={item.title} 
+                                seller={item.seller_id}
+                                picture={item.picture} />
+          ))}
       </div>
     );  
   }

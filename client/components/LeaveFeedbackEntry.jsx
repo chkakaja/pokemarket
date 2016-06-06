@@ -37,15 +37,16 @@ export default class LeaveFeedbackEntry extends Component {
     }
     return (
       <div className="leave-feedback-entry">
-        <div>{this.props.title}</div>
-        <div onClick={this.selectChange.bind(this, 1)} className={'leave-feedback-positive' + (this.state.selected === 1 ? ' leave-feedback-selected' : '') }>+1</div>
-        <div onClick={this.selectChange.bind(this, 0)} className={'leave-feedback-neutral' + (this.state.selected === 0 ? ' leave-feedback-selected' : '') }>0</div>
-        <div onClick={this.selectChange.bind(this, -1)} className={'leave-feedback-negative' + (this.state.selected === -1 ? ' leave-feedback-selected' : '') }>-1</div>
+        <img className='picture' src={this.props.picture} />
+        <div className='title'>{this.props.title}</div>
+        <div onClick={this.selectChange.bind(this, 1)} className={'leave-feedback-positive' + (this.state.selected === 1 ? ' leave-feedback-selected' : '') }>Positive: +1</div>
+        <div onClick={this.selectChange.bind(this, 0)} className={'leave-feedback-neutral' + (this.state.selected === 0 ? ' leave-feedback-selected' : '') }>Neutral: 0</div>
+        <div onClick={this.selectChange.bind(this, -1)} className={'leave-feedback-negative' + (this.state.selected === -1 ? ' leave-feedback-selected' : '') }>Negative: -1</div>
         <div className="leave-feedback-input-box">
-          <input className="leave-feedback-comment" onChange={(e) => this.commentChange(e)} />
+          Comments: <input className="leave-feedback-comment" onChange={(e) => this.commentChange(e)} />
         </div>
         <div className="leave-feedback-submit">
-          <button onClick={this.submitFeedback.bind(this)}>Submit</button>
+          <button className='pure-button' onClick={this.submitFeedback.bind(this)}>Submit</button>
         </div>
       </div>
     );
