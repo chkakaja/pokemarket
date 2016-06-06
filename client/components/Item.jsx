@@ -108,7 +108,6 @@ class Item extends Component {
 
   render () {
     if (this.props.user.id) {
-      console.log(this.props.item.seller.id);
       return (
         <div className='item'>
           <div className='item-title'>{this.props.item.title}</div>

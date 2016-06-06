@@ -127,7 +127,7 @@ var seedData = {
 		picture:'http://cdn.shopify.com/s/files/1/1042/8594/products/PigDog_deck_tailpatch_SUPERbrand_31c812c8-ee3f-42ed-b6ba-a82c5dafa2bc_1024x1024.jpg?v=1460509432',
 		duration:2,
 		currentBid:80,
-		end_at: '2016-02-06 21:19:55.000'
+		end_at: '2016-02-06T21:19:55.000Z'
 	},
 	{	
 		seller_id:2,
@@ -160,7 +160,8 @@ var seedData = {
 		picture:'http://static1.squarespace.com/static/52784cdde4b07cdbb003018f/537abe38e4b0ff62ffbb6786/56036d26e4b008bd0ad827f0/1443065129884/Cat-in-Window-Painting-HOME.jpg',
 		duration:5,
 		currentBid: 50,
-		end_at: '2016-02-06 21:19:55.000'
+		current_bidder: 1,
+		end_at: '2016-02-06T21:19:55.000Z'
 	},
 	{	
 		seller_id:2,
@@ -169,7 +170,8 @@ var seedData = {
 		picture:'http://www.dogsplayingpoker.org/gallery/coolidge/img/a_friend_in_need.jpg',
 		duration:4,
 		currentBid:30,
-		end_at: '2016-02-06 21:19:55.000'
+		current_bidder: 2,
+		end_at: '2016-02-06T21:19:55.000Z'
 	},
 	{	
 		seller_id:1,
@@ -178,7 +180,8 @@ var seedData = {
 		picture:'http://thumbs.ebaystatic.com/images/g/1E0AAOxyYSJR8ZEo/s-l225.jpg',
 		duration:3,
 		currentBid:8,
-		end_at: '2016-02-06 21:19:55.000'
+		current_bidder: 2,
+		end_at: '2016-02-06T21:19:55.000Z'
 	},
 	{	
 		seller_id:1,
@@ -222,7 +225,7 @@ var seedData = {
      },
      {
      	author_id:1,
-     	receiver_id:1,
+     	receiver_id:2,
      	rating:1,
      	item_id:15,
      	comment: 'Thanks this was amazing. Just what I was looking for'
@@ -233,7 +236,7 @@ var seedData = {
 
   	{
   		name: 'Carol Alabccijfidab Wongescu',
-  		email: 'carol@carol.com',
+  		// email: 'carol@carol.com',
   		facebookId:'113472865740682', 
   		address: '123 fake st 94116', 
   		bio: 'I like cat and I am 70 years old :)' ,
@@ -241,7 +244,7 @@ var seedData = {
   	},
   	{
   		name: 'Dick Alabdhefaahgf Seligsteinson',
-  		email: 'dick@dSeligsteinson.com',
+  		// email: 'dick@dSeligsteinson.com',
   		facebookId:'102067280219459', 
   		address: '123 main st 94115',
   		bio: 'dicks my name selling thing is my game', 

@@ -3,6 +3,12 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 class Username extends Component {
+
+  componentWillMount() {
+    console.log('in username', this.props.id, this.props.name);
+    
+  }
+
   static propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired
@@ -39,6 +45,7 @@ var mapDispatchToProps = function(dispatch) {
       }
     },
     setProfileUser: current => {
+      console.log('dispatching current', current)
       dispatch({
         type: 'SET_PROFILE_USER',
         current

@@ -30735,6 +30735,7 @@
 	  var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 	  var action = arguments[1];
 
+	  console.log('profile reducer', state, action);
 	  var newState = Object.assign({}, state);
 	  switch (action.type) {
 	    case 'SET_PROFILE_USER':
@@ -49975,7 +49976,6 @@
 	    key: 'render',
 	    value: function render() {
 	      if (this.props.user.id) {
-	        console.log(this.props.item.seller.id);
 	        return _react2.default.createElement(
 	          'div',
 	          { className: 'item' },
@@ -50735,6 +50735,11 @@
 	  }
 
 	  _createClass(Username, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      console.log('in username', this.props.id, this.props.name);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -50781,6 +50786,7 @@
 	      }
 	    },
 	    setProfileUser: function setProfileUser(current) {
+	      console.log('dispatching current', current);
 	      dispatch({
 	        type: 'SET_PROFILE_USER',
 	        current: current

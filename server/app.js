@@ -67,7 +67,9 @@ app.get('/toleavefeedback', (req, res) => {
       .then(user => {
         db.knex('items')
           .where({ current_bidder: user.id, feedback: null })
-          .andWhere('end_at', '<', dateformat(new Date(), "dddd, mmmm dS, yyyy, h:MM:ss TT"))
+          .andWhere('end_at', '<', new Date())
+          // 2016-06-06T23:11:07.828Z
+          // 2016-06-12 15:59:22.632
           .then(items => res.status(200).send(items));
       });
   }  
@@ -85,7 +87,6 @@ app.post('/leavefeedback', (req, res) => {
 // ############################## MESSAGES #############################
 
 app.post('/getMessages', (req, res) => {
-  console.log(req.body.sender, req.body.receiver);
   Message
   .query({ where: { sender: req.body.sender, receiver: req.body.receiver },
            orWhere: { sender: req.body.receiver, receiver: req.body.sender }})
