@@ -67,8 +67,7 @@ a {
 }
 
 .profile .username {
-  text-align: center;
-  font-size: 20px;
+  font-size: 30px;
   font-weight: bold;
 }
 
@@ -79,6 +78,15 @@ a {
 
 .feedback-profile {
   
+}
+
+.username-name {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.profile .username-name {
+  margin-bottom: 10px;
 }
 /***************** FEEDBACK *****************/
 .leave-feedback-selected {

@@ -16,7 +16,7 @@ class Username extends Component {
           <div onClick={this.props.setProfileUser.bind(this, this.props.id)} className="username-name">{this.props.name}</div>
         </Link>
         <img onClick={this.props.addMessageBox.bind(this, this.props.userId, this.props.id, this.props.name)} 
-             src="images/message.png" />
+             src="images/message.png" style={{ height: '14px'}}/>
       </div>
     );
   }
