@@ -48673,7 +48673,6 @@
 	var getProfile = function getProfile(dispatch) {
 	  return function (id) {
 	    _jquery2.default.get('/getprofile', { id: id }, function (profile) {
-	      console.log(profile);
 	      dispatch({
 	        type: 'UPDATE_PROFILE',
 	        profile: profile
@@ -50301,6 +50300,10 @@
 
 	var _PopularItems2 = _interopRequireDefault(_PopularItems);
 
+	var _LeaveFeedback = __webpack_require__(379);
+
+	var _LeaveFeedback2 = _interopRequireDefault(_LeaveFeedback);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -50329,21 +50332,30 @@
 	      if (this.props.user.id) {
 	        return _react2.default.createElement(
 	          'div',
-	          { className: 'landing' },
+	          null,
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'watched-items pure-u-1-3' },
-	            _react2.default.createElement(_WatchedItems2.default, null)
+	            { className: 'landing' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'watched-items pure-u-1-3' },
+	              _react2.default.createElement(_WatchedItems2.default, null)
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'listed-items pure-u-1-3' },
+	              _react2.default.createElement(_ListedItems2.default, null)
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'popular-items pure-u-1-3' },
+	              _react2.default.createElement(_PopularItems2.default, null)
+	            )
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'listed-items pure-u-1-3' },
-	            _react2.default.createElement(_ListedItems2.default, null)
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'popular-items pure-u-1-3' },
-	            _react2.default.createElement(_PopularItems2.default, null)
+	            { className: 'leave-feedback pure-u-1-3' },
+	            _react2.default.createElement(_LeaveFeedback2.default, null)
 	          )
 	        );
 	      } else {
@@ -50838,7 +50850,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'leave-feedback' },
+	        null,
 	        this.props.toLeaveFeedbackArray.map(function (item) {
 	          return _react2.default.createElement(_LeaveFeedbackEntry2.default, { buyer: item.current_bidder,
 	            key: item.id,
@@ -50893,6 +50905,10 @@
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
+	var _reactTextareaAutosize = __webpack_require__(387);
+
+	var _reactTextareaAutosize2 = _interopRequireDefault(_reactTextareaAutosize);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -50911,7 +50927,9 @@
 
 	    _this.state = {
 	      selected: null,
-	      submitted: false
+	      submitted: false,
+	      input: '',
+	      error: null
 	    };
 	    _this.comment = '';
 	    return _this;
@@ -50923,22 +50941,49 @@
 	      this.setState({ selected: selected });
 	    }
 	  }, {
-	    key: 'commentChange',
-	    value: function commentChange(e) {
-	      this.comment = e.target.value;
-	    }
-	  }, {
 	    key: 'submitFeedback',
 	    value: function submitFeedback() {
 	      var _this2 = this;
 
-	      _jquery2.default.post('/leavefeedback', { item_id: this.props.item,
-	        receiver_id: this.props.seller,
-	        author_id: this.props.buyer,
-	        rating: this.state.selected,
-	        comment: this.props.comment }, function (data) {
-	        return _this2.setState({ submitted: true });
-	      });
+	      this.setState({ error: '' });
+	      if (this.state.selected && this.state.input.length > 19) {
+	        _jquery2.default.post('/leavefeedback', { item_id: this.props.item,
+	          receiver_id: this.props.seller,
+	          author_id: this.props.buyer,
+	          rating: this.state.selected,
+	          comment: this.state.comment }, function (data) {
+	          return _this2.setState({ submitted: true });
+	        });
+	        return;
+	      }
+	      if (!this.state.selected) {
+	        this.setState({ error: 'Must select a rating' });
+	      }
+	      if (this.state.input.length < 20) {
+	        this.setState({ error: (this.state.error ? this.state.error + ' & ' : '') + 'Comment must be at least 20 characters long' });
+	      }
+	    }
+	  }, {
+	    key: 'inputField',
+	    value: function inputField(input) {
+	      // Ugly hack to make sure the textarea is clear after pressing enter
+	      // Without this whenever enter is pressed the value will be '\n'
+	      if (input !== '\n') {
+	        this.setState({ input: input });
+	      }
+	    }
+	  }, {
+	    key: 'enterKeyPress',
+	    value: function enterKeyPress(e) {
+	      if (e.key === 'Enter' && this.state.input) {
+	        this.submitFeedback();
+	        this.clearInput();
+	      }
+	    }
+	  }, {
+	    key: 'clearInput',
+	    value: function clearInput() {
+	      this.setState({ input: '' });
 	    }
 	  }, {
 	    key: 'render',
@@ -50957,8 +51002,8 @@
 	        { className: 'leave-feedback-entry' },
 	        _react2.default.createElement(
 	          'div',
-	          null,
-	          this.props.title
+	          { className: 'leave-feedback-name' },
+	          'Auction name: ' + this.props.title
 	        ),
 	        _react2.default.createElement(
 	          'div',
@@ -50978,18 +51023,41 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'leave-feedback-input-box' },
-	          _react2.default.createElement('input', { className: 'leave-feedback-comment', onChange: function onChange(e) {
-	              return _this3.commentChange(e);
-	            } })
+	          _react2.default.createElement(
+	            'span',
+	            { className: 'leave-feedback-comment-caption' },
+	            _react2.default.createElement(
+	              'b',
+	              null,
+	              'Comment:  '
+	            )
+	          ),
+	          _react2.default.createElement(_reactTextareaAutosize2.default, { className: 'leave-feedback-comment',
+	            onKeyPress: function onKeyPress(e) {
+	              return _this3.enterKeyPress(e);
+	            },
+	            onChange: function onChange(e) {
+	              return _this3.inputField(e.target.value);
+	            },
+	            type: 'text',
+	            name: 'messages',
+	            value: this.state.input,
+	            maxRows: 5,
+	            minRows: 1 }),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'leave-feedback-submit' },
+	            _react2.default.createElement(
+	              'button',
+	              { onClick: this.submitFeedback.bind(this) },
+	              'Submit'
+	            )
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'leave-feedback-submit' },
-	          _react2.default.createElement(
-	            'button',
-	            { onClick: this.submitFeedback.bind(this) },
-	            'Submit'
-	          )
+	          { className: 'leave-feedback-error' },
+	          this.state.error
 	        )
 	      );
 	    }

@@ -47,7 +47,50 @@ a {
   transition: all 0.3s ease;
 }
 
+/***************** FEEDBACK *****************/
+.leave-feedback-selected {
+  font-weight: bold;
+}
 
+.leave-feedback-input-box {
+  position: relative;
+  vertical-align: top;
+  width: 850px;
+}
+
+.leave-feedback {
+  border: 2px solid black;
+  margin-right: 250px;
+  margin-left: 250px;
+  width: 950px;
+}
+
+.leave-feedback-entry {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.leave-feedback-name {
+  font-weight: bold;
+}
+
+.leave-feedback-comment {
+  width: 700px;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  margin-left: 5px;
+}
+
+.leave-feedback-comment-caption {
+  text-align: middle;
+}
+
+.leave-feedback-submit {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
 /***************** NAVBAR / SEARCHBAR *****************/
 
 .nav {
@@ -354,9 +397,6 @@ a {
 }
 
 
-/***************** FEEDBACK *****************/
-.leave-feedback-selected {
-  font-weight: bold;
-}
+
 
 

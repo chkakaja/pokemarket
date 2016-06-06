@@ -14,7 +14,7 @@ export default class LeaveFeedback extends Component {
   }
   render() {
     return (
-      <div className='leave-feedback'>
+      <div>
         {this.props.toLeaveFeedbackArray.map(item => (
           <LeaveFeedbackEntry buyer={item.current_bidder} 
                               key={item.id} 
