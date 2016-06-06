@@ -67,6 +67,7 @@ export default class LeaveFeedbackEntry extends Component {
     }
     return (
       <div className="leave-feedback-entry">
+        <img className='picture' src={this.props.picture} />
         <div className='leave-feedback-name'>{'Auction name: ' + this.props.title}</div>
         <div onClick={this.selectChange.bind(this, 1)} className={'leave-feedback-positive' + (this.state.selected === 1 ? ' leave-feedback-selected' : '') }>+1</div>
         <div onClick={this.selectChange.bind(this, 0)} className={'leave-feedback-neutral' + (this.state.selected === 0 ? ' leave-feedback-selected' : '') }>0</div>

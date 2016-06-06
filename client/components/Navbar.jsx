@@ -13,16 +13,11 @@ import { checkAuthentication } from '../actions.js';
 
 export default class Navbar extends React.Component {
   
-
-
-  // WHEN PERSONAL PROFILE IS DONE, ADD THE FOLLOWING CODE BELOW THE MESSAGES DIV
-  // <Link to="personalprofile"><div className='pure-u-1-6 navlink'>Personal Profile</div></Link>
   renderAuth() {
     if (this.props.user.id) {
-      return (<Link to="signout"><div className='navlink' style={{width: '7%', display: 'inline-block'}}><img style={{marginTop: '12px', marginLeft: '5px'}} src="images/setting.png" width="40px" /></div></Link>);
+      return (<a href="signout"><div className='navlink' style={{width: '7%', display: 'inline-block'}}><img style={{marginTop: '12px', marginLeft: '5px'}} src="images/setting.png" width="40px" /></div></a>);
     } else {
       return (<a href='auth/facebook'><div className='pure-u-1-6 navlink' style={{width: '7%', display: 'inline-block'}}><img style={{marginTop: '12px', marginLeft: '5px'}} src="images/facebook.png" width="40px" /></div></a>);
-
     }
   }
 
@@ -40,9 +35,9 @@ export default class Navbar extends React.Component {
 
         <div className='links'>
           <div className='navlink' style={{width: '5%', display: 'inline-block'}}><img style={{marginTop: '10px', marginLeft: '5px'}} src="images/logo.png" width="40px" /></div>
-          <Link to="landing"><div className='navlink' style={{width: '5%', display: 'inline-block'}}><img style={{marginTop: '12px', marginLeft: '5px', maxWidth: '35px'}} src="images/home.png" /></div></Link>
-          <Link to="watch"><div className='navlink' style={{width: '7%', display: 'inline-block'}}><img style={{marginTop: '18px', marginLeft: '5px', maxWidth: '60px'}} src="images/watch.png" /></div></Link>
-          <Link to="sellitem"><div className='navlink' style={{width: '5%', display: 'inline-block'}}><img style={{marginTop: '12px', marginLeft: '5px', maxWidth: '40px'}} src="images/sell.png" /></div></Link>
+          <Link to="landing"><div className='navlink' style={{width: '5%', display: 'inline-block'}}><img style={{marginTop: '12px', marginLeft: '5px'}} src="images/notification.png" width="40px" /></div></Link>
+          <Link to="personalpage"><div className='navlink' style={{width: '7%', display: 'inline-block'}}><img style={{marginTop: '18px', marginLeft: '5px'}} src="images/watch.png" width="60px" /></div></Link>
+          <Link to="sellitem"><div className='navlink' style={{width: '5%', display: 'inline-block'}}><img style={{marginTop: '12px', marginLeft: '5px'}} src="images/sell.png" width="40px" /></div></Link>
           <div className='navlink2' style={{width: '64%', display: 'inline-block'}}><SearchBar /></div>
           {this.renderProfilePic()}
           {this.renderAuth()}

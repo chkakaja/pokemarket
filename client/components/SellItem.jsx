@@ -26,8 +26,8 @@ class SellItem extends Component {
       });
       resetForm();
     };
-    if (!this.props.user) {
-      return <FacebookButton />
+    if (!this.props.user.id) {
+      return <div>Sign in to sell items!</div>
     }
     return (
       <div className='sell-item'>

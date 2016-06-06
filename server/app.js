@@ -161,6 +161,7 @@ app.post('/updateBid', (req, res) => {
     .then(function(item) {
       if (req.body.newBid > item.attributes.currentBid) {
         item.set({ currentBid: req.body.newBid }).save();
+        item.set({ current_bidder: req.body.currentBidder }).save();
       }
       res.send(item.attributes);
     })
@@ -185,7 +186,6 @@ app.get('/watchitem', (req, res) => {
 });
 
 app.post('/addvisit', (req, res) => {
-  console.log(req.body);
   Item.where(req.body).fetch()
     .then(function(item) {
       if (item.attributes.visits === null) {
