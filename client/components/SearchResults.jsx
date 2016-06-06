@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import ItemEntry from './ItemEntry.jsx'
 
 class SearchResults extends Component {
+
   static defaultProps = {
     results: []
   }
