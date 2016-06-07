@@ -378,10 +378,6 @@ a {
   -webkit-transition: opacity 0.25s ease-in-out;
 }
 
-.item .item-seller .hover-image:hover .seller-picture {
-  opacity: 0.3;
-}
-
 .item .item-seller .hover-image .text {
   position: absolute;
   top: 20%;

@@ -7,7 +7,7 @@ import ProfileEntry from './ProfileEntry.jsx';
 
 class Profile extends Component {
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getProfile(this.props.id);
   }
 

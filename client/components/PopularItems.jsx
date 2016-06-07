@@ -52,4 +52,4 @@ var mapDispatchToProps = function(dispatch) {
   }
 };
 
-module.exports = connect(mapStateToProps, mapDispatchToProps)(PopularItems);
+export default connect(mapStateToProps, mapDispatchToProps)(PopularItems);
