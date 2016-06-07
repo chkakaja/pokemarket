@@ -4,8 +4,10 @@
   "description": "a simple auction app",
   "main": "index.html",
   "scripts": {
+    "start": "NODE_ENV=development nodemon server/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=development nodemon server/app.js"
+    "webpack": "webpack --watch",
+    "seed": "NODE_ENV=development node seed/seed.js"
   },
   "repository": {
     "type": "git",
@@ -22,12 +24,6 @@
   },
   "homepage": "https://github.com/auctionapp/auctionapp#readme",
   "dependencies": {
-    "babel": "^6.5.2",
-    "babel-cli": "^6.9.0",
-    "babel-loader": "^6.2.4",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-react": "^6.5.0",
-    "babel-preset-stage-0": "^6.5.0",
     "body-parser": "^1.15.1",
     "bookshelf": "^0.9.5",
     "dateformat": "^1.0.12",
@@ -50,10 +46,15 @@
     "redux-form": "^5.2.5",
     "redux-thunk": "^2.1.0",
     "socket.io": "^1.4.6",
-    "underscore": "^1.8.3",
-    "webpack": "^1.13.1"
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-cli": "^6.9.0",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-0": "^6.5.0",
     "redux-devtools": "^3.3.1",
     "webpack": "^1.13.1"
   }
