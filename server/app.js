@@ -14,6 +14,8 @@ var WatchList = require('./db/models/watchlist');
 var Feedback = require('./db/models/feedback.js');
 var dateformat = require('dateformat');
 
+require('dotenv').config({path: '.env/development.env'});
+
 app.use(express.static(__dirname + '/../public'));
 app.use(bodyParser());
 app.use(session({
@@ -72,7 +74,7 @@ app.get('/toleavefeedback', (req, res) => {
           // 2016-06-12 15:59:22.632
           .then(items => res.status(200).send(items));
       });
-  }  
+  }
   res.status(404);
 });
 
@@ -110,9 +112,9 @@ app.get('/getuserid', (req, res) => {
         res.status(200).send(user);
       });
     return;
-  }     
+  }
   res.sendStatus(404);
-}); 
+});
 
 // ############################## SEARCH ################################
 
@@ -240,7 +242,7 @@ app.post('/sellItem', (req, res) => {
 // ########################### FACEBOOK OAUTH ###########################
 app.get('/auth/facebook',
   passport.authenticate('facebook'));
- 
+
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { successRedirect: '/',
                                       failureRedirect: '/' }));
@@ -271,8 +273,8 @@ passport.deserializeUser(function(facebookId, done) {
 
 passport.use(new FacebookStrategy({
     // **you will need to create your own fb developer account and input your own clientID and clientSecret
-    clientID: '523442607845905',
-    clientSecret: '68d549f6999e92b32818e0993b737563',
+    clientID: '278148399203845',
+    clientSecret: '397ffe7fdf4ad0c6247841a736f922f2',
     callbackURL: "http://localhost:3000/auth/facebook/callback",
     enableProof: true,
     profileFields: ['id', 'displayName', 'gender', 'picture.type(large)', 'emails']
