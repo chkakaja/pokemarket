@@ -5,11 +5,10 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 var express = require('express');
-
 var passport = require('passport');
-
 var app = express();
 
+// require('./initialize/auth-init.js')(app, express);
 //auth init
 var session = require('express-session');
 var FacebookStrategy = require('passport-facebook').Strategy;
@@ -24,9 +23,10 @@ var Feedback = require('./db/models/feedback.js');
 var dateformat = require('dateformat');
 
 //general init
-var bodyParser = require('body-parser');
-app.use(express.static(__dirname + '/../client/static'));
-app.use(bodyParser());
+require('./initialize/config-init.js')(app, express);
+// var bodyParser = require('body-parser');
+// app.use(express.static(__dirname + '/../client/static'));
+// app.use(bodyParser());
 
 //auth init
 app.use(session({
