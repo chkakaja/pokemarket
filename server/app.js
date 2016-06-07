@@ -1,4 +1,9 @@
-var dotenv = require('dotenv').config({path: './env/development.env'});
+if (process.env.NODE_ENV === 'development') {
+  require('dotenv').config({path: './env/development.env'});
+} else if (process.env.NODE_ENV === 'production') {
+  require('dotenv').config({path: './env/production.env'});
+}
+
 var session = require('express-session');
 var express = require('express');
 var db = require('./db/config');
