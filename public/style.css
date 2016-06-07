@@ -243,7 +243,7 @@ a {
   color: #E0DEDA;
 }
 
-.searchbar .search-input {
+/*.searchbar .search-input {
   margin-right: 5px;
   height: 50px;
   background-image: url(images/search-icon.png);
@@ -251,6 +251,11 @@ a {
   background-position: 99% 45%;
   background-repeat: no-repeat;
   background-color: #E0DEDA;
+}*/
+
+.searchbar .search-input {
+  height: 50px;
+  margin-right: 5px;
 }
 
 .searchbar .search-icon {
