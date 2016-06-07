@@ -32,7 +32,7 @@ class Profile extends Component {
 var mapStateToProps = function(state, ownProps) {
   return {
     profile: state.profile.profile,
-    id: state.profile.current || state.user.id
+    id: (state.profile.current || state.user.id)
   };
 };
 

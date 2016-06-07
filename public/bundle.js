@@ -30737,7 +30737,7 @@
 
 	  var newState = Object.assign({}, state);
 	  switch (action.type) {
-	    case 'SET_USER':
+	    case 'SET_PROFILE_USER':
 	      newState.current = action.current;
 	      return newState;
 	    case 'UPDATE_PROFILE':
@@ -50052,12 +50052,7 @@
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'hover-image' },
-	              _react2.default.createElement('img', { src: this.props.item.seller.picture, className: 'seller-picture' }),
-	              _react2.default.createElement(
-	                'p',
-	                { className: 'text' },
-	                'Message seller'
-	              )
+	              _react2.default.createElement('img', { src: this.props.item.seller.picture, className: 'seller-picture' })
 	            )
 	          )
 	        );
@@ -50120,12 +50115,7 @@
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'hover-image' },
-	              _react2.default.createElement('img', { src: this.props.item.seller.picture, className: 'seller-picture' }),
-	              _react2.default.createElement(
-	                'p',
-	                { className: 'text' },
-	                'Message seller'
-	              )
+	              _react2.default.createElement('img', { src: this.props.item.seller.picture, className: 'seller-picture' })
 	            )
 	          )
 	        );
@@ -50961,7 +50951,7 @@
 	    setProfileUser: function setProfileUser(current) {
 	      console.log('dispatching current', current);
 	      dispatch({
-	        type: 'SET_USER',
+	        type: 'SET_PROFILE_USER',
 	        current: current
 	      });
 	    }

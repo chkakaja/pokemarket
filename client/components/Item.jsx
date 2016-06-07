@@ -138,7 +138,6 @@ class Item extends Component {
             <Username id={this.props.item.seller.id} name={this.props.item.seller.name} />
             <div className='hover-image'>
               <img src={this.props.item.seller.picture} className='seller-picture' />
-              <p className='text'>Message seller</p>
             </div>
           </div>
         </div>
@@ -168,7 +167,6 @@ class Item extends Component {
             <div className='seller-name'>{this.props.item.seller.name}</div>
             <div className='hover-image'>
               <img src={this.props.item.seller.picture} className='seller-picture' />
-              <p className='text'>Message seller</p>
             </div>
           </div>
         </div>
