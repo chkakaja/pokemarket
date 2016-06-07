@@ -1,5 +1,4 @@
-require('dotenv').config({path: './env/development.env'});
-
+var dotenv = require('dotenv').config({path: './env/development.env'});
 var session = require('express-session');
 var express = require('express');
 var db = require('./db/config');
@@ -15,7 +14,6 @@ var Item = require('./db/models/item');
 var WatchList = require('./db/models/watchlist');
 var Feedback = require('./db/models/feedback.js');
 var dateformat = require('dateformat');
-
 
 app.use(express.static(__dirname + '/../public'));
 app.use(bodyParser());
