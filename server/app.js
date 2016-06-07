@@ -14,7 +14,7 @@ var WatchList = require('./db/models/watchlist');
 var Feedback = require('./db/models/feedback.js');
 var dateformat = require('dateformat');
 
-require('dotenv').config({path: '.env/development.env'});
+require('dotenv').config({path: './env/development.env'});
 
 app.use(express.static(__dirname + '/../public'));
 app.use(bodyParser());
@@ -32,8 +32,8 @@ exports.io = require('socket.io')(http);
 
 app.use(express.static(__dirname + '/../public'));
 
-http.listen(3000, function(){
-  console.log('listening on *:3000');
+http.listen(process.env.PORT, function(){
+  console.log('listening on port:' + process.env.PORT);
 });
 
 require('./socket.js');
