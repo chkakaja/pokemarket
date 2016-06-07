@@ -1,3 +1,5 @@
+require('dotenv').config({path: './env/development.env'});
+
 var session = require('express-session');
 var express = require('express');
 var db = require('./db/config');
@@ -14,7 +16,6 @@ var WatchList = require('./db/models/watchlist');
 var Feedback = require('./db/models/feedback.js');
 var dateformat = require('dateformat');
 
-require('dotenv').config({path: './env/development.env'});
 
 app.use(express.static(__dirname + '/../public'));
 app.use(bodyParser());
@@ -273,8 +274,8 @@ passport.deserializeUser(function(facebookId, done) {
 
 passport.use(new FacebookStrategy({
     // **you will need to create your own fb developer account and input your own clientID and clientSecret
-    clientID: '278148399203845',
-    clientSecret: '397ffe7fdf4ad0c6247841a736f922f2',
+    clientID: process.env.FACEBOOK_ID,
+    clientSecret: process.env.FACEBOOK_SECRET,
     callbackURL: "http://localhost:3000/auth/facebook/callback",
     enableProof: true,
     profileFields: ['id', 'displayName', 'gender', 'picture.type(large)', 'emails']
