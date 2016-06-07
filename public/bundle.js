@@ -49511,6 +49511,10 @@
 	    return _this;
 	  }
 
+	  // static contextTypes= {
+	  //   history: React.PropTypes.object
+	  // }
+
 	  _createClass(SearchBar, [{
 	    key: 'onInputChange',
 	    value: function onInputChange(e) {
@@ -49523,37 +49527,41 @@
 	    value: function onFormSubmit(e) {
 	      var _this2 = this;
 
-	      e.preventDefault();
+	      // e.preventDefault();
 	      // ###################### SEARCH STRING MUST NOT BE EMPTY OR SEARCH WILL BE WRONG ###################
 	      if (this.state.search) {
 	        _jquery2.default.post('/search', { search: this.state.search }, function (data) {
 	          _this2.props.updateSearchResults(data);
 	        });
 	        this.setState({ search: '' });
-	        this.context.history.pushState(null, '/searchresults');
+	        // this.context.history.pushState(null, '/searchresults');
 	      }
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'form',
+	        'div',
 	        { className: 'searchbar pure-form' },
 	        _react2.default.createElement('input', { type: 'text',
 	          onChange: this.onInputChange.bind(this),
 	          className: 'search-input pure-input-2-3',
-	          value: this.state.search })
+	          value: this.state.search }),
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: this.onFormSubmit.bind(this), className: 'submit-search pure-button pure-button-primary' },
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/searchresults' },
+	            _react2.default.createElement('img', { src: 'http://www.gardenbenches.com/assets/search_mob-4e31f0d049c237cff0aa0f66fc77efc1.png', className: 'search-icon' })
+	          )
+	        )
 	      );
 	    }
 	  }]);
 
 	  return SearchBar;
 	}(_react2.default.Component);
-
-	SearchBar.contextTypes = {
-	  history: _react2.default.PropTypes.object
-	};
-
 
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
