@@ -20,7 +20,7 @@ var WatchList = require('./db/models/watchlist');
 var Feedback = require('./db/models/feedback.js');
 var dateformat = require('dateformat');
 
-app.use(express.static(__dirname + '/../public'));
+app.use(express.static(__dirname + '/../client/static'));
 app.use(bodyParser());
 app.use(session({
   secret: 'auction',

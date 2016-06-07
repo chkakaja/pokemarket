@@ -6,7 +6,7 @@ node_modules
 npm-debug.log
 
 #Compiled client files
-public/bundle.js
+client/static/bundle.js
 
 #Environment configuration
 env/development.env
