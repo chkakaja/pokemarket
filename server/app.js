@@ -4,14 +4,17 @@ if (process.env.NODE_ENV === 'development') {
   require('dotenv').config({path: './env/production.env'});
 }
 
-var session = require('express-session');
 var express = require('express');
-var db = require('./db/config');
-var app = express();
-var session = require('express-session');
-var bodyParser = require('body-parser');
+
 var passport = require('passport');
+
+var app = express();
+
+//auth init
+var session = require('express-session');
 var FacebookStrategy = require('passport-facebook').Strategy;
+
+//db init
 var db = require('./db/config');
 var Message = require('./db/models/message.js');
 var User = require('./db/models/user');
@@ -20,8 +23,12 @@ var WatchList = require('./db/models/watchlist');
 var Feedback = require('./db/models/feedback.js');
 var dateformat = require('dateformat');
 
+//general init
+var bodyParser = require('body-parser');
 app.use(express.static(__dirname + '/../client/static'));
 app.use(bodyParser());
+
+//auth init
 app.use(session({
   secret: 'auction',
   maxAge: 60000
@@ -256,6 +263,8 @@ app.get('/signout' , (req, res) => {
   req.session.destroy();
   res.redirect('/');
 });
+
+// require('./initialize/auth-init.js')(passport, FacebookStrategy);
 
 // check out passport-facebook documentation for info on how the FB OAuth works
 // passport FB OAuth
