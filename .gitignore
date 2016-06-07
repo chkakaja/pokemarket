@@ -1,6 +1,12 @@
+
+# Node dependencies
 node_modules
-.DS_Store
-public/bundle.js
-dist/
+
+#Logs
 npm-debug.log
 
+#Compiled client files
+public/bundle.js
+
+#Environment configuration
+env/development.env
