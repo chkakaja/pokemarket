@@ -5,7 +5,8 @@
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=development nodemon server/app.js"
+    "start": "NODE_ENV=development nodemon server/app.js",
+    "lint": "eslint client/components"
   },
   "repository": {
     "type": "git",
@@ -54,6 +55,10 @@
     "webpack": "^1.13.1"
   },
   "devDependencies": {
+    "babel-eslint": "^6.0.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
+    "eslint": "^2.11.1",
     "redux-devtools": "^3.3.1",
     "webpack": "^1.13.1"
   }
