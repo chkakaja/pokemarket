@@ -14,9 +14,9 @@ class SearchBar extends React.Component {
     };
   }
 
-  static contextTypes= {
-    history: React.PropTypes.object
-  }
+  // static contextTypes= {
+  //   history: React.PropTypes.object
+  // }
 
   onInputChange(e) {
     this.setState({
@@ -25,25 +25,28 @@ class SearchBar extends React.Component {
   };
 
   onFormSubmit(e) {
-    e.preventDefault();
+    // e.preventDefault();
     // ###################### SEARCH STRING MUST NOT BE EMPTY OR SEARCH WILL BE WRONG ###################
     if (this.state.search) {
       $.post('/search', { search: this.state.search }, data => {
         this.props.updateSearchResults(data);
       });
       this.setState({ search: '' });
-      this.context.history.pushState(null, '/searchresults');
+      // this.context.history.pushState(null, '/searchresults');
     }
   }
 
   render() {
     return (
-      <form className='searchbar pure-form'>
+      <div className='searchbar pure-form'>
         <input type='text' 
                onChange={this.onInputChange.bind(this)} 
                className='search-input pure-input-2-3' 
                value={this.state.search} />
-      </form>
+        <button onClick={this.onFormSubmit.bind(this)} className='submit-search pure-button pure-button-primary'>
+          <Link to='/searchresults'><img src='http://www.gardenbenches.com/assets/search_mob-4e31f0d049c237cff0aa0f66fc77efc1.png' className='search-icon' /></Link>
+        </button>
+      </div>
     )
   }
 
