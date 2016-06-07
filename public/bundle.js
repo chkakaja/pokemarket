@@ -30735,7 +30735,6 @@
 	  var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 	  var action = arguments[1];
 
-	  console.log('profile reducer', state, action);
 	  var newState = Object.assign({}, state);
 	  switch (action.type) {
 	    case 'SET_PROFILE_USER':
