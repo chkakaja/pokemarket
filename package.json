@@ -7,7 +7,7 @@
     "start": "NODE_ENV=development nodemon server/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "webpack": "webpack --watch",
-    "seed": "node seed/seed.js"
+    "seed": "NODE_ENV=development node seed/seed.js"
   },
   "repository": {
     "type": "git",
