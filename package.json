@@ -4,9 +4,10 @@
   "description": "a simple auction app",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_ENV=development nodemon server/app.js",
-    "webpack": "webpack --watch"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "webpack --watch",
+    "seed": "node seed/seed.js"
   },
   "repository": {
     "type": "git",
