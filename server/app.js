@@ -130,21 +130,22 @@ require('./routes/message-routes.js')(app);
 // });
 
 // ############################## SEARCH ################################
+require('./routes/search-routes.js')(app);
 
-app.post('/search', (req, res) => {
-  db.knex('items')
-    .where('title', 'like', '%' + req.body.search + ' %')
-    .orWhere('title', 'like', '% ' + req.body.search + '%')
-    .orWhere('title', 'like', '% ' + req.body.search + ' %')
-    .orWhere('title', '=', req.body.search)
-    .then(items => {
-      console.log(items);
-      res.send(items);
-    })
-    .catch(err => {
-      res.send('Error:', err)
-    });
-});
+// app.post('/search', (req, res) => {
+//   db.knex('items')
+//     .where('title', 'like', '%' + req.body.search + ' %')
+//     .orWhere('title', 'like', '% ' + req.body.search + '%')
+//     .orWhere('title', 'like', '% ' + req.body.search + ' %')
+//     .orWhere('title', '=', req.body.search)
+//     .then(items => {
+//       console.log(items);
+//       res.send(items);
+//     })
+//     .catch(err => {
+//       res.send('Error:', err)
+//     });
+// });
 
 
 // ############################## ITEMS ################################
