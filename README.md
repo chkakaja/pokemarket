@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.org/chkakaja/sentimize.svg?branch=master)](https://travis-ci.org/chkakaja/sentimize)
 [![Stories in Ready](https://badge.waffle.io/chkakaja/vendr.png?label=ready&title=Ready)](https://waffle.io/chkakaja/vendr)
 # vendr
 
