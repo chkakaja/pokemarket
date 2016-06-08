@@ -2,9 +2,7 @@
 # vendr
 
 
-To seed database with dummy data run     node seedData.js
-
-  Sentimize provides human emotion analysis during video recording for interviews and training.
+Vendr is your personal, local marketplace with real-time communication
 
 ## Table of Contents
 1. [Usage](#Usage)
@@ -37,11 +35,11 @@ Session Overview:
 
 #### 1. Clone the latest version
 
-  Start by cloning the latest version of Sentimize on your local machine by running:
+  Start by cloning the latest version of Vendr on your local machine by running:
 
   ```sh
-  $ git clone https://github.com/chkakaja/sentimize
-  $ cd sentimize
+  $ git clone https://github.com/chkakaja/vendr
+  $ cd vendr
   ```
 
 #### 2. Install Dependencies
