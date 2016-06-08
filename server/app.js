@@ -53,12 +53,14 @@ require('./socket.js');
 
 
 // ############################## PROFILE ###############################
-app.get('/getprofile', (req, res) => {
-  User
-    .where({ id: req.query.id })
-    .fetch()
-    .then(user => res.send(user));
-});
+require('./routes/profile-routes.js')(app);
+
+// app.get('/getprofile', (req, res) => {
+//   User
+//     .where({ id: req.query.id })
+//     .fetch()
+//     .then(user => res.send(user));
+// });
 
 
 // ############################## FEEDBACK ##############################
