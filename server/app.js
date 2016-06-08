@@ -8,10 +8,9 @@ var express = require('express');
 var passport = require('passport');
 var app = express();
 
-// require('./initialize/auth-init.js')(app, express);
 //auth init
-var session = require('express-session');
-var FacebookStrategy = require('passport-facebook').Strategy;
+// var session = require('express-session');
+// var FacebookStrategy = require('passport-facebook').Strategy;
 
 //db init
 var db = require('./db/config');
@@ -29,12 +28,13 @@ require('./initialize/config-init.js')(app, express);
 // app.use(bodyParser());
 
 //auth init
-app.use(session({
-  secret: 'auction',
-  maxAge: 60000
-}));
-app.use(passport.initialize());
-app.use(passport.session());
+require('./initialize/auth-init.js')(app, express, passport);
+// app.use(session({
+//   secret: 'auction',
+//   maxAge: 60000
+// }));
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 // ########################### SOCKET.IO CODE ###########################
 // ########### DO NOT EDIT UNLESS YOU KNOW WHAT YOU'RE DOING ############
@@ -268,53 +268,53 @@ app.get('/signout' , (req, res) => {
 
 // check out passport-facebook documentation for info on how the FB OAuth works
 // passport FB OAuth
-passport.serializeUser(function(user, done) {
-  console.log('serializeUser: ' + user.get('facebookId'));
-  done(null, user.get('facebookId'));
-});
+// passport.serializeUser(function(user, done) {
+//   console.log('serializeUser: ' + user.get('facebookId'));
+//   done(null, user.get('facebookId'));
+// });
 
-passport.deserializeUser(function(facebookId, done) {
-  console.log('deserialize', facebookId);
-  User.where({ facebookId: facebookId }).fetch()
-    .then(function(user) {
-      done(null, user);
-    })
-    .catch(function(err) {
-      done(err, null);
-    });
-});
+// passport.deserializeUser(function(facebookId, done) {
+//   console.log('deserialize', facebookId);
+//   User.where({ facebookId: facebookId }).fetch()
+//     .then(function(user) {
+//       done(null, user);
+//     })
+//     .catch(function(err) {
+//       done(err, null);
+//     });
+// });
 
-passport.use(new FacebookStrategy({
-    // **you will need to create your own fb developer account and input your own clientID and clientSecret
-    clientID: process.env.FACEBOOK_ID,
-    clientSecret: process.env.FACEBOOK_SECRET,
-    callbackURL: "http://localhost:3000/auth/facebook/callback",
-    enableProof: true,
-    profileFields: ['id', 'displayName', 'gender', 'picture.type(large)', 'emails']
-  },
-  function(accessToken, refreshToken, profile, done) {
-    process.nextTick(function() {
-      User.where({ facebookId: profile.id }).fetch()
-        .then(function(user) {
-          // creates user if not found
-          console.log(profile);
-          if (!user) {
-            user = new User({
-              name: profile.displayName,
-              facebookId: profile.id,
-              picture: profile.photos[0].value
-            }).save();
-          }
-          return user;
-        })
-        .then(function(user) {
-          done(null, user);
-        })
-        .catch(function(err) {
-          done(err, null);
-        });
-    })
-  }
-));
+// passport.use(new FacebookStrategy({
+//     // **you will need to create your own fb developer account and input your own clientID and clientSecret
+//     clientID: process.env.FACEBOOK_ID,
+//     clientSecret: process.env.FACEBOOK_SECRET,
+//     callbackURL: "http://localhost:3000/auth/facebook/callback",
+//     enableProof: true,
+//     profileFields: ['id', 'displayName', 'gender', 'picture.type(large)', 'emails']
+//   },
+//   function(accessToken, refreshToken, profile, done) {
+//     process.nextTick(function() {
+//       User.where({ facebookId: profile.id }).fetch()
+//         .then(function(user) {
+//           // creates user if not found
+//           console.log(profile);
+//           if (!user) {
+//             user = new User({
+//               name: profile.displayName,
+//               facebookId: profile.id,
+//               picture: profile.photos[0].value
+//             }).save();
+//           }
+//           return user;
+//         })
+//         .then(function(user) {
+//           done(null, user);
+//         })
+//         .catch(function(err) {
+//           done(err, null);
+//         });
+//     })
+//   }
+// ));
 
 // ######################## END FACEBOOK OAUTH ###########################
