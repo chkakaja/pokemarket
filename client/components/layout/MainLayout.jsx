@@ -1,8 +1,8 @@
 import React, { Component, Proptypes } from 'react';
 import Navbar from './Navbar.jsx';
-import MessageBoxes from './MessageBoxes.jsx';
+import MessageBoxes from './../message-boxes/MessageBoxes.jsx';
 
-import { checkAuthentication } from './../actions';
+import { checkAuthentication } from './../../actions';
 import { connect } from 'react-redux';
 
 export default class App extends Component {

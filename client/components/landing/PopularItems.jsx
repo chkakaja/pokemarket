@@ -1,11 +1,11 @@
-import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
+import React from 'react';
 import $ from 'jquery';
+import { connect } from 'react-redux';
 import { checkAuthentication } from './../actions';
-import ItemEntry from './ItemEntry.jsx';
 
-class PopularItems extends Component {
+import PopularItemEntry from './PopularItemEntry.jsx';
+
+class PopularItems extends React.Component {
   static defaultProps = {
     popularItems: []
   }
@@ -26,9 +26,9 @@ class PopularItems extends Component {
 
   render() {
     return (
-      <div>
+      <div className='popular-items'>
         <div className='popular'>What's popular</div>
-        {this.props.popularItems.map(item => <ItemEntry item={item} key={item.id} />)}
+        {this.props.popularItems.map(item => <PopularItemEntry item={item} key={item.id} />)}
       </div>
     );
   }
