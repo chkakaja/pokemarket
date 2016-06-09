@@ -1,5 +1,4 @@
-var db = require('./../db/config.js');
-
+var db = require('../initialize/db-init.js');
 
 module.exports = {
   search: (req, res) => {

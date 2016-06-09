@@ -1,6 +1,6 @@
 var session = require('express-session');
 var FacebookStrategy = require('passport-facebook').Strategy;
-var User = require('./../db/models/user');
+var User = require('../models/user');
 
 module.exports = function(app, express, passport) {
   app.use(session({
@@ -9,7 +9,7 @@ module.exports = function(app, express, passport) {
   }));
   app.use(passport.initialize());
   app.use(passport.session());
-  
+
 
   passport.use(new FacebookStrategy({
       // **you will need to create your own fb developer account and input your own clientID and clientSecret

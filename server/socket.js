@@ -1,8 +1,8 @@
-var http = require('./app.js')
-var db = require('./db/config');
-var Message = require('./db/models/message.js');
-var io = require('./app.js').io;
-var User = require('./db/models/user.js');
+var http = require('./server.js')
+var db = require('./initialize/db-init.js');
+var Message = require('./models/message.js');
+var io = require('./server.js').io;
+var User = require('./models/user.js');
 
 io.on('connection', socket => {
   socket.on('join', data => {

@@ -4,10 +4,10 @@ if (process.env.NODE_ENV === 'development') {
   require('dotenv').config({path: './env/production.env'});
 }
 
-var db = require('./../server/db/config');
-var User = require('./../server/db/models/user');
-var Item = require('./../server/db/models/item');
-var Feedback = require('./../server/db/models/feedback.js');
+var db = require('./../server/initialize/db-init');
+var User = require('./../server/models/user');
+var Item = require('./../server/models/item');
+var Feedback = require('./../server/models/feedback.js');
 
 var seedData = {
   items: require('./seedItems'),

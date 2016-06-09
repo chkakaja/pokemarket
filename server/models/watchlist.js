@@ -1,4 +1,4 @@
-var db = require('../config');
+var db = require('../initialize/db-init.js');
 
 var WatchList = db.Model.extend({
 
