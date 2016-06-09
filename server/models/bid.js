@@ -1,4 +1,4 @@
-var db = require('../config');
+var db = require('../initialize/db-init.js');
 
 var Bid = db.Model.extend({
 

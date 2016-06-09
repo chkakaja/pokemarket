@@ -1,6 +1,6 @@
-var Message = require('./../db/models/message.js');
-var User = require('./../db/models/user.js');
-var db = require('./../db/config.js');
+var Message = require('../models/message.js');
+var User = require('../models/user.js');
+var db = require('../initialize/db-init.js');
 
 module.exports = {
   getMessages: (req, res) => {

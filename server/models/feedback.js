@@ -1,4 +1,4 @@
-var db = require('../config.js');
+var db = require('../initialize/db-init.js');
 var User = require('./user.js');
 
 var Feedback = db.Model.extend({
