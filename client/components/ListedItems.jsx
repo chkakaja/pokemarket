@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import $ from 'jquery';
 import { checkAuthentication } from './../actions';
-import ItemEntry from './ItemEntry.jsx';
+import ListedItemEntry from './ListedItemEntry.jsx';
 
 class ListedItems extends Component {
   static defaultProps = {
@@ -32,7 +32,7 @@ class ListedItems extends Component {
       return (
         <div>
           <div className='listings'>Your current listings</div>
-          {this.props.listedItems.map(item => <ItemEntry item={item} key={item.id} />)}
+          {this.props.listedItems.map(item => <ListedItemEntry item={item} key={item.id} />)}
         </div>
       );
     } else {
