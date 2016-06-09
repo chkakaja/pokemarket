@@ -45,7 +45,10 @@ export default class ItemEntry extends Component {
                 <div className='item-entry-description'>{this.props.item.description}</div>
               </div>
               <div className='item-entry-purchase'>
-                <div className='item-entry-current-bid'><b>Current Price:</b> ${this.props.item.originalPrice}</div>
+                <div className='item-entry-current-bid'>
+                  <span className='bold'>Original Price: ${this.props.item.originalPrice}</span>
+                  <p className='bold'>Proposed Price: ${this.props.item.currentBid}</p>
+                </div>
                 <button className='watch pure-button' type='submit' onClick={this.watchItem.bind(this)}>Watch Item</button>
               </div>
             </div>
@@ -63,7 +66,7 @@ export default class ItemEntry extends Component {
                 <div className='item-entry-description'>{this.props.item.description}</div>
               </div>
               <div className='item-entry-purchase'>
-                <div className='item-entry-current-bid'><b>Current Price:</b> ${this.props.item.originalPrice}</div>
+                <div className='item-entry-current-bid'><b>Original Price:</b> ${this.props.item.originalPrice}</div>
               </div>
             </div>
           </Link>

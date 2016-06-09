@@ -34,7 +34,7 @@ class Item extends Component {
         dataType: 'json',
         success: function(data) {
           this.props.setCurrentItem(data);
-          console.log(this.props);
+          console.log(this.props, "I AM THE PROPS");
         }.bind(this)
       });
     }
@@ -82,7 +82,6 @@ class Item extends Component {
       dataType: 'json',
       success: function(data) {
         this.props.item.currentBid = data.currentBid;
-        this.props.item.current_bidder = this.seller_id;
         console.log('Current bid:', data.currentBid);
         this.props.setCurrentItem(this.props.item);
         document.getElementsByClassName('set-bid-input')[0].value = '';
@@ -119,8 +118,10 @@ class Item extends Component {
           <div className='pure-u-1-24'></div>
           <div className='purchase pure-u-6-24'>
             <div className='current-bid'>
-              <span className='bold'>Current Price: </span>
-              ${this.props.item.currentBid}
+              <span className='bold'>Original Price: ${this.props.item.originalPrice}</span>
+              <p className='bold'>Proposed Price: ${this.props.item.currentBid}</p>
+              
+
             </div>
             <form onSubmit={this.setBid.bind(this)}>
               <div className='set-bid pure-form'>
@@ -128,7 +129,7 @@ class Item extends Component {
                 <input type='submit' className='set-bid-button pure-button' />
               </div>
             </form>
-            <StripeCheckout price={this.props.item.currentBid} />
+            <StripeCheckout price={this.props.item.originalPrice} />
           </div>
           <div className='pure-u-1-24'></div>
           <div className='item-seller pure-u-4-24'>
@@ -151,8 +152,8 @@ class Item extends Component {
           <div className='pure-u-1-24'></div>
           <div className='purchase pure-u-6-24'>
             <div className='current-bid'>
-              <span className='bold'>Current Price: </span>
-              ${this.props.item.currentBid}
+              <span className='bold'>Original Price: </span>
+              ${this.props.item.originalPrice}
             </div>
           </div>
           <div className='pure-u-1-24'></div>
