@@ -1,12 +1,11 @@
-import React, { Component, Proptypes } from 'react';
+import React, { Proptypes } from 'react';
 import Navbar from './Navbar.jsx';
 import MessageBoxes from './../message-boxes/MessageBoxes.jsx';
 
 import { checkAuthentication } from './../../actions';
 import { connect } from 'react-redux';
 
-export default class App extends Component {
-
+export default class App extends React.Component {
   componentWillMount() {
     this.props.getUser();
   }

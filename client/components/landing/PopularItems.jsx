@@ -1,9 +1,9 @@
 import React from 'react';
 import $ from 'jquery';
 import { connect } from 'react-redux';
-import { checkAuthentication } from './../actions';
+import { checkAuthentication } from './../../actions';
 
-import PopularItemEntry from './PopularItemEntry.jsx';
+import ItemEntry from './../ItemEntry.jsx';
 
 class PopularItems extends React.Component {
   static defaultProps = {
@@ -28,7 +28,7 @@ class PopularItems extends React.Component {
     return (
       <div className='popular-items'>
         <div className='popular'>What's popular</div>
-        {this.props.popularItems.map(item => <PopularItemEntry item={item} key={item.id} />)}
+        {this.props.popularItems.map(item => <ItemEntry item={item} key={item.id} />)}
       </div>
     );
   }

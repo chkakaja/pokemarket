@@ -2,10 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import $ from 'jquery';
+
 import prettyDate from 'dateformat';
-import SearchResults from './SearchResults.jsx';
-import Username from './Username.jsx';
-import CountdownTimer from './CountdownTimer.jsx';
+import Username from './../Username.jsx';
+import CountDownTimer from './../CountDownTimer.jsx';
 
 class Item extends Component {
 
@@ -38,19 +38,7 @@ class Item extends Component {
       });
     }
   }
-
-  // getCurrentUser() {
-  //   $.ajax({
-  //     method: 'GET',
-  //     url: '/getuserid',
-  //     data: { id: this.props.item.id },
-  //     dataType: 'json',
-  //     success: function(data) {
-  //       this.current_user = data;
-  //     }.bind(this)
-  //   });
-  // }
-
+  
   addVisit() {
     $.ajax({
       method: 'POST',
@@ -128,7 +116,7 @@ class Item extends Component {
               </div>
             </form>
             <div className='end-time'>{prettyDate(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</div>
-            <CountdownTimer endDate={this.props.item.end_at} />
+            <CountDownTimer endDate={this.props.item.end_at} />
           </div>
           <div className='pure-u-1-24'></div>
           <div className='item-seller pure-u-4-24'>
