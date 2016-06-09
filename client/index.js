@@ -1,14 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import {Router, browserHistory} from 'react-router';
+
 import store from './store';
-import routes from './routes.jsx';
-import MessageBoxes from './components/MessageBoxes.jsx';
+import App from './App.jsx';
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router routes={routes} />
+    <App />
   </Provider>,
   document.getElementById('app')
 );
