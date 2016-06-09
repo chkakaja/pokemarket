@@ -10,3 +10,5 @@ public/bundle.js
 
 #Environment configuration
 env/development.env
+
+client/.DS_Store
