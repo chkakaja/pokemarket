@@ -1,12 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import $ from 'jquery';
+import { join, sendMessage } from './../../socket.js';
 
 import Messages from './Messages.jsx';
 import MessageInput from './MessageInput.jsx';
-import $ from 'jquery';
-import { join, sendMessage } from '../socket.js';
 
-class MessageBox extends Component {
+class MessageBox extends React.Component {
 
   static defaultProps = {
     messages: []
@@ -96,4 +96,5 @@ var mapDispatchToProps = function(dispatch) {
     }
   };
 };
+
 module.exports = connect(mapStateToProps,mapDispatchToProps)(MessageBox);

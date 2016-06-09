@@ -1,11 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import MessageBox from './MessageBox.jsx'
 import { connect } from 'react-redux';
-import { checkAuthentication } from './../actions';
+import { checkAuthentication } from './../../actions';
 
-// console.log('checkAuthentication', checkAuthentication);
-
-class MessageBoxes extends Component {
+class MessageBoxes extends React.Component {
   static defaultProps = {
     activeMessages: []
   }
@@ -32,7 +30,6 @@ class MessageBoxes extends Component {
     }
     return null;
   }
-  
 }
 
 var mapStateToProps = function(state, ownProps) {
