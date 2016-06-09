@@ -29,10 +29,8 @@ module.exports = {
   updateBid:  (req, res) => {
     Item.where({ id: req.body.id }).fetch()
       .then(function(item) {
-        if (req.body.newBid > item.attributes.currentBid) {
           item.set({ currentBid: req.body.newBid }).save();
           item.set({ current_bidder: req.body.currentBidder }).save();
-        }
         res.send(item.attributes);
       })
       .catch(function(err) {

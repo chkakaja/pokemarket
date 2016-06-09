@@ -35,7 +35,8 @@ for (var i = 0; i < seedData.items.length; i++) {
 		description:seedData.items[i].description,
 		picture:seedData.items[i].picture,
 		duration:seedData.items[i].duration,
-		currentBid:seedData.items[i].currentBid,
+    currentBid:seedData.items[i].currentBid,
+		originalPrice:seedData.items[i].originalPrice,
 		end_at: seedData.items[i].end_at
 	}).save()
 };

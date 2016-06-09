@@ -5,7 +5,8 @@ module.exports = [
     "description": 'Great hat. Never wore!',
     "picture":'http://images.footballfanatics.com/FFImage/thumb.aspx?i=/productImages/_1890000/ff_1890568_full.jpg&w=245',
     "duration": 2,  
-    "currentBid": 14, 
+    "currentBid": 14,
+    'originalPrice': 14 
 
   },
   { 
@@ -15,6 +16,7 @@ module.exports = [
     "picture":'http://images.travelpod.com/tripwow/photos2/ta-069b-ece8-2fb6/apple-ipone-igs-jakarta-indonesia%2B1152_13485948504-tpfil02aw-29128.jpg',
     "duration": 5,
     "currentBid": 100,
+    'originalPrice': 100 
   },
   {
     "seller_id":1,
@@ -22,7 +24,8 @@ module.exports = [
     "description": 'cool star wars t-shirt',
     "picture":'http://www.theshirtlist.com/wp-content/uploads/2012/09/Star-Wars-Logo-T-Shirt.jpg',
     "duration": 5,
-    "currentBid": 12
+    "currentBid": 12,
+    'originalPrice': 12
   },
   {
     "seller_id":1,
@@ -30,7 +33,8 @@ module.exports = [
     "description": 'Look cool in these new glasses',
     "picture":'http://cdn.business.transworld.net/wp-content/blogs.dir/1/files/2016-sunglasses-showroom/SUNGLASSES-TRENDS_02.jpg',
     "duration": 7,
-    "currentBid": 40
+    "currentBid": 40,
+    'originalPrice': 40
   },
   {
     "seller_id":2,
@@ -38,7 +42,8 @@ module.exports = [
     "description": 'Best show out there!',
     "picture": 'http://cdn.hbowatch.com/wp-content/uploads/2012/03/Game-of-Thrones-DVD-Blu-Ray.jpg',
     "duration": 1,
-    "currentBid": 20
+    "currentBid": 20,
+    'originalPrice': 20
   },
   {
     "seller_id":2,
@@ -46,7 +51,8 @@ module.exports = [
     "description": 'Curry jersey',
     "picture":'http://www.dickssportinggoods.com/graphics/product_images/pDSP1-20083265v750.jpg',
     "duration": 1,
-    "currentBid": 60
+    "currentBid": 60,
+    'originalPrice': 60 
   },
   {
     "seller_id":2,
@@ -54,7 +60,8 @@ module.exports = [
     "description": 'cool green hat',
     "picture":'http://assets.craniumfitteds.com/images/main/06-New-York-Yankees-MLB-Kelly-Green-And-White-Basic-New-Era-Cap-5950-Custom-59fifty-Fitted-Cap-1.jpg',
     "duration": 1,
-    "currentBid": 5
+    "currentBid": 5,
+    'originalPrice': 5
   },
   {
     "seller_id":2,
@@ -62,7 +69,8 @@ module.exports = [
     "description": 'rare t-shirt',
     "picture":'https://image.spreadshirtmedia.net/image-server/v1/products/107825272/views/1,width=378,height=378,appearanceId=407,version=1438837740/Tested-on-Animals---Didn-t-Fit-T-Shirts.png', 
     "duration": 2,
-    "currentBid": 10
+    "currentBid": 10,
+    'originalPrice': 10
   },
   {
     "seller_id":2,
@@ -71,6 +79,7 @@ module.exports = [
     "picture":'http://scene7.targetimg1.com/is/image/Target/17314201?wid=410&hei=410',
     "duration": 5,
     "currentBid": 11,
+    'originalPrice': 11
   },
   {
     "seller_id":1,
@@ -78,7 +87,8 @@ module.exports = [
     "description": 'random text books',
     "picture":'http://www.gijobs.com/wp-content/uploads/2014/08/textbooks.resized-1.jpg',
     "duration": 3,
-    "currentBid": 10
+    "currentBid": 10,
+    'originalPrice': 10 
   },
   {
     "seller_id":2,
@@ -87,6 +97,7 @@ module.exports = [
     "picture":'http://prodimage.images-bn.com/pimages/9780545162074_p0_v2_s1200x630.jpg',
     "duration": 5,
     "currentBid": 40,
+    'originalPrice': 40 
   },
   { 
     "seller_id":1,
@@ -103,6 +114,7 @@ module.exports = [
     "picture":'https://i.kinja-img.com/gawker-media/image/upload/s--3IymSRpo--/c_scale,fl_progressive,q_80,w_800/1462020208386129578.jpg',
     "duration": 3,
     "currentBid": 20,
+    'originalPrice': 20
   },
   { 
     "seller_id":2,
@@ -110,7 +122,8 @@ module.exports = [
     "description": 'really nice painting',
     "picture":'https://afremov.com/image.php?type=P&id=19095',
     "duration": 1,
-    "currentBid": 40
+    "currentBid": 40,
+    'originalPrice': 40 
   },
   { 
     "seller_id":1,
@@ -119,6 +132,7 @@ module.exports = [
     "picture":'http://cdn.shopify.com/s/files/1/1042/8594/products/PigDog_deck_tailpatch_SUPERbrand_31c812c8-ee3f-42ed-b6ba-a82c5dafa2bc_1024x1024.jpg?v=1460509432',
     "duration":2,
     "currentBid":80,
+    'originalPrice': 80,
     "end_at": '2016-02-06T21:19:55.000Z'
   },
   { 
@@ -127,7 +141,8 @@ module.exports = [
     "description":'slightly used iphone',
     "picture":'http://cdn.macrumors.com/article-new/2016/02/iphoneserosegold-800x898.jpg',
     "duration":1,
-    "currentBid": 100
+    "currentBid": 100,
+    'originalPrice': 100
   },
   { 
     "seller_id":1,
@@ -136,6 +151,7 @@ module.exports = [
     "picture":'http://screenrant.com/wp-content/uploads/Settlers-of-Catan-Board-Game-Play-Set.jpg',
     "duration":2,
     "currentBid": 10,
+    'originalPrice': 10
   },
   { 
     "seller_id":2,
@@ -144,6 +160,7 @@ module.exports = [
     "picture":'http://www.pogo.com/hotdeploy/us/promotions/img/game-landing/risk/overview-q1.jpg',
     "duration":1,
     "currentBid":8,
+    'originalPrice': 8
   },
   { 
     "seller_id":1,
@@ -153,7 +170,9 @@ module.exports = [
     "duration":5,
     "currentBid": 50,
     "current_bidder": 1,
-    "end_at": '2016-02-06T21:19:55.000Z'
+    'originalPrice': 50,
+    "end_at": '2016-02-06T21:19:55.000Z',
+
   },
   { 
     "seller_id":2,
@@ -163,6 +182,7 @@ module.exports = [
     "duration":4,
     "currentBid":30,
     "current_bidder": 2,
+    'originalPrice': 30,
     "end_at": '2016-02-06T21:19:55.000Z'
   },
   { 
@@ -173,6 +193,7 @@ module.exports = [
     "duration":3,
     "currentBid":8,
     "current_bidder": 2,
+    'originalPrice': 8,
     "end_at": '2016-02-06T21:19:55.000Z'
   },
   { 
@@ -181,7 +202,8 @@ module.exports = [
     "description": 'signed by curry',
     "picture":'http://cdn1.bigcommerce.com/n-ou1isn/5irfm624/products/786/images/1192/Warriors_CurryBB__67701.1396227695.1280.1280.jpg?c=2',
     "duration":1,
-    "currentBid":80
+    "currentBid":80,
+    'originalPrice': 80 
   },
   { 
     "seller_id":1,
@@ -189,7 +211,8 @@ module.exports = [
     "description":'brand new ball',
     "picture":'http://ecx.images-amazon.com/images/P/B008VTKHK0.01-A3RQY5TOZ9O97T._SS1740_SCRMZZZZZZZ_V391853133_.jpg',
     "duration":6,
-    "currentBid":15
+    "currentBid":15,
+    'originalPrice': 15 
   },                
 ];
 

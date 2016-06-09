@@ -183,7 +183,7 @@ a {
   padding: auto 0;
   text-align: center;
   vertical-align: middle;
-  background-color: #1f1e1f;
+  background-color: black;
 }
 
 .nav .links .navlink, .navlink2 {
@@ -191,7 +191,7 @@ a {
   padding: auto 0;
   text-align: center;
   vertical-align: middle;
-  background-color: #1f1e1f;
+  background-color: black;
 }
 
 .nav .links .navlink:hover {
@@ -220,7 +220,7 @@ a {
 .nav .links .dropdown:hover ul {
   opacity: 1;
   height: auto;
-  background-color: #1f1e1f;
+  background-color: black;
 }
 
 .nav .links .dropdown ul a {
