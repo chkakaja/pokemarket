@@ -7,7 +7,7 @@ import prettyDate from 'dateformat';
 import { checkAuthentication } from './../actions';
 import CountdownTimer from './CountDownTimer.jsx';
 
-export default class PopularItemEnry extends React.Component {
+export default class ItemEnry extends React.Component {
 
   componentDidMount() {
     this.props.getUser();
