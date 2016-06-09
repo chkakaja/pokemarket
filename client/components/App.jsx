@@ -5,7 +5,6 @@ import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
 import Navbar from './Navbar.jsx';
 import { connect } from 'react-redux';
 import { checkAuthentication } from '../actions.js';
-import StripeCheckout from './React-Stripe-Checkout.jsx'
 
 export default class App extends Component {
 
@@ -19,7 +18,6 @@ export default class App extends Component {
        <Navbar />
        {this.props.children}
        <MessageBoxes />
-       <StripeCheckout />
       </div>
     );
   }

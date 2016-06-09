@@ -39,7 +39,7 @@ export default class PaymentView extends React.Component {
           image="https://www.mygreatlakes.org/mglstatic/educate/images/knowledge-center/slider/ways-steps.png"
           // description="for goods purchased"
           panelLabel="Total: "
-          amount={1000}
+          amount={this.props.price * 100}
           currency="USD"
           bitcoin={true} />
     )
