@@ -20,6 +20,7 @@ export default class PaymentView extends React.Component {
       url: '/api/stripe',
       success: function(data) {
         // console.log(data);
+        console.log('Im back from server', data)
         callback(data);
       },
       error: function(err) {

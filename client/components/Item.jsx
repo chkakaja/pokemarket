@@ -7,6 +7,7 @@ import SearchResults from './SearchResults.jsx';
 import Username from './Username.jsx';
 import { checkAuthentication } from '../actions.js';
 import CountdownTimer from './CountdownTimer.jsx';
+import StripeCheckout from './React-Stripe-Checkout.jsx'
 
 class Item extends Component {
 
@@ -130,6 +131,7 @@ class Item extends Component {
             </form>
             <div className='end-time'>{prettyDate(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</div>
             <CountdownTimer endDate={this.props.item.end_at} />
+            <StripeCheckout />
           </div>
           <div className='pure-u-1-24'></div>
           <div className='item-seller pure-u-4-24'>
