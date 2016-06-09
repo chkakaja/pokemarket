@@ -14,6 +14,7 @@ var join = function(userId) {
   socket.emit('join', {userId: userId});
 };
 
+
 var sendMessage = function(sender, receiver, text) {
   var msg = {
     message: text,

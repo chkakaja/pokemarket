@@ -44,9 +44,7 @@ export default class PopularItemEnry extends React.Component {
                 <div className='item-entry-description'>{this.props.item.description}</div>
               </div>
               <div className='item-entry-purchase'>
-                <div className='item-entry-current-bid'><b>Current Bid:</b> ${this.props.item.currentBid}</div>
-                <div className='item-entry-end-time'><b>Ending:</b> {prettyDate(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</div>
-                <div className='countdown'><CountdownTimer endDate={this.props.item.end_at} /></div>
+                <div className='item-entry-current-bid'><b>Current Price:</b> ${this.props.item.currentBid}</div>
                 <button className='watch pure-button' type='submit' onClick={this.watchItem.bind(this)}>Watch Item</button>
               </div>
             </div>
@@ -64,9 +62,7 @@ export default class PopularItemEnry extends React.Component {
                 <div className='item-entry-description'>{this.props.item.description}</div>
               </div>
               <div className='item-entry-purchase'>
-                <div className='item-entry-current-bid'><b>Current Bid:</b> ${this.props.item.currentBid}</div>
-                <div className='item-entry-end-time'><b>Ending:</b> {prettyDate(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</div>
-                <div className='countdown'><CountdownTimer endDate={this.props.item.end_at} /></div>
+                <div className='item-entry-current-bid'><b>Current Price:</b> ${this.props.item.currentBid}</div>
               </div>
             </div>
           </Link>
