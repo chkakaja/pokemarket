@@ -17,7 +17,7 @@ import Profile from './components/Profile.jsx';
 import PersonalPage from './components/PersonalPage.jsx';
 
 module.exports = () => (
-  <Router>
+  <Router history={browserHistory}>
     <Route path="/" component={MainLayout}>
       <IndexRoute component={Landing} />
       <Route path="landing" component={Landing} />
