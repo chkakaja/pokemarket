@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import Username from './Username.jsx';
+import Username from './../Username.jsx';
 
 export default class ProfileEntry extends Component {
 

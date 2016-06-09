@@ -1,15 +1,9 @@
-import React, { Component } from 'react';
-import FacebookButton from './FacebookButton.jsx';
-import SearchBar from './SearchBar.jsx';
-import Signin from './Signin.jsx';
-import SellItem from './SellItem.jsx'
-import MessageBox from './MessageBox.jsx';
-import Item from './Item.jsx';
-import WatchedItems from './WatchedItems.jsx';
-import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
+import React from 'react';
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { checkAuthentication } from './../actions';
+import { checkAuthentication } from './../../actions';
 
+import SearchBar from './SearchBar.jsx';
 
 export default class Navbar extends React.Component {
   

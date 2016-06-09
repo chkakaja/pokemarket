@@ -1,8 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import ReactDOM from 'react';
 import Textarea from 'react-textarea-autosize';
 
-export default class MessageInput extends Component { 
+export default class MessageInput extends React.Component { 
 
   constructor(props) {
     super(props);
