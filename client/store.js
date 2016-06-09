@@ -1,34 +1,36 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
-import Thunk from 'redux-thunk';
+import thunkMiddleware from 'redux-thunk';
 
-import {reducer as formReducer} from 'redux-form';
-
-import messengerReducer from './reducers/messenger.js';
-import authenticationReducer from './reducers/authentication.js';
-import searchItemsReducer from './reducers/searchItems.js';
-import setWatchedItemsReducer from './reducers/setWatchedItems.js';
-import setListedItemsReducer from './reducers/setListedItems.js';
-import setPopularItemsReducer from './reducers/setPopularItems.js';
-import setCurrentItemReducer from './reducers/setCurrentItem.js';
+import user from './reducers/user.js';
+import profile from './reducers/profile.js';
+import messages from './reducers/messages.js';
+import { reducer as form } from 'redux-form';
+import currentItem from './reducers/currentItem.js';
+import filteredItems from './reducers/filteredItems.js';
+import watchedItems from './reducers/watchedItems.js';
+import listedItems from './reducers/listedItems.js';
+import popularItems from './reducers/popularItems.js';
 import initialState from './initialState.js'
-import feedbackReducer from './reducers/feedback.js';
-import toLeaveFeedbackReducer from './reducers/leaveFeedback.js';
-import profileReducer from './reducers/profile.js';
+import feedback from './reducers/feedback.js';
+import toLeaveFeedback from './reducers/toLeaveFeedback.js';
 
 var reducers = combineReducers({
-  messages: messengerReducer,
-  form: formReducer,
-  user: authenticationReducer,
-  filteredItems: searchItemsReducer,
-  feedback: feedbackReducer,
-  toLeaveFeedback: toLeaveFeedbackReducer,
-  filteredItems: searchItemsReducer,
-  watchedItems: setWatchedItemsReducer,
-  listedItems: setListedItemsReducer,
-  popularItems: setPopularItemsReducer,
-  currentItem: setCurrentItemReducer,
-  profile: profileReducer
+  user,
+  profile,
+  messages,
+  form,
+  currentItem,
+  watchedItems,
+  filteredItems,
+  listedItems,
+  popularItems,
+  feedback,
+  toLeaveFeedback
 });
 
-export default createStore(reducers, initialState(), applyMiddleware(Thunk));
+export default createStore(
+  reducers, 
+  initialState(), 
+  applyMiddleware(thunkMiddleware)
+);
 
