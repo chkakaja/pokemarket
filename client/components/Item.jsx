@@ -188,8 +188,7 @@ var mapDispatchToProps = function(dispatch){
         type: 'SET_CURRENT_ITEM',
         item
       })
-    },
-    getUser: checkAuthentication(dispatch)
+    }
   }
 };
 
