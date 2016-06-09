@@ -1,4 +1,4 @@
-import initialState from '../initialState.js';
+import initialState from './../store/initialState';
 
 export default function(state = initialState(), action) {
   var i;
