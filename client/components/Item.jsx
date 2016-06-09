@@ -6,6 +6,7 @@ import prettyDate from 'dateformat';
 import SearchResults from './SearchResults.jsx';
 import Username from './Username.jsx';
 import CountdownTimer from './CountdownTimer.jsx';
+import StripeCheckout from './React-Stripe-Checkout.jsx'
 
 class Item extends Component {
 
@@ -118,17 +119,16 @@ class Item extends Component {
           <div className='pure-u-1-24'></div>
           <div className='purchase pure-u-6-24'>
             <div className='current-bid'>
-              <span className='bold'>Current Highest Bid: </span>
+              <span className='bold'>Current Price: </span>
               ${this.props.item.currentBid}
             </div>
             <form onSubmit={this.setBid.bind(this)}>
               <div className='set-bid pure-form'>
-                <input className='set-bid-input pure-input-1-2' onChange={this.changeBid.bind(this)} type='number' placeholder='Set your bid' />
+                <input className='set-bid-input pure-input-1-2' onChange={this.changeBid.bind(this)} type='number' placeholder='Your price' />
                 <input type='submit' className='set-bid-button pure-button' />
               </div>
             </form>
-            <div className='end-time'>{prettyDate(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</div>
-            <CountdownTimer endDate={this.props.item.end_at} />
+            <StripeCheckout price={this.props.item.currentBid} />
           </div>
           <div className='pure-u-1-24'></div>
           <div className='item-seller pure-u-4-24'>
@@ -151,13 +151,9 @@ class Item extends Component {
           <div className='pure-u-1-24'></div>
           <div className='purchase pure-u-6-24'>
             <div className='current-bid'>
-              <span className='bold'>Current Highest Bid: </span>
+              <span className='bold'>Current Price: </span>
               ${this.props.item.currentBid}
             </div>
-            <form onSubmit={this.setBid.bind(this)}>
-            </form>
-            <div className='end-time'>{prettyDate(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</div>
-            <CountdownTimer endDate={this.props.item.end_at} />
           </div>
           <div className='pure-u-1-24'></div>
           <div className='item-seller pure-u-4-24'>
