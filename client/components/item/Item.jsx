@@ -116,12 +116,9 @@ class Item extends Component {
                 <input type='submit' className='set-bid-button pure-button' />
               </div>
             </form>
-<<<<<<< HEAD:client/components/item/Item.jsx
             <div className='end-time'>{prettyDate(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</div>
             <CountDownTimer endDate={this.props.item.end_at} />
-=======
             <StripeCheckout price={this.props.item.currentBid} />
->>>>>>> master:client/components/Item.jsx
           </div>
           <div className='pure-u-1-24'></div>
           <div className='item-seller pure-u-4-24'>
