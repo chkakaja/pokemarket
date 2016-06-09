@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, browserHistory, History } from 'react-router'
 import $ from 'jquery';
-import { checkAuthentication } from '../actions.js';
+import { checkAuthentication } from './../actions';
 
 class SearchBar extends React.Component {
 

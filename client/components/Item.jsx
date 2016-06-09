@@ -5,7 +5,7 @@ import $ from 'jquery';
 import prettyDate from 'dateformat';
 import SearchResults from './SearchResults.jsx';
 import Username from './Username.jsx';
-import { checkAuthentication } from '../actions.js';
+import { checkAuthentication } from './../actions';
 import CountdownTimer from './CountdownTimer.jsx';
 
 class Item extends Component {

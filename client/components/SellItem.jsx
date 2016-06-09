@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import {reduxForm} from 'redux-form';
 import $ from 'jquery';
-import { checkAuthentication } from '../actions.js';
+import { checkAuthentication } from './../actions';
 import { connect } from 'react-redux';
 import FacebookButton from './FacebookButton.jsx';
 

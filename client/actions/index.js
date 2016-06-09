@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { join } from './socket.js';
+import { join } from './../socket.js';
 
 var checkAuthentication = function(dispatch) {
   

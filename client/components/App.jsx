@@ -4,7 +4,7 @@ import Router from 'react-router';
 import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
 import Navbar from './Navbar.jsx';
 import { connect } from 'react-redux';
-import { checkAuthentication } from '../actions.js';
+import { checkAuthentication } from './../actions';
 
 export default class App extends Component {
 
