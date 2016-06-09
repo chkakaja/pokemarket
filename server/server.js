@@ -11,6 +11,9 @@ var app = express();
 //general init
 require('./initialize/config-init.js')(app, express);
 
+//db init
+require('./initialize/db-init.js');
+
 //auth init
 require('./initialize/auth-init.js')(app, express, passport);
 

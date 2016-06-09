@@ -1,7 +1,7 @@
-var Feedback = require('./../db/models/feedback.js');
-var User = require('./../db/models/user.js');
-var Item = require('./../db/models/item.js');
-var db = require('./../db/config.js');
+var Feedback = require('../models/feedback.js');
+var User = require('../models/user.js');
+var Item = require('../models/item.js');
+var db = require('../initialize/db-init.js');
 
 module.exports = {
   getFeedback: (req, res) => {
