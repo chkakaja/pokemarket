@@ -34,7 +34,7 @@ class Item extends Component {
         dataType: 'json',
         success: function(data) {
           this.props.setCurrentItem(data);
-          console.log(this.props, "I AM THE PROPS");
+          console.log(this.props, 'I AM THE PROPS');
         }.bind(this)
       });
     }
@@ -119,7 +119,7 @@ class Item extends Component {
           <div className='purchase pure-u-6-24'>
             <div className='current-bid'>
               <span className='bold'>Original Price: ${this.props.item.originalPrice}</span>
-              <p className='bold'>Proposed Price: ${this.props.item.currentBid}</p>
+              <p className='bold'>Proposed Price: ${this.props.item.currentBid} </p>
               
 
             </div>
@@ -129,7 +129,7 @@ class Item extends Component {
                 <input type='submit' className='set-bid-button pure-button' />
               </div>
             </form>
-            <StripeCheckout price={this.props.item.originalPrice} />
+            <StripeCheckout price={this.props.item.newPrice} />
           </div>
           <div className='pure-u-1-24'></div>
           <div className='item-seller pure-u-4-24'>

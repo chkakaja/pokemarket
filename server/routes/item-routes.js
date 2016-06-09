@@ -15,5 +15,6 @@ module.exports = function(app) {
   app.get('/getWatchedItems', ItemController.watchedItems);
   app.get('/getListedItems', ItemController.listedItems);
   app.get('/getPopularItems', ItemController.popularItems);
+  app.post('/acceptPrice', ItemController.acceptPrice)
   app.post('/sellItem', ItemController.sellItem);
 }

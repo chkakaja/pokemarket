@@ -18,7 +18,6 @@ class PersonalPage extends Component {
         <div className='personalpage'>
           <div className='watched-items pure-u-1-3'><WatchedItems /></div>
           <div className='listed-items pure-u-1-3'><ListedItems /></div>
-          <div className='leave-feedback pure-u-1-3'><LeaveFeedback /></div>
         </div>
       )
     } else {

@@ -13,6 +13,29 @@ export default class ItemEntry extends Component {
     this.props.setCurrentItem(this.props.item);
   }
 
+  accept(e) {
+    e.preventDefault();
+    return $.ajax({
+      method: 'POST',
+      url: '/acceptPrice',
+      data: {
+        id: this.props.item.id,
+        currentBidder: this.props.item.current_bidder,
+        acceptedBid: this.props.item.currentBid
+      },
+      dataType: 'json',
+      success: function(data) {
+        this.props.item.newPrice = data.newPrice;
+        this.props.setCurrentItem(this.props.item);
+        //update state w new item Acceptprice
+      }.bind(this)
+    })
+  }
+
+  decline() {
+
+  }
+
   render () {
     return (
       <div className='item-entry'>
@@ -23,23 +46,21 @@ export default class ItemEntry extends Component {
               <div className='item-entry-title'>{this.props.item.title}</div>
               <div className='item-entry-description'>{this.props.item.description}</div>
             </div>
+          </div>
+        </Link>
             <div className='item-entry-purchase'>
-              <div className='item-entry-current-bid'><b>Current Price:</b> ${this.props.item.originalPrice}</div>
+              <div className='item-entry-current-bid'>
+                <span className='bold'>Original Price: ${this.props.item.originalPrice}</span>
+              </div>
             </div>
             <div className='item-entry-counters'>
               <div>
-                Counter offers:
-                <ul>
-                  <li> $8
-                  <button class="pure-button">Accept</button>
-                  <button class="pure-button">Decline</button>
-                  </li>
-                </ul>
+                <p className='bold'>Proposed Price: ${this.props.item.currentBid}</p>
+                <button class="pure-button" onClick={this.accept.bind(this)}>Accept</button>
+                <button class="pure-button" onClick={this.decline.bind(this)}>Decline</button>
               </div>
             </div>
           </div>
-        </Link>
-      </div>
     );
   }
 }

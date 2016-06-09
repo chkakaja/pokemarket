@@ -88,6 +88,18 @@ module.exports = {
   sellItem: (req, res) => {
     console.log(req.body);
     new Item(req.body).save().then(() => res.status(200));
+  },
+
+  acceptPrice: (req, res) => {
+    Item.where({ id: req.body.id }).fetch()
+      .then(function(item) {
+          item.set({ newPrice: req.body.acceptedBid }).save();
+          item.set({ current_bidder: req.body.currentBidder }).save();
+        res.send(item.attributes);
+      })
+      .catch(function(err) {
+        res.send('Error:', err);
+    })
   }
 
 }
