@@ -15,7 +15,7 @@ require('./initialize/config-init.js')(app, express);
 require('./initialize/auth-init.js')(app, express, passport);
 
 // ########################### SOCKET.IO CODE ###########################
-// ########### DO NOT EDIT UNLESS YOU KNOW WHAT YOU'RE DOING ############
+
 var http = require('http').Server(app);
 exports.io = require('socket.io')(http);
 
