@@ -129,7 +129,7 @@ class Item extends Component {
                 <input type='submit' className='set-bid-button pure-button' />
               </div>
             </form>
-            <StripeCheckout price={this.props.item.newPrice} />
+            <StripeCheckout item={this.props.item} />
           </div>
           <div className='pure-u-1-24'></div>
           <div className='item-seller pure-u-4-24'>
