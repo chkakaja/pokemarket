@@ -24,7 +24,7 @@ module.exports = function(app, express, passport) {
         User.where({ facebookId: profile.id }).fetch()
           .then(function(user) {
             // creates user if not found
-            console.log(profile);
+            // console.log(profile);
             if (!user) {
               user = new User({
                 name: profile.displayName,
