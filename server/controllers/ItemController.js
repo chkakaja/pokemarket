@@ -79,7 +79,7 @@ module.exports = {
   popularItems: (req, res) => {
     Item.forge().orderBy('visits', 'desc').fetchAll()
       .then(items => {
-        console.log(items);
+        // console.log(items);
         res.send(items);
       })
       .catch(err => {
@@ -88,6 +88,7 @@ module.exports = {
   },
 
   sellItem: (req, res) => {
+    console.log(req.body);
     new Item(req.body).save().then(() => res.status(200));
   }
 
