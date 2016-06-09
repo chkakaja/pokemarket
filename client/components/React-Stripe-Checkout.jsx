@@ -41,7 +41,10 @@ export default class PaymentView extends React.Component {
           panelLabel="Total: "
           amount={this.props.price * 100}
           currency="USD"
-          bitcoin={true} />
+          bitcoin={true}
+          componentClass="div">
+          <button className="pure-button">Buy Now ${this.props.price}</button>
+      </StripeCheckout>
     )
   }
 }
