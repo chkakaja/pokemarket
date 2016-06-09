@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import store from './store.js';
+import store from './store';
 import io from 'socket.io-client';
 
 var socket = io();

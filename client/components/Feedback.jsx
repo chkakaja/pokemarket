@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { getFeedback } from '../actions.js';
+import { getFeedback } from './../actions';
 import { connect } from 'react-redux';
 import FeedbackEntry from './FeedbackEntry.jsx';
 

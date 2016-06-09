@@ -6,7 +6,7 @@ var config = {
 
   output: {
     filename: "bundle.js",
-    path: __dirname + "/client/static",
+    path: __dirname + "/public",
   },
   module: {
     loaders: [

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { checkAuthentication } from '../actions.js';
+import { checkAuthentication } from './../actions';
 import WatchedItems from './WatchedItems.jsx';
 import ListedItems from './ListedItems.jsx';
 import LeaveFeedback from './LeaveFeedback.jsx';
