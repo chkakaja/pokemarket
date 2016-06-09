@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import {reduxForm} from 'redux-form';
 import $ from 'jquery';
-import { checkAuthentication } from './../actions';
+
+import {reduxForm} from 'redux-form';
+import { checkAuthentication } from './../../actions';
 import { connect } from 'react-redux';
-import FacebookButton from './FacebookButton.jsx';
 
 // look up documentation for redux-form for more insight on how this works
 class SellItem extends Component {
