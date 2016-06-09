@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import { checkAuthentication } from '../actions.js';
+import { checkAuthentication } from './../actions';
 import PopularItems from './PopularItems.jsx';
 import LeaveFeedback from './LeaveFeedback.jsx';
 

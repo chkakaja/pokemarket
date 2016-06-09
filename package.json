@@ -4,7 +4,7 @@
   "description": "a simple auction app",
   "main": "index.html",
   "scripts": {
-    "start": "NODE_ENV=development nodemon server/app.js",
+    "start": "NODE_ENV=development nodemon server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint client/components",
     "webpack": "webpack --watch",

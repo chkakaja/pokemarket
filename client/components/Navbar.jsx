@@ -8,7 +8,7 @@ import Item from './Item.jsx';
 import WatchedItems from './WatchedItems.jsx';
 import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
 import { connect } from 'react-redux';
-import { checkAuthentication } from '../actions.js';
+import { checkAuthentication } from './../actions';
 
 
 export default class Navbar extends React.Component {

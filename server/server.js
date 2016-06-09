@@ -11,11 +11,14 @@ var app = express();
 //general init
 require('./initialize/config-init.js')(app, express);
 
+//db init
+require('./initialize/db-init.js');
+
 //auth init
 require('./initialize/auth-init.js')(app, express, passport);
 
 // ########################### SOCKET.IO CODE ###########################
-// ########### DO NOT EDIT UNLESS YOU KNOW WHAT YOU'RE DOING ############
+
 var http = require('http').Server(app);
 exports.io = require('socket.io')(http);
 

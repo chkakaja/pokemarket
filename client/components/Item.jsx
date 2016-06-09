@@ -5,7 +5,6 @@ import $ from 'jquery';
 import prettyDate from 'dateformat';
 import SearchResults from './SearchResults.jsx';
 import Username from './Username.jsx';
-import { checkAuthentication } from '../actions.js';
 import CountdownTimer from './CountdownTimer.jsx';
 import StripeCheckout from './React-Stripe-Checkout.jsx'
 
@@ -184,8 +183,7 @@ var mapDispatchToProps = function(dispatch){
         type: 'SET_CURRENT_ITEM',
         item
       })
-    },
-    getUser: checkAuthentication(dispatch)
+    }
   }
 };
 

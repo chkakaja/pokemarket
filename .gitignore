@@ -6,7 +6,9 @@ node_modules
 npm-debug.log
 
 #Compiled client files
-client/static/bundle.js
+public/bundle.js
 
 #Environment configuration
 env/development.env
+
+client/.DS_Store

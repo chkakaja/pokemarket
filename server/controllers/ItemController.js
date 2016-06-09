@@ -1,7 +1,7 @@
-var Item = require('./../db/models/item.js');
-var WatchList = require('./../db/models/watchlist.js');
-var User = require('./../db/models/user.js');
-var db = require('./../db/config.js');
+var Item = require('../models/item.js');
+var WatchList = require('../models/watchlist.js');
+var User = require('../models/user.js');
+var db = require('../initialize/db-init.js');
 
 module.exports = {
   getUserFacebookId: (req, res) => {

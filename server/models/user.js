@@ -1,4 +1,4 @@
-var db = require('../config');
+var db = require('../initialize/db-init.js');
 var Bid = require('./bid');
 var Item = require('./item');
 var Message = require('./message');
