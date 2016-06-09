@@ -13,7 +13,7 @@ export default class ItemEntry extends Component {
   componentDidMount() {
     this.props.getUser();
   }
-  
+
   watchItem(e) {
     $.ajax({
       method: 'GET',
@@ -45,7 +45,7 @@ export default class ItemEntry extends Component {
                 <div className='item-entry-description'>{this.props.item.description}</div>
               </div>
               <div className='item-entry-purchase'>
-                <div className='item-entry-current-bid'><b>Current Price:</b> ${this.props.item.currentBid}</div>
+                <div className='item-entry-current-bid'><b>Current Price:</b> ${this.props.item.originalPrice}</div>
                 <button className='watch pure-button' type='submit' onClick={this.watchItem.bind(this)}>Watch Item</button>
               </div>
             </div>
@@ -63,7 +63,7 @@ export default class ItemEntry extends Component {
                 <div className='item-entry-description'>{this.props.item.description}</div>
               </div>
               <div className='item-entry-purchase'>
-                <div className='item-entry-current-bid'><b>Current Price:</b> ${this.props.item.currentBid}</div>
+                <div className='item-entry-current-bid'><b>Current Price:</b> ${this.props.item.originalPrice}</div>
               </div>
             </div>
           </Link>
