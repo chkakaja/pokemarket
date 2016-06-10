@@ -69,9 +69,9 @@ const updateProfile = (profile) => {
   }
 }
 
-const fetchProfile = function(profileId) {
+const fetchProfile = function(id) {
   return (dispatch) => {
-    $.get('/getprofile', { profileId }, profile => {
+    $.get('/getprofile', { id }, profile => {
       dispatch(updateProfile(profile));
     });
   }
