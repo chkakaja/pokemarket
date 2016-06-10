@@ -28,7 +28,7 @@ class PopularItems extends React.Component {
     return (
       <div className='popular-items'>
         <div className='popular'>What's popular</div>
-        {this.props.popularItems.map(item => { 
+        {this.props.popularItems.map(item => {
           if(item.sold === 0) {
             return <ItemEntry item={item} key={item.id} />
           }
