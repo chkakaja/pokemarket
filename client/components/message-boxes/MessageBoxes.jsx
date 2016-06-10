@@ -8,10 +8,6 @@ class MessageBoxes extends React.Component {
     activeMessages: []
   }
 
-  componentDidMount() {
-    console.log(this.props.activeMessages);
-  }
-
   render() {
     if (this.props.activeMessages.length) {
       return (
@@ -34,6 +30,7 @@ class MessageBoxes extends React.Component {
 
 var mapStateToProps = function(state) {
   return {
+    user: state,user,
     activeMessages: state.messages.active,
   };
 };
