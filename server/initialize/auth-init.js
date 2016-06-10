@@ -15,7 +15,7 @@ module.exports = function(app, express, passport) {
       // **you will need to create your own fb developer account and input your own clientID and clientSecret
       clientID: process.env.FACEBOOK_ID,
       clientSecret: process.env.FACEBOOK_SECRET,
-      callbackURL: 'http://localhost:3000/auth/facebook/callback',
+      callbackURL: process.env.PROTOCOL + process.env.HOST + ':' + process.env.PORT + '/auth/facebook/callback',
       enableProof: true,
       profileFields: ['id', 'displayName', 'gender', 'picture.type(large)', 'emails']
     },
