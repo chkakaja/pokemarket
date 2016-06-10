@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
 import $ from 'jquery';
 import prettyDate from 'dateformat';
-import { checkAuthentication } from './../actions';
+import { checkAuthentication } from './../../actions';
 import Item from './Item.jsx';
 
 export default class ItemEntry extends Component {
