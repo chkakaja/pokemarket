@@ -7,7 +7,7 @@ import prettyDate from 'dateformat';
 import { checkAuthentication } from './../actions';
 import CountdownTimer from './CountDownTimer.jsx';
 
-export default class ItemEnry extends React.Component {
+export default class ItemEntry extends React.Component {
 
   componentDidMount() {
     this.props.getUser();
@@ -90,4 +90,4 @@ var mapDispatchToProps = function(dispatch) {
   }
 };
 
-module.exports = connect(mapStateToProps, mapDispatchToProps)(PopularItemEnry);
+module.exports = connect(mapStateToProps, mapDispatchToProps)(ItemEntry);

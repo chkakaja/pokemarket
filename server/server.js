@@ -8,13 +8,8 @@ var express = require('express');
 var passport = require('passport');
 var app = express();
 
-//general init
 require('./initialize/config-init.js')(app, express);
-
-//db init
 require('./initialize/db-init.js');
-
-//auth init
 require('./initialize/auth-init.js')(app, express, passport);
 
 // ########################### SOCKET.IO CODE ###########################
@@ -32,13 +27,15 @@ require('./socket.js');
 
 // ######################### END SOCKET.IO CODE #########################
 
+require('./routes/auth-routes.js')(app, passport);
+app.use(require('./lib/ensureAuthenticated.js'));
+
 require('./routes/profile-routes.js')(app);
 require('./routes/feedback-routes.js')(app);
 require('./routes/message-routes.js')(app);
 require('./routes/search-routes.js')(app);
 require('./routes/item-routes.js')(app);
 require('./routes/payment-routes.js')(app);
-require('./routes/auth-routes.js')(app, passport);
 
 
 
