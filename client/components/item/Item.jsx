@@ -2,11 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import $ from 'jquery';
+
 import prettyDate from 'dateformat';
-import SearchResults from './SearchResults.jsx';
-import Username from './Username.jsx';
-import CountdownTimer from './CountdownTimer.jsx';
-import StripeCheckout from './React-Stripe-Checkout.jsx'
+import Username from './../Username.jsx';
+import CountDownTimer from './../CountDownTimer.jsx';
+import StripeCheckout from '../React-Stripe-Checkout.jsx'
 
 class Item extends Component {
 
@@ -39,18 +39,6 @@ class Item extends Component {
       });
     }
   }
-
-  // getCurrentUser() {
-  //   $.ajax({
-  //     method: 'GET',
-  //     url: '/getuserid',
-  //     data: { id: this.props.item.id },
-  //     dataType: 'json',
-  //     success: function(data) {
-  //       this.current_user = data;
-  //     }.bind(this)
-  //   });
-  // }
 
   addVisit() {
     $.ajax({
@@ -120,8 +108,6 @@ class Item extends Component {
             <div className='current-bid'>
               <span className='bold'>Original Price: ${this.props.item.originalPrice}</span>
               <p className='bold'>Proposed Price: ${this.props.item.currentBid} </p>
-              
-
             </div>
             <form onSubmit={this.setBid.bind(this)}>
               <div className='set-bid pure-form'>

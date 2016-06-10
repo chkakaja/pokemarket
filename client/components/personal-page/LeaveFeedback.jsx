@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { getLeaveFeedback } from './../actions';
+import { getLeaveFeedback } from './../../actions';
 import { connect } from 'react-redux';
 import LeaveFeedbackEntry from './LeaveFeedbackEntry.jsx';
 

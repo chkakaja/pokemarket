@@ -1,9 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import ItemEntry from './ItemEntry.jsx'
 
-class SearchResults extends Component {
+import ItemEntry from './../ItemEntry.jsx'
+
+class SearchResults extends React.Component {
 
   static defaultProps = {
     results: []

@@ -1,14 +1,13 @@
-import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
+import { Link } from 'react-router';
+
 import $ from 'jquery';
 import prettyDate from 'dateformat';
 import { checkAuthentication } from './../actions';
-import Item from './Item.jsx';
-import CountdownTimer from './CountdownTimer.jsx';
+import CountdownTimer from './CountDownTimer.jsx';
 
-export default class ItemEntry extends Component {
+export default class PopularItemEnry extends React.Component {
 
   componentDidMount() {
     this.props.getUser();
@@ -94,4 +93,4 @@ var mapDispatchToProps = function(dispatch) {
   }
 };
 
-module.exports = connect(mapStateToProps, mapDispatchToProps)(ItemEntry);
+module.exports = connect(mapStateToProps, mapDispatchToProps)(PopularItemEnry);

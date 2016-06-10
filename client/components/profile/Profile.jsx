@@ -1,11 +1,11 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { getProfile } from './../actions';
+import { getProfile } from './../../actions';
 import Feedback from './Feedback.jsx';
 import ProfileEntry from './ProfileEntry.jsx';
 
-class Profile extends Component {
+class Profile extends React.Component {
 
   componentDidMount() {
     this.props.getProfile(this.props.id);

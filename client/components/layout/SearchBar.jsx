@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router'
 import { connect } from 'react-redux';
-import { Link, browserHistory, History } from 'react-router'
 import $ from 'jquery';
-import { checkAuthentication } from './../actions';
+import { checkAuthentication } from './../../actions';
 
 class SearchBar extends React.Component {
 
@@ -13,10 +13,6 @@ class SearchBar extends React.Component {
       search: ''
     };
   }
-
-  // static contextTypes= {
-  //   history: React.PropTypes.object
-  // }
 
   onInputChange(e) {
     this.setState({
