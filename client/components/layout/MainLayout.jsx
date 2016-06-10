@@ -2,12 +2,12 @@ import React, { Proptypes } from 'react';
 import Navbar from './Navbar.jsx';
 import MessageBoxes from './../message-boxes/MessageBoxes.jsx';
 
-import { checkAuthentication } from './../../actions';
+import { fetchUser } from './../../actions';
 import { connect } from 'react-redux';
 
 export default class App extends React.Component {
   componentWillMount() {
-    this.props.getUser();
+    this.props.fetchUser();
   }
 
   render() {
@@ -29,7 +29,7 @@ var mapStateToProps = function(state, ownProps) {
 
 var mapDispatchToProps = function(dispatch) {
   return {
-    getUser: checkAuthentication(dispatch),
+    fetchUser: () => dispatch(fetchUser())
   }
 };
 

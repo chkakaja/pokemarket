@@ -8,8 +8,8 @@ const setUser = function(user) {
   };
 };
 
-const checkAuthentication = function(dispatch) {
-  return (user) => {
+const fetchUser = function() {
+  return (dispatch) => {
     $.get('/getuserid', user => {
       if (user) {
         join(user.id);
@@ -65,4 +65,4 @@ const getProfile = function(dispatch) {
   }
 }
  
-export { checkAuthentication, getLeaveFeedback, getFeedback, getProfile };
+export { fetchUser, getLeaveFeedback, getFeedback, getProfile };
