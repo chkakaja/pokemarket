@@ -1,18 +1,34 @@
 module.exports = [
   {
-    name: 'Carol Alabccijfidab Wongescu',
+    name: 'Kat',
     // email: 'carol@carol.com',
     facebookId:'113472865740682', 
     address: '123 fake st 94116', 
-    bio: 'I like cat and I am 70 years old :)' ,
-    picture: 'http://media.salon.com/2010/03/my_terror_of_ending_up_an_old_cat_lady.jpg',
+    bio: 'Elite trainer' ,
+    picture: 'https://scontent-sjc2-1.xx.fbcdn.net/v/t1.0-9/183955_10150395602465154_4094970_n.jpg?oh=26357b204639677a6f93a2fc875fab93&oe=57CC0386',
   },
   {
-    name: 'Dick Alabdhefaahgf Seligsteinson',
+    name: 'JRZ',
     // email: 'dick@dSeligsteinson.com',
     facebookId:'102067280219459', 
     address: '123 main st 94115',
-    bio: 'dicks my name selling thing is my game', 
-    picture:'https://timemilitary.files.wordpress.com/2013/11/matthew-weiner.jpg',
+    bio: 'Trainer', 
+    picture:'https://scontent-sjc2-1.xx.fbcdn.net/t31.0-8/s960x960/1782415_10204566122262780_7041369209594713097_o.jpg',
+  },
+  {
+    name: 'German Chris',
+    // email: 'dick@dSeligsteinson.com',
+    facebookId:'100012374116196', 
+    address: '123 main st 94115',
+    bio: 'Trainer', 
+    picture:'http://www.christianhaug.com/images/profil_landscape.jpg',
+  },
+  {
+    name: 'Dad',
+    // email: 'dick@dSeligsteinson.com',
+    facebookId:'100012379545736', 
+    address: '123 main st 94115',
+    bio: 'Trainer', 
+    picture:'https://c2.staticflickr.com/6/5601/15416720046_628dea4d48.jpg',
   }
 ];
