@@ -1,14 +1,14 @@
 import $ from 'jquery';
 import { join } from './../socket.js';
 
-const setUser = function(user) {
+const setUser = (user) => {
   return {
     type: 'SET_USER',
     user: user
   };
 };
 
-const fetchUser = function() {
+const fetchUser = () => {
   return (dispatch) => {
     $.get('/getuserid', user => {
       if (user) {
@@ -19,8 +19,15 @@ const fetchUser = function() {
   };
 };
 
-const getFeedback = function(dispatch) {
-  return function(receiver) {
+const setFeedback = (feedback) => {
+  return {
+    type: 'SET_FEEDBACK',
+    feedback
+  }
+}
+
+const fetchFeedback = (receiver) => {
+  return (dispatch) => {
     $.get('/feedback', { receiver }, feedbackArray => {
       let positive = 0, negative = 0, neutral = 0;
 
@@ -34,11 +41,7 @@ const getFeedback = function(dispatch) {
       });    
 
       let feedback = { feedbackArray, positive, negative, neutral, receiver };
-
-      dispatch({
-        type: 'GET_FEEDBACK',
-        feedback
-      })
+      dispatch(setFeedback(feedback))
     });
   };
 };
@@ -65,4 +68,4 @@ const getProfile = function(dispatch) {
   }
 }
  
-export { fetchUser, getLeaveFeedback, getFeedback, getProfile };
+export { fetchUser, getLeaveFeedback, fetchFeedback, getProfile };
