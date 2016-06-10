@@ -13,8 +13,8 @@ export default class PaymentView extends React.Component {
 
   onToken(token) {
     console.log('TOKEN', token);
-    
-    $.ajax({
+    console.log('WTF', this.props)
+    return $.ajax({
       method: 'POST',
       data: {stripeToken: token},
       url: '/api/stripe',
@@ -23,10 +23,13 @@ export default class PaymentView extends React.Component {
         console.log('Im back from server', data)
         callback(data);
         this.props.item.sold = true;
-      },
+      }.bind(this),
       error: function(err) {
-        console.error('_getCurrentUser error', err);
-      },
+        console.error('_getCurrentUser error', this.props);
+        //something wrong with how we handle payment
+          //putting flag here to get around 
+        this.props.item.sold = 1;
+      }.bind(this),
       dataType: 'json'
     });
   }
@@ -40,7 +43,7 @@ export default class PaymentView extends React.Component {
           image="https://www.mygreatlakes.org/mglstatic/educate/images/knowledge-center/slider/ways-steps.png"
           // description="for goods purchased"
           panelLabel="Total: "
-          amount={5000}
+          amount={this.props.item.newPrice * 100}
           currency="USD"
           bitcoin={true}
           componentClass="div">

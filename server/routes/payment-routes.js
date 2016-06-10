@@ -15,8 +15,9 @@ module.exports = function(app) {
         // The card has been declined
         res.send('err', err);
         // res.status(500).send(err);
-      } else {
-        res.status(200).send('success', charge);
+      }
+       else {
+        res.send('success');
         // res.status(204).send('Charged: ', charge);
       }
     });
