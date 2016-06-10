@@ -24,7 +24,7 @@ module.exports = function(app, express, passport) {
         User.where({ facebookId: profile.id }).fetch()
           .then(function(user) {
             // creates user if not found
-            console.log(profile);
+            // console.log(profile);
             if (!user) {
               user = new User({
                 name: profile.displayName,
@@ -45,12 +45,12 @@ module.exports = function(app, express, passport) {
   ));
 
   passport.serializeUser(function(user, done) {
-    console.log('serializeUser: ' + user.get('facebookId'));
+    // console.log('serializeUser: ' + user.get('facebookId'));
     done(null, user.get('facebookId'));
   });
 
   passport.deserializeUser(function(facebookId, done) {
-    console.log('deserialize', facebookId);
+    // console.log('deserialize', facebookId);
     User.where({ facebookId: facebookId }).fetch()
       .then(function(user) {
         done(null, user);

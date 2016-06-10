@@ -29,10 +29,8 @@ module.exports = {
   updateBid:  (req, res) => {
     Item.where({ id: req.body.id }).fetch()
       .then(function(item) {
-        if (req.body.newBid > item.attributes.currentBid) {
           item.set({ currentBid: req.body.newBid }).save();
           item.set({ current_bidder: req.body.currentBidder }).save();
-        }
         res.send(item.attributes);
       })
       .catch(function(err) {
@@ -79,7 +77,7 @@ module.exports = {
   popularItems: (req, res) => {
     Item.forge().orderBy('visits', 'desc').fetchAll()
       .then(items => {
-        console.log(items);
+        // console.log(items);
         res.send(items);
       })
       .catch(err => {
@@ -88,7 +86,20 @@ module.exports = {
   },
 
   sellItem: (req, res) => {
+    console.log(req.body);
     new Item(req.body).save().then(() => res.status(200));
+  },
+
+  acceptPrice: (req, res) => {
+    Item.where({ id: req.body.id }).fetch()
+      .then(function(item) {
+          item.set({ newPrice: req.body.acceptedBid }).save();
+          item.set({ current_bidder: req.body.currentBidder }).save();
+        res.send(item.attributes);
+      })
+      .catch(function(err) {
+        res.send('Error:', err);
+    })
   }
 
 }
