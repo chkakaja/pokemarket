@@ -2,7 +2,7 @@ module.exports = [
   { 
     "seller_id":1,
     "title": 'Psyduck',
-    "description": 'Great hat. Never wore!',
+    "description":'Pokemon',
     "picture":'http://randompokemon.com/sprites/animated/54.gif',
     "duration": 2,  
     "currentBid": 14,
@@ -12,7 +12,7 @@ module.exports = [
   { 
     "seller_id":1,
     "title": 'Dratini',
-    "description": 'new iphone still in the box',
+    "description":'Pokemon',
     "picture":'http://randompokemon.com/sprites/animated/147.gif',
     "duration": 5,
     "currentBid": 100,
@@ -21,7 +21,7 @@ module.exports = [
   {
     "seller_id":1,
     "title": 'Horsea',
-    "description": 'cool star wars t-shirt',
+    "description":'Pokemon',
     "picture":'http://randompokemon.com/sprites/animated/116.gif',
     "duration": 5,
     "currentBid": 12,
@@ -30,7 +30,7 @@ module.exports = [
   {
     "seller_id":1,
     "title": 'Zapdos',
-    "description": 'Look cool in these new glasses',
+    "description":'Pokemon',
     "picture":'http://randompokemon.com/sprites/animated/145.gif',
     "duration": 7,
     "currentBid": 40,
@@ -39,7 +39,7 @@ module.exports = [
   {
     "seller_id":2,
     "title": 'Snorlax',
-    "description": 'Best show out there!',
+    "description":'Pokemon',
     "picture": 'http://randompokemon.com/sprites/animated/143.gif',
     "duration": 1,
     "currentBid": 20,
@@ -48,7 +48,7 @@ module.exports = [
   {
     "seller_id":2,
     "title": 'Clefairy',
-    "description": 'Curry jersey',
+    "description":'Pokemon',
     "picture":'http://randompokemon.com/sprites/animated/35.gif',
     "duration": 1,
     "currentBid": 60,
@@ -57,7 +57,7 @@ module.exports = [
   {
     "seller_id":2,
     "title": 'Krabby',
-    "description": 'cool green hat',
+    "description":'Pokemon',
     "picture":'http://randompokemon.com/sprites/animated/98.gif',
     "duration": 1,
     "currentBid": 5,
@@ -66,7 +66,7 @@ module.exports = [
   {
     "seller_id":2,
     "title": 'Arbok',
-    "description": 'rare t-shirt',
+    "description":'Pokemon',
     "picture":'http://randompokemon.com/sprites/animated/24.gif', 
     "duration": 2,
     "currentBid": 10,
@@ -75,7 +75,7 @@ module.exports = [
   {
     "seller_id":2,
     "title": 'Poliwrath',
-    "description": 'Last one get it while you can!',
+    "description":'Pokemon',
     "picture":'http://randompokemon.com/sprites/animated/62.gif',
     "duration": 5,
     "currentBid": 11,
@@ -84,7 +84,7 @@ module.exports = [
   {
     "seller_id":1,
     "title": 'Pikachu',
-    "description": 'random text books',
+    "description":'Pokemon',
     "picture":'http://randompokemon.com/sprites/animated/25.gif',
     "duration": 3,
     "currentBid": 10,
@@ -93,7 +93,7 @@ module.exports = [
   {
     "seller_id":2,
     "title": 'Seel',
-    "description": 'Great read!',
+    "description":'Pokemon',
     "picture":'http://randompokemon.com/sprites/animated/86.gif',
     "duration": 5,
     "currentBid": 40,
@@ -102,7 +102,7 @@ module.exports = [
   { 
     "seller_id":1,
     "title":'Exeggutor',
-    "description":'Best set ever!',
+    "description":'Pokemon',
     "picture":'http://randompokemon.com/sprites/animated/103.gif',
     "duration": 2,
     "currentBid": 15,
@@ -110,7 +110,7 @@ module.exports = [
   { 
     "seller_id":2,
     "title": 'Haunter',
-    "description": 'never opened box!',
+    "description":'Pokemon',
     "picture":'http://randompokemon.com/sprites/animated/93.gif',
     "duration": 3,
     "currentBid": 20,
@@ -119,7 +119,7 @@ module.exports = [
   { 
     "seller_id":2,
     "title": 'Magnemite',
-    "description": 'really nice painting',
+    "description":'Pokemon',
     "picture":'http://randompokemon.com/sprites/animated/81.gif',
     "duration": 1,
     "currentBid": 40,
@@ -128,7 +128,7 @@ module.exports = [
   { 
     "seller_id":1,
     "title": 'Staryu',
-    "description":'the best surfboard. Moving need to sell',
+    "description":'Pokemon',
     "picture":'http://randompokemon.com/sprites/animated/120.gif',
     "duration":2,
     "currentBid":80,
@@ -138,7 +138,7 @@ module.exports = [
   { 
     "seller_id":2,
     "title": 'Nidoqueen',
-    "description":'slightly used iphone',
+    "description":'Pokemon',
     "picture":'http://randompokemon.com/sprites/animated/31.gif',
     "duration":1,
     "currentBid": 100,
@@ -147,7 +147,7 @@ module.exports = [
   { 
     "seller_id":1,
     "title": 'Blastoise',
-    "description": 'hours of fun!',
+    "description":'Pokemon',
     "picture":'http://randompokemon.com/sprites/animated/9.gif',
     "duration":2,
     "currentBid": 10,
@@ -156,7 +156,7 @@ module.exports = [
   { 
     "seller_id":2,
     "title": 'Wigglytuff',
-    "description": 'Risk is the best!',
+    "description":'Pokemon',
     "picture":'http://randompokemon.com/sprites/animated/40.gif',
     "duration":1,
     "currentBid":8,
@@ -165,7 +165,7 @@ module.exports = [
   { 
     "seller_id":1,
     "title": 'Scyther',
-    "description": 'love cats!',
+    "description":'Pokemon',
     "picture":'http://randompokemon.com/sprites/animated/123.gif',
     "duration":5,
     "currentBid": 50,
@@ -177,7 +177,7 @@ module.exports = [
   { 
     "seller_id":2,
     "title": 'Kangaskhan',
-    "description":'classic',
+    "description":'Pokemon',
     "picture":'http://randompokemon.com/sprites/animated/115.gif',
     "duration":4,
     "currentBid":30,
@@ -188,7 +188,7 @@ module.exports = [
   { 
     "seller_id":1,
     "title":'Kadabra',
-    "description":'rare playing cards',
+    "description":'Pokemon',
     "picture":'http://randompokemon.com/sprites/animated/64.gif',
     "duration":3,
     "currentBid":8,
@@ -199,7 +199,7 @@ module.exports = [
   { 
     "seller_id":1,
     "title": 'Rapidash',
-    "description": 'signed by curry',
+    "description":'Pokemon',
     "picture":'http://randompokemon.com/sprites/animated/78.gif',
     "duration":1,
     "currentBid":80,
@@ -208,7 +208,7 @@ module.exports = [
   { 
     "seller_id":1,
     "title":'Vileplume',
-    "description":'brand new ball',
+    "description":'Pokemon',
     "picture":'http://randompokemon.com/sprites/animated/45.gif',
     "duration":6,
     "currentBid":15,
