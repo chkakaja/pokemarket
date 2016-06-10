@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 
 import $ from 'jquery';
 import prettyDate from 'dateformat';
-import { checkAuthentication } from './../../actions';
+import { checkAuthentication } from './../actions';
 
 export default class PopularItemEnry extends React.Component {
 
