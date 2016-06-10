@@ -30,7 +30,11 @@ class ListedItems extends Component {
     return (
       <div>
         <div className='listings'>Your current listings</div>
-        {this.props.listedItems.map(item => <ListedItemEntry item={item} key={item.id} />)}
+        {this.props.listedItems.map(item => {
+          if(item.sold === 0) {
+            return <ListedItemEntry item={item} key={item.id} />
+          }
+        })}
       </div>
     );
   }

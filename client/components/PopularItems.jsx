@@ -1,16 +1,17 @@
-import React from 'react';
-import $ from 'jquery';
+import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
+import $ from 'jquery';
+import { checkAuthentication } from './../actions';
+import ItemEntry from './ItemEntry.jsx';
 
-import ItemEntry from './../ItemEntry.jsx';
-
-class PopularItems extends React.Component {
-  componentDidMount() {
-    this.getPopularItems();
-  }
-  
+class PopularItems extends Component {
   static defaultProps = {
     popularItems: []
+  }
+
+  componentDidMount() {
+    this.getPopularItems();
   }
 
   getPopularItems() {
@@ -25,13 +26,9 @@ class PopularItems extends React.Component {
 
   render() {
     return (
-      <div className='popular-items'>
+      <div>
         <div className='popular'>What's popular</div>
-        {this.props.popularItems.map(item => {
-          if(item.sold === 0) {
-            return <ItemEntry item={item} key={item.id} />
-          }
-        })}
+        {this.props.popularItems.map(item => { console.log(item, 'from popular item'); return <ItemEntry item={item} key={item.id} />})}
       </div>
     );
   }
@@ -39,6 +36,7 @@ class PopularItems extends React.Component {
 
 var mapStateToProps = function(state, ownProps) {
   return {
+    user: state.user,
     popularItems: state.popularItems
   };
 };

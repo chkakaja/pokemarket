@@ -29,7 +29,11 @@ class WatchedItems extends Component {
     return (
       <div>
         <div className='watching'>Your current watch list</div>
-        {this.props.watchedItems.map(item => <ItemEntry item={item} key={item.id} />)}
+        {this.props.watchedItems.map(item => { 
+          if(item.sold === 0) {
+            return <ItemEntry item={item} key={item.id} />
+          }
+        })}
       </div>
     );
   }

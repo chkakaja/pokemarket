@@ -5,7 +5,7 @@ import $ from 'jquery';
 
 import prettyDate from 'dateformat';
 import Username from './../Username.jsx';
-import StripeCheckout from '../React-Stripe-Checkout.jsx'
+import StripeCheckout from './../React-Stripe-Checkout.jsx'
 
 class Item extends Component {
 
