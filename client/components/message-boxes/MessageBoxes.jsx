@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import MessageBox from './MessageBox.jsx'
 import { connect } from 'react-redux';
-import { checkAuthentication } from './../../actions';
 
 class MessageBoxes extends React.Component {
   static defaultProps = {
@@ -30,7 +29,7 @@ class MessageBoxes extends React.Component {
 
 var mapStateToProps = function(state) {
   return {
-    user: state,user,
+    user: state.user,
     activeMessages: state.messages.active,
   };
 };

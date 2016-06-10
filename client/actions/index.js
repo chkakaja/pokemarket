@@ -22,7 +22,7 @@ const checkAuthentication = function(dispatch) {
 const getFeedback = function(dispatch) {
   return function(receiver) {
     $.get('/feedback', { receiver }, feedbackArray => {
-      let positive = 0, negative = 0; neutral = 0;
+      let positive = 0, negative = 0, neutral = 0;
 
       feedbackArray.forEach(feedback => {
         if (feedback.rating === 1) {

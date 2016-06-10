@@ -38,6 +38,7 @@ class ListedItems extends Component {
 
 var mapStateToProps = function(state, ownProps) {
   return {
+    user: state.user,
     listedItems: state.listedItems
   };
 };

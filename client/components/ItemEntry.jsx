@@ -4,7 +4,6 @@ import { Link } from 'react-router';
 
 import $ from 'jquery';
 import prettyDate from 'dateformat';
-import { checkAuthentication } from './../actions';
 
 export default class ItemEntry extends React.Component {
 

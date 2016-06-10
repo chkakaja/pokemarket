@@ -1,7 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
 import { connect } from 'react-redux';
-import { checkAuthentication } from './../../actions';
 
 import ItemEntry from './../ItemEntry.jsx';
 

@@ -116,7 +116,6 @@ class Item extends Component {
               </div>
             </form>
             <div className='end-time'>{prettyDate(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</div>
-            <CountDownTimer endDate={this.props.item.end_at} />
             <StripeCheckout price={this.props.item.currentBid} />
           </div>
           <div className='pure-u-1-24'></div>

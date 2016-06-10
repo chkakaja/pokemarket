@@ -3,7 +3,7 @@ import { getFeedback } from './../../actions';
 import { connect } from 'react-redux';
 import FeedbackEntry from './FeedbackEntry.jsx';
 
-export default class Feedback extends Component {
+class Feedback extends Component {
 
   static defaultProps = {
     receiver: 1,

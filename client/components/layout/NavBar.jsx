@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { checkAuthentication } from './../../actions';
 
 import SearchBar from './SearchBar.jsx';
 
