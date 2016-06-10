@@ -5,7 +5,6 @@ import { Link } from 'react-router';
 import $ from 'jquery';
 import prettyDate from 'dateformat';
 import { checkAuthentication } from './../actions';
-import CountdownTimer from './CountDownTimer.jsx';
 
 export default class PopularItemEnry extends React.Component {
 

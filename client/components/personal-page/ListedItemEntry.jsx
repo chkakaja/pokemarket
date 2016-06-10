@@ -6,7 +6,6 @@ import $ from 'jquery';
 import prettyDate from 'dateformat';
 import { checkAuthentication } from './../actions';
 import Item from './Item.jsx';
-import CountdownTimer from './CountdownTimer.jsx';
 
 export default class ItemEntry extends Component {
   setCurrent() {
