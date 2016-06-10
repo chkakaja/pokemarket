@@ -15,17 +15,12 @@ export default class App extends React.Component {
       <div className='main-layout'>
         <Navbar />
           {this.props.children}
+          }
         <MessageBoxes />
       </div>
     );
   }
 }
-
-var mapStateToProps = function(state, ownProps) {
-  return {
-    user: state.user
-  };
-};
 
 var mapDispatchToProps = function(dispatch) {
   return {
@@ -33,4 +28,4 @@ var mapDispatchToProps = function(dispatch) {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(() => ({}), mapDispatchToProps)(App);
