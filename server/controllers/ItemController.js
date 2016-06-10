@@ -100,6 +100,17 @@ module.exports = {
       .catch(function(err) {
         res.send('Error:', err);
     })
+  },
+
+  itemSold: (req, res) => {
+    Item.where({ id: req.body.id }).fetch()
+      .then(function(item) {
+          item.set({ sold: req.body.sold }).save();
+        res.send(item.attributes);
+      })
+      .catch(function(err) {
+        res.send('Error:', err);
+      })
   }
 
 }

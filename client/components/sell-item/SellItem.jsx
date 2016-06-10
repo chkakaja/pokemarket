@@ -23,7 +23,9 @@ class SellItem extends Component {
         picture: this.props.fields.itemPicture.value,
         seller_id: this.props.user.id,
         originalPrice: this.props.fields.itemStartingBid.value,
-        newPrice: this.props.fields.itemStartingBid.value
+        newPrice: this.props.fields.itemStartingBid.value,
+        currentBid: this.props.fields.itemStartingBid.value,
+        sold: 0
       });
       resetForm();
     };
