@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { getLeaveFeedback } from './../../actions';
+import { fetchLeaveFeedback } from './../../actions';
 import { connect } from 'react-redux';
 import LeaveFeedbackEntry from './LeaveFeedbackEntry.jsx';
 
@@ -9,9 +9,10 @@ export default class LeaveFeedback extends Component {
     toLeaveFeedbackArray: []
   };
 
-  componentDidMount() {
-    this.props.getLeaveFeedback();
+  componentWillMount() {
+    this.props.fetchLeaveFeedback();
   }
+
   render() {
     if (this.props.toLeaveFeedbackArray.length) {
       return (
@@ -32,7 +33,7 @@ export default class LeaveFeedback extends Component {
   }
 }
 
-var mapStateToProps = function(state, ownProps) {
+var mapStateToProps = function(state) {
   return {
     toLeaveFeedbackArray: state.toLeaveFeedback
   };
@@ -40,7 +41,7 @@ var mapStateToProps = function(state, ownProps) {
 
 var mapDispatchToProps = function(dispatch) {
   return {
-    getLeaveFeedback: getLeaveFeedback(dispatch)
+    fetchLeaveFeedback: fetchLeaveFeedback(dispatch(fetchLeaveFeedback()))
   };
 };
 

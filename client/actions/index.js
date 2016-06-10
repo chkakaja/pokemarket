@@ -46,14 +46,19 @@ const fetchFeedback = (receiver) => {
   };
 };
 
-const getLeaveFeedback = function(dispatch) {
+const setLeaveFeedback = (toLeaveFeedbackArray) => {
+  return {
+    type: 'SET_LEAVE_FEEDBACK',
+    toLeaveFeedbackArray
+  }
+}
+
+const fetchLeaveFeedback = function() {
   return function() {
-    $.get('/toleavefeedback', toLeaveFeedbackArray => {
-      dispatch({
-        type: 'GET_LEAVE_FEEDBACK',
-        toLeaveFeedbackArray
+    $.get(
+      '/toleavefeedback', (toLeaveFeedbackArray) => { 
+        dispatch(setLeaveFeedback(toLeaveFeedbackArray));
       });
-    })
   }
 };
 
@@ -68,4 +73,4 @@ const getProfile = function(dispatch) {
   }
 }
  
-export { fetchUser, getLeaveFeedback, fetchFeedback, getProfile };
+export { fetchUser, fetchLeaveFeedback, fetchFeedback, getProfile };
