@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import $ from 'jquery';
-import { checkAuthentication } from './../../actions';
+
 import ItemEntry from './../ItemEntry.jsx';
 
 class ListedItems extends Component {
@@ -11,7 +11,6 @@ class ListedItems extends Component {
   }
 
   componentDidMount() {
-    this.props.getUserId();
     this.getListedItems();
   }
 
@@ -28,31 +27,23 @@ class ListedItems extends Component {
   }
 
   render() {
-    if (this.props.user.id) {
-      return (
-        <div>
-          <div className='listings'>Your current listings</div>
-          {this.props.listedItems.map(item => <ItemEntry item={item} key={item.id} />)}
-        </div>
-      );
-    } else {
-      return (
-        <div>Sign in to see your listed items!</div>
-      );
-    }
+    return (
+      <div>
+        <div className='listings'>Your current listings</div>
+        {this.props.listedItems.map(item => <ItemEntry item={item} key={item.id} />)}
+      </div>
+    );
   }
 }
 
 var mapStateToProps = function(state, ownProps) {
   return {
-    user: state.user,
     listedItems: state.listedItems
   };
 };
 
 var mapDispatchToProps = function(dispatch) {
   return {
-    getUserId: checkAuthentication(dispatch),
     updateListedItems: (data) => {
       dispatch({
         type: 'UPDATE_LISTED_ITEMS',

@@ -9,12 +9,11 @@ class MessageBoxes extends React.Component {
   }
 
   componentDidMount() {
-    // this.props.getUser();
     console.log(this.props.activeMessages);
   }
 
   render() {
-    if (this.props.user.id && this.props.activeMessages.length) {
+    if (this.props.activeMessages.length) {
       return (
         <div className="message-boxes">
           {this.props.activeMessages.map((receiver, index) => 
@@ -27,22 +26,16 @@ class MessageBoxes extends React.Component {
             />)}
         </div>
       );
+    } else {
+      return null;
     }
-    return null;
   }
 }
 
-var mapStateToProps = function(state, ownProps) {
+var mapStateToProps = function(state) {
   return {
     activeMessages: state.messages.active,
-    user: state.user
   };
 };
 
-var mapDispatchToProps = function(dispatch) {
-  return {
-    getUser: checkAuthentication(dispatch)
-  }
-};
-
-module.exports = connect(mapStateToProps, mapDispatchToProps)(MessageBoxes);
+module.exports = connect(mapStateToProps)(MessageBoxes);
