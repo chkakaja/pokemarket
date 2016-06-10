@@ -2,7 +2,7 @@ module.exports = [
   {
     name: 'Kat',
     // email: 'carol@carol.com',
-    facebookId:'113472865740682', 
+    facebookId:'735670153', 
     address: '123 fake st 94116', 
     bio: 'Elite trainer' ,
     picture: 'https://scontent-sjc2-1.xx.fbcdn.net/v/t1.0-9/183955_10150395602465154_4094970_n.jpg?oh=26357b204639677a6f93a2fc875fab93&oe=57CC0386',
@@ -10,7 +10,7 @@ module.exports = [
   {
     name: 'JRZ',
     // email: 'dick@dSeligsteinson.com',
-    facebookId:'102067280219459', 
+    facebookId:'1525555808', 
     address: '123 main st 94115',
     bio: 'Trainer', 
     picture:'https://scontent-sjc2-1.xx.fbcdn.net/t31.0-8/s960x960/1782415_10204566122262780_7041369209594713097_o.jpg',
@@ -18,7 +18,7 @@ module.exports = [
   {
     name: 'German Chris',
     // email: 'dick@dSeligsteinson.com',
-    facebookId:'100012374116196', 
+    facebookId:'100000299593063', 
     address: '123 main st 94115',
     bio: 'Trainer', 
     picture:'http://www.christianhaug.com/images/profil_landscape.jpg',
@@ -26,7 +26,7 @@ module.exports = [
   {
     name: 'Dad',
     // email: 'dick@dSeligsteinson.com',
-    facebookId:'100012379545736', 
+    facebookId:'722716288', 
     address: '123 main st 94115',
     bio: 'Trainer', 
     picture:'https://c2.staticflickr.com/6/5601/15416720046_628dea4d48.jpg',
