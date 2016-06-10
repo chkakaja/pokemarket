@@ -3,7 +3,7 @@ var Bid = require('./bid');
 var Item = require('./item');
 var Message = require('./message');
 var Feedback = require('./feedback');
-var Watchlist = require('./watchList');
+var Watchlist = require('./watchlist');
 var _ = require('underscore');
 
 var User = db.Model.extend({

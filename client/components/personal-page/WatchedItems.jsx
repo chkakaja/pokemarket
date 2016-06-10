@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import $ from 'jquery';
-import { checkAuthentication } from './../../actions';
 import ItemEntry from './../ItemEntry.jsx';
 
 class WatchedItems extends Component {

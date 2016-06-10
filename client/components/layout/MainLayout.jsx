@@ -1,5 +1,5 @@
 import React, { Proptypes } from 'react';
-import Navbar from './Navbar.jsx';
+import Navbar from './NavBar.jsx';
 import MessageBoxes from './../message-boxes/MessageBoxes.jsx';
 
 import { fetchUser } from './../../actions';

@@ -1,29 +1,37 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
-
+import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
 import $ from 'jquery';
 import prettyDate from 'dateformat';
+import Item from './../item/Item.jsx';
 
-export default class ItemEntry extends React.Component {
+export default class ItemEntry extends Component {
+  setCurrent() {
+    this.props.setCurrentItem(this.props.item);
+  }
 
-  watchItem(e) {
-    $.ajax({
-      method: 'GET',
-      url: '/watchitem',
+  accept(e) {
+    e.preventDefault();
+    return $.ajax({
+      method: 'POST',
+      url: '/acceptPrice',
       data: {
-        item_id: this.props.item.id,
-        user_id: this.props.user.id
+        id: this.props.item.id,
+        currentBidder: this.props.item.current_bidder,
+        acceptedBid: this.props.item.currentBid
       },
       dataType: 'json',
       success: function(data) {
-        console.log('Watching item', data);
-      }
+        this.props.item.newPrice = data.newPrice;
+        this.props.setCurrentItem(this.props.item);
+        //update state w new item Acceptprice
+      }.bind(this)
     })
   }
 
-  setCurrent() {
-    this.props.setCurrentItem(this.props.item);
+  decline() {
+
   }
 
   render () {
@@ -36,16 +44,21 @@ export default class ItemEntry extends React.Component {
               <div className='item-entry-title'>{this.props.item.title}</div>
               <div className='item-entry-description'>{this.props.item.description}</div>
             </div>
+          </div>
+        </Link>
             <div className='item-entry-purchase'>
               <div className='item-entry-current-bid'>
                 <span className='bold'>Original Price: ${this.props.item.originalPrice}</span>
-                <p className='bold'>Proposed Price: ${this.props.item.currentBid}</p>
               </div>
-              <button className='watch pure-button' type='submit' onClick={this.watchItem.bind(this)}>Watch Item</button>
+            </div>
+            <div className='item-entry-counters'>
+              <div>
+                <p className='bold'>Proposed Price: ${this.props.item.currentBid}</p>
+                <button class="pure-button" onClick={this.accept.bind(this)}>Accept</button>
+                <button class="pure-button" onClick={this.decline.bind(this)}>Decline</button>
+              </div>
             </div>
           </div>
-        </Link>
-      </div>
     );
   }
 }

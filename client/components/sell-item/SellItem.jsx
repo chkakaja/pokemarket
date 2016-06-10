@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 
 import {reduxForm} from 'redux-form';
-import { checkAuthentication } from './../../actions';
 import { connect } from 'react-redux';
 
 // look up documentation for redux-form for more insight on how this works
@@ -16,14 +15,15 @@ class SellItem extends Component {
       $.post('/sellItem', {
         title: this.props.fields.itemTitle.value,
         description: this.props.fields.itemDescription.value,
-        duration: this.props.fields.itemDuration.value,
+        duration: 0,
         picture: this.props.fields.itemPicture.value,
         seller_id: this.props.user.id,
-        currentBid: this.props.fields.itemStartingBid.value
+        originalPrice: this.props.fields.itemStartingBid.value,
+        newPrice: this.props.fields.itemStartingBid.value
       });
       resetForm();
     };
-    
+
     return (
       <div className='sell-item'>
         <h2 className='sell-item-title'>Sell Your Item</h2>
@@ -34,11 +34,7 @@ class SellItem extends Component {
               <input type="text" className='pure-input-2-3' placeholder="What would you like the title to be?" {...itemTitle}/>
             </div>
             <div className='pure-control-group'>
-              <label>Duration (in days): </label>
-              <input type="number" className='pure-input-2-3' placeholder="How long would you like your item to be on the market?" {...itemDuration}/>
-            </div>
-            <div className='pure-control-group'>
-              <label>Starting Bid: </label>
+              <label>Price: </label>
               <input type="number" className='pure-input-2-3' placeholder="What would you like your starting bid to be?" {...itemStartingBid}/>
             </div>
             <div className='pure-control-group'>

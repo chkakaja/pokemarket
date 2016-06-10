@@ -27,7 +27,7 @@ class PopularItems extends React.Component {
     return (
       <div className='popular-items'>
         <div className='popular'>What's popular</div>
-        {this.props.popularItems.map(item => <ItemEntry item={item} key={item.id} />)}
+        {this.props.popularItems.map(item => { console.log(item, 'from popular item'); return <ItemEntry item={item} key={item.id} />})}
       </div>
     );
   }

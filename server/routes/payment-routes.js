@@ -13,9 +13,10 @@ module.exports = function(app) {
     }, function(err, charge) {
       if (err && err.type === 'StripeCardError') {
         // The card has been declined
-        res.send('err');
+        res.send('err', err);
         // res.status(500).send(err);
-      } else {
+      }
+       else {
         res.send('success');
         // res.status(204).send('Charged: ', charge);
       }
