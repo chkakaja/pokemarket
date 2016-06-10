@@ -41,7 +41,7 @@ var mapStateToProps = function(state) {
 
 var mapDispatchToProps = function(dispatch) {
   return {
-    fetchLeaveFeedback: fetchLeaveFeedback(dispatch(fetchLeaveFeedback()))
+    fetchLeaveFeedback: () => dispatch(fetchLeaveFeedback())
   };
 };
 

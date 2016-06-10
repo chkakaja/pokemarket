@@ -1,14 +1,14 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { getProfile } from './../../actions';
+import { fetchProfile } from './../../actions';
 import Feedback from './Feedback.jsx';
 import ProfileEntry from './ProfileEntry.jsx';
 
 class Profile extends React.Component {
 
   componentDidMount() {
-    this.props.getProfile(this.props.id);
+    this.props.fetchProfile();
   }
 
   render() {
@@ -29,16 +29,16 @@ class Profile extends React.Component {
   }
 }
 
-var mapStateToProps = function(state, ownProps) {
+var mapStateToProps = function(state) {
   return {
     profile: state.profile.profile,
     id: (state.profile.current || state.user.id)
   };
 };
 
-var mapDispatchToProps = function(dispatch) {
+var mapDispatchToProps = function(dispatch, ownProps) {
   return {
-    getProfile: getProfile(dispatch)
+    fetchProfile: () => dispatch(fetchProfile(ownProps.id))
   }
 };
 
