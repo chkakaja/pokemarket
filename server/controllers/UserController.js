@@ -2,7 +2,10 @@ var User = require('../models/user.js');
 
 module.exports = {
   getUserId: (req, res) => {
+    console.log("here in getUserId", req.session)
     if (req.session.hasOwnProperty('passport')) {
+    console.log("here in getUserId inside passport")
+
       User
         .where({ facebookId: req.session.passport.user })
         .fetch()
