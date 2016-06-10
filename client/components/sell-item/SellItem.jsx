@@ -3,14 +3,10 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 
 import {reduxForm} from 'redux-form';
-import { checkAuthentication } from './../../actions';
 import { connect } from 'react-redux';
 
 // look up documentation for redux-form for more insight on how this works
 class SellItem extends Component {
-  componentDidMount() {
-    this.props.getUser();
-  }
 
   render() {
     const {fields: {itemTitle, itemDescription, itemDuration, itemPicture, itemStartingBid}, handleSubmit, resetForm} = this.props;
@@ -30,9 +26,6 @@ class SellItem extends Component {
       resetForm();
     };
 
-    if (!this.props.user.id) {
-      return <div>Sign in to sell items!</div>
-    }
     return (
       <div className='sell-item'>
         <h2 className='sell-item-title'>Sell Your Item</h2>
@@ -70,12 +63,6 @@ var mapStateToProps = function(state, ownProps) {
   };
 };
 
-var mapDispatchToProps = function(dispatch) {
-  return {
-    getUser: checkAuthentication(dispatch)
-  }
-};
-
 // essentially a reducer for the form
 SellItem = reduxForm({
   // a unique name for this form
@@ -84,5 +71,5 @@ SellItem = reduxForm({
   fields: ['itemTitle', 'itemDescription', 'itemDuration', 'itemPicture', 'itemStartingBid']
 })(SellItem);
 
-module.exports = connect(mapStateToProps, mapDispatchToProps)(SellItem);
+module.exports = connect(mapStateToProps)(SellItem);
 

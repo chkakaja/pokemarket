@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
 import $ from 'jquery';
 import prettyDate from 'dateformat';
-import { checkAuthentication } from './../../actions';
 import Item from './../item/Item.jsx';
 
 export default class ItemEntry extends Component {
@@ -64,15 +63,8 @@ export default class ItemEntry extends Component {
   }
 }
 
-var mapStateToProps = function(state, ownProps) {
-  return {
-    user: state.user
-  };
-};
-
 var mapDispatchToProps = function(dispatch) {
   return {
-    getUser: checkAuthentication(dispatch),
     setCurrentItem: (item) => {
       dispatch({
         type: 'SET_CURRENT_ITEM',
@@ -82,4 +74,4 @@ var mapDispatchToProps = function(dispatch) {
   }
 };
 
-module.exports = connect(mapStateToProps, mapDispatchToProps)(ItemEntry);
+module.exports = connect(() => ({}), mapDispatchToProps)(ItemEntry);

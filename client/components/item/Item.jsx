@@ -114,6 +114,7 @@ class Item extends Component {
                 <input type='submit' className='set-bid-button pure-button' />
               </div>
             </form>
+            <div className='end-time'>{prettyDate(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</div>
             <StripeCheckout item={this.props.item} />
           </div>
           <div className='pure-u-1-24'></div>

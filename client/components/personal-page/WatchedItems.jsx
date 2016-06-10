@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import $ from 'jquery';
-import { checkAuthentication } from './../../actions';
 import ItemEntry from './../ItemEntry.jsx';
 
 class WatchedItems extends Component {
@@ -11,7 +10,6 @@ class WatchedItems extends Component {
   }
 
   componentDidMount() {
-    this.props.getUserId();
     this.getWatchedItems();
   }
 
@@ -28,21 +26,18 @@ class WatchedItems extends Component {
   }
 
   render() {
-    if (this.props.user.id) {
-      return (
-        <div>
-          <div className='watching'>Your current watch list</div>
-          {this.props.watchedItems.map(item => { 
-            if(item.sold === 0) {
-              return <ItemEntry item={item} key={item.id} />
-            }
-          })}
-        </div>
-      );
-    } else {
-      return <div>Sign in to watch items!</div>
-    }
+    return (
+      <div>
+        <div className='watching'>Your current watch list</div>
+        {this.props.watchedItems.map(item => { 
+          if(item.sold === 0) {
+            return <ItemEntry item={item} key={item.id} />
+          }
+        })}
+      </div>
+    );
   }
+
 }
 
 var mapStateToProps = function(state, ownProps) {
@@ -54,7 +49,6 @@ var mapStateToProps = function(state, ownProps) {
 
 var mapDispatchToProps = function(dispatch) {
   return {
-    getUserId: checkAuthentication(dispatch),
     updateWatchedItems: (data) => {
       dispatch({
         type: 'UPDATE_WATCHED_ITEMS',

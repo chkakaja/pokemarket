@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router'
 import { connect } from 'react-redux';
 import $ from 'jquery';
-import { checkAuthentication } from './../../actions';
 
 class SearchBar extends React.Component {
 
@@ -45,12 +44,10 @@ class SearchBar extends React.Component {
       </div>
     )
   }
-
 }
 
 var mapDispatchToProps = function(dispatch){
   return {
-    // use this information to populate search results page
     updateSearchResults: (results) => {
       dispatch({
         type: 'CLEAR_SEARCH_RESULTS'

@@ -1,17 +1,16 @@
 import React from 'react';
 import $ from 'jquery';
 import { connect } from 'react-redux';
-import { checkAuthentication } from './../../actions';
 
 import ItemEntry from './../ItemEntry.jsx';
 
 class PopularItems extends React.Component {
-  static defaultProps = {
-    popularItems: []
-  }
-
   componentDidMount() {
     this.getPopularItems();
+  }
+  
+  static defaultProps = {
+    popularItems: []
   }
 
   getPopularItems() {
@@ -40,7 +39,6 @@ class PopularItems extends React.Component {
 
 var mapStateToProps = function(state, ownProps) {
   return {
-    user: state.user,
     popularItems: state.popularItems
   };
 };

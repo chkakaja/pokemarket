@@ -1,29 +1,35 @@
 import $ from 'jquery';
 import { join } from './../socket.js';
 
-const setUser = function(user) {
+const setUser = (user) => {
   return {
     type: 'SET_USER',
     user: user
   };
 };
 
-const checkAuthentication = function(dispatch) {
-  return (user) => {
+const fetchUser = () => {
+  return (dispatch) => {
     $.get('/getuserid', user => {
       if (user) {
         join(user.id);
-        return dispatch(setUser(user));
+        dispatch(setUser(user));
       }
-      dispatch(setUser(null));
     });
   };
 };
 
-const getFeedback = function(dispatch) {
-  return function(receiver) {
+const setFeedback = (feedback) => {
+  return {
+    type: 'SET_FEEDBACK',
+    feedback
+  }
+}
+
+const fetchFeedback = (receiver) => {
+  return (dispatch) => {
     $.get('/feedback', { receiver }, feedbackArray => {
-      let positive = 0, negative = 0; neutral = 0;
+      let positive = 0, negative = 0, neutral = 0;
 
       feedbackArray.forEach(feedback => {
         if (feedback.rating === 1) {
@@ -35,35 +41,40 @@ const getFeedback = function(dispatch) {
       });    
 
       let feedback = { feedbackArray, positive, negative, neutral, receiver };
-
-      dispatch({
-        type: 'GET_FEEDBACK',
-        feedback
-      })
+      dispatch(setFeedback(feedback))
     });
   };
 };
 
-const getLeaveFeedback = function(dispatch) {
-  return function() {
-    $.get('/toleavefeedback', toLeaveFeedbackArray => {
-      dispatch({
-        type: 'GET_LEAVE_FEEDBACK',
-        toLeaveFeedbackArray
+const setLeaveFeedback = (toLeaveFeedbackArray) => {
+  return {
+    type: 'SET_LEAVE_FEEDBACK',
+    toLeaveFeedbackArray
+  }
+}
+
+const fetchLeaveFeedback = () => {
+  return (dispatch) => {
+    $.get(
+      '/toleavefeedback', (toLeaveFeedbackArray) => { 
+        dispatch(setLeaveFeedback(toLeaveFeedbackArray));
       });
-    })
   }
 };
 
-const getProfile = function(dispatch) {
-  return function(id) {
+const updateProfile = (profile) => {
+  return {
+    type: 'UPDATE_PROFILE',
+    profile
+  }
+}
+
+const fetchProfile = function(id) {
+  return (dispatch) => {
     $.get('/getprofile', { id }, profile => {
-      dispatch({
-        type: 'UPDATE_PROFILE',
-        profile
-      });
+      dispatch(updateProfile(profile));
     });
   }
 }
  
-export { checkAuthentication, getLeaveFeedback, getFeedback, getProfile };
+export { fetchUser, fetchLeaveFeedback, fetchFeedback, fetchProfile };

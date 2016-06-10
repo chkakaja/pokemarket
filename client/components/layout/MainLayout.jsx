@@ -2,12 +2,12 @@ import React, { Proptypes } from 'react';
 import Navbar from './NavBar.jsx';
 import MessageBoxes from './../message-boxes/MessageBoxes.jsx';
 
-import { checkAuthentication } from './../../actions';
+import { fetchUser } from './../../actions';
 import { connect } from 'react-redux';
 
 export default class App extends React.Component {
   componentWillMount() {
-    this.props.getUser();
+    this.props.fetchUser();
   }
 
   render() {
@@ -15,23 +15,17 @@ export default class App extends React.Component {
       <div className='main-layout'>
         <Navbar />
           {this.props.children}
+          }
         <MessageBoxes />
       </div>
     );
   }
-
 }
-
-var mapStateToProps = function(state, ownProps) {
-  return {
-    user: state.user
-  };
-};
 
 var mapDispatchToProps = function(dispatch) {
   return {
-    getUser: checkAuthentication(dispatch),
+    fetchUser: () => dispatch(fetchUser())
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(() => ({}), mapDispatchToProps)(App);

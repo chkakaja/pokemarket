@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { getFeedback } from './../../actions';
+import { fetchFeedback } from './../../actions';
 import { connect } from 'react-redux';
 import FeedbackEntry from './FeedbackEntry.jsx';
 
-export default class Feedback extends Component {
+class Feedback extends Component {
 
   static defaultProps = {
     receiver: 1,
@@ -14,7 +14,7 @@ export default class Feedback extends Component {
   };
 
   componentWillMount() {
-    this.props.getFeedback(this.props.receiver);
+    this.props.fetchFeedback();
   }
 
   render() {
@@ -52,7 +52,6 @@ export default class Feedback extends Component {
 }
 
 var mapStateToProps = function(state, ownProps) {
-  console.log(state.feedbackArray);
   return {
     feedbackArray: state.feedback.feedbackArray,
     negative: state.feedback.negative,
@@ -61,9 +60,9 @@ var mapStateToProps = function(state, ownProps) {
   };
 };
 
-var mapDispatchToProps = function(dispatch) {
+var mapDispatchToProps = function(dispatch, ownProps) {
   return {
-    getFeedback: getFeedback(dispatch)
+    fetchFeedback: () => dispatch(fetchFeedback(ownProps.receiver))
   };
 };
 
