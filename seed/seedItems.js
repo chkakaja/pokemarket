@@ -3,7 +3,7 @@ module.exports = [
     "seller_id":1,
     "title": 'Psyduck',
     "description": 'Great hat. Never wore!',
-    "picture":'http://pldh.net/media/dreamworld/054.png',
+    "picture":'http://randompokemon.com/sprites/animated/54.gif',
     "duration": 2,  
     "currentBid": 14,
     'originalPrice': 14 
