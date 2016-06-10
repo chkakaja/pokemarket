@@ -19,7 +19,6 @@ export default class App extends React.Component {
       </div>
     );
   }
-
 }
 
 var mapStateToProps = function(state, ownProps) {

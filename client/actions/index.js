@@ -13,9 +13,8 @@ const checkAuthentication = function(dispatch) {
     $.get('/getuserid', user => {
       if (user) {
         join(user.id);
-        return dispatch(setUser(user));
+        dispatch(setUser(user));
       }
-      dispatch(setUser(null));
     });
   };
 };

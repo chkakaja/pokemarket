@@ -9,10 +9,6 @@ import CountdownTimer from './CountDownTimer.jsx';
 
 export default class ItemEntry extends React.Component {
 
-  componentDidMount() {
-    this.props.getUser();
-  }
-  
   watchItem(e) {
     $.ajax({
       method: 'GET',
@@ -33,54 +29,27 @@ export default class ItemEntry extends React.Component {
   }
 
   render () {
-    if (this.props.user.id) {
-      return (
-        <div className='item-entry'>
-          <Link to='item' onClick={this.setCurrent.bind(this)}>
-            <img src={this.props.item.picture} height='300px' className='item-entry-picture' />
-            <div className='all-info'>
-              <div className='item-entry-info'>
-                <div className='item-entry-title'>{this.props.item.title}</div>
-                <div className='item-entry-description'>{this.props.item.description}</div>
-              </div>
-              <div className='item-entry-purchase'>
-                <div className='item-entry-current-bid'><b>Current Price:</b> ${this.props.item.currentBid}</div>
-                <button className='watch pure-button' type='submit' onClick={this.watchItem.bind(this)}>Watch Item</button>
-              </div>
+    return (
+      <div className='item-entry'>
+        <Link to='item' onClick={this.setCurrent.bind(this)}>
+          <img src={this.props.item.picture} height='300px' className='item-entry-picture' />
+          <div className='all-info'>
+            <div className='item-entry-info'>
+              <div className='item-entry-title'>{this.props.item.title}</div>
+              <div className='item-entry-description'>{this.props.item.description}</div>
             </div>
-          </Link>
-        </div>
-      );
-    } else {
-      return (
-        <div className='item-entry'>
-          <Link to='item' onClick={this.setCurrent.bind(this)}>
-            <img src={this.props.item.picture} height='300px' className='item-entry-picture' />
-            <div className='all-info'>
-              <div className='item-entry-info'>
-                <div className='item-entry-title'>{this.props.item.title}</div>
-                <div className='item-entry-description'>{this.props.item.description}</div>
-              </div>
-              <div className='item-entry-purchase'>
-                <div className='item-entry-current-bid'><b>Current Price:</b> ${this.props.item.currentBid}</div>
-              </div>
+            <div className='item-entry-purchase'>
+              <div className='item-entry-current-bid'><b>Current Price:</b> ${this.props.item.currentBid}</div>
             </div>
-          </Link>
-        </div>
-      );
-    }
+          </div>
+        </Link>
+      </div>
+    );
   }
 }
 
-var mapStateToProps = function(state, ownProps) {
-  return {
-    user: state.user
-  };
-};
-
 var mapDispatchToProps = function(dispatch) {
   return {
-    getUser: checkAuthentication(dispatch),
     setCurrentItem: (item) => {
       dispatch({
         type: 'SET_CURRENT_ITEM',
@@ -90,4 +59,4 @@ var mapDispatchToProps = function(dispatch) {
   }
 };
 
-module.exports = connect(mapStateToProps, mapDispatchToProps)(ItemEntry);
+module.exports = connect(() => ({}), mapDispatchToProps)(ItemEntry);
