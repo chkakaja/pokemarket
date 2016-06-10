@@ -1,4 +1,9 @@
 module.exports = function(app, passport) {
+  app.get('/login',
+  (req, res) => {
+    res.status(200).render('login');
+  });
+
   app.get('/signout', 
   (req, res) => {
     req.logout();

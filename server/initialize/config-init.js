@@ -1,10 +1,10 @@
 var bodyParser = require('body-parser');
-var exphbs = require('express-handlebars');
+var exphbs = require('ejs');
+var path = require('path');
 
 module.exports = function(app, express) {
-  app.engine('handlebars', exphbs({defaultLayout: 'single', extname: '.hbs'}));
-  app.set('view engine', 'handlebars');
-  app.set('views', path.join(__dirname, '../templates'));
+  app.set('view engine', 'ejs');
+  app.set('views', path.join(__dirname, './../views'));
 
   app.use(express.static(__dirname + './../../public'));
   app.use(bodyParser()); 

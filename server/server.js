@@ -29,6 +29,7 @@ require('./socket.js');
 
 require('./routes/auth-routes.js')(app, passport);
 app.use(require('./lib/ensureAuthenticated.js'));
+require('./routes/view-routes.js')(app);
 
 require('./routes/profile-routes.js')(app);
 require('./routes/feedback-routes.js')(app);
