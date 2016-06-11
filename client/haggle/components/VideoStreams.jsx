@@ -1,6 +1,7 @@
 import React from 'react';
 import Peer from 'peerjs';
 import queryString from 'query-string';
+window.Peer = Peer;
 
 class VideoStreams extends React.Component {
   constructor(props) {
@@ -10,13 +11,14 @@ class VideoStreams extends React.Component {
     this.state = {
       isInitial: init === '1',
       initialPeerId: id,
-      outgoingStream: {}
+      outgoingPeer: {},
+      outgoingStream: null
     }
   }
 
-  componentWillMount() {
-    this._startUserMedia();
+  componentDidMount() {
     this._startPeer();
+    this._startUserMedia();
   }
 
   _startUserMedia() {
@@ -26,7 +28,7 @@ class VideoStreams extends React.Component {
     let constraints = { 
       audio: false, 
       video: { 
-        width: 300 
+        width: 450 
       }
     };
 
@@ -38,6 +40,9 @@ class VideoStreams extends React.Component {
       };
 
       this.setState({ outgoingStream: mediaStream });
+      this._receiveCall(this.state.outgoingPeer);
+
+      if (!this.state.isInitial) this._startCall();
     };
 
     let errorCb = (error) => {
@@ -49,7 +54,8 @@ class VideoStreams extends React.Component {
 
   _startPeer() {
     let peerConfig = {
-      key: 'guyjtrwmc2yjsjor'
+      key: 'guyjtrwmc2yjsjor',
+      debug: 3
     }
 
     let outgoingPeer;
@@ -57,24 +63,23 @@ class VideoStreams extends React.Component {
       outgoingPeer = new Peer(this.state.initialPeerId, peerConfig);
     } else {
       outgoingPeer = new Peer(peerConfig);
-      this._startCall(outgoingPeer, this.state.initialPeerId);
     }
+
+    this.setState({ outgoingPeer: outgoingPeer });
 
     outgoingPeer.on('open', function(id) {
       console.log('My outgoingPeer ID is: ' + id);
     });
-
-    this._receiveCall(outgoingPeer);
   };
 
-  _startCall(outgoingPeer, destPeerId) {
-    let call = outgoingPeer.call(destPeerId, this.state.outgoingStream);
+  _startCall() {
+    let call = this.state.outgoingPeer.call(this.state.initialPeerId, this.state.outgoingStream);
     this._receiveStream(call);
   }
 
   _receiveCall(outgoingPeer) {
-    outgoingPeer.on('call', (call) => {
-      call.answer(mediaStream);
+    this.state.outgoingPeer.on('call', (call) => {
+      call.answer(this.state.outgoingStream);
       this._receiveStream(call);
     });
   }
@@ -84,7 +89,7 @@ class VideoStreams extends React.Component {
       console.log('Receiving stream');
 
       let video = document.querySelector('.incoming-stream');
-      video.src = window.URL.createObjectURL(mediaStream);
+      video.src = window.URL.createObjectURL(incomingStream);
       video.onloadedmetadata = function(e) {
         video.play();
       };
