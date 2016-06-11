@@ -2,7 +2,7 @@ var webpack = require('webpack');
 
 var marketConfig = {
   context: __dirname + '/client/market',
-  entry: './index.jsx',
+  entry: './index.js',
 
   output: {
     filename: 'market.bundle.js',
@@ -24,7 +24,7 @@ var marketConfig = {
 
 var haggleConfig = {
   context: __dirname + '/client/haggle',
-  entry: './index.jsx',
+  entry: './index.js',
 
   output: {
     filename: 'haggle.bundle.js',
