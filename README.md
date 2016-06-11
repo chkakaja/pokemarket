@@ -12,24 +12,17 @@ Vendr is your personal, local marketplace with real-time communication
   3. [Setup Environment Variables](#Environment-Variables)
   4. [Start the application](#Start-application)
 3. [Technologies](#Technologies)
-4. [Architecture](#Architecture)
-5. [Team](#Team)
-6. [Contributing](#Contributing)
+4. [Team](#Team)
+5. [Contributing](#Contributing)
 
 ## Usage
 
 Landingpage:
-![screen shot 2016-06-06 at 20 10 44](https://cloud.githubusercontent.com/assets/10008938/15844915/2478c052-2c23-11e6-8069-5ed2edce3c05.png)
 Login:
-![screen shot 2016-06-06 at 20 11 19](https://cloud.githubusercontent.com/assets/10008938/15844918/2796150a-2c23-11e6-98ab-8042cbf48ea1.png)
 Home:
-![screen shot 2016-06-06 at 20 08 50](https://cloud.githubusercontent.com/assets/10008938/15844927/334263b8-2c23-11e6-94f4-d9a040efdfd1.png)
 Record:
-![screen shot 2016-06-06 at 20 10 18](https://cloud.githubusercontent.com/assets/10008938/15844922/2cdbb236-2c23-11e6-9f2d-4adf4d9b0f79.png)
 Graphs:
-![screen shot 2016-06-06 at 20 09 39](https://cloud.githubusercontent.com/assets/10008938/15844923/2f5013c2-2c23-11e6-8608-607eff0c4da8.png)
 Session Overview:
-![screen shot 2016-06-06 at 20 09 18](https://cloud.githubusercontent.com/assets/10008938/15844924/3144420c-2c23-11e6-920e-c4ebdc5dea55.png)
 
 ## Getting started
 
@@ -93,15 +86,13 @@ Session Overview:
 
 ##### Front end:
 - React
-- Face Analysis Cloud Engine API by Sightcorp
-- Browserify
-- Chartjs
+- Webpack
 - Babel
 
 ##### Back end:
 - Node
 - Express
-- Jade
+-
 - Bookshelf/Knex
 - MySQL
 - Passport
@@ -117,44 +108,6 @@ Session Overview:
 ##### Deployment:
 - Digital Ocean Droplet
 - pm2: Production Process Manager
-
-## Architecture
-![sentimize](https://cloud.githubusercontent.com/assets/10008938/15795587/c0bfd19a-29a7-11e6-9402-de7dabdf1526.png)
-
-<!-- ### Database Schema
-<b> to be added </b> -->
-
-## Directory Layout
-```
-├── /env/                       # Environment variables
-├── /node_modules/              # 3rd-party libraries and utilities
-├── /client/                    # Client source code
-│   ├── /build/                 # Build file produced with Browserify
-│   ├── /components/            # React components
-│     ├── /home-view/           # Home view components
-│     ├── /main-layout/         # Main Layout components
-│     ├── /record-view/         # Record view components
-│     ├── /report-view/         # Reporting view components
-│     ├── /App.jsx/             # Main React App
-│   ├── /lib/                   # Lib files, e.g. from FACE API
-│   ├── /style/                 # CSS Style files
-│   ├── /index.jsx              # Index file to attach React to DOM
-├── /server/                    # Server source code
-│   ├── /config/                # Initial server config files
-│   ├── /controllers/           # Controllers for database interaction
-│   ├── /lib/                   # Lib for util functions
-│   ├── /models/                # Data models
-│   ├── /routes/                # Routes for incoming GET and POST requests
-│   ├── /views/                 # Jade templating views
-│   └── /server.js              # Server-side startup script
-├── /test/                      # Server and client side tests
-│   ├── /client/                # Client side tests
-│   ├── /server/                # Server side tests
-|   ├── /data/                  # Holds seed & dummy data
-└── package.json                # List of 3rd party libraries and utilities to be installed
-└── .babelrc                    # Babel presets
-└── .eslintrc                   # ESLint settings
-```
 
 ## Team
   - Product Owner:            Christian Haug

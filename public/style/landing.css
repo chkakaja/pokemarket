@@ -1,0 +1,25 @@
+body {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+
+.fbook {
+  width: 100px;
+  align: center;
+}
+
+div.landing-container {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -o-transform: translateX(-50%) translateY(-50%);
+}
+
+.fbook {
+  margin-top: 20px;
+}
