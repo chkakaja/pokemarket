@@ -134,7 +134,10 @@ class Item extends Component {
         <div className='pure-u-1-24'></div>
         <div className='item-seller pure-u-4-24'>
           <div className='seller-info'>Seller:</div>
-          <Username id={this.props.item.seller.id} name={this.props.item.seller.name} />
+          <Username 
+            sellerId={this.props.item.seller.id} 
+            name={this.props.item.seller.name} 
+          />
           <div className='hover-image'>
             <img src={this.props.item.seller.picture} className='seller-picture' />
           </div>
