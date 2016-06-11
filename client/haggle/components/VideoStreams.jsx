@@ -26,7 +26,7 @@ class VideoStreams extends React.Component {
     if (!navigator.getUserMedia) console.error('getUserMedia not supported');
 
     let constraints = { 
-      audio: false, 
+      audio: true, 
       video: { 
         width: 450 
       }
