@@ -1,15 +1,19 @@
 import React from 'react';
+import Peer from 'peerjs';
 
 class VideoStreams extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      initialPeerId: window.location.hash.slice(1)
+      initialPeerId: window.location.hash.slice(1),
+      outgoingPeer: {},
+      incomingPeerId: ''
     }
   }
 
   componentWillMount() {
-
+    this._startUserMedia();
+    this._startPeer();
   }
 
   _startUserMedia() {
@@ -19,8 +23,7 @@ class VideoStreams extends React.Component {
     let constraints = { 
       audio: false, 
       video: { 
-        width: 400, 
-        height: 400 
+        width: 300 
       }
     };
 
@@ -31,8 +34,7 @@ class VideoStreams extends React.Component {
         video.play();
       };
 
-      receiveCall(mediaStream);
-      window.mediaStream = mediaStream;
+      this._receiveCall(mediaStream);
     };
 
     let errorCb = (error) => {
@@ -43,33 +45,36 @@ class VideoStreams extends React.Component {
   }
 
   _startPeer() {
-    peer = new Peer(this.state.initialPeerId, {
+    let peerId = this.state.initialPeerId;
+    let outgoingPeer = new Peer(peerId, {
       key: 'guyjtrwmc2yjsjor',
       debug: 3,
       logFunction: () => {
         var copy = Array.prototype.slice.call(arguments).join(' ');
-        $('.log').append(copy + '<br>');
+        console.log(copy);
       }
     });
 
-    peer.on('open', function(id) {
-      console.log('My peer ID is: ' + id);
+    this.setState({ outgoingPeer: outgoingPeer });
+
+    outgoingPeer.on('open', function(id) {
+      console.log('My outgoingPeer ID is: ' + id);
     });
 
-    peer.on('error', function(err) {
+    outgoingPeer.on('error', function(err) {
       console.log(err);
     });
   };
 
   _startCall(destPeerId) {
     let call = peer.call(destPeerId, mediaStream);
-    receiveStream(call);
+    this._receiveStream(call);
   }
 
   _receiveCall() {
-    peer.on('call', function(call) {
+    this.state.outgoingPeer.on('call', (call) => {
       call.answer(mediaStream);
-      receiveStream(call);
+      this._receiveStream(call);
     });
   }
 
