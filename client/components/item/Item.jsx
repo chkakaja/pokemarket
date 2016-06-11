@@ -82,14 +82,14 @@ class Item extends Component {
         document.getElementsByClassName('set-bid-input')[0].value = '';
         this.setState({bidProposed: true})
         this.watchItem(e);
-        this.sendMessages();
+        this.sendMessages('New Bid on ');
       }.bind(this)
     })
   }
 
-  sendMessages() {
-    var text = 'New Bid on ' + this.props.item.title.toString()
-    sendMessage(this.props.user.id, this.props.item.seller.id, text)
+  sendMessages(text) {
+    var newText = text + this.props.item.title.toString()
+    sendMessage(this.props.user.id, this.props.item.seller.id, newText)
   }
 
   watchItem(e) {

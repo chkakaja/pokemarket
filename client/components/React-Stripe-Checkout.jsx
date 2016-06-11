@@ -2,6 +2,7 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 import $ from 'jquery';
 import StripeCheckout  from 'react-stripe-checkout';
+import { join, sendMessage } from './../socket.js';
 
 export default class PaymentView extends React.Component {
   constructor(props) {
@@ -23,6 +24,7 @@ export default class PaymentView extends React.Component {
         callback(data);
         this.props.item.sold = 1;
         this.itemSold()
+        this.sendMessages('Congratulations on your new ')
 
       }.bind(this),
       error: function(err) {
@@ -32,9 +34,15 @@ export default class PaymentView extends React.Component {
           //putting flag here to get around 
         this.props.item.sold = 1;
         this.itemSold()
+        this.sendMessages('Congratulations on your new ')
       }.bind(this),
       dataType: 'json'
     });
+  }
+
+  sendMessages(text) {
+    var newText = text + this.props.item.title.toString()
+    sendMessage(Number(this.props.item.seller_id), this.props.item.current_bidder, newText)
   }
 
   itemSold() {
