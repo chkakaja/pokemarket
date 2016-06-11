@@ -20339,6 +20339,59 @@
 /* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _VideoStreams = __webpack_require__(169);
+
+	var _VideoStreams2 = _interopRequireDefault(_VideoStreams);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var App = function (_React$Component) {
+	  _inherits(App, _React$Component);
+
+	  function App() {
+	    _classCallCheck(this, App);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(App).apply(this, arguments));
+	  }
+
+	  _createClass(App, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'haggle-app' },
+	        _react2.default.createElement(_VideoStreams2.default, null)
+	      );
+	    }
+	  }]);
+
+	  return App;
+	}(_react2.default.Component);
+
+	exports.default = App;
+
+/***/ },
+/* 169 */
+/***/ function(module, exports, __webpack_require__) {
+
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
@@ -20351,40 +20404,44 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var App = function App() {
+	var VideoStreams = function VideoStreams() {
 	  return _react2.default.createElement(
 	    "div",
-	    { className: "haggle-app" },
+	    { className: "video-streams" },
 	    _react2.default.createElement(
 	      "div",
-	      { className: "video-streams" },
+	      { className: "pure-g" },
 	      _react2.default.createElement(
 	        "div",
-	        { className: "pure-g" },
+	        { className: "pure-u-1-2" },
 	        _react2.default.createElement(
-	          "div",
-	          { className: "pure-u-1-2" },
-	          _react2.default.createElement(
-	            "h3",
-	            null,
-	            "Outgoing"
-	          )
+	          "h3",
+	          null,
+	          "Outgoing"
 	        ),
+	        _react2.default.createElement("video", {
+	          className: "video outgoing-stream",
+	          poster: "http://dummyimage.com/450X300/000000/dadcfa.png&text=Awaiting+connection..."
+	        })
+	      ),
+	      _react2.default.createElement(
+	        "div",
+	        { className: "pure-u-1-2" },
 	        _react2.default.createElement(
-	          "div",
-	          { className: "pure-u-1-2" },
-	          _react2.default.createElement(
-	            "h3",
-	            null,
-	            "Incoming"
-	          )
-	        )
+	          "h3",
+	          null,
+	          "Incoming"
+	        ),
+	        _react2.default.createElement("video", {
+	          className: "video incoming-stream",
+	          poster: "http://dummyimage.com/450X300/000000/dadcfa.png&text=Awaiting+connection..."
+	        })
 	      )
 	    )
 	  );
 	};
 
-	exports.default = App;
+	exports.default = VideoStreams;
 
 /***/ }
 /******/ ]);

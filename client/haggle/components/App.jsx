@@ -1,16 +1,15 @@
 import React from 'react';
 
-const App = () => (
-  <div className="haggle-app">
+import VideoStreams from './VideoStreams.jsx';
 
-    <div className="video-streams">
-      <div className="pure-g">
-        <div className="pure-u-1-2"><h3>Outgoing</h3></div>
-        <div className="pure-u-1-2"><h3>Incoming</h3></div>
-      </div> 
-    </div>
-
-  </div>
-);
+class App extends React.Component {
+  render() {
+    return (
+      <div className="haggle-app">
+        <VideoStreams />
+      </div>
+    )
+  }
+}
 
 export default App;

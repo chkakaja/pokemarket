@@ -5,3 +5,8 @@
 .video-streams {
   margin-top: 50px;
 }
+
+.video {
+  margin: 30px 0;
+  border: 5px solid rgb(150, 150, 150);
+}
