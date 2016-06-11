@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import $ from 'jquery';
 
-import prettyDate from 'dateformat';
 import Username from './../Username.jsx';
 import StripeCheckout from './../React-Stripe-Checkout.jsx'
+import { join, sendMessage } from './../../socket.js';
 
+  
 class Item extends Component {
 
   static defaultProps = {
@@ -81,8 +82,14 @@ class Item extends Component {
         document.getElementsByClassName('set-bid-input')[0].value = '';
         this.setState({bidProposed: true})
         this.watchItem(e);
+        this.sendMessages();
       }.bind(this)
     })
+  }
+
+  sendMessages() {
+    var text = 'New Bid on ' + this.props.item.title.toString()
+    sendMessage(this.props.user.id, this.props.item.seller.id, text)
   }
 
   watchItem(e) {
