@@ -17,6 +17,7 @@ html, button, input, select, textarea,
 
 body {
   min-width: 900px;
+  background-color: #A8CFF9;
 }
 
 .bold {
@@ -561,6 +562,8 @@ a {
   margin: 20px 20px;
   width: 80%;
   height: 500px;
+  border-radius: 35px;
+
 }
 
 .personalpage .item-entry .item-entry-picture {
