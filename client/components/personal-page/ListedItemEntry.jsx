@@ -5,6 +5,7 @@ import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
 import $ from 'jquery';
 import prettyDate from 'dateformat';
 import Item from './../item/Item.jsx';
+import { join, sendMessage } from './../../socket.js';
 
 export default class ItemEntry extends Component {
   setCurrent() {
@@ -26,12 +27,19 @@ export default class ItemEntry extends Component {
         this.props.item.newPrice = data.newPrice;
         this.props.setCurrentItem(this.props.item);
         //update state w new item Acceptprice
+        console.log(this.props.item)
+        this.sendMessages('Bid Accepted for ');
       }.bind(this)
     })
   }
 
-  decline() {
+  sendMessages(text) {
+    var newText = text + this.props.item.title.toString()
+    sendMessage(Number(this.props.item.seller_id), this.props.item.current_bidder, newText)
+  }
 
+  decline() {
+    this.sendMessages('Bid declined for ');
   }
 
   render () {
