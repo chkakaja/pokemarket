@@ -6,10 +6,12 @@ node_modules
 npm-debug.log
 
 # Webpack bundled static assets
-bundle.js
+market.bundle.js
+haggle.bundle.js
 
 #Environment configuration
 env/development.env
+env/*.pem
 
 # Ignore Mac DS_Store files
 .DS_Store

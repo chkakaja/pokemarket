@@ -4,8 +4,11 @@ if (process.env.NODE_ENV === 'development') {
   require('dotenv').config({path: './env/production.env'});
 }
 
+var https = require('https');
+var fs = require('fs');
 var express = require('express');
 var passport = require('passport');
+
 var app = express();
 
 require('./initialize/config-init.js')(app, express);
@@ -20,7 +23,7 @@ exports.io = require('socket.io')(http);
 app.use(express.static(__dirname + '/../public'));
 
 http.listen(process.env.PORT, function(){
-  console.log('listening on port:' + process.env.PORT);
+  console.log('Socket.io listening on port:' + process.env.PORT);
 });
 
 require('./socket.js');
@@ -38,5 +41,11 @@ require('./routes/search-routes.js')(app);
 require('./routes/item-routes.js')(app);
 require('./routes/payment-routes.js')(app);
 
+app.get('/*', function(req, res) {
+  res.redirect('/');
+})
 
-
+https.createServer({
+  key: fs.readFileSync('./env/key.pem'),
+  cert: fs.readFileSync('./env/cert.pem')
+}, app).listen(8080);

@@ -1,4 +1,5 @@
 import React, { Proptypes } from 'react';
+
 import Navbar from './NavBar.jsx';
 import MessageBoxes from './../message-boxes/MessageBoxes.jsx';
 
@@ -15,7 +16,6 @@ export default class App extends React.Component {
       <div className='main-layout'>
         <Navbar />
           {this.props.children}
-          }
         <MessageBoxes />
       </div>
     );

@@ -1,12 +1,12 @@
 var webpack = require('webpack');
 
-var config = {
-  context: __dirname + '/client',
-  entry: "./index.js",
+var marketConfig = {
+  context: __dirname + '/client/market',
+  entry: './index.jsx',
 
   output: {
-    filename: "bundle.js",
-    path: __dirname + "/public",
+    filename: 'market.bundle.js',
+    path: __dirname + '/public',
   },
   module: {
     loaders: [
@@ -21,4 +21,27 @@ var config = {
     ],
   }
 };
-module.exports = config;
+
+var haggleConfig = {
+  context: __dirname + '/client/haggle',
+  entry: './index.jsx',
+
+  output: {
+    filename: 'haggle.bundle.js',
+    path: __dirname + '/public',
+  },
+  module: {
+    loaders: [
+      {
+        test: /.js$|.jsx$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        query: {
+          presets: ['react', 'es2015', 'stage-0']
+        }
+      }
+    ],
+  }
+};
+
+module.exports = [ marketConfig, haggleConfig ];
