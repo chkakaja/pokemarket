@@ -308,7 +308,6 @@ a {
 }
 
 .item .item-info .item-description {
-  position: absolute;
   bottom: 3%;
   margin: 10px 0px 0px 20px;
   max-width: 500px;
@@ -637,11 +636,20 @@ a {
 }
 
 
-/***************** FEEDBACK *****************/
+/***************** Override *****************/
 .leave-feedback-selected {
   font-weight: bold;
 }
 img.item-entry-picture, img.item-picture {
   height: 150px !important;
   margin: auto !important;
+}
+
+img.item-picture {
+  margin-top: 40px !important;
+}
+
+.pure-button.stripe-button-override {
+  bottom: 3%;
+  position: absolute;
 }

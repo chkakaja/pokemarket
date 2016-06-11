@@ -34,14 +34,14 @@ export default class ItemEntry extends React.Component {
           <div className='all-info'>
             <div className='item-entry-info'>
               <div className='item-entry-title'>{this.props.item.title}</div>
-              <div className='item-entry-description'>{this.props.item.description}</div>
+              <div className='item-entry-description'>{this.props.item.description.substring(0,50) + '...'}</div>
             </div>
             <div className='item-entry-purchase'>
               <div className='item-entry-current-bid'>
                 <span className='bold'>Original Price: ${this.props.item.originalPrice}</span>
                 <p className='bold'>Proposed Price: ${this.props.item.currentBid}</p>
               </div>
-              <button className='watch pure-button' type='submit' onClick={this.watchItem.bind(this)}>Watch Item</button>
+              <button className='watch pure-button' type='submit' onClick={this.watchItem.bind(this)}>Watch Pokemon</button>
             </div>
           </div>
         </Link>
