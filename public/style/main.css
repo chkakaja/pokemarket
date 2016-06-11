@@ -493,6 +493,10 @@ a {
   padding: 20px;
   background-color: #CAE5FD;
   border-radius: 35px;
+ /* background-image: url('http://orig13.deviantart.net/3979/f/2015/056/6/3/pokelia__pokeball_meme_by_pikokko-d8jinub.png');
+  background-size: 300px 250px;
+  background-repeat: no-repeat;
+  background-position: center top;*/
 }
 
 .landing .popular-items .item-entry .item-entry-picture {
@@ -503,7 +507,12 @@ a {
   max-height: 170px;
   max-width: 300px;
 }
+.landing .popular-items .item-entry .item-entry-picture-container {
+ /* background-image: url('http://orig13.deviantart.net/3979/f/2015/056/6/3/pokelia__pokeball_meme_by_pikokko-d8jinub.png');
+  background-size: 140px 140px;
+  background-repeat: no-repeat;*/
 
+}
 .landing .popular-items .item-entry .all-info {
   position: absolute;
   bottom: 3%;
@@ -563,6 +572,8 @@ a {
   width: 80%;
   height: 500px;
   border-radius: 35px;
+  background-color: #CAE5FD;
+
 
 }
 
@@ -582,6 +593,7 @@ a {
 }
 
 .personalpage .item-entry .all-info .item-entry-info .item-entry-description {
+  font-size: 18px;
   margin-bottom: 10px;
   width: 100%;
   max-height: 40px;

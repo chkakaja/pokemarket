@@ -50,7 +50,7 @@ export default class ItemEntry extends Component {
           <div className='all-info'>
             <div className='item-entry-info'>
               <div className='item-entry-title'>{this.props.item.title}</div>
-              <div className='item-entry-description'>{this.props.item.description}</div>
+              <div className='item-entry-description'>{this.props.item.description.substring(0,50) + '...'}</div>
             </div>
           </div>
         </Link>
