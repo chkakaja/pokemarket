@@ -10,6 +10,21 @@ module.exports = function(app, express, passport) {
   app.use(passport.initialize());
   app.use(passport.session());
 
+  passport.serializeUser(function(user, done) {
+    // console.log('serializeUser: ' + user.get('facebookId'));
+    done(null, user.get('facebookId'));
+  });
+
+  passport.deserializeUser(function(facebookId, done) {
+    // console.log('deserialize', facebookId);
+    User.where({ facebookId: facebookId }).fetch()
+      .then(function(user) {
+        done(null, user);
+      })
+      .catch(function(err) {
+        done(err, null);
+      });
+  });
 
   passport.use(new FacebookStrategy({
       // **you will need to create your own fb developer account and input your own clientID and clientSecret
@@ -43,20 +58,4 @@ module.exports = function(app, express, passport) {
       })
     }
   ));
-
-  passport.serializeUser(function(user, done) {
-    // console.log('serializeUser: ' + user.get('facebookId'));
-    done(null, user.get('facebookId'));
-  });
-
-  passport.deserializeUser(function(facebookId, done) {
-    // console.log('deserialize', facebookId);
-    User.where({ facebookId: facebookId }).fetch()
-      .then(function(user) {
-        done(null, user);
-      })
-      .catch(function(err) {
-        done(err, null);
-      });
-  });
 }

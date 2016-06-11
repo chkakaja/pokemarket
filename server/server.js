@@ -37,6 +37,3 @@ require('./routes/message-routes.js')(app);
 require('./routes/search-routes.js')(app);
 require('./routes/item-routes.js')(app);
 require('./routes/payment-routes.js')(app);
-
-
-

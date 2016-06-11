@@ -1,11 +1,11 @@
 var webpack = require('webpack');
 
-var config = {
-  context: __dirname + '/client',
-  entry: "./index.js",
+var marketConfig = {
+  context: __dirname + '/client/market',
+  entry: './index.js',
 
   output: {
-    filename: "bundle.js",
+    filename: "market.bundle.js",
     path: __dirname + "/public",
   },
   module: {
@@ -21,4 +21,5 @@ var config = {
     ],
   }
 };
-module.exports = config;
+
+module.exports = marketConfig;

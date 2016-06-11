@@ -6,7 +6,7 @@ node_modules
 npm-debug.log
 
 # Webpack bundled static assets
-bundle.js
+market.bundle.js
 
 #Environment configuration
 env/development.env
