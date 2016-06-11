@@ -65,15 +65,15 @@ export default class PaymentView extends React.Component {
       <StripeCheckout
           token={this.onToken.bind(this)}
           stripeKey="pk_test_FOC0Cq8W78b70x2LUrT4qTmq"
-          name="Vendr Inc."
-          image="https://www.mygreatlakes.org/mglstatic/educate/images/knowledge-center/slider/ways-steps.png"
+          name="PokeMarket Place"
+          image="https://lh4.ggpht.com/JWuRL9-MsW1VFYfItQXnw4z-Yry0d7b9H0L5s0Refd7JhcOac0UQ4ujmNNeI6o64Eqs=w300"
           // description="for goods purchased"
           panelLabel="Total: "
           amount={this.props.item.newPrice * 100}
           currency="USD"
           bitcoin={true}
           componentClass="div">
-          <button className="pure-button">Buy Now ${this.props.item.newPrice}</button>
+          <button className="pure-button stripe-button-override">Buy Now ${this.props.item.newPrice}</button>
       </StripeCheckout>
     )
   }
