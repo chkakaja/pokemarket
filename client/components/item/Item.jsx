@@ -5,6 +5,8 @@ import $ from 'jquery';
 
 import Username from './../Username.jsx';
 import StripeCheckout from './../React-Stripe-Checkout.jsx'
+import { join, sendMessage } from './../../socket.js';
+
 
 class Item extends Component {
 
@@ -15,6 +17,13 @@ class Item extends Component {
         name: '',
         picture: ''
       }
+    }
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      bidProposed: false
     }
   }
 
@@ -71,8 +80,16 @@ class Item extends Component {
         console.log('Current bid:', data.currentBid);
         this.props.setCurrentItem(this.props.item);
         document.getElementsByClassName('set-bid-input')[0].value = '';
+        this.setState({bidProposed: true})
+        this.watchItem(e);
+        this.sendMessages('New Bid on ');
       }.bind(this)
     })
+  }
+
+  sendMessages(text) {
+    var newText = text + this.props.item.title.toString()
+    sendMessage(this.props.user.id, this.props.item.seller.id, newText)
   }
 
   watchItem(e) {
@@ -92,65 +109,38 @@ class Item extends Component {
   }
 
   render () {
-    if (this.props.user.id) {
-      return (
-        <div className='item'>
-          <div className='item-title'>{this.props.item.title}</div>
-          <div className='item-info pure-u-10-24'>
-            <img src={this.props.item.picture} className='item-picture' />
-            <div className='item-description'>{this.props.item.description}</div>
-            <button className='watch pure-button' type='submit' onClick={this.watchItem.bind(this)}>Watch Pokemon</button>
+    return (
+      <div className='item'>
+        <div className='item-title'>{this.props.item.title}</div>
+        <div className='item-info pure-u-10-24'>
+          <img src={this.props.item.picture} className='item-picture' />
+          <div className='item-description'>{this.props.item.description}</div>
+          <button className='watch pure-button' type='submit' onClick={this.watchItem.bind(this)}>Watch Pokemon</button>
+        </div>
+        <div className='pure-u-1-24'></div>
+        <div className='purchase pure-u-6-24'>
+          <div className='current-bid'>
+            <span className='bold'>Original Price: ${this.props.item.originalPrice}</span>
+            <p className='bold'>Proposed Price: ${this.props.item.currentBid} </p>
           </div>
-          <div className='pure-u-1-24'></div>
-          <div className='purchase pure-u-6-24'>
-            <div className='current-bid'>
-              <span className='bold'>Original Price: ${this.props.item.originalPrice}</span>
-              <p className='bold'>Proposed Price: ${this.props.item.currentBid} </p>
+          <form onSubmit={this.setBid.bind(this)}>
+            <div className='set-bid pure-form'>
+              <input className='set-bid-input pure-input-1-2' onChange={this.changeBid.bind(this)} type='number' placeholder='Your price' />
+              <input type='submit' className='set-bid-button pure-button' />
             </div>
-            <form onSubmit={this.setBid.bind(this)}>
-              <div className='set-bid pure-form'>
-                <input className='set-bid-input pure-input-1-2' onChange={this.changeBid.bind(this)} type='number' placeholder='Your price' />
-                <input type='submit' className='set-bid-button pure-button' />
-              </div>
-            </form>
-            <StripeCheckout item={this.props.item} />
-          </div>
-          <div className='pure-u-1-24'></div>
-          <div className='item-seller pure-u-4-24'>
-            <div className='seller-info'>Seller:</div>
-            <Username id={this.props.item.seller.id} name={this.props.item.seller.name} />
-            <div className='hover-image'>
-              <img src={this.props.item.seller.picture} className='seller-picture' />
-            </div>
+          </form>
+          <StripeCheckout item={this.props.item} />
+        </div>
+        <div className='pure-u-1-24'></div>
+        <div className='item-seller pure-u-4-24'>
+          <div className='seller-info'>Seller:</div>
+          <Username id={this.props.item.seller.id} name={this.props.item.seller.name} />
+          <div className='hover-image'>
+            <img src={this.props.item.seller.picture} className='seller-picture' />
           </div>
         </div>
-      );
-    } else {
-      return (
-        <div className='item'>
-          <div className='item-title'>{this.props.item.title}</div>
-          <div className='item-info pure-u-10-24'>
-            <img src={this.props.item.picture} className='item-picture' />
-            <div className='item-description'>{this.props.item.description}</div>
-          </div>
-          <div className='pure-u-1-24'></div>
-          <div className='purchase pure-u-6-24'>
-            <div className='current-bid'>
-              <span className='bold'>Original Price: </span>
-              ${this.props.item.originalPrice}
-            </div>
-          </div>
-          <div className='pure-u-1-24'></div>
-          <div className='item-seller pure-u-4-24'>
-            <div className='seller-info'>Seller:</div>
-            <div className='seller-name'>{this.props.item.seller.name}</div>
-            <div className='hover-image'>
-              <img src={this.props.item.seller.picture} className='seller-picture' />
-            </div>
-          </div>
         </div>
-      )
-    }
+    );
   }
 }
 
