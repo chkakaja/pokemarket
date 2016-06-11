@@ -89,7 +89,7 @@ class VideoStreams extends React.Component {
       };
     });
   }
-
+ 
   render() {
     return (
       <div className="video-streams">
@@ -98,14 +98,14 @@ class VideoStreams extends React.Component {
             <h3>Outgoing</h3>
             <video 
               className="video outgoing-stream" 
-              poster="http://dummyimage.com/450X300/000000/dadcfa.png&text=Awaiting+connection..."
+              poster="http://dummyimage.com/450X345/000000/dadcfa.png&text=Awaiting+connection..."
             />
           </div>
           <div className="pure-u-1-2">
             <h3>Incoming</h3>
             <video 
               className="video incoming-stream" 
-              poster="http://dummyimage.com/450X300/000000/dadcfa.png&text=Awaiting+connection..."
+              poster="http://dummyimage.com/450X345/000000/dadcfa.png&text=Awaiting+connection..."
             />
           </div>
         </div> 
