@@ -17,6 +17,7 @@ html, button, input, select, textarea,
 
 body {
   min-width: 900px;
+  background-color: #A8CFF9;
 }
 
 .bold {
@@ -24,8 +25,9 @@ body {
 }
 
 .pure-button {
-  background-color: #939393;
+  background-color: #847C79;
   color: white;
+  border-radius: 25px;
 }
 
 .pure-button:hover {
@@ -48,7 +50,8 @@ a {
 }
 
 .item-entry:hover {
-  background-color: #eef3f5;
+  background-color: #FFFFFF !important;
+  border-radius: 50px;
   transition: all 0.3s ease;
 }
 
@@ -183,7 +186,7 @@ a {
   padding: auto 0;
   text-align: center;
   vertical-align: middle;
-  background-color: black;
+  background-color: #847C79;
 }
 
 .nav .links .navlink, .navlink2 {
@@ -191,7 +194,7 @@ a {
   padding: auto 0;
   text-align: center;
   vertical-align: middle;
-  background-color: black;
+  background-color: #847C79;
 }
 
 .nav .links .navlink:hover {
@@ -257,6 +260,7 @@ a {
 .searchbar .search-input {
   height: 50px;
   margin-right: 5px;
+  border-radius: 25px !important;
 }
 
 .searchbar .search-icon {
@@ -266,6 +270,12 @@ a {
 
 
 /***************** ITEM SALE FORM *****************/
+
+.sell-item {
+  background-color: #A8CFF9;
+}
+
+
 
 .sell-item .sell-item-title {
   margin-top: 20px;
@@ -457,6 +467,7 @@ a {
 
 .landing {
   margin-top: 20px;
+  background-color: #A8CFF9;
 }
 
 .landing .popular-items {
@@ -480,6 +491,12 @@ a {
   border-color: black;
   margin: 20px 20px;
   padding: 20px;
+  background-color: #CAE5FD;
+  border-radius: 35px;
+ /* background-image: url('http://orig13.deviantart.net/3979/f/2015/056/6/3/pokelia__pokeball_meme_by_pikokko-d8jinub.png');
+  background-size: 300px 250px;
+  background-repeat: no-repeat;
+  background-position: center top;*/
 }
 
 .landing .popular-items .item-entry .item-entry-picture {
@@ -490,7 +507,12 @@ a {
   max-height: 170px;
   max-width: 300px;
 }
+.landing .popular-items .item-entry .item-entry-picture-container {
+ /* background-image: url('http://orig13.deviantart.net/3979/f/2015/056/6/3/pokelia__pokeball_meme_by_pikokko-d8jinub.png');
+  background-size: 140px 140px;
+  background-repeat: no-repeat;*/
 
+}
 .landing .popular-items .item-entry .all-info {
   position: absolute;
   bottom: 3%;
@@ -520,6 +542,10 @@ a {
 
 /***************** WATCHED / LISTED ITEMS *****************/
 
+.personalpage {
+  background-color: #A8CFF9; 
+}
+
 .personalpage .watched-items {
   margin-top: 20px;
   text-align: center;
@@ -545,6 +571,10 @@ a {
   margin: 20px 20px;
   width: 80%;
   height: 500px;
+  border-radius: 35px;
+  background-color: #CAE5FD;
+
+
 }
 
 .personalpage .item-entry .item-entry-picture {
@@ -563,6 +593,7 @@ a {
 }
 
 .personalpage .item-entry .all-info .item-entry-info .item-entry-description {
+  font-size: 18px;
   margin-bottom: 10px;
   width: 100%;
   max-height: 40px;
