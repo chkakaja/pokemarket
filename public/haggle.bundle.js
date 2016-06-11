@@ -20378,6 +20378,11 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'haggle-app' },
+	        _react2.default.createElement(
+	          'h1',
+	          { className: 'title' },
+	          'PokeMarket Video Chat'
+	        ),
 	        _react2.default.createElement(_VideoStreams2.default, null)
 	      );
 	    }
@@ -20392,11 +20397,13 @@
 /* 169 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
 
@@ -20404,42 +20411,151 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var VideoStreams = function VideoStreams() {
-	  return _react2.default.createElement(
-	    "div",
-	    { className: "video-streams" },
-	    _react2.default.createElement(
-	      "div",
-	      { className: "pure-g" },
-	      _react2.default.createElement(
-	        "div",
-	        { className: "pure-u-1-2" },
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var VideoStreams = function (_React$Component) {
+	  _inherits(VideoStreams, _React$Component);
+
+	  function VideoStreams(props) {
+	    _classCallCheck(this, VideoStreams);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(VideoStreams).call(this, props));
+
+	    _this.state = {
+	      initialPeerId: window.location.hash.slice(1)
+	    };
+	    return _this;
+	  }
+
+	  _createClass(VideoStreams, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {}
+	  }, {
+	    key: '_startUserMedia',
+	    value: function _startUserMedia() {
+	      navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+	      if (!navigator.getUserMedia) console.error('getUserMedia not supported');
+
+	      var constraints = {
+	        audio: false,
+	        video: {
+	          width: 400,
+	          height: 400
+	        }
+	      };
+
+	      var successCb = function successCb(mediaStream) {
+	        var video = document.querySelector('.outgoing-stream');
+	        video.src = window.URL.createObjectURL(mediaStream);
+	        video.onloadedmetadata = function (e) {
+	          video.play();
+	        };
+
+	        receiveCall(mediaStream);
+	        window.mediaStream = mediaStream;
+	      };
+
+	      var errorCb = function errorCb(error) {
+	        console.error(error);
+	      };
+
+	      navigator.getUserMedia(constraints, successCb, errorCb);
+	    }
+	  }, {
+	    key: '_startPeer',
+	    value: function _startPeer() {
+	      var _arguments = arguments;
+
+	      peer = new Peer(this.state.initialPeerId, {
+	        key: 'guyjtrwmc2yjsjor',
+	        debug: 3,
+	        logFunction: function logFunction() {
+	          var copy = Array.prototype.slice.call(_arguments).join(' ');
+	          $('.log').append(copy + '<br>');
+	        }
+	      });
+
+	      peer.on('open', function (id) {
+	        console.log('My peer ID is: ' + id);
+	      });
+
+	      peer.on('error', function (err) {
+	        console.log(err);
+	      });
+	    }
+	  }, {
+	    key: '_startCall',
+	    value: function _startCall(destPeerId) {
+	      var call = peer.call(destPeerId, mediaStream);
+	      receiveStream(call);
+	    }
+	  }, {
+	    key: '_receiveCall',
+	    value: function _receiveCall() {
+	      peer.on('call', function (call) {
+	        call.answer(mediaStream);
+	        receiveStream(call);
+	      });
+	    }
+	  }, {
+	    key: '_receiveStream',
+	    value: function _receiveStream(call) {
+	      call.on('stream', function (incomingStream) {
+	        console.log('Receiving stream');
+
+	        var video = document.querySelector('.incoming-stream');
+	        video.src = window.URL.createObjectURL(mediaStream);
+	        video.onloadedmetadata = function (e) {
+	          video.play();
+	        };
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'video-streams' },
 	        _react2.default.createElement(
-	          "h3",
-	          null,
-	          "Outgoing"
-	        ),
-	        _react2.default.createElement("video", {
-	          className: "video outgoing-stream",
-	          poster: "http://dummyimage.com/450X300/000000/dadcfa.png&text=Awaiting+connection..."
-	        })
-	      ),
-	      _react2.default.createElement(
-	        "div",
-	        { className: "pure-u-1-2" },
-	        _react2.default.createElement(
-	          "h3",
-	          null,
-	          "Incoming"
-	        ),
-	        _react2.default.createElement("video", {
-	          className: "video incoming-stream",
-	          poster: "http://dummyimage.com/450X300/000000/dadcfa.png&text=Awaiting+connection..."
-	        })
-	      )
-	    )
-	  );
-	};
+	          'div',
+	          { className: 'pure-g' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'pure-u-1-2' },
+	            _react2.default.createElement(
+	              'h3',
+	              null,
+	              'Outgoing'
+	            ),
+	            _react2.default.createElement('video', {
+	              className: 'video outgoing-stream',
+	              poster: 'http://dummyimage.com/450X300/000000/dadcfa.png&text=Awaiting+connection...'
+	            })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'pure-u-1-2' },
+	            _react2.default.createElement(
+	              'h3',
+	              null,
+	              'Incoming'
+	            ),
+	            _react2.default.createElement('video', {
+	              className: 'video incoming-stream',
+	              poster: 'http://dummyimage.com/450X300/000000/dadcfa.png&text=Awaiting+connection...'
+	            })
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return VideoStreams;
+	}(_react2.default.Component);
 
 	exports.default = VideoStreams;
 

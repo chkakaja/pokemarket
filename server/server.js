@@ -6,6 +6,7 @@ if (process.env.NODE_ENV === 'development') {
 
 var express = require('express');
 var passport = require('passport');
+
 var app = express();
 
 require('./initialize/config-init.js')(app, express);
@@ -27,8 +28,7 @@ require('./socket.js');
 
 // ######################### END SOCKET.IO CODE #########################
 
-app.get('/haggle', 
-function(req, res) {
+app.get('/haggle', function(req, res) {
   res.render('haggle');
 });
 
@@ -42,3 +42,7 @@ require('./routes/message-routes.js')(app);
 require('./routes/search-routes.js')(app);
 require('./routes/item-routes.js')(app);
 require('./routes/payment-routes.js')(app);
+
+app.get('/*', function(req, res) {
+  res.redirect('/');
+})

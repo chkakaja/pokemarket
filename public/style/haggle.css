@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+.title {
+  margin-top: 50px;
+}
+
 .video-streams {
   margin-top: 50px;
 }
