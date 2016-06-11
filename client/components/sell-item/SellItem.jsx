@@ -16,7 +16,7 @@ class SellItem extends Component {
         title: this.props.fields.itemTitle.value,
         description: this.props.fields.itemDescription.value,
         duration: 0,
-        picture: this.props.fields.itemPicture.value,
+        picture: 'http://randompokemon.com/sprites/animated/' + this.props.fields.itemPicture.value + '.gif',
         seller_id: this.props.user.id,
         originalPrice: this.props.fields.itemStartingBid.value,
         newPrice: this.props.fields.itemStartingBid.value,
@@ -28,24 +28,24 @@ class SellItem extends Component {
 
     return (
       <div className='sell-item'>
-        <h2 className='sell-item-title'>Sell Your Item</h2>
+        <h2 className='sell-item-title'>List Your Pokemon</h2>
         <form onSubmit={handleSubmit(postItem)} className='pure-form pure-form-aligned'>
           <fieldset>
             <div className='pure-control-group'>
-              <label>Title: </label>
-              <input type="text" className='pure-input-2-3' placeholder="What would you like the title to be?" {...itemTitle}/>
+              <label>Name: </label>
+              <input type="text" className='pure-input-2-3' placeholder="Please enter a name" {...itemTitle}/>
             </div>
             <div className='pure-control-group'>
               <label>Price: </label>
-              <input type="number" className='pure-input-2-3' placeholder="What would you like your starting bid to be?" {...itemStartingBid}/>
+              <input type="number" className='pure-input-2-3' placeholder="Please enter price" {...itemStartingBid}/>
             </div>
             <div className='pure-control-group'>
-              <label>Picture: </label>
-              <input type="url" className='pure-input-2-3' placeholder="Place a picture URL here" {...itemPicture}/>
+              <label>PokeDex Number: </label>
+              <input type="text" className='pure-input-2-3' placeholder="Please add on PokeDex number" {...itemPicture}/>
             </div>
             <div className='pure-control-group'>
               <label>Description: </label>
-              <textarea type="text" className='pure-input-2-3' placeholder="How would you describe your item?" {...itemDescription}/>
+              <textarea type="text" className='pure-input-2-3' placeholder="Pokemon's special skills" {...itemDescription}/>
             </div>
             <div className='pure-controls'>
               <button type="submit" className='pure-button'>Submit</button>

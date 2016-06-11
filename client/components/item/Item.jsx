@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import $ from 'jquery';
 
-import prettyDate from 'dateformat';
 import Username from './../Username.jsx';
 import StripeCheckout from './../React-Stripe-Checkout.jsx'
 
@@ -100,7 +99,7 @@ class Item extends Component {
           <div className='item-info pure-u-10-24'>
             <img src={this.props.item.picture} className='item-picture' />
             <div className='item-description'>{this.props.item.description}</div>
-            <button className='watch pure-button' type='submit' onClick={this.watchItem.bind(this)}>Watch Item</button>
+            <button className='watch pure-button' type='submit' onClick={this.watchItem.bind(this)}>Watch Pokemon</button>
           </div>
           <div className='pure-u-1-24'></div>
           <div className='purchase pure-u-6-24'>
@@ -114,7 +113,6 @@ class Item extends Component {
                 <input type='submit' className='set-bid-button pure-button' />
               </div>
             </form>
-            <div className='end-time'>{prettyDate(this.props.item.end_at, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</div>
             <StripeCheckout item={this.props.item} />
           </div>
           <div className='pure-u-1-24'></div>
