@@ -14,9 +14,9 @@ export default class App extends React.Component {
     return (
       <div className='main-layout'>
         <Navbar />
-          <a href={'/haggle#' + '2q34q235'} target="_blank">Video</a>
+          <a href={'/haggle?' + 'id=2q34q235' + '&' + 'init=1'} target="_blank">Video Initiate</a>
+          <a href={'/haggle?' + 'id=2q34q235' + '&' + 'init=0' } target="_blank">Video Respond</a>
           {this.props.children}
-          }
         <MessageBoxes />
       </div>
     );

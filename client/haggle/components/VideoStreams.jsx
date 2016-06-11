@@ -1,13 +1,16 @@
 import React from 'react';
 import Peer from 'peerjs';
+import queryString from 'query-string';
 
 class VideoStreams extends React.Component {
   constructor(props) {
     super(props);
+    let { init, id } = queryString.parse(window.location.search);
+
     this.state = {
-      initialPeerId: window.location.hash.slice(1),
-      outgoingPeer: {},
-      incomingPeerId: ''
+      isInitial: init === '1',
+      initialPeerId: id,
+      outgoingStream: {}
     }
   }
 
@@ -34,7 +37,7 @@ class VideoStreams extends React.Component {
         video.play();
       };
 
-      this._receiveCall(mediaStream);
+      this.setState({ outgoingStream: mediaStream });
     };
 
     let errorCb = (error) => {
@@ -45,34 +48,32 @@ class VideoStreams extends React.Component {
   }
 
   _startPeer() {
-    let peerId = this.state.initialPeerId;
-    let outgoingPeer = new Peer(peerId, {
-      key: 'guyjtrwmc2yjsjor',
-      debug: 3,
-      logFunction: () => {
-        var copy = Array.prototype.slice.call(arguments).join(' ');
-        console.log(copy);
-      }
-    });
+    let peerConfig = {
+      key: 'guyjtrwmc2yjsjor'
+    }
 
-    this.setState({ outgoingPeer: outgoingPeer });
+    let outgoingPeer;
+    if (this.state.isInitial) {
+      outgoingPeer = new Peer(this.state.initialPeerId, peerConfig);
+    } else {
+      outgoingPeer = new Peer(peerConfig);
+      this._startCall(outgoingPeer, this.state.initialPeerId);
+    }
 
     outgoingPeer.on('open', function(id) {
       console.log('My outgoingPeer ID is: ' + id);
     });
 
-    outgoingPeer.on('error', function(err) {
-      console.log(err);
-    });
+    this._receiveCall(outgoingPeer);
   };
 
-  _startCall(destPeerId) {
-    let call = peer.call(destPeerId, mediaStream);
+  _startCall(outgoingPeer, destPeerId) {
+    let call = outgoingPeer.call(destPeerId, this.state.outgoingStream);
     this._receiveStream(call);
   }
 
-  _receiveCall() {
-    this.state.outgoingPeer.on('call', (call) => {
+  _receiveCall(outgoingPeer) {
+    outgoingPeer.on('call', (call) => {
       call.answer(mediaStream);
       this._receiveStream(call);
     });
