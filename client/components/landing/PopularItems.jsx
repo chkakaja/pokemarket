@@ -26,7 +26,7 @@ class PopularItems extends React.Component {
   render() {
     return (
       <div className='popular-items'>
-        <div className='popular'>What's popular</div>
+        <div className='popular'>PokeMarket Place</div>
         {this.props.popularItems.map(item => {
           if(item.sold === 0) {
             return <ItemEntry item={item} key={item.id} />
