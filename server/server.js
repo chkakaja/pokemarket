@@ -27,6 +27,11 @@ require('./socket.js');
 
 // ######################### END SOCKET.IO CODE #########################
 
+app.get('/haggle', 
+function(req, res) {
+  res.render('haggle');
+});
+
 require('./routes/auth-routes.js')(app, passport);
 app.use(require('./lib/ensureAuthenticated.js'));
 require('./routes/view-routes.js')(app);

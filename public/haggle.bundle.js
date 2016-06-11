@@ -20339,7 +20339,7 @@
 /* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -20353,11 +20353,37 @@
 
 	var App = function App() {
 	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    'YES!'
+	    "div",
+	    { className: "haggle-app" },
+	    _react2.default.createElement(
+	      "div",
+	      { className: "video-streams" },
+	      _react2.default.createElement(
+	        "div",
+	        { className: "pure-g" },
+	        _react2.default.createElement(
+	          "div",
+	          { className: "pure-u-1-2" },
+	          _react2.default.createElement(
+	            "h3",
+	            null,
+	            "Outgoing"
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          { className: "pure-u-1-2" },
+	          _react2.default.createElement(
+	            "h3",
+	            null,
+	            "Incoming"
+	          )
+	        )
+	      )
+	    )
 	  );
 	};
+
 	exports.default = App;
 
 /***/ }
