@@ -17,12 +17,16 @@ PokeMarket is your personal, local marketplace for Pokemon transactions with rea
 
 ## Usage
 
-Landingpage:
 Login:
+![screen shot 2016-06-12 at 10 35 53](https://cloud.githubusercontent.com/assets/10008938/15992804/8d4fc34e-308a-11e6-9507-c8f285bb4b08.png)
 Home:
-Record:
-Graphs:
-Session Overview:
+![screen shot 2016-06-12 at 10 36 08](https://cloud.githubusercontent.com/assets/10008938/15992805/8fd71b80-308a-11e6-92fc-f36c0ae7e4f3.png)
+Pokepage with Negotiation Chat:
+![screen shot 2016-06-12 at 10 39 43](https://cloud.githubusercontent.com/assets/10008938/15992806/92b043a4-308a-11e6-826a-165f12829998.png)
+Video negotation:
+![screen shot 2016-06-12 at 10 41 04](https://cloud.githubusercontent.com/assets/10008938/15992812/998ad478-308a-11e6-89fa-0c8c4d18d22d.png)
+Payment:
+![screen shot 2016-06-12 at 10 41 48](https://cloud.githubusercontent.com/assets/10008938/15992807/9723df90-308a-11e6-93e4-6873c0b205df.png)
 
 ## Getting started
 
