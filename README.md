@@ -1,8 +1,8 @@
 [![Stories in Ready](https://badge.waffle.io/chkakaja/vendr.png?label=ready&title=Ready)](https://waffle.io/chkakaja/vendr)
-# vendr
+# PokeMarket
 
 
-Vendr is your personal, local marketplace with real-time communication
+PokeMarket is your personal, local marketplace for Pokemon transactions with real-time communication and negotation.
 
 ## Table of Contents
 1. [Usage](#Usage)
@@ -31,8 +31,8 @@ Session Overview:
   Start by cloning the latest version of Vendr on your local machine by running:
 
   ```sh
-  $ git clone https://github.com/chkakaja/vendr
-  $ cd vendr
+  $ git clone https://github.com/chkakaja/pokemarket
+  $ cd pokemarket
   ```
 
 #### 2. Install Dependencies
@@ -86,24 +86,16 @@ Session Overview:
 
 ##### Front end:
 - React
+- Redux
 - Webpack
 - Babel
 
 ##### Back end:
 - Node
 - Express
--
 - Bookshelf/Knex
 - MySQL
 - Passport
-
-##### Testing:
-- Mocha
-- Chai
-- jsdom
-
-##### Continuous Integration:
-- Travis CI
 
 ##### Deployment:
 - Digital Ocean Droplet
